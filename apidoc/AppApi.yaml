@@ -1,0 +1,536 @@
+openapi: 3.0.0
+info:
+  description: |
+    这个是方和app的授权接口
+  version: "1.0.0"
+  title: Swagger FangHe APP
+
+paths:
+  /common/verification-code:
+    get:
+      tags:
+        - Common
+      summary: 通过手机号码获取验证码
+      parameters:
+        - name: mobile
+          in: query
+          description: 手机号码
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 获取验玛成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+
+  /login/mobile:
+    post:
+      tags:
+        - Login
+      summary: app登录-验证码
+      responses:
+        '400':
+          description: 登录失败
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  errorMsg:
+                    type: string
+        '200':
+          description: 登录成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    $ref: '#/components/schemas/LoginSucceed'
+      requestBody:
+        $ref: '#/components/requestBodies/MobileLogin'
+
+  /login/password:
+    post:
+      tags:
+        - Login
+      summary: app登录-账号密码-一期做不做？
+      responses:
+        '400':
+          description: 登录失败
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  errorMsg:
+                    type: string
+        '200':
+          description: 登录成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    $ref: '#/components/schemas/LoginSucceed'
+
+      requestBody:
+        $ref: '#/components/requestBodies/UserPasswordLogin'
+
+  /home/shop/list:
+    post:
+      tags:
+        - Home
+      summary: 获取首页店铺列表
+      requestBody:
+        $ref: '#/components/requestBodies/HomeShop'
+      responses:
+        '200':
+          description: 返回值首页商家列表
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                      items:
+                        $ref: '#/components/schemas/HomeShopItem'
+
+  /order/create:
+    post:
+      tags:
+        - Order
+      summary: 创建订单，这个接口需要商家登录授权，如果没有登录就返回401
+      requestBody:
+        $ref: '#/components/requestBodies/OrderCreateReq'
+      responses:
+        '200':
+          description: 返回值首页商家列表
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: object
+                    properties:
+                      orderNo:
+                        type: string
+
+  /order/list:
+    get:
+      tags:
+        - Order
+      summary: 获取商家订单历史，这个接口需要商家登录授权，如果没有登录就返回401
+      parameters:
+        - name: pageSize
+          in: query
+          required: true
+          description: 分页大小默认20
+          schema:
+            type: integer
+            format: int32
+        - name: page
+          in: query
+          required: true
+          description: 分页信息从0也开始
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 返回值用户订单列表
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OrderItem'
+
+  /shop/detail:
+    get:
+      tags:
+        - Shop
+      summary: 通过商家店铺 id 获取商家店铺详情接口
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: 商家店铺id
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 返回值首页商家列表
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    $ref: '#/components/schemas/ShopDetail'
+
+  /shop/product/list:
+    get:
+      tags:
+        - Shop
+      summary: 通过商家店铺 id 获取商家商品列表的接口
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: 商家店铺id
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 返回值首页商家列表
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProductItem'
+
+  /product/detail:
+    get:
+      tags:
+        - Product
+      summary: 通过商品 ID 获取商详情
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: 商品id
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 返回值商品详情信息
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    $ref: '#/components/schemas/ProductDetail'
+
+components:
+  schemas:
+    MobileLogin:
+      type: object
+      properties:
+        mobile:
+          type: string
+          description: 手机号码
+        verificationCode:
+          type: string
+          description: 手机登录验证码
+
+    UserNameLogin:
+      type: object
+      properties:
+        userName:
+          type: string
+          description: 手机号码
+        password:
+          type: string
+          description: 密码 md5值或者其他加密方式
+
+    LoginSucceed:
+      type: object
+      properties:
+        cookie:
+          type: string
+    Location:
+      type: object
+      description: 当前位置经纬度
+      properties:
+        latitude:
+          type: string
+          description: "经度"
+        longitude:
+          type: string
+          description: "纬度"
+
+    HomeShopReq:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: tab id 附近：10 推荐 20
+        location:
+          $ref: '#/components/schemas/Location'
+        page:
+          type: integer
+          format: int32
+        pagesize:
+          type: integer
+          format: int32
+          description: 分页信息默认20条数据
+
+    HomeShopItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: 商家id
+        img:
+          type: string
+          description: 商家主图
+        shopName:
+          type: string
+          description: 商家名称
+        score:
+          type: number
+          description: 商家评分
+        averPrice:
+          type: integer
+          format: int64
+          description: 人均价格 单位为分
+        tag:
+          type: array
+          items:
+            type: string
+            description: 商家标签
+        info:
+          type: string
+          description: 商家优惠信息
+        distanceMeter:
+          type: integer
+          format: int64
+          description: 距离我的位置 单位米
+    OrderCreate:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+          description: 商品 id
+        quantity:
+          type: integer
+          format: int32
+          description: 购买数量
+        time:
+          type: string
+          description: 预订时间段 暂定 (12-10 9:00-10:00),具体时间怎么传输后端确定
+
+    OrderItem:
+      type: object
+      properties:
+        orderNo:
+          type: string
+        quantity:
+          type: integer
+          description: 下单的数量默认为1
+        price:
+          type: integer
+          description: 下单的单价价格,单位为分
+        time:
+          type: string
+          description: 预订时间段 暂定 (12-10 9:00-10:00),具体时间怎么传输后端确定
+        orderStatus:
+          type: integer
+          description: 订单状态
+          enum:
+            - 已预约商家未接单 10
+            - 商家已结单 20
+            - 已完成 30
+            - 用户已取消未通知商家 40
+            - 用户已取消已通知商家 50
+        productInfo:
+          type: object
+          properties:
+            productName:
+              type: string
+              description: 商品名称
+            productId:
+              type: integer
+              description: 商品 id
+            productImg:
+              type: string
+              description: 商品主图
+            shopName:
+              type: string
+              description: 商家店铺名称
+            shopId:
+              type: integer
+              description: 商家店铺 Id
+    ShopDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: 商家id
+        img:
+          type: string
+          description: 商家主图
+        shopName:
+          type: string
+          description: 商家名称
+        score:
+          type: number
+          description: 商家评分
+        averPrice:
+          type: integer
+          format: int64
+          description: 人均价格 单位为分
+        tag:
+          type: array
+          items:
+            type: string
+            description: 商家标签
+        info:
+          type: string
+          description: 商家优惠信息
+        distanceMeter:
+          type: integer
+          format: int64
+          description: 距离我的位置 单位米
+        shopDetailsImgs:
+          type: array
+          description: 商家商店的描述信息图片
+          items:
+            type: string
+
+    ProductItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: 商品 ID
+        mainImg:
+          type: string
+          description: 商品主图
+        productName:
+          type: string
+          description: 商品名称
+        tags:
+          type: array
+          description: 商品展示标签
+          items:
+            type: string
+        discountPrice:
+          type: integer
+          format: int64
+          description: 商品优惠价格 单位为分
+        price:
+          type: integer
+          format: int64
+          description: 优惠钱的价格，单位为分
+
+    ProductDetail:
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: 商品 ID
+        mainImg:
+          type: string
+          description: 商品主图
+        productName:
+          type: string
+          description: 商品名称
+        subProductTitle:
+          type: string
+          description: 商品副标题
+        tags:
+          type: array
+          description: 商品展示标签
+          items:
+            type: string
+        discountPrice:
+          type: integer
+          format: int64
+          description: 商品优惠价格 单位为分
+        price:
+          type: integer
+          format: int64
+          description: 优惠前的价格，单位为分
+        productDescImgs:
+          type: array
+          description: 商品描述的图片列表
+          items:
+            type: string
+        shopInfo:
+          $ref: '#/components/schemas/ShopDetail'
+
+
+
+  requestBodies:
+    MobileLogin:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/MobileLogin'
+    UserPasswordLogin:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserNameLogin'
+    HomeShop:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HomeShopReq'
+    OrderCreateReq:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OrderCreate'
+
+
+servers:
+  # Added by API Auto Mocking Plugin
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/hexiangyuan92/FangHeAppApi/1.0.0
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/hexiangyuan92/fanghe-authorization/1.0.0
