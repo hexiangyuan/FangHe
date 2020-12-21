@@ -19,8 +19,8 @@ import {
   useBackButtonHandler,
   RootNavigator,
   canExit,
-  setRootNavigation,
   useNavigationPersistence,
+  setRootNavigation,
 } from "./navigation"
 import { RootStore, RootStoreProvider, setupRootStore } from "./models"
 
@@ -36,9 +36,9 @@ export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
  */
 function App() {
   const navigationRef = useRef<NavigationContainerRef>()
-  const [rootStore, setRootStore] = useState<RootStore | undefined>(undefined)
 
-  setRootNavigation(navigationRef)
+  const statusBarRef = useRef()
+  const [rootStore, setRootStore] = useState<RootStore | undefined>(undefined)
   useBackButtonHandler(navigationRef, canExit)
   const { initialNavigationState, onNavigationStateChange } = useNavigationPersistence(
     storage,
@@ -52,17 +52,22 @@ function App() {
     })()
   }, [])
 
-  // Before we show the app, we have to wait for our state to be ready.
-  // In the meantime, don't render anything. This will be the background
-  // color set in native by rootView's background color. You can replace
-  // with your own loading component if you wish.
+  useEffect(() => {
+    setRootNavigation(navigationRef)
+  })
+
   if (!rootStore) return null
 
   // otherwise, we're ready to render the app
   return (
     <RootStoreProvider value={rootStore}>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-        <StatusBar barStyle={"dark-content"} backgroundColor={"white"} translucent={true} />
+        <StatusBar
+          ref={statusBarRef}
+          barStyle={"dark-content"}
+          backgroundColor={"white"}
+          translucent={true}
+        />
         <RootNavigator
           ref={navigationRef}
           initialState={initialNavigationState}

@@ -1,5 +1,6 @@
 import React from "react"
 import { Text, View } from "react-native"
+import { RootNavigation } from "../../../navigation"
 
 const MineScreen = () => {
   return (
@@ -10,7 +11,7 @@ const MineScreen = () => {
         alignItems: "center",
       }}
     >
-      <Text>Home screen</Text>
+      <Text onPress={() => RootNavigation.navigate("demoScreen")}>Home screen</Text>
     </View>
   )
 }
