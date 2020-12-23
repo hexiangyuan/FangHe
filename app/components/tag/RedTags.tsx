@@ -1,10 +1,10 @@
-import { ColorValue, Text, View } from "react-native"
-import React from "react"
-import { color } from "../../theme"
+import { ColorValue, Text, View } from "react-native";
+import React from "react";
+import { color } from "../../theme";
 
 export interface Props {
-  tag?: string[]
-  color?: ColorValue
+  tag?: string[];
+  color?: ColorValue;
 }
 
 export const RedTags = (props: Props) => {
@@ -13,10 +13,10 @@ export const RedTags = (props: Props) => {
       style={{
         flexDirection: "row",
         marginTop: 8,
-        marginBottom: 8,
+        marginBottom: 8
       }}
     >
-      {props.tag?.map((item) => (
+      {props.tag?.map(item => (
         <View
           key={item.toString()}
           style={{
@@ -25,13 +25,13 @@ export const RedTags = (props: Props) => {
             marginHorizontal: 4,
             paddingVertical: 2,
             borderRadius: 2,
-            paddingHorizontal: 4,
+            paddingHorizontal: 4
           }}
         >
           <Text
             style={{
               fontSize: 10,
-              color: props.color || "#FF4D4D",
+              color: props.color || "#FF4D4D"
             }}
           >
             {item}
@@ -39,5 +39,5 @@ export const RedTags = (props: Props) => {
         </View>
       ))}
     </View>
-  )
-}
+  );
+};

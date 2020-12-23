@@ -1,14 +1,14 @@
-import React, { useState } from "react"
-import { View } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context"
-import { Route, TabView } from "react-native-tab-view"
-import { H4 } from "react-native-pjt-ui-lib"
-import { CustomerTabBar } from "../../../theme/Theme"
-import { ShopList } from "./components/ShopList"
+import React, { useState } from "react";
+import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Route, TabView } from "react-native-tab-view";
+import { H4 } from "react-native-pjt-ui-lib";
+import { CustomerTabBar } from "../../../theme/Theme";
+import { ShopList } from "./components/ShopList";
 
 type NavigationBarProps = {
-  title: string
-}
+  title: string;
+};
 
 const NavigationBar = (props: NavigationBarProps) => {
   return (
@@ -16,31 +16,31 @@ const NavigationBar = (props: NavigationBarProps) => {
       style={{
         height: 48,
         paddingHorizontal: 12,
-        justifyContent: "center",
+        justifyContent: "center"
       }}
     >
       <H4>{props.title}</H4>
     </View>
-  )
-}
+  );
+};
 
 const tabRoutes: Array<Route> = [
   {
     key: "100",
-    title: "附近",
+    title: "附近"
   },
   {
     key: "200",
-    title: "推荐",
-  },
-]
+    title: "推荐"
+  }
+];
 
 const _renderScene = ({ route }) => {
-  return <ShopList />
-}
+  return <ShopList />;
+};
 
 const HomeScreen = () => {
-  const [index, setIndex] = useState(0)
+  const [index, setIndex] = useState(0);
 
   return (
     <SafeAreaView
@@ -48,26 +48,27 @@ const HomeScreen = () => {
       style={{
         flex: 1,
         backgroundColor: "white",
-        flexDirection: "row",
+        flexDirection: "row"
       }}
     >
       <View style={{ flex: 1 }}>
         <NavigationBar title={"方和"} />
         <TabView
+          swipeEnabled={false}
           renderScene={_renderScene}
-          renderTabBar={(props) => <CustomerTabBar {...props} />}
-          onIndexChange={(index) => {
-            setIndex(index)
+          renderTabBar={props => <CustomerTabBar {...props} />}
+          onIndexChange={index => {
+            setIndex(index);
           }}
           navigationState={{
             index,
-            routes: tabRoutes,
+            routes: tabRoutes
           }}
           lazy={true}
         />
       </View>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default HomeScreen
+export default HomeScreen;

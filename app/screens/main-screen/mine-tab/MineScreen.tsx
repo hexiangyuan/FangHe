@@ -1,6 +1,6 @@
-import React from "react"
-import { Text, View } from "react-native"
-import { RootNavigation } from "../../../navigation"
+import React from "react";
+import { Text, View } from "react-native";
+import { RootNavigation } from "../../../navigation";
 
 const MineScreen = () => {
   return (
@@ -8,11 +8,11 @@ const MineScreen = () => {
       style={{
         flex: 1,
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: "center"
       }}
     >
       <Text onPress={() => RootNavigation.navigate("demoScreen")}>Home screen</Text>
     </View>
-  )
-}
-export default MineScreen
+  );
+};
+export default MineScreen;

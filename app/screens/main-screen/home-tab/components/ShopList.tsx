@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react"
-import { FlatList, TouchableOpacity } from "react-native"
-import { HomeShopItem } from "./HomeShopItem"
-import { TouchableItem } from "react-native-tab-view"
-import { useNavigation } from "@react-navigation/native"
-import { RootNavigation } from "../../../../navigation"
+import React, { useEffect, useState } from "react";
+import { FlatList, TouchableOpacity } from "react-native";
+import { HomeShopItem } from "./HomeShopItem";
+import { RootNavigation } from "../../../../navigation";
 
 export interface Props {
-  key: "100" | "200"
+  key: "100" | "200";
 }
 
 const mockData = [
@@ -18,7 +16,7 @@ const mockData = [
     averPrice: 100,
     tag: ["tag1"],
     info: "string",
-    distanceMeter: 1000,
+    distanceMeter: 1000
   },
   {
     id: 2,
@@ -28,7 +26,7 @@ const mockData = [
     averPrice: 100,
     tag: ["tag1"],
     info: "string",
-    distanceMeter: 1000,
+    distanceMeter: 1000
   },
   {
     id: 3,
@@ -38,7 +36,7 @@ const mockData = [
     averPrice: 100,
     tag: ["tag1"],
     info: "string",
-    distanceMeter: 1000,
+    distanceMeter: 1000
   },
   {
     id: 4,
@@ -48,15 +46,15 @@ const mockData = [
     averPrice: 100,
     tag: ["tag1"],
     info: "string",
-    distanceMeter: 1000,
-  },
-]
+    distanceMeter: 1000
+  }
+];
 
 export const ShopList = () => {
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
   useEffect(() => {
-    setData(mockData)
-  }, [])
+    setData(mockData);
+  }, []);
 
   return (
     <FlatList
@@ -67,13 +65,13 @@ export const ShopList = () => {
         return (
           <TouchableOpacity
             onPress={() => {
-              RootNavigation.navigate("shopDetailScreen", { id: item.id })
+              RootNavigation.navigate("shopDetailScreen", { id: item.id });
             }}
           >
             <HomeShopItem {...item} />
           </TouchableOpacity>
-        )
+        );
       }}
     />
-  )
-}
+  );
+};

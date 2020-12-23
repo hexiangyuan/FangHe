@@ -1,22 +1,22 @@
-import { NavigationState, SceneRendererProps } from "react-native-tab-view/lib/typescript/src/types"
-import React from "react"
-import { TabBar, Route } from "react-native-tab-view"
-import { StyleSheet, Text } from "react-native"
+import { NavigationState, SceneRendererProps } from "react-native-tab-view/lib/typescript/src/types";
+import React from "react";
+import { TabBar, Route } from "react-native-tab-view";
+import { StyleSheet, Text } from "react-native";
 
-const primary = "#FF4D4D"
-const primaryDark = "#FF3535"
-const primaryDisable = "#FF6D6D"
+const primary = "#FF4D4D";
+const primaryDark = "#FF3535";
+const primaryDisable = "#FF6D6D";
 
 export const Colors = {
   primary,
   primaryDark,
-  primaryDisable,
-}
+  primaryDisable
+};
 
 export function CustomerTabBar<T extends Route>(
   props: SceneRendererProps & {
-    navigationState: NavigationState<T>
-  },
+    navigationState: NavigationState<T>;
+  }
 ) {
   return (
     <TabBar
@@ -25,18 +25,14 @@ export function CustomerTabBar<T extends Route>(
       style={{
         backgroundColor: "white",
         elevation: 0,
-        shadowColor: "transparent",
+        shadowColor: "transparent"
       }}
       labelStyle={{
         fontSize: 16,
-        color: "#333",
+        color: "#333"
       }}
-      renderLabel={(item) => {
-        return (
-          <Text style={item.focused ? tabStyles.focusLabel : tabStyles.unFocusLabel}>
-            {item.route.title}
-          </Text>
-        )
+      renderLabel={item => {
+        return <Text style={item.focused ? tabStyles.focusLabel : tabStyles.unFocusLabel}>{item.route.title}</Text>;
       }}
       indicatorStyle={{
         backgroundColor: Colors.primary,
@@ -44,21 +40,21 @@ export function CustomerTabBar<T extends Route>(
         borderRadius: 3,
         width: 18,
         marginHorizontal: (72 - 18) / 2,
-        alignSelf: "center",
+        alignSelf: "center"
       }}
     />
-  )
+  );
 }
 
 const tabStyles = StyleSheet.create({
   focusLabel: {
     fontSize: 18,
     color: "#333",
-    fontWeight: "bold",
+    fontWeight: "bold"
   },
   unFocusLabel: {
     fontSize: 18,
     color: "#333",
-    fontWeight: "normal",
-  },
-})
+    fontWeight: "normal"
+  }
+});

@@ -1,55 +1,55 @@
-import { TouchableOpacity, View } from "react-native"
-import { ImageStyle } from "react-native-fast-image"
-import Window from "../../constant/window"
-import { UIImage, H6 } from "react-native-pjt-ui-lib"
-import React from "react"
-import { Score } from "../../components/score/Score"
-import { Tags } from "../../components/tag/Tags"
-import { Text } from "../../components"
-import { ProductItem } from "./ProductItem"
+import { TouchableOpacity, View } from "react-native";
+import { ImageStyle } from "react-native-fast-image";
+import Window from "../../constant/window";
+import { UIImage, H6 } from "react-native-pjt-ui-lib";
+import React from "react";
+import { Score } from "../../components/score/Score";
+import { Tags } from "../../components/tag/Tags";
+import { Text } from "../../components";
+import { ProductItem } from "./ProductItem";
 
 export interface ShopDetail {
-  id: number
-  img: string
-  shopName: string
-  score: number
-  averPrice: number
-  tag: string[]
-  info: string
-  distanceMeter: number
-  shopDetailsImgs: string[]
+  id: number;
+  img: string;
+  shopName: string;
+  score: number;
+  averPrice: number;
+  tag: string[];
+  info: string;
+  distanceMeter: number;
+  shopDetailsImgs: string[];
 }
 
 export interface ShopDetailProductItem {
-  id: number
-  mainImg: string
-  productName: string
-  tags: string[]
-  discountPrice: number
-  price: number
+  id: number;
+  mainImg: string;
+  productName: string;
+  tags: string[];
+  discountPrice: number;
+  price: number;
 }
 
 export interface ShopDetailProductListProps {
-  productList: ShopDetailProductItem[]
+  productList: ShopDetailProductItem[];
 }
 
 const TOP_IMAGE: ImageStyle = {
   height: Window.width / 2,
-  width: Window.width,
-}
+  width: Window.width
+};
 
 export const ShopDetailContent = (props: ShopDetail) => {
   return (
     <View>
       <UIImage
         source={{
-          uri: props.img,
+          uri: props.img
         }}
         style={TOP_IMAGE}
       />
       <View
         style={{
-          padding: 12,
+          padding: 12
         }}
       >
         <H6>{props.shopName}</H6>
@@ -62,14 +62,14 @@ export const ShopDetailContent = (props: ShopDetail) => {
             flexDirection: "row",
             alignItems: "center",
             marginTop: 12,
-            justifyContent: "space-between",
+            justifyContent: "space-between"
           }}
         >
           <View>
             <Text
               style={{
                 fontSize: 12,
-                color: "#333",
+                color: "#333"
               }}
             >
               props.location
@@ -78,7 +78,7 @@ export const ShopDetailContent = (props: ShopDetail) => {
               style={{
                 marginTop: 8,
                 fontSize: 12,
-                color: "#666",
+                color: "#666"
               }}
             >
               距离{props.distanceMeter}米
@@ -88,7 +88,7 @@ export const ShopDetailContent = (props: ShopDetail) => {
             <Text
               style={{
                 fontSize: 14,
-                color: "#333",
+                color: "#333"
               }}
             >
               导航
@@ -97,8 +97,8 @@ export const ShopDetailContent = (props: ShopDetail) => {
         </View>
       </View>
     </View>
-  )
-}
+  );
+};
 
 export const ShopDetailProductList = (props: ShopDetailProductListProps) => {
   return (
@@ -106,13 +106,13 @@ export const ShopDetailProductList = (props: ShopDetailProductListProps) => {
       style={{
         paddingHorizontal: 12,
         paddingTop: 12,
-        paddingBottom: 36,
+        paddingBottom: 36
       }}
     >
       <View
         style={{
           flexDirection: "row",
-          alignItems: "center",
+          alignItems: "center"
         }}
       >
         <View
@@ -121,13 +121,13 @@ export const ShopDetailProductList = (props: ShopDetailProductListProps) => {
             height: 14,
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: "#FA6400",
+            backgroundColor: "#FA6400"
           }}
         >
           <Text
             style={{
               fontSize: 10,
-              color: "white",
+              color: "white"
             }}
           >
             厨
@@ -137,15 +137,15 @@ export const ShopDetailProductList = (props: ShopDetailProductListProps) => {
           style={{
             fontSize: 12,
             marginLeft: 8,
-            color: "#333",
+            color: "#333"
           }}
         >
           商品橱窗
         </Text>
       </View>
-      {props.productList.map((item) => (
+      {props.productList.map(item => (
         <ProductItem key={item.id} {...item} />
       ))}
     </View>
-  )
-}
+  );
+};

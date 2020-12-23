@@ -1,36 +1,36 @@
-import { HomeShopItemProps } from "./HomeShopItem.props"
-import React from "react"
-import { StyleSheet, Text, View } from "react-native"
-import { UIImage, Subtitle1, Body1 } from "react-native-pjt-ui-lib"
-import { Tags } from "../../../../components/tag/Tags"
-import { Colors } from "../../../../theme/Theme"
+import { HomeShopItemProps } from "./HomeShopItem.props";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { UIImage, Subtitle1 } from "react-native-pjt-ui-lib";
+import { Tags } from "../../../../components/tag/Tags";
+import { Colors } from "../../../../theme/Theme";
 
 const styles = StyleSheet.create({
   imgStyle: {
     height: 96,
-    width: 96,
+    width: 96
   },
   itemContainer: {
     flex: 1,
     paddingTop: 21,
     flexDirection: "row",
-    paddingHorizontal: 12,
-  },
-})
+    paddingHorizontal: 12
+  }
+});
 
 export const HomeShopItem = (props: HomeShopItemProps) => {
   return (
     <View style={styles.itemContainer}>
       <UIImage
         source={{
-          uri: props.img,
+          uri: props.img
         }}
         style={styles.imgStyle}
       />
       <View
         style={{
           flex: 1,
-          marginLeft: 12,
+          marginLeft: 12
         }}
       >
         <Subtitle1 numberOfLines={1}>{props.shopName}</Subtitle1>
@@ -38,7 +38,7 @@ export const HomeShopItem = (props: HomeShopItemProps) => {
           style={{
             fontSize: 10,
             marginTop: 8,
-            color: Colors.primary,
+            color: Colors.primary
           }}
         >
           {props.score}
@@ -48,13 +48,13 @@ export const HomeShopItem = (props: HomeShopItemProps) => {
             flexDirection: "row",
             marginTop: 8,
             marginBottom: 16,
-            justifyContent: "space-between",
+            justifyContent: "space-between"
           }}
         >
           <Text
             style={{
               fontSize: 10,
-              color: "#333",
+              color: "#333"
             }}
           >
             ￥{props.averPrice}/人
@@ -62,7 +62,7 @@ export const HomeShopItem = (props: HomeShopItemProps) => {
           <Text
             style={{
               fontSize: 10,
-              color: "#666",
+              color: "#666"
             }}
           >
             {props.distanceMeter}
@@ -73,7 +73,7 @@ export const HomeShopItem = (props: HomeShopItemProps) => {
           <View
             style={{
               flexDirection: "row",
-              alignItems: "center",
+              alignItems: "center"
             }}
           >
             <View
@@ -83,13 +83,13 @@ export const HomeShopItem = (props: HomeShopItemProps) => {
                 alignItems: "center",
                 width: 14,
                 height: 14,
-                marginRight: 8,
+                marginRight: 8
               }}
             >
               <Text
                 style={{
                   fontSize: 10,
-                  color: "white",
+                  color: "white"
                 }}
               >
                 惠
@@ -98,7 +98,7 @@ export const HomeShopItem = (props: HomeShopItemProps) => {
             <Text
               style={{
                 fontSize: 12,
-                color: "#333",
+                color: "#333"
               }}
             >
               {props.info}
@@ -107,5 +107,5 @@ export const HomeShopItem = (props: HomeShopItemProps) => {
         )}
       </View>
     </View>
-  )
-}
+  );
+};

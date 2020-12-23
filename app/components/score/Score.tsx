@@ -1,7 +1,7 @@
-import { ScoreProps } from "./Score.props"
-import { Text, View } from "react-native"
-import React from "react"
-import { Colors } from "../../theme/Theme"
+import { ScoreProps } from "./Score.props";
+import { Text, View } from "react-native";
+import React from "react";
+import { Colors } from "../../theme/Theme";
 
 export const Score = (props: ScoreProps) => {
   return (
@@ -9,11 +9,11 @@ export const Score = (props: ScoreProps) => {
       <Text
         style={{
           fontSize: 10,
-          color: Colors.primary,
+          color: Colors.primary
         }}
       >
         {props.score}分
       </Text>
     </View>
-  )
-}
+  );
+};

@@ -1,47 +1,47 @@
-import { TouchableOpacity, View } from "react-native"
-import { ImageStyle } from "react-native-fast-image"
-import Window from "../../constant/window"
-import { H6, UIButton, UIImage } from "react-native-pjt-ui-lib"
-import React from "react"
-import { Text } from "../../components"
-import { RedTags } from "../../components/tag/RedTags"
-import { Score } from "../../components/score/Score"
-import { Tags } from "../../components/tag/Tags"
+import { TouchableOpacity, View } from "react-native";
+import { ImageStyle } from "react-native-fast-image";
+import Window from "../../constant/window";
+import { H6, UIButton, UIImage } from "react-native-pjt-ui-lib";
+import React from "react";
+import { Text } from "../../components";
+import { RedTags } from "../../components/tag/RedTags";
+import { Score } from "../../components/score/Score";
+import { Tags } from "../../components/tag/Tags";
 
 export interface ShopInfo {
-  id: number
-  img: string
-  shopName: string
-  score: number
-  averPrice: number
-  tag: string[]
-  info: string
-  distanceMeter: number
-  shopDetailsImgs: string[]
+  id: number;
+  img: string;
+  shopName: string;
+  score: number;
+  averPrice: number;
+  tag: string[];
+  info: string;
+  distanceMeter: number;
+  shopDetailsImgs: string[];
 }
 
 export interface ProductDetailProps {
-  id: number
-  mainImg: string
-  productName: string
-  subProductTitle: string
-  tags: string[]
-  discountPrice: number
-  price: number
-  productDescImgs: string[]
-  shopInfo: ShopInfo
+  id: number;
+  mainImg: string;
+  productName: string;
+  subProductTitle: string;
+  tags: string[];
+  discountPrice: number;
+  price: number;
+  productDescImgs: string[];
+  shopInfo: ShopInfo;
 }
 
 const TOP_IMAGE: ImageStyle = {
   height: Window.width / 2,
-  width: Window.width,
-}
+  width: Window.width
+};
 
 export const ShopDetailImgList = (props: { shopDetailsImgs: string[] }) => {
   return (
     <View
       style={{
-        paddingVertical: 12,
+        paddingVertical: 12
       }}
     >
       <Text
@@ -49,7 +49,7 @@ export const ShopDetailImgList = (props: { shopDetailsImgs: string[] }) => {
           paddingHorizontal: 12,
           paddingBottom: 12,
           fontSize: 14,
-          color: "#666",
+          color: "#666"
         }}
       >
         商品描述
@@ -60,26 +60,26 @@ export const ShopDetailImgList = (props: { shopDetailsImgs: string[] }) => {
           source={{ uri: item }}
           style={{
             width: Window.width,
-            height: Window.width,
+            height: Window.width
           }}
         />
       ))}
     </View>
-  )
-}
+  );
+};
 
 const ShopInfoComponent = (props: ShopInfo) => {
   return (
     <View
       style={{
         paddingHorizontal: 12,
-        paddingVertical: 12,
+        paddingVertical: 12
       }}
     >
       <Text
         style={{
           fontSize: 14,
-          color: "#666",
+          color: "#666"
         }}
       >
         商家
@@ -88,7 +88,7 @@ const ShopInfoComponent = (props: ShopInfo) => {
         style={{
           marginVertical: 8,
           fontSize: 16,
-          color: "#333",
+          color: "#333"
         }}
       >
         {props.shopName}
@@ -98,13 +98,13 @@ const ShopInfoComponent = (props: ShopInfo) => {
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
-          marginTop: 8,
+          marginTop: 8
         }}
       >
         <Text
           style={{
             fontSize: 12,
-            color: "#333",
+            color: "#333"
           }}
         >
           {props.shopName}
@@ -113,15 +113,15 @@ const ShopInfoComponent = (props: ShopInfo) => {
         <Text
           style={{
             fontSize: 12,
-            color: "#666",
+            color: "#666"
           }}
         >
           距您{props.distanceMeter}米
         </Text>
       </View>
     </View>
-  )
-}
+  );
+};
 
 export const ProductDetailContent = (props: ProductDetailProps) => {
   return (
@@ -130,12 +130,12 @@ export const ProductDetailContent = (props: ProductDetailProps) => {
         style={{
           height: Window.width / 2,
           width: Window.width,
-          position: "relative",
+          position: "relative"
         }}
       >
         <UIImage
           source={{
-            uri: props.mainImg,
+            uri: props.mainImg
           }}
           style={TOP_IMAGE}
         />
@@ -144,14 +144,14 @@ export const ProductDetailContent = (props: ProductDetailProps) => {
             position: "absolute",
             paddingHorizontal: 12,
             bottom: 0,
-            left: 0,
+            left: 0
           }}
         >
           <Text
             style={{
               fontSize: 20,
               color: "white",
-              fontWeight: "bold",
+              fontWeight: "bold"
             }}
             numberOfLines={2}
             ellipsizeMode={"tail"}
@@ -162,7 +162,7 @@ export const ProductDetailContent = (props: ProductDetailProps) => {
             style={{
               fontSize: 14,
               color: "white",
-              marginVertical: 8,
+              marginVertical: 8
             }}
             numberOfLines={1}
           >
@@ -171,26 +171,26 @@ export const ProductDetailContent = (props: ProductDetailProps) => {
         </View>
         <View
           style={{
-            padding: 12,
+            padding: 12
           }}
         >
           <View
             style={{
               flexDirection: "row",
-              justifyContent: "space-between",
+              justifyContent: "space-between"
             }}
           >
             <View
               style={{
                 flexDirection: "row",
-                alignItems: "flex-end",
+                alignItems: "flex-end"
               }}
             >
               <Text
                 style={{
                   fontSize: 24,
                   color: "#FA6400",
-                  fontWeight: "bold",
+                  fontWeight: "bold"
                 }}
               >
                 ￥{props.discountPrice}
@@ -200,7 +200,7 @@ export const ProductDetailContent = (props: ProductDetailProps) => {
                   fontSize: 16,
                   color: "#666",
                   marginLeft: 8,
-                  textDecorationLine: "line-through",
+                  textDecorationLine: "line-through"
                 }}
               >
                 ￥{props.price}
@@ -213,18 +213,18 @@ export const ProductDetailContent = (props: ProductDetailProps) => {
         <View
           style={{
             height: 8,
-            backgroundColor: "#D8D8D8",
+            backgroundColor: "#D8D8D8"
           }}
         />
         <ShopInfoComponent {...props.shopInfo} />
         <View
           style={{
             height: 8,
-            backgroundColor: "#D8D8D8",
+            backgroundColor: "#D8D8D8"
           }}
         />
         <ShopDetailImgList shopDetailsImgs={props.productDescImgs} />
       </View>
     </View>
-  )
-}
+  );
+};

@@ -1,12 +1,12 @@
-import { Platform } from "react-native"
+import { Platform } from "react-native";
 
-const isAndroid = Platform.OS === "android"
+const isAndroid = Platform.OS === "android";
 
-const isIOS = Platform.OS === "ios"
+const isIOS = Platform.OS === "ios";
 
 const OS = {
   isAndroid,
-  isIOS,
-}
+  isIOS
+};
 
-export default OS
+export default OS;

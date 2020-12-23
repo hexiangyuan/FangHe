@@ -1,43 +1,43 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import React from "react"
-import { Subtitle1, UIImage } from "react-native-pjt-ui-lib"
-import { RedTags } from "../../components/tag/RedTags"
-import { RootNavigation } from "../../navigation"
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React from "react";
+import { Subtitle1, UIImage } from "react-native-pjt-ui-lib";
+import { RedTags } from "../../components/tag/RedTags";
+import { RootNavigation } from "../../navigation";
 
 export interface ProductItemProps {
-  id: number
-  mainImg: string
-  productName: string
-  tags: string[]
-  discountPrice: number
-  price: number
+  id: number;
+  mainImg: string;
+  productName: string;
+  tags: string[];
+  discountPrice: number;
+  price: number;
 }
 
 const styles = StyleSheet.create({
   imgStyle: {
     height: 72,
-    width: 72,
+    width: 72
   },
   itemContainer: {
     flex: 1,
     marginTop: 20,
     height: 72,
     flexDirection: "row",
-    paddingHorizontal: 12,
-  },
-})
+    paddingHorizontal: 12
+  }
+});
 
 export const ProductItem = (props: ProductItemProps) => {
   return (
     <TouchableOpacity
       style={styles.itemContainer}
       onPress={() => {
-        RootNavigation.navigate("productDetail")
+        RootNavigation.navigate("productDetail");
       }}
     >
       <UIImage
         source={{
-          uri: props.mainImg,
+          uri: props.mainImg
         }}
         style={styles.imgStyle}
       />
@@ -45,7 +45,7 @@ export const ProductItem = (props: ProductItemProps) => {
         style={{
           flex: 1,
           marginLeft: 12,
-          justifyContent: "space-between",
+          justifyContent: "space-between"
         }}
       >
         <View>
@@ -57,14 +57,14 @@ export const ProductItem = (props: ProductItemProps) => {
         <View
           style={{
             flexDirection: "row",
-            alignItems: "flex-end",
+            alignItems: "flex-end"
           }}
         >
           <Text
             style={{
               fontSize: 16,
               color: "#FA6400",
-              fontWeight: "bold",
+              fontWeight: "bold"
             }}
           >
             ￥{props.discountPrice}
@@ -74,7 +74,7 @@ export const ProductItem = (props: ProductItemProps) => {
               fontSize: 12,
               color: "#666",
               marginLeft: 8,
-              textDecorationLine: "line-through",
+              textDecorationLine: "line-through"
             }}
           >
             ￥{props.price}
@@ -82,5 +82,5 @@ export const ProductItem = (props: ProductItemProps) => {
         </View>
       </View>
     </TouchableOpacity>
-  )
-}
+  );
+};
