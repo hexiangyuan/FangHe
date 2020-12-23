@@ -1,9 +1,10 @@
 import React, { useState } from "react"
-import { View } from "react-native"
+import { FlatList, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Route, TabView } from "react-native-tab-view"
 import { Body1, H4 } from "react-native-pjt-ui-lib"
 import { CustomerTabBar } from "../../../theme/Theme"
+import { ShopList } from "./components/ShopList"
 
 type NavigationBarProps = {
   title: string
@@ -34,6 +35,10 @@ const tabRoutes: Array<Route> = [
   },
 ]
 
+const _renderScene = ({ route }) => {
+  return <ShopList />
+}
+
 const HomeScreen = () => {
   const [index, setIndex] = useState(0)
 
@@ -49,19 +54,7 @@ const HomeScreen = () => {
       <View style={{ flex: 1 }}>
         <NavigationBar title={"方和"} />
         <TabView
-          renderScene={({ route }) => {
-            return (
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Body1>{JSON.stringify(route)}</Body1>
-              </View>
-            )
-          }}
+          renderScene={_renderScene}
           renderTabBar={(props) => <CustomerTabBar {...props} />}
           onIndexChange={(index) => {
             setIndex(index)
