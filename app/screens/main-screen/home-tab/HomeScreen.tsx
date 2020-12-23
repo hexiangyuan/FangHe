@@ -1,8 +1,8 @@
 import React, { useState } from "react"
-import { FlatList, View } from "react-native"
+import { View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Route, TabView } from "react-native-tab-view"
-import { Body1, H4 } from "react-native-pjt-ui-lib"
+import { H4 } from "react-native-pjt-ui-lib"
 import { CustomerTabBar } from "../../../theme/Theme"
 import { ShopList } from "./components/ShopList"
 

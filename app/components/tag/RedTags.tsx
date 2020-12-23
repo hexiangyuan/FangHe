@@ -1,11 +1,13 @@
-import { Text, View } from "react-native"
+import { ColorValue, Text, View } from "react-native"
 import React from "react"
+import { color } from "../../theme"
 
 export interface Props {
   tag?: string[]
+  color?: ColorValue
 }
 
-export const Tags = (props: Props) => {
+export const RedTags = (props: Props) => {
   return (
     <View
       style={{
@@ -18,16 +20,18 @@ export const Tags = (props: Props) => {
         <View
           key={item.toString()}
           style={{
-            backgroundColor: "rgba(221, 221, 221, 0.5)",
+            borderWidth: 1,
+            borderColor: props.color || "#FF4D4D",
             marginHorizontal: 4,
             paddingVertical: 2,
+            borderRadius: 2,
             paddingHorizontal: 4,
           }}
         >
           <Text
             style={{
               fontSize: 10,
-              color: "#333",
+              color: props.color || "#FF4D4D",
             }}
           >
             {item}

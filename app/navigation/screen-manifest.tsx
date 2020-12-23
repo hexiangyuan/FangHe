@@ -1,7 +1,8 @@
 import { StackNavigationOptions } from "@react-navigation/stack/lib/typescript/src/types"
 import MainTab from "../screens/main-screen/MainTab"
 import React from "react"
-import { DemoScreen } from "../screens"
+import { ShopDetailScreen } from "../screens/shop-detail-screen/ShopDetailScreen"
+import { ProductDetailScreen } from "../screens/product-detail-screen/ProductDetailScreen"
 
 interface Screen {
   name: string
@@ -20,8 +21,12 @@ const mainTabScreen: Array<Screen> = [
     options: { headerShown: false },
   },
   {
-    name: "demoScreen",
-    component: DemoScreen,
+    name: "shopDetailScreen",
+    component: ShopDetailScreen,
+  },
+  {
+    name: "productDetail",
+    component: ProductDetailScreen,
   },
 ]
 

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react"
-import { FlatList } from "react-native"
+import { FlatList, TouchableOpacity } from "react-native"
 import { HomeShopItem } from "./HomeShopItem"
+import { TouchableItem } from "react-native-tab-view"
+import { useNavigation } from "@react-navigation/native"
+import { RootNavigation } from "../../../../navigation"
 
 export interface Props {
   key: "100" | "200"
@@ -61,7 +64,15 @@ export const ShopList = () => {
       data={data}
       keyExtractor={(item, index) => index.toString()}
       renderItem={({ item }) => {
-        return <HomeShopItem {...item} />
+        return (
+          <TouchableOpacity
+            onPress={() => {
+              RootNavigation.navigate("shopDetailScreen", { id: item.id })
+            }}
+          >
+            <HomeShopItem {...item} />
+          </TouchableOpacity>
+        )
       }}
     />
   )
