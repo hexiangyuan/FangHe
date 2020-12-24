@@ -7,6 +7,7 @@ import { Score } from "../../components/score/Score";
 import { Tags } from "../../components/tag/Tags";
 import { Text } from "../../components";
 import { ProductItem } from "./ProductItem";
+import { RootNavigation } from "../../navigation";
 
 export interface ShopDetail {
   id: number;
@@ -105,46 +106,13 @@ export const ShopDetailProductList = (props: ShopDetailProductListProps) => {
     <View
       style={{
         paddingHorizontal: 12,
-        paddingTop: 12,
         paddingBottom: 36
       }}
     >
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center"
-        }}
-      >
-        <View
-          style={{
-            width: 14,
-            height: 14,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "#FA6400"
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 10,
-              color: "white"
-            }}
-          >
-            厨
-          </Text>
-        </View>
-        <Text
-          style={{
-            fontSize: 12,
-            marginLeft: 8,
-            color: "#333"
-          }}
-        >
-          商品橱窗
-        </Text>
-      </View>
       {props.productList.map(item => (
-        <ProductItem key={item.id} {...item} />
+        <TouchableOpacity key={item.id} onPress={() => RootNavigation.push("productDetail", { id: item.id })}>
+          <ProductItem {...item} />
+        </TouchableOpacity>
       ))}
     </View>
   );

@@ -1,12 +1,11 @@
-import { TouchableOpacity, View } from "react-native";
+import { View } from "react-native";
 import { ImageStyle } from "react-native-fast-image";
 import Window from "../../constant/window";
-import { H6, UIButton, UIImage } from "react-native-pjt-ui-lib";
+import { UIButton, UIImage } from "react-native-pjt-ui-lib";
 import React from "react";
 import { Text } from "../../components";
 import { RedTags } from "../../components/tag/RedTags";
 import { Score } from "../../components/score/Score";
-import { Tags } from "../../components/tag/Tags";
 
 export interface ShopInfo {
   id: number;
@@ -41,7 +40,7 @@ export const ShopDetailImgList = (props: { shopDetailsImgs: string[] }) => {
   return (
     <View
       style={{
-        paddingVertical: 12
+        paddingTop: 12
       }}
     >
       <Text
@@ -125,7 +124,11 @@ const ShopInfoComponent = (props: ShopInfo) => {
 
 export const ProductDetailContent = (props: ProductDetailProps) => {
   return (
-    <View>
+    <View
+      style={{
+        flex: 1
+      }}
+    >
       <View
         style={{
           height: Window.width / 2,
@@ -169,62 +172,62 @@ export const ProductDetailContent = (props: ProductDetailProps) => {
             {props.subProductTitle}
           </Text>
         </View>
+      </View>
+      <View
+        style={{
+          padding: 12
+        }}
+      >
         <View
           style={{
-            padding: 12
+            flexDirection: "row",
+            justifyContent: "space-between"
           }}
         >
           <View
             style={{
               flexDirection: "row",
-              justifyContent: "space-between"
+              alignItems: "flex-end"
             }}
           >
-            <View
+            <Text
               style={{
-                flexDirection: "row",
-                alignItems: "flex-end"
+                fontSize: 24,
+                color: "#FA6400",
+                fontWeight: "bold"
               }}
             >
-              <Text
-                style={{
-                  fontSize: 24,
-                  color: "#FA6400",
-                  fontWeight: "bold"
-                }}
-              >
-                ￥{props.discountPrice}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 16,
-                  color: "#666",
-                  marginLeft: 8,
-                  textDecorationLine: "line-through"
-                }}
-              >
-                ￥{props.price}
-              </Text>
-            </View>
-            <UIButton>立即预订</UIButton>
+              ￥{props.discountPrice}
+            </Text>
+            <Text
+              style={{
+                fontSize: 16,
+                color: "#666",
+                marginLeft: 8,
+                textDecorationLine: "line-through"
+              }}
+            >
+              ￥{props.price}
+            </Text>
           </View>
-          <RedTags tag={props.tags} />
+          <UIButton>立即预订</UIButton>
         </View>
-        <View
-          style={{
-            height: 8,
-            backgroundColor: "#D8D8D8"
-          }}
-        />
-        <ShopInfoComponent {...props.shopInfo} />
-        <View
-          style={{
-            height: 8,
-            backgroundColor: "#D8D8D8"
-          }}
-        />
-        <ShopDetailImgList shopDetailsImgs={props.productDescImgs} />
+        <RedTags tag={props.tags} />
       </View>
+      <View
+        style={{
+          height: 8,
+          backgroundColor: "#D8D8D8"
+        }}
+      />
+      <ShopInfoComponent {...props.shopInfo} />
+      <View
+        style={{
+          height: 8,
+          backgroundColor: "#D8D8D8"
+        }}
+      />
+      <ShopDetailImgList shopDetailsImgs={props.productDescImgs} />
     </View>
   );
 };

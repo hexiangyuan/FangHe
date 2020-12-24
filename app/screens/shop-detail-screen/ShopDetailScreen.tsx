@@ -1,8 +1,7 @@
 import React from "react";
-import { TextStyle, View, ViewStyle } from "react-native";
-import { Screen } from "../../components";
-import { color, spacing } from "../../theme";
-import { RootNavigation } from "../../navigation";
+import { View, ViewStyle } from "react-native";
+import { Screen, Text } from "../../components";
+import { color } from "../../theme";
 import { ShopDetailContent, ShopDetailProductList } from "./ShopDetailContent";
 
 const MockData = {
@@ -87,31 +86,7 @@ const CONTAINER: ViewStyle = {
 
 const CONTENT_CONTAINER: ViewStyle = {};
 
-const BOLD: TextStyle = { fontWeight: "bold" };
-
-const HEADER: TextStyle = {
-  paddingTop: spacing[3],
-  paddingBottom: spacing[5] - 1,
-  paddingHorizontal: 0,
-  backgroundColor: color.transparent,
-  position: "absolute",
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  zIndex: 1000
-};
-const HEADER_TITLE: TextStyle = {
-  ...BOLD,
-  fontSize: 12,
-  lineHeight: 15,
-  textAlign: "center",
-  letterSpacing: 1.5
-};
-
 export const ShopDetailScreen = () => {
-  const goBack = () => RootNavigation.goBack();
-
   return (
     <View style={FULL}>
       <Screen unsafe={true} style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
@@ -123,6 +98,40 @@ export const ShopDetailScreen = () => {
               height: 8
             }}
           />
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center"
+            }}
+          >
+            <View
+              style={{
+                width: 14,
+                height: 14,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#FA6400"
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 10,
+                  color: "white"
+                }}
+              >
+                厨
+              </Text>
+            </View>
+            <Text
+              style={{
+                fontSize: 12,
+                marginLeft: 8,
+                color: "#333"
+              }}
+            >
+              商品橱窗
+            </Text>
+          </View>
           <ShopDetailProductList productList={MockProList} />
         </View>
       </Screen>

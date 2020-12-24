@@ -5,6 +5,7 @@ import { PartialState, NavigationState, NavigationContainerRef } from "@react-na
 export const RootNavigation = {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   navigate(...args) {},
+  push(...args) {},
   goBack() {}, // eslint-disable-line @typescript-eslint/no-empty-function
   resetRoot(state?: PartialState<NavigationState> | NavigationState) {}, // eslint-disable-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
   getRootState(): NavigationState {

@@ -3,7 +3,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { UIImage, Subtitle1 } from "react-native-pjt-ui-lib";
 import { Tags } from "../../../../components/tag/Tags";
-import { Colors } from "../../../../theme/Theme";
+import { Score } from "../../../../components/score/Score";
 
 const styles = StyleSheet.create({
   imgStyle: {
@@ -25,6 +25,7 @@ export const HomeShopItem = (props: HomeShopItemProps) => {
         source={{
           uri: props.img
         }}
+        resizeMode={"center"}
         style={styles.imgStyle}
       />
       <View
@@ -34,15 +35,8 @@ export const HomeShopItem = (props: HomeShopItemProps) => {
         }}
       >
         <Subtitle1 numberOfLines={1}>{props.shopName}</Subtitle1>
-        <Text
-          style={{
-            fontSize: 10,
-            marginTop: 8,
-            color: Colors.primary
-          }}
-        >
-          {props.score}
-        </Text>
+        <View style={{ height: 8 }} />
+        <Score score={props.score} />
         <View
           style={{
             flexDirection: "row",

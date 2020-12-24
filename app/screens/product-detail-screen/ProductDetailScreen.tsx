@@ -1,9 +1,9 @@
 import React from "react";
-import { TextStyle, View, ViewStyle } from "react-native";
-import { Screen } from "../../components";
-import { color, spacing } from "../../theme";
-import { RootNavigation } from "../../navigation";
+import { Image, ScrollView, StatusBar, Text, View, ViewStyle } from "react-native";
 import { ProductDetailContent } from "./ProductDetailContent";
+import { ShopDetailProductList } from "../shop-detail-screen/ShopDetailContent";
+import { Colors } from "../../theme/Theme";
+import Window from "../../constant/window";
 
 const MockData = {
   id: 0,
@@ -67,46 +67,68 @@ const MockProList = [
   }
 ];
 
-const FULL: ViewStyle = { flex: 1 };
-const CONTAINER: ViewStyle = {
-  backgroundColor: color.transparent,
+const FULL: ViewStyle = {
   flex: 1
 };
 
-const CONTENT_CONTAINER: ViewStyle = { flex: 1 };
-
-const BOLD: TextStyle = { fontWeight: "bold" };
-
-const HEADER: TextStyle = {
-  paddingTop: spacing[3],
-  paddingBottom: spacing[5] - 1,
-  paddingHorizontal: 0,
-  backgroundColor: color.transparent,
-  position: "absolute",
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  zIndex: 1000
-};
-const HEADER_TITLE: TextStyle = {
-  ...BOLD,
-  fontSize: 12,
-  lineHeight: 15,
-  textAlign: "center",
-  letterSpacing: 1.5
-};
-
 export const ProductDetailScreen = () => {
-  const goBack = () => RootNavigation.goBack();
-
   return (
     <View style={FULL}>
-      <Screen unsafe={true} style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
-        <View style={CONTENT_CONTAINER}>
-          <ProductDetailContent {...MockData} />
+      <StatusBar translucent={true} barStyle={"dark-content"} />
+      <ScrollView horizontal={false} style={{ flex: 1 }}>
+        <ProductDetailContent {...MockData} />
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              height: 42,
+              width: "100%",
+              backgroundColor: "#D8D8D8"
+            }}
+          >
+            <View
+              style={{
+                height: 1,
+                backgroundColor: Colors.primary,
+                width: Window.width / 8
+              }}
+            />
+            <Image
+              source={require("./icon_heart.png")}
+              style={{
+                width: 16,
+                height: 16,
+                marginHorizontal: 8
+              }}
+            />
+            <Text
+              style={{
+                fontSize: 14,
+                color: "#666",
+                marginRight: 8
+              }}
+            >
+              更多商品
+            </Text>
+            <View
+              style={{
+                height: 1,
+                backgroundColor: Colors.primary,
+                width: Window.width / 8
+              }}
+            />
+          </View>
         </View>
-      </Screen>
+        <ShopDetailProductList productList={MockProList} />
+      </ScrollView>
     </View>
   );
 };
