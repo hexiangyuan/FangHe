@@ -13,8 +13,9 @@ import "./i18n";
 import "./utils/ignore-warnings";
 import React, { useState, useEffect, useRef } from "react";
 import { NavigationContainerRef } from "@react-navigation/native";
-import { SafeAreaProvider, initialWindowMetrics } from "react-native-safe-area-context";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as storage from "./utils/storage";
+import { ModalPortal } from "react-native-modals";
 import {
   useBackButtonHandler,
   RootNavigator,
@@ -61,7 +62,7 @@ function App() {
   // otherwise, we're ready to render the app
   return (
     <RootStoreProvider value={rootStore}>
-      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+      <SafeAreaProvider>
         <StatusBar ref={statusBarRef} barStyle={"dark-content"} backgroundColor={"white"} translucent={true} />
         <RootNavigator
           ref={navigationRef}
@@ -69,6 +70,7 @@ function App() {
           onStateChange={onNavigationStateChange}
         />
       </SafeAreaProvider>
+      <ModalPortal />
     </RootStoreProvider>
   );
 }

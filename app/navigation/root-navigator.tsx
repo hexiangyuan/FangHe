@@ -40,7 +40,7 @@ const RootStack = () => {
         name="primaryStack"
         component={PrimaryNavigator}
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

@@ -3,6 +3,7 @@ import MainTab from "../screens/main-screen/MainTab";
 import React from "react";
 import { ShopDetailScreen } from "../screens/shop-detail-screen/ShopDetailScreen";
 import { ProductDetailScreen } from "../screens/product-detail-screen/ProductDetailScreen";
+import { OrderSubmitScreen } from "../screens/ order-submit/OrderSubmitScreen";
 
 interface Screen {
   name: string;
@@ -27,6 +28,10 @@ const mainTabScreen: Array<Screen> = [
   {
     name: "productDetail",
     component: ProductDetailScreen
+  },
+  {
+    name: "orderSubmitScreen",
+    component: OrderSubmitScreen
   }
 ];
 

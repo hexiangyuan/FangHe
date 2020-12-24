@@ -132,7 +132,7 @@ module.exports = {
     "prefer-const": "error",
 
     // 不允许使用行内样式
-    "react-native/no-inline-styles": 1,
+    "react-native/no-inline-styles": 0,
     // 强制类型后面要有一个","
     "flowtype/delimiter-dangle": [2, "only-multiline"],
     // 在 : 后强制加空格

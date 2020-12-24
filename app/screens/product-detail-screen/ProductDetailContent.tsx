@@ -6,6 +6,7 @@ import React from "react";
 import { Text } from "../../components";
 import { RedTags } from "../../components/tag/RedTags";
 import { Score } from "../../components/score/Score";
+import { RootNavigation } from "../../navigation";
 
 export interface ShopInfo {
   id: number;
@@ -210,7 +211,20 @@ export const ProductDetailContent = (props: ProductDetailProps) => {
               ￥{props.price}
             </Text>
           </View>
-          <UIButton>立即预订</UIButton>
+          <UIButton
+            onPress={() => {
+              RootNavigation.navigate("orderSubmitScreen", {
+                id: props.id,
+                shopName: props.shopInfo.shopName,
+                productImg: props.mainImg,
+                productName: props.productName,
+                price: props.discountPrice,
+                size: 1
+              });
+            }}
+          >
+            立即预订
+          </UIButton>
         </View>
         <RedTags tag={props.tags} />
       </View>
