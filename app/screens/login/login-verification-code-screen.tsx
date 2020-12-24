@@ -3,13 +3,16 @@ import React from "react";
 import { Icon } from "../../components";
 import { Colors } from "../../theme/Theme";
 import { UIButton } from "react-native-pjt-ui-lib";
+import { useRoute } from "@react-navigation/native";
 
-export const MobileLoginScreen = () => {
+export const MobileLoginVerificationScreen = () => {
+  const route = useRoute<any>();
   return (
     <View style={{ flex: 1 }}>
       <Text style={{ marginTop: 24, marginBottom: 80, fontSize: 24, color: "#333", fontWeight: "bold" }}>
-        手机号登录注册
+        请输入6位数验证码
       </Text>
+      <Text style={{ fontSize: 14, color: "#333" }}>已发到:+86 {route.mobile}</Text>
       <View style={{ flexDirection: "row" }}>
         <Text style={{ fontSize: 16, color: "#666" }}>中国+86</Text>
         <TextInput

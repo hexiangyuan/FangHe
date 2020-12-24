@@ -9,5 +9,7 @@ export interface DateTimeSelectorProps {
   date: KeyValue[];
   time: KeyValue[];
   containStyle?: ViewStyle;
+  selectedDate?: KeyValue;
+  selectedTime?: KeyValue;
   onSelected?: (date: KeyValue, time: KeyValue) => void;
 }

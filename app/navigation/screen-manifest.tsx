@@ -3,7 +3,9 @@ import MainTab from "../screens/main-screen/MainTab";
 import React from "react";
 import { ShopDetailScreen } from "../screens/shop-detail-screen/ShopDetailScreen";
 import { ProductDetailScreen } from "../screens/product-detail-screen/ProductDetailScreen";
-import { OrderSubmitScreen } from "../screens/ order-submit/OrderSubmitScreen";
+import { OrderSubmitScreen } from "../screens/order-submit/OrderSubmitScreen";
+import { MobileLoginScreen } from "../screens/login/login-screen";
+import {MobileLoginVerificationScreen} from "../screens/login/login-verification-code-screen";
 
 interface Screen {
   name: string;
@@ -32,6 +34,14 @@ const mainTabScreen: Array<Screen> = [
   {
     name: "orderSubmitScreen",
     component: OrderSubmitScreen
+  },
+  {
+    name: "mobileLoginScreen",
+    component: MobileLoginScreen
+  },
+  {
+    name: "mobileLoginVerificationCodeScreen",
+    component: MobileLoginVerificationScreen
   }
 ];
 
