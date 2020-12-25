@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { UIButton, UIImage } from "react-native-pjt-ui-lib";
 import { Colors } from "../../theme/Theme";
@@ -9,17 +9,18 @@ import Window from "../../constant/window";
 import { BottomModal, ModalContent } from "react-native-modals";
 import { DateTimeSelector } from "../../components/date-time-selector/DateTimeSelector";
 import { KeyValue } from "../../components/date-time-selector/DateTimeSelector.props";
+import { RootNavigation } from "../../navigation";
 
 export interface SkuInfo {
   id: number;
   shopName: string;
   productImg: string;
   productName: string;
-  price: string;
+  price: number;
   size: number;
 }
 
-const Sku = (props: SkuInfo) => {
+export const Sku = (props: SkuInfo) => {
   return (
     <View style={{ padding: 12 }}>
       <Text
@@ -153,7 +154,7 @@ export const OrderSubmitScreen = () => {
     if (!date && !time) {
       setVisible(true);
     } else {
-      //todo 预约成功
+      RootNavigation.navigate("orderSubmitSucceedScreen");
     }
   };
 
@@ -233,7 +234,12 @@ export const OrderSubmitScreen = () => {
                 </Text>
               </View>
             ) : (
-              <View style={{ minHeight: 40, justifyContent: "center" }}>
+              <View
+                style={{
+                  minHeight: 40,
+                  justifyContent: "center"
+                }}
+              >
                 <Text>请选择预约时间</Text>
               </View>
             )}
@@ -294,7 +300,16 @@ export const OrderSubmitScreen = () => {
       >
         <ModalContent>
           <View>
-            <Text style={{ fontSize: 16, color: "#333", fontWeight: "bold", marginBottom: 24 }}>预约时间</Text>
+            <Text
+              style={{
+                fontSize: 16,
+                color: "#333",
+                fontWeight: "bold",
+                marginBottom: 24
+              }}
+            >
+              预约时间
+            </Text>
             <DateTimeSelector
               containStyle={{
                 height: Window.height / 2,
