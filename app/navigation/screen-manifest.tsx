@@ -1,4 +1,3 @@
-import { StackNavigationOptions } from "@react-navigation/stack/lib/typescript/src/types";
 import MainTab from "../screens/main-screen/MainTab";
 import React from "react";
 import { ShopDetailScreen } from "../screens/shop-detail-screen/ShopDetailScreen";
@@ -8,11 +7,13 @@ import { MobileLoginScreen } from "../screens/login/login-screen";
 import { MobileLoginVerificationScreen } from "../screens/login/login-verification-code-screen";
 import { OrderSubmitSucceedScreen } from "../screens/order-submit/OrderSubmitSucceedScreen";
 import { OrderListScreen } from "../screens/order-list/OrderListScreen";
+import { NativeStackNavigationOptions } from "react-native-screens/native-stack";
+import { AboutUsScreen } from "../screens/about-screen/AboutUsScreen";
 
 interface Screen {
   name: string;
   component: React.ComponentType<any>;
-  options?: StackNavigationOptions;
+  options?: NativeStackNavigationOptions;
 }
 
 const commonScreens: Array<Screen> = [
@@ -52,6 +53,11 @@ const mainTabScreen: Array<Screen> = [
   {
     name: "mobileLoginVerificationCodeScreen",
     component: MobileLoginVerificationScreen
+  },
+  ,
+  {
+    name: "aboutUsScreen",
+    component: AboutUsScreen
   }
 ];
 

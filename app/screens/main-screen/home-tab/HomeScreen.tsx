@@ -54,7 +54,6 @@ const HomeScreen = () => {
       <View style={{ flex: 1 }}>
         <NavigationBar title={"方和"} />
         <TabView
-          swipeEnabled={false}
           renderScene={_renderScene}
           renderTabBar={props => <CustomerTabBar {...props} />}
           onIndexChange={index => {

@@ -2,7 +2,7 @@ import React from "react";
 
 import Screens from "./screen-manifest";
 
-import { createNativeStackNavigator } from "react-native-screens/native-stack"
+import { createNativeStackNavigator } from "react-native-screens/native-stack";
 
 const Stack = createNativeStackNavigator();
 

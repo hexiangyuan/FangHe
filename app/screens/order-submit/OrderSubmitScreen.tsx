@@ -30,7 +30,7 @@ export const Sku = (props: SkuInfo) => {
           fontWeight: "bold"
         }}
       >
-        {props.productName}
+        {props.shopName}
       </Text>
       <View
         style={{
@@ -54,15 +54,17 @@ export const Sku = (props: SkuInfo) => {
             justifyContent: "space-between"
           }}
         >
-          <Text
-            style={{
-              fontSize: 14,
-              color: "#333"
-            }}
-            numberOfLines={2}
-          >
-            {props.productName}
-          </Text>
+          <View style={{ flexDirection: "row" }}>
+            <Text
+              style={{
+                fontSize: 14,
+                color: "#333"
+              }}
+              numberOfLines={2}
+            >
+              {props.productName}
+            </Text>
+          </View>
           <View
             style={{
               width: "100%",
@@ -145,7 +147,7 @@ const timeArray: KeyValue[] = [
 
 export const OrderSubmitScreen = () => {
   const route = useRoute();
-  const productInfo = route.params;
+  const productInfo = route.params as SkuInfo;
   const [date, setDate] = useState<KeyValue>(undefined);
   const [time, setTime] = useState<KeyValue>(undefined);
   const [visible, setVisible] = useState<boolean>(false);

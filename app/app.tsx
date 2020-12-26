@@ -63,7 +63,7 @@ function App() {
   return (
     <RootStoreProvider value={rootStore}>
       <SafeAreaProvider>
-        <StatusBar ref={statusBarRef} barStyle={"dark-content"} backgroundColor={"white"} translucent={true} />
+        <StatusBar ref={statusBarRef} barStyle={"dark-content"} translucent={true} />
         <RootNavigator
           ref={navigationRef}
           initialState={initialNavigationState}

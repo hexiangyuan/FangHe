@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, TouchableOpacity } from "react-native";
+import { FlatList, TouchableHighlight, TouchableOpacity } from "react-native"
 import { HomeShopItem } from "./HomeShopItem";
 import { RootNavigation } from "../../../../navigation";
 

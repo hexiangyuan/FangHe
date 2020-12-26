@@ -101,7 +101,9 @@ export const ShopDetailScreen = () => {
           <View
             style={{
               flexDirection: "row",
-              alignItems: "center"
+              alignItems: "center",
+              paddingHorizontal: 12,
+              paddingTop: 12
             }}
           >
             <View
