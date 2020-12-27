@@ -47,7 +47,8 @@ export const OrderSubmitSucceedScreen = () => {
           style={{
             marginTop: 24,
             fontSize: 20,
-            color: "#333"
+            color: "#333",
+            height: 40
           }}
         >
           预约成功
@@ -55,7 +56,7 @@ export const OrderSubmitSucceedScreen = () => {
 
         <View style={{ height: 48 }} />
         <UIButton
-          onPress={(event) => {
+          onPress={() => {
             RootNavigation.navigate("orderListScreen");
           }}
           containerStyle={{ width: "70%" }}

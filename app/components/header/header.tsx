@@ -51,8 +51,27 @@ export function Header(props: HeaderProps) {
   return (
     <View style={{ ...ROOT, ...style }}>
       {leftIcon ? (
-        <Button preset="link" onPress={onLeftPress}>
-          <Icon icon={leftIcon} />
+        <Button
+          style={{
+            width: 32,
+            height: 32
+          }}
+          preset="link"
+          onPress={onLeftPress}
+        >
+          <Icon
+            icon={leftIcon}
+            style={{
+              width: 21,
+              height: 21
+            }}
+            containerStyle={{
+              width: 32,
+              height: 32,
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          />
         </Button>
       ) : (
         <View style={LEFT} />
