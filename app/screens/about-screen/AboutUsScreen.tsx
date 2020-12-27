@@ -4,6 +4,7 @@ import { Header, Icon } from "../../components";
 import Window from "../../constant/window";
 import { UIImage } from "react-native-pjt-ui-lib";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { RootNavigation } from "../../navigation";
 
 type ItemProps = {
   title: string;
@@ -89,6 +90,12 @@ export const AboutUsScreen = () => {
         <Item title={"应用版本"} content={"1.0.0"} onPress={() => {}} />
         <Item title={"用户协议"} onPress={() => {}} />
         <Item title={"开源代码许可"} onPress={() => {}} />
+        <Item
+          title={"CMS"}
+          onPress={() => {
+            RootNavigation.navigate("cmsLoginScreen");
+          }}
+        />
       </View>
     </SafeAreaView>
   );

@@ -9,6 +9,12 @@ import { OrderSubmitSucceedScreen } from "../screens/order-submit/OrderSubmitSuc
 import { OrderListScreen } from "../screens/order-list/OrderListScreen";
 import { NativeStackNavigationOptions } from "react-native-screens/native-stack";
 import { AboutUsScreen } from "../screens/about-screen/AboutUsScreen";
+import { CmsLoginScreen } from "../cms/CmsLoginScreen";
+import { CmsMainScreen } from "../cms/CmsMainScreen";
+import { CmsShopList } from "../cms/CmsShopList";
+import { CmsAddShopScreen } from "../cms/CmsAddShopScreen";
+import { PreviewShopDetailScreen } from "../cms/preview-shop-detail/PreviewShopDetailScreen";
+import { CmsAddProductScreen } from "../cms/CmsAddProductScreen"
 
 interface Screen {
   name: string;
@@ -54,10 +60,33 @@ const mainTabScreen: Array<Screen> = [
     name: "mobileLoginVerificationCodeScreen",
     component: MobileLoginVerificationScreen
   },
-  ,
   {
     name: "aboutUsScreen",
     component: AboutUsScreen
+  },
+  {
+    name: "cmsLoginScreen",
+    component: CmsLoginScreen
+  },
+  {
+    name: "CmsMainScreen",
+    component: CmsMainScreen
+  },
+  {
+    name: "CmsShopList",
+    component: CmsShopList
+  },
+  {
+    name: "CmsAddShopScreen",
+    component: CmsAddShopScreen
+  },
+  {
+    name: "CmsAddProductScreen",
+    component: CmsAddProductScreen
+  },
+  {
+    name: "PreviewShopDetailScreen",
+    component: PreviewShopDetailScreen
   }
 ];
 

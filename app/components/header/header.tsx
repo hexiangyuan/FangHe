@@ -17,8 +17,16 @@ const ROOT: ViewStyle = {
   paddingBottom: spacing[5],
   justifyContent: "flex-start"
 };
-const TITLE: TextStyle = { textAlign: "center", color: "#333", fontSize: 18, fontWeight: "bold" };
-const TITLE_MIDDLE: ViewStyle = { flex: 1, justifyContent: "center" };
+const TITLE: TextStyle = {
+  textAlign: "center",
+  color: "#333",
+  fontSize: 18,
+  fontWeight: "bold"
+};
+const TITLE_MIDDLE: ViewStyle = {
+  flex: 1,
+  justifyContent: "center"
+};
 const LEFT: ViewStyle = { width: 32 };
 const RIGHT: ViewStyle = { width: 32 };
 
@@ -54,7 +62,13 @@ export function Header(props: HeaderProps) {
       </View>
       {rightIcon ? (
         <Button preset="link" onPress={onRightPress}>
-          <Icon icon={rightIcon} />
+          <Icon
+            style={{
+              width: 24,
+              height: 24
+            }}
+            icon={rightIcon}
+          />
         </Button>
       ) : (
         <View style={RIGHT} />
