@@ -4,7 +4,7 @@ import { ShopDetailScreen } from "../screens/shop-detail-screen/ShopDetailScreen
 import { ProductDetailScreen } from "../screens/product-detail-screen/ProductDetailScreen";
 import { OrderSubmitScreen } from "../screens/order-submit/OrderSubmitScreen";
 import { MobileLoginScreen } from "../screens/login/login-screen";
-import { MobileLoginVerificationScreen } from "../screens/login/login-verification-code-screen";
+import { MobileLoginVerificationCodeScreen } from "../screens/login/login-verification-code-screen";
 import { OrderSubmitSucceedScreen } from "../screens/order-submit/OrderSubmitSucceedScreen";
 import { OrderListScreen } from "../screens/order-list/OrderListScreen";
 import { NativeStackNavigationOptions } from "react-native-screens/native-stack";
@@ -14,7 +14,7 @@ import { CmsMainScreen } from "../cms/CmsMainScreen";
 import { CmsShopList } from "../cms/CmsShopList";
 import { CmsAddShopScreen } from "../cms/CmsAddShopScreen";
 import { PreviewShopDetailScreen } from "../cms/preview-shop-detail/PreviewShopDetailScreen";
-import { CmsAddProductScreen } from "../cms/CmsAddProductScreen"
+import { CmsAddProductScreen } from "../cms/CmsAddProductScreen";
 
 interface Screen {
   name: string;
@@ -57,8 +57,8 @@ const mainTabScreen: Array<Screen> = [
     component: MobileLoginScreen
   },
   {
-    name: "mobileLoginVerificationCodeScreen",
-    component: MobileLoginVerificationScreen
+    name: "MobileLoginVerificationCodeScreen",
+    component: MobileLoginVerificationCodeScreen
   },
   {
     name: "aboutUsScreen",

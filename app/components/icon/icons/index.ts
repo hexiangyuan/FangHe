@@ -8,7 +8,8 @@ export const icons = {
   tab_home: require("./home.png"),
   tab_home_focus: require("./home_focus.png"),
   tab_mine_focus: require("./mine_foucus.png"),
-  tab_mine: require("./mine.png")
+  tab_mine: require("./mine.png"),
+  clear: require("./clear.png")
 };
 
 export type IconTypes = keyof typeof icons;
