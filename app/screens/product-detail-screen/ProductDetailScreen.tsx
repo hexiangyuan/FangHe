@@ -1,9 +1,22 @@
-import React from "react";
-import { Image, ScrollView, StatusBar, Text, View, ViewStyle } from "react-native";
+import React, { useRef, useState } from "react";
+import {
+  Animated,
+  Image,
+  ScrollView,
+  StatusBar,
+  StatusBarStyle,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle
+} from "react-native";
 import { ProductDetailContent } from "./ProductDetailContent";
 import { ShopDetailProductList } from "../shop-detail-screen/ShopDetailContent";
 import { Colors } from "../../theme/Theme";
 import Window from "../../constant/window";
+import { RootNavigation } from "../../navigation";
+import { Icon } from "../../components";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const MockData = {
   id: 0,
@@ -68,14 +81,69 @@ const MockProList = [
 ];
 
 const FULL: ViewStyle = {
-  flex: 1
+  flex: 1,
+  position: "relative"
 };
 
 export const ProductDetailScreen = () => {
+  const insets = useSafeAreaInsets();
+  const animatedScrollYValue = useRef<Animated.Value>(new Animated.Value(0)).current;
+  const [statusBarStyle, setStatusBarStyle] = useState<StatusBarStyle>("light-content");
+  const color = animatedScrollYValue.interpolate({
+    inputRange: [0, Window.width / 4],
+    outputRange: ["transparent", "white"],
+    extrapolate: "clamp"
+  });
+  const [value, setValue] = useState<number>(0);
+  animatedScrollYValue.addListener(state => {
+    if (state.value < Window.width / 4) {
+      setStatusBarStyle("light-content");
+    } else {
+      setStatusBarStyle("dark-content");
+    }
+    setValue(state.value);
+  });
+
   return (
     <View style={FULL}>
-      <StatusBar translucent={true} barStyle={"dark-content"} />
-      <ScrollView horizontal={false} style={{ flex: 1 }}>
+      <StatusBar translucent={true} barStyle={statusBarStyle} />
+      <Animated.View
+        style={[
+          {
+            paddingTop: insets.top,
+            position: "absolute",
+            paddingHorizontal: 16,
+            backgroundColor: color,
+            paddingVertical: 12,
+            left: 0,
+            top: 0,
+            width: "100%",
+            zIndex: 100
+          }
+        ]}
+      >
+        <TouchableOpacity
+          onPress={() => {
+            RootNavigation.goBack();
+          }}
+        >
+          <Icon
+            icon={value < Window.width / 4 ? "back_white" : "back_black"}
+            style={{
+              width: 26,
+              marginTop: 12,
+              height: 26
+            }}
+          />
+        </TouchableOpacity>
+      </Animated.View>
+      <ScrollView
+        horizontal={false}
+        style={{ flex: 1 }}
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: animatedScrollYValue } } }], {
+          useNativeDriver: false
+        })}
+      >
         <ProductDetailContent {...MockData} />
         <View
           style={{
