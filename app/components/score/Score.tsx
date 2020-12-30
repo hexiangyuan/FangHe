@@ -6,7 +6,7 @@ import { Colors } from "../../theme/Theme";
 export const Score = (props: ScoreProps) => {
   return (
     <View style={{ flexDirection: "row" }}>
-      {new Array(props.score).fill("").map((value, index) => {
+      {new Array(Number.parseInt(props.score.toString())).fill("").map((value, index) => {
         return (
           <View
             key={index.toString()}

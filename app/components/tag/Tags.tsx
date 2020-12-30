@@ -14,7 +14,7 @@ export const Tags = (props: Props) => {
         marginBottom: 8
       }}
     >
-      {props.tag?.map(item => (
+      {props?.tag?.map(item => (
         <View
           key={item.toString()}
           style={{

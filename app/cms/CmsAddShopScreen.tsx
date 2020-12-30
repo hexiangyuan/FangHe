@@ -1,8 +1,11 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import React from "react";
-import { ScrollView, Text, TextInput, TextInputProps, TouchableOpacity, View, ViewStyle } from "react-native";
+import { Alert, ScrollView, Text, TextInput, TextInputProps, TouchableOpacity, View, ViewStyle } from "react-native";
 import { UIButton, UIImage } from "react-native-pjt-ui-lib";
 import { Header } from "../components";
+import { FangHeApi, GaoDeMapApi } from "../services/api";
+import ToastRef from "../utils/Toast";
+import ToastGlobal from "../utils/Toast";
 
 const InputItem = (props: { title: string; containerStyle: ViewStyle } & TextInputProps) => {
   return (
@@ -45,8 +48,50 @@ export const CmsAddShopScreen = () => {
   let shopAvaPrice: number;
   let shopInfo: string;
   let shopTags: string[];
+  let shopMobile: string;
 
-  function confirm() {}
+  async function getAddressLocationByAddress(): Promise<string> {
+    const respone = await GaoDeMapApi.get("/v3/geocode/geo", {
+      address: shopAddress,
+      key: "5f43991b2d421e409b43af4064993f94"
+    });
+    return respone.geocodes[0]?.location;
+  }
+
+  function confirm() {
+    getAddressLocationByAddress()
+      .then(value => {
+        const locations = value.split(",");
+        console.log(locations);
+        FangHeApi.post("/shop/create", {
+          img:
+            "https://th.bing.com/th/id/R902edc69ee486cfa57fd777f8ecba267?rik=QaIQBf4RBz3ORg&riu=http%3a%2f%2fyyoriga.com%2fcityphoto%2fetc%2fjk_collection35_sample%2fm%2fjk_collection35_sample-007.jpg&ehk=pE5wbhkK6vv1YS6s%2bctcz0pOUZioWwDT%2bphkuVuVIi4%3d&risl=&pid=ImgRaw",
+          shopName: shopName,
+          score: shopScore,
+          averPrice: shopAvaPrice,
+          tag: shopTags,
+          info: shopInfo,
+          shopDetailsImgs: ["string"],
+          contactMobie: shopMobile,
+          shopAddress: shopAddress,
+          latitude: locations[0],
+          longitude: locations[1]
+        })
+          .then(v => {
+            if (v.code === 200) {
+              ToastGlobal.show("添加成功");
+            } else {
+              Alert.alert("添加失败", v.errorMsg);
+            }
+          })
+          .catch(e => {
+            ToastGlobal.show(e);
+          });
+      })
+      .catch(e => {
+        ToastGlobal.show(e);
+      });
+  }
 
   function uploadImag() {}
 
@@ -71,6 +116,16 @@ export const CmsAddShopScreen = () => {
             containerStyle={{ marginVertical: 12 }}
             title={"店铺名称"}
             placeholder={"请输入店铺名称"}
+          />
+
+          <InputItem
+            containerStyle={{ marginVertical: 12 }}
+            title={"商家手机号"}
+            keyboardType={"phone-pad"}
+            onChangeText={text => {
+              shopMobile = text;
+            }}
+            placeholder={"商家手机号码"}
           />
 
           <InputItem

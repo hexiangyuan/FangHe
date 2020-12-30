@@ -1,13 +1,13 @@
 import { DURATION } from "react-native-easy-toast";
 
-const ToastRef = {
+const ToastGlobal = {
   show(text?: string, duration?: DURATION, callback?: () => void) {},
   close(duration?: DURATION) {}
 };
 
 export function setToastRef(ref) {
-  for (const method in ToastRef) {
-    ToastRef[method] = (...args: any) => {
+  for (const method in ToastGlobal) {
+    ToastGlobal[method] = (...args: any) => {
       if (ref.current) {
         return ref.current[method](...args);
       }
@@ -15,4 +15,4 @@ export function setToastRef(ref) {
   }
 }
 
-export default ToastRef;
+export default ToastGlobal;

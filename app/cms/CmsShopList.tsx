@@ -5,58 +5,10 @@ import { RootNavigation } from "../navigation";
 import { CMSShopItemProps } from "./CmsMainScreen";
 import { UIImage, Subtitle1, UIButton } from "react-native-pjt-ui-lib";
 import { Score } from "../components/score/Score";
-import { Tags } from "../components/tag/Tags";
 import { Header } from "../components";
-import { Api, FangHeApi } from "../services/api";
-import { useStores, withEnvironment } from "../models";
+import { FangHeApi } from "../services/api";
 import ToastRef from "../utils/Toast";
-
-export interface Props {
-  key: "100" | "200";
-}
-
-const mockData = [
-  {
-    id: 0,
-    img: "https://api88.net/api/img/rand/?rand_type=rand_mz",
-    shopName: "string",
-    score: 1,
-    averPrice: 100,
-    tag: ["tag1"],
-    info: "string",
-    distanceMeter: 1000
-  },
-  {
-    id: 2,
-    img: "https://api88.net/api/img/rand/?rand_type=rand_mz",
-    shopName: "string",
-    score: 1,
-    averPrice: 100,
-    tag: ["tag1"],
-    info: "string",
-    distanceMeter: 1000
-  },
-  {
-    id: 3,
-    img: "https://api88.net/api/img/rand/?rand_type=rand_mz",
-    shopName: "string",
-    score: 2,
-    averPrice: 100,
-    tag: ["tag1"],
-    info: "string",
-    distanceMeter: 1000
-  },
-  {
-    id: 4,
-    img: "https://api88.net/api/img/rand/?rand_type=rand_mz",
-    shopName: "string",
-    score: 1,
-    averPrice: 100,
-    tag: ["tag1"],
-    info: "string",
-    distanceMeter: 1000
-  }
-];
+import ToastGlobal from "../utils/Toast";
 
 const styles = StyleSheet.create({
   imgStyle: {
@@ -116,7 +68,6 @@ export const CmsShopItem = (props: CMSShopItemProps) => {
               {props.distanceMeter}
             </Text>
           </View>
-          <Tags tag={props.tag} />
           {!!props.info && (
             <View
               style={{
@@ -169,9 +120,6 @@ export const CmsShopItem = (props: CMSShopItemProps) => {
 
 export const CmsShopList = () => {
   const [data, setData] = useState<Array<CMSShopItemProps>>([]);
-  useEffect(() => {
-    setData(mockData);
-  }, []);
 
   useEffect(() => {
     FangHeApi.get("/shop/list")
@@ -179,7 +127,9 @@ export const CmsShopList = () => {
         setData(value.data);
         ToastRef.show(value.code);
       })
-      .catch(e => {});
+      .catch(e => {
+        ToastGlobal.show(e.toString());
+      });
   }, []);
 
   return (

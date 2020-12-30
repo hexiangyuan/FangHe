@@ -1,5 +1,5 @@
 import { ApisauceInstance, create, ApiResponse } from "apisauce";
-import { getGeneralApiProblem } from "./api-problem";
+import { GeneralApiProblem, getGeneralApiProblem } from "./api-problem";
 import { ApiConfig, DEFAULT_API_CONFIG } from "./api-config";
 import * as Types from "./api.types";
 
@@ -45,7 +45,7 @@ export class Api {
     });
   }
 
-  async get(path: string, params?: {}): Promise<any> {
+  async get(path: string, params?: {}): Promise<string | GeneralApiProblem> {
     const response: ApiResponse<string, string> = await this.apisauce.get(path, params);
     if (!response.ok) {
       const problem = getGeneralApiProblem(response);
@@ -53,7 +53,31 @@ export class Api {
     }
     try {
       const raw = response.data;
-      console.log(raw);
+      console.log("=========================");
+      console.log("request  path====", path);
+      console.log("request  data==== ", JSON.stringify(params));
+      console.log("response data==== ", JSON.stringify(raw));
+      console.log("=========================");
+      return raw;
+    } catch (e) {
+      console.log(e);
+    }
+    return "";
+  }
+
+  async post(path: string, data?: any): Promise<string | GeneralApiProblem> {
+    const response: ApiResponse<string, string> = await this.apisauce.post(path, data);
+    if (!response.ok) {
+      const problem = getGeneralApiProblem(response);
+      if (problem) return problem;
+    }
+    try {
+      const raw = response.data;
+      console.log("=========================");
+      console.log("request  path====", path);
+      console.log("request  data==== ", JSON.stringify(data));
+      console.log("response data==== ", JSON.stringify(raw));
+      console.log("=========================");
       return raw;
     } catch (e) {
       console.log(e);
@@ -125,3 +149,10 @@ export class Api {
 }
 
 export const FangHeApi = new Api();
+
+const GaoDeMapApiConfig: ApiConfig = {
+  url: "https://restapi.amap.com/",
+  timeout: 10000
+};
+
+export const GaoDeMapApi = new Api(GaoDeMapApiConfig);

@@ -27,7 +27,7 @@ import { RootStore, RootStoreProvider, setupRootStore } from "./models";
 
 import { enableScreens } from "react-native-screens";
 import { StatusBar } from "react-native";
-import { FangHeApi } from "./services/api";
+import { FangHeApi, GaoDeMapApi } from "./services/api";
 import Toast from "react-native-easy-toast";
 import { setToastRef } from "./utils/Toast";
 
@@ -54,6 +54,7 @@ function App() {
   // Kick off initial async loading actions, like loading fonts and RootStore
   useEffect(() => {
     FangHeApi.setup();
+    GaoDeMapApi.setup();
     (async () => {
       setupRootStore().then(setRootStore);
     })();

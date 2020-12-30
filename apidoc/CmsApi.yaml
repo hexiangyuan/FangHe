@@ -344,9 +344,21 @@ components:
           description: 商家商店的描述信息图片
           items:
             type: string
-        contactMobie:
+        contactMobile:
           type: string
           description: 商家联系电话 用来联系商家用的
+        shopAddress:
+          type: object
+          properties:
+            address:
+              type: string
+              description: 商家地址字符串
+            latitude:
+              type: string
+              description: "经度"
+            longitude:
+              type: string
+              description: "纬度"
 
     PendingOrderItem:
       properties:
