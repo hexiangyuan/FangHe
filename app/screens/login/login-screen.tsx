@@ -24,7 +24,6 @@ export const MobileLoginScreen = () => {
       <View
         style={{
           flex: 1,
-          paddingHorizontal: 16,
           alignItems: "center"
         }}
       >
@@ -35,6 +34,7 @@ export const MobileLoginScreen = () => {
             width: "100%",
             marginTop: 24,
             marginBottom: 80,
+            paddingHorizontal: 16,
             fontSize: 24,
             color: "#333",
             fontWeight: "bold"
@@ -44,6 +44,7 @@ export const MobileLoginScreen = () => {
         </Text>
         <View
           style={{
+            paddingHorizontal: 16,
             flexDirection: "row",
             alignItems: "center"
           }}

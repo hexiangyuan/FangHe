@@ -170,7 +170,7 @@ const MineOrder = () => {
         icon={"protected"}
         text={"隐私申明"}
         onPress={() => {
-          RootNavigation.navigate("orderListScreen");
+          RootNavigation.navigate("PrivacyPolicyScreen");
         }}
       />
     </View>

@@ -15,6 +15,7 @@ import { CmsShopList } from "../cms/CmsShopList";
 import { CmsAddShopScreen } from "../cms/CmsAddShopScreen";
 import { PreviewShopDetailScreen } from "../cms/preview-shop-detail/PreviewShopDetailScreen";
 import { CmsAddProductScreen } from "../cms/CmsAddProductScreen";
+import { PrivacyPolicyScreen } from "../screens/policy-screens/privacy-policy-screen";
 
 interface Screen {
   name: string;
@@ -63,6 +64,10 @@ const mainTabScreen: Array<Screen> = [
   {
     name: "aboutUsScreen",
     component: AboutUsScreen
+  },
+  {
+    name: "PrivacyPolicyScreen",
+    component: PrivacyPolicyScreen
   },
   {
     name: "cmsLoginScreen",
