@@ -6,6 +6,7 @@ import * as Types from "./api.types";
 /**
  * Manages all requests to the API.
  */
+
 export class Api {
   /**
    * The underlying apisauce instance which performs the requests.
@@ -44,6 +45,22 @@ export class Api {
     });
   }
 
+  async get(path: string, params?: {}): Promise<any> {
+    const response: ApiResponse<string, string> = await this.apisauce.get(path, params);
+    if (!response.ok) {
+      const problem = getGeneralApiProblem(response);
+      if (problem) return problem;
+    }
+    try {
+      const raw = response.data;
+      console.log(raw);
+      return raw;
+    } catch (e) {
+      console.log(e);
+    }
+    return "";
+  }
+
   /**
    * Gets a list of users.
    */
@@ -68,7 +85,10 @@ export class Api {
     try {
       const rawUsers = response.data;
       const resultUsers: Types.User[] = rawUsers.map(convertUser);
-      return { kind: "ok", users: resultUsers };
+      return {
+        kind: "ok",
+        users: resultUsers
+      };
     } catch {
       return { kind: "bad-data" };
     }
@@ -94,9 +114,14 @@ export class Api {
         id: response.data.id,
         name: response.data.name
       };
-      return { kind: "ok", user: resultUser };
+      return {
+        kind: "ok",
+        user: resultUser
+      };
     } catch {
       return { kind: "bad-data" };
     }
   }
 }
+
+export const FangHeApi = new Api();

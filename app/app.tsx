@@ -27,6 +27,9 @@ import { RootStore, RootStoreProvider, setupRootStore } from "./models";
 
 import { enableScreens } from "react-native-screens";
 import { StatusBar } from "react-native";
+import { FangHeApi } from "./services/api";
+import Toast from "react-native-easy-toast";
+import { setToastRef } from "./utils/Toast";
 
 enableScreens();
 
@@ -38,6 +41,8 @@ export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE";
 function App() {
   const navigationRef = useRef<NavigationContainerRef>();
 
+  const toastRef = useRef();
+
   const statusBarRef = useRef();
   const [rootStore, setRootStore] = useState<RootStore | undefined>(undefined);
   useBackButtonHandler(navigationRef, canExit);
@@ -48,6 +53,7 @@ function App() {
 
   // Kick off initial async loading actions, like loading fonts and RootStore
   useEffect(() => {
+    FangHeApi.setup();
     (async () => {
       setupRootStore().then(setRootStore);
     })();
@@ -55,6 +61,7 @@ function App() {
 
   useEffect(() => {
     setRootNavigation(navigationRef);
+    setToastRef(toastRef);
   });
 
   if (!rootStore) return null;
@@ -69,6 +76,7 @@ function App() {
           initialState={initialNavigationState}
           onStateChange={onNavigationStateChange}
         />
+        <Toast ref={toastRef} />
       </SafeAreaProvider>
       <ModalPortal />
     </RootStoreProvider>
