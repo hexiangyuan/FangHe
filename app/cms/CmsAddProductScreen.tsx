@@ -3,6 +3,8 @@ import React from "react";
 import { ScrollView, Text, TextInput, TextInputProps, TouchableOpacity, View, ViewStyle } from "react-native";
 import { UIButton, UIImage } from "react-native-pjt-ui-lib";
 import { Header } from "../components";
+import { FangHeApi } from "../services/api";
+import { useRoute } from "@react-navigation/native";
 
 const InputItem = (props: { title: string; containerStyle: ViewStyle } & TextInputProps) => {
   return (
@@ -38,15 +40,28 @@ const InputItem = (props: { title: string; containerStyle: ViewStyle } & TextInp
 };
 
 export const CmsAddProductScreen = () => {
-  let shopName: string;
-  let shopImg: string;
-  let shopScore: number;
-  let shopAddress: string;
-  let shopAvaPrice: number;
-  let shopInfo: string;
-  let shopTags: string[];
+  let productName: string;
+  let productSubTitle: string;
+  let tags: string[];
+  let price: number;
+  let originPrice: number;
+  let mainImag: string;
+  let shopImags: string[];
 
-  function confirm() {}
+  const shopId = useRoute().params.shopId;
+
+  function confirm() {
+    FangHeApi.post("/product/create", {
+      shopId: 6,
+      mainImg: mainImag,
+      productName: productName,
+      subProductTitle: productSubTitle,
+      tags: tags,
+      discountPrice: price * 100,
+      price: originPrice * 100,
+      productDescImgs: shopImags
+    });
+  }
 
   function uploadImag() {}
 
@@ -66,19 +81,19 @@ export const CmsAddProductScreen = () => {
         >
           <InputItem
             onChangeText={text => {
-              shopName = text;
+              productName = text;
             }}
             containerStyle={{ marginVertical: 12 }}
             title={"物品名称"}
-            placeholder={"请输入店铺名称"}
+            placeholder={"请输入物品名称"}
           />
 
           <InputItem
             containerStyle={{ marginVertical: 12 }}
             title={"副标题"}
-            placeholder={"请输入1-5分"}
+            placeholder={"请输入副标题"}
             onChangeText={text => {
-              shopScore = Number.parseInt(text);
+              productSubTitle = text;
             }}
           />
 
@@ -86,13 +101,13 @@ export const CmsAddProductScreen = () => {
             containerStyle={{ marginVertical: 12 }}
             title={"物品标签"}
             onChangeText={text => {
-              shopTags = text.split(";");
+              tags = text.split(";");
             }}
             placeholder={"红色标签;分号隔开;最多四个"}
           />
           <InputItem
             onChangeText={text => {
-              shopAddress = text;
+              price = Number.parseInt(text);
             }}
             containerStyle={{ marginVertical: 12 }}
             title={"出售价格"}
@@ -103,7 +118,7 @@ export const CmsAddProductScreen = () => {
             containerStyle={{ marginVertical: 12 }}
             title={"商品原价"}
             onChangeText={text => {
-              shopAvaPrice = Number.parseInt(text);
+              originPrice = Number.parseInt(text);
             }}
             placeholder={"填写商品原来的价格"}
             keyboardType={"numeric"}

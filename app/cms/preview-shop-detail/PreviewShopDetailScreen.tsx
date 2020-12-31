@@ -146,7 +146,7 @@ export const PreviewShopDetailScreen = () => {
           <ShopDetailProductList productList={MockProList} />
           <UIButton
             onPress={() => {
-              RootNavigation.navigate("CmsAddProductScreen", { shopId: 1 });
+              RootNavigation.navigate("CmsAddProductScreen", { shopId: 4 });
             }}
             containerStyle={{ width: "100%" }}
           >

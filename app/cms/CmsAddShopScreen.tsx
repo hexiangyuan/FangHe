@@ -62,7 +62,6 @@ export const CmsAddShopScreen = () => {
     getAddressLocationByAddress()
       .then(value => {
         const locations = value.split(",");
-        console.log(locations);
         FangHeApi.post("/shop/create", {
           img:
             "https://th.bing.com/th/id/R902edc69ee486cfa57fd777f8ecba267?rik=QaIQBf4RBz3ORg&riu=http%3a%2f%2fyyoriga.com%2fcityphoto%2fetc%2fjk_collection35_sample%2fm%2fjk_collection35_sample-007.jpg&ehk=pE5wbhkK6vv1YS6s%2bctcz0pOUZioWwDT%2bphkuVuVIi4%3d&risl=&pid=ImgRaw",
