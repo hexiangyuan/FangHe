@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, TouchableOpacity } from "react-native"
+import { FlatList, TouchableOpacity, View } from "react-native";
 import { HomeShopItem } from "./HomeShopItem";
 import { RootNavigation } from "../../../../navigation";
+import { getLocation, useLocation, useLocationStore } from "../../../../models/location-store/LocationStore";
+import HomeApi from "../../HomeApi";
 
 export interface Props {
   key: "100" | "200";
@@ -50,28 +52,48 @@ const mockData = [
   }
 ];
 
-export const ShopList = () => {
+export const ShopList = (props: { type: number }) => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    setData(mockData);
+    getLocation()
+      .then(location => {
+        HomeApi.getHomeList({
+          id: props.type,
+          location: {
+            latitude: location.latitude,
+            longitude: location.longitude
+          },
+          page: 0,
+          pagesize: 20
+        }).then(value => {
+          setData(value.data);
+        });
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }, []);
 
   return (
-    <FlatList
-      style={{ flex: 1 }}
-      data={data}
-      keyExtractor={(item, index) => index.toString()}
-      renderItem={({ item }) => {
-        return (
-          <TouchableOpacity
-            onPress={() => {
-              RootNavigation.navigate("shopDetailScreen", { id: item.id });
-            }}
-          >
-            <HomeShopItem {...item} />
-          </TouchableOpacity>
-        );
-      }}
-    />
+    <View style={{ flex: 1 }}>
+      <FlatList
+        style={{ flex: 1 }}
+        data={data}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity
+              onPress={() => {
+                RootNavigation.navigate("shopDetailScreen", { id: item.id });
+              }}
+            >
+              <HomeShopItem {...item} />
+            </TouchableOpacity>
+          );
+        }}
+      />
+    </View>
   );
 };

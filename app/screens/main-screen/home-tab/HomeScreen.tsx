@@ -26,17 +26,17 @@ const NavigationBar = (props: NavigationBarProps) => {
 
 const tabRoutes: Array<Route> = [
   {
-    key: "100",
+    key: "10",
     title: "附近"
   },
   {
-    key: "200",
+    key: "20",
     title: "推荐"
   }
 ];
 
 const _renderScene = ({ route }) => {
-  return <ShopList />;
+  return <ShopList type={route.key} />;
 };
 
 const HomeScreen = () => {

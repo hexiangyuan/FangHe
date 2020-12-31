@@ -18,6 +18,7 @@ export interface ShopDetail {
   tag: string[];
   info: string;
   distanceMeter: number;
+  shopAddress: string;
   shopDetailsImgs: string[];
 }
 
@@ -57,7 +58,7 @@ export const ShopDetailContent = (props: ShopDetail) => {
         <View style={{ marginTop: 12 }} />
         <Score score={props.score} />
         <View style={{ marginTop: 12 }} />
-        <Tags tag={props.tag} />
+        {/*<Tags tag={props.tag} />*/}
         <View
           style={{
             flexDirection: "row",
@@ -73,7 +74,7 @@ export const ShopDetailContent = (props: ShopDetail) => {
                 color: "#333"
               }}
             >
-              props.location
+              {props.shopAddress}
             </Text>
             <Text
               style={{

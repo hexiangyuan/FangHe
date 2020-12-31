@@ -62,7 +62,7 @@ export const HomeShopItem = (props: HomeShopItemProps) => {
             {props.distanceMeter}
           </Text>
         </View>
-        <Tags tag={props.tag} />
+        {/*<Tags tag={props.tag} />*/}
         {!!props.info && (
           <View
             style={{

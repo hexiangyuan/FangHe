@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import React from "react";
+import React, { useEffect } from "react";
 import HomeScreen from "./home-tab/HomeScreen";
 import MineScreen from "./mine-tab/MineScreen";
 import { Icon } from "../../components";
