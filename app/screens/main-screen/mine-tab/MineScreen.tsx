@@ -9,7 +9,7 @@ const UnLoginView = () => {
   return (
     <TouchableOpacity
       onPress={() => {
-        RootNavigation.navigate("mobileLoginScreen");
+        RootNavigation.navigate("MobileLoginScreen");
       }}
     >
       <View
@@ -46,7 +46,7 @@ const LoginHeaderView = () => {
   return (
     <TouchableOpacity
       onPress={() => {
-        RootNavigation.navigate("mobileLoginScreen");
+        RootNavigation.navigate("MobileLoginScreen");
       }}
     >
       <View
@@ -136,7 +136,7 @@ const MineOrder = () => {
         icon={"order"}
         text={"我的订单"}
         onPress={() => {
-          RootNavigation.navigate("orderListScreen");
+          RootNavigation.navigate("OrderListScreen");
         }}
       />
 
@@ -153,7 +153,7 @@ const MineOrder = () => {
         icon={"about"}
         text={"关于我们"}
         onPress={() => {
-          RootNavigation.navigate("aboutUsScreen");
+          RootNavigation.navigate("AboutUsScreen");
         }}
       />
 

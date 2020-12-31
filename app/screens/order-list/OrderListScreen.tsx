@@ -134,7 +134,7 @@ export const OrderItem = (props: OrderListItem) => {
     <View style={{ padding: 12 }}>
       <Text
         onPress={() => {
-          RootNavigation.navigate("shopDetailScreen", { id: props.productInfo.shopId });
+          RootNavigation.navigate("ShopDetailScreen", { id: props.productInfo.shopId });
         }}
         style={{
           fontSize: 18,
@@ -146,7 +146,7 @@ export const OrderItem = (props: OrderListItem) => {
       </Text>
       <TouchableOpacity
         onPress={() => {
-          RootNavigation.navigate("productDetail", { id: props.productInfo.productId });
+          RootNavigation.navigate("ProductDetailScreen", { id: props.productInfo.productId });
         }}
       >
         <View

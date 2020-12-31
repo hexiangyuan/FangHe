@@ -156,7 +156,7 @@ export const OrderSubmitScreen = () => {
     if (!date && !time) {
       setVisible(true);
     } else {
-      RootNavigation.navigate("orderSubmitSucceedScreen");
+      RootNavigation.navigate("OrderSubmitSucceedScreen");
     }
   };
 

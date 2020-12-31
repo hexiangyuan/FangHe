@@ -93,7 +93,7 @@ export const AboutUsScreen = () => {
         <Item
           title={"CMS"}
           onPress={() => {
-            RootNavigation.navigate("cmsLoginScreen");
+            RootNavigation.navigate("CmsLoginScreen");
           }}
         />
       </View>

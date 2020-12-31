@@ -86,7 +86,7 @@ export const ShopList = (props: { type: number }) => {
           return (
             <TouchableOpacity
               onPress={() => {
-                RootNavigation.navigate("shopDetailScreen", { id: item.id });
+                RootNavigation.navigate("ShopDetailScreen", { id: item.id });
               }}
             >
               <HomeShopItem {...item} />

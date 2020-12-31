@@ -8,7 +8,7 @@ export interface ProductItemProps {
   id: number;
   mainImg: string;
   productName: string;
-  tags: string[];
+  tagList: string[];
   discountPrice: number;
   price: number;
 }
@@ -32,15 +32,17 @@ export const ProductItem = (props: ProductItemProps) => {
     <TouchableOpacity
       style={styles.itemContainer}
       onPress={() => {
-        RootNavigation.navigate("productDetail");
+        RootNavigation.navigate("ProductDetailScreen", { id: props.id });
       }}
     >
-      <UIImage
-        source={{
-          uri: props.mainImg
-        }}
-        style={styles.imgStyle}
-      />
+      {!!props.mainImg && props.mainImg !== "string" && (
+        <UIImage
+          source={{
+            uri: props.mainImg
+          }}
+          style={styles.imgStyle}
+        />
+      )}
       <View
         style={{
           flex: 1,
@@ -52,7 +54,7 @@ export const ProductItem = (props: ProductItemProps) => {
           <Subtitle1 style={{ fontSize: 14 }} numberOfLines={1}>
             {props.productName}
           </Subtitle1>
-          <RedTags tag={props.tags} />
+          <RedTags tag={props.tagList} />
         </View>
         <View
           style={{

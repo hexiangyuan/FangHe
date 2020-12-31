@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, ViewStyle, Animated, TouchableOpacity, StatusBarStyle, StatusBar } from "react-native";
+import { View, ViewStyle, Animated, TouchableOpacity } from "react-native";
 import { Icon, Screen, Text } from "../../components";
 import { color } from "../../theme";
 import { ShopDetail, ShopDetailContent, ShopDetailProductItem, ShopDetailProductList } from "./ShopDetailContent";
@@ -9,65 +9,6 @@ import { RootNavigation } from "../../navigation";
 import { useRoute } from "@react-navigation/native";
 import HomeApi from "../main-screen/HomeApi";
 import ToastGlobal from "../../utils/Toast";
-
-const MockProList = [
-  {
-    id: 0,
-    mainImg: "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-    productName: "这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么",
-    tags: ["泷泽萝拉", "小泽玛利亚", "苍老师"],
-    discountPrice: 100,
-    price: 200
-  },
-  {
-    id: 1,
-    mainImg: "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-    productName: "这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么",
-    tags: ["泷泽萝拉", "小泽玛利亚", "苍老师"],
-    discountPrice: 100,
-    price: 200
-  },
-  {
-    id: 2,
-    mainImg: "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-    productName: "这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么",
-    tags: ["泷泽萝拉", "小泽玛利亚", "苍老师"],
-    discountPrice: 100,
-    price: 200
-  },
-  {
-    id: 3,
-    mainImg: "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-    productName: "这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么",
-    tags: ["泷泽萝拉", "小泽玛利亚", "苍老师"],
-    discountPrice: 100,
-    price: 200
-  },
-  {
-    id: 4,
-    mainImg: "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-    productName: "这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么",
-    tags: ["泷泽萝拉", "小泽玛利亚", "苍老师"],
-    discountPrice: 100,
-    price: 200
-  },
-  {
-    id: 5,
-    mainImg: "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-    productName: "这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么",
-    tags: ["泷泽萝拉", "小泽玛利亚", "苍老师"],
-    discountPrice: 100,
-    price: 200
-  },
-  {
-    id: 6,
-    mainImg: "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-    productName: "这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么",
-    tags: ["泷泽萝拉", "小泽玛利亚", "苍老师"],
-    discountPrice: 100,
-    price: 200
-  }
-];
 
 const FULL: ViewStyle = {
   flex: 1,
@@ -101,7 +42,7 @@ export const ShopDetailScreen = () => {
   });
 
   const [shopDetail, setShopDetail] = useState<ShopDetail>(undefined);
-  const [productList, setProductList] = useState<ShopDetailProductItem>(undefined);
+  const [productList, setProductList] = useState<Array<ShopDetailProductItem>>(undefined);
 
   const shopId = useRoute().params.id;
 
@@ -115,7 +56,7 @@ export const ShopDetailScreen = () => {
     });
     HomeApi.shopDetailProductList(shopId).then(response => {
       if (response.code === 200) {
-        setProductList(value.data);
+        setProductList(response.data);
       }
     });
   }, []);
@@ -162,56 +103,53 @@ export const ShopDetailScreen = () => {
           })
         }}
         preset="scroll"
-        // backgroundColor={color}
       >
-        {shopDetail && (
-          <View style={CONTENT_CONTAINER}>
-            <ShopDetailContent {...shopDetail} />
+        <View style={CONTENT_CONTAINER}>
+          {!!shopDetail && <ShopDetailContent {...shopDetail} />}
+          <View
+            style={{
+              backgroundColor: "#D8D8D8",
+              height: 8
+            }}
+          />
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              paddingHorizontal: 12,
+              paddingTop: 12
+            }}
+          >
             <View
               style={{
-                backgroundColor: "#D8D8D8",
-                height: 8
-              }}
-            />
-            <View
-              style={{
-                flexDirection: "row",
+                width: 14,
+                height: 14,
+                justifyContent: "center",
                 alignItems: "center",
-                paddingHorizontal: 12,
-                paddingTop: 12
+                backgroundColor: "#FA6400"
               }}
             >
-              <View
-                style={{
-                  width: 14,
-                  height: 14,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "#FA6400"
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 10,
-                    color: "white"
-                  }}
-                >
-                  厨
-                </Text>
-              </View>
               <Text
                 style={{
-                  fontSize: 12,
-                  marginLeft: 8,
-                  color: "#333"
+                  fontSize: 10,
+                  color: "white"
                 }}
               >
-                商品橱窗
+                厨
               </Text>
             </View>
-            {productList && <ShopDetailProductList productList={MockProList} />}
+            <Text
+              style={{
+                fontSize: 12,
+                marginLeft: 8,
+                color: "#333"
+              }}
+            >
+              商品橱窗
+            </Text>
           </View>
-        )}
+          {!!productList && <ShopDetailProductList productList={productList} />}
+        </View>
       </Screen>
     </View>
   );

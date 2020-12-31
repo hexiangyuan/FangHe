@@ -25,11 +25,11 @@ export interface ProductDetailProps {
   mainImg: string;
   productName: string;
   subProductTitle: string;
-  tags: string[];
+  tagList: string[];
   discountPrice: number;
   price: number;
-  productDescImgs: string[];
-  shopInfo: ShopInfo;
+  productDescImgList: string[];
+  shop: ShopInfo;
 }
 
 const TOP_IMAGE: ImageStyle = {
@@ -213,9 +213,9 @@ export const ProductDetailContent = (props: ProductDetailProps) => {
           </View>
           <UIButton
             onPress={() => {
-              RootNavigation.navigate("orderSubmitScreen", {
+              RootNavigation.navigate("OrderSubmitScreen", {
                 id: props.id,
-                shopName: props.shopInfo.shopName,
+                shopName: props.shop.shopName,
                 productImg: props.mainImg,
                 productName: props.productName,
                 price: props.discountPrice,
@@ -226,7 +226,7 @@ export const ProductDetailContent = (props: ProductDetailProps) => {
             立即预订
           </UIButton>
         </View>
-        <RedTags tag={props.tags} />
+        <RedTags tag={props.tagList} />
       </View>
       <View
         style={{
@@ -234,14 +234,14 @@ export const ProductDetailContent = (props: ProductDetailProps) => {
           backgroundColor: "#D8D8D8"
         }}
       />
-      <ShopInfoComponent {...props.shopInfo} />
+      <ShopInfoComponent {...props.shop} />
       <View
         style={{
           height: 8,
           backgroundColor: "#D8D8D8"
         }}
       />
-      <ShopDetailImgList shopDetailsImgs={props.productDescImgs} />
+      <ShopDetailImgList shopDetailsImgs={props.productDescImgList} />
     </View>
   );
 };

@@ -110,7 +110,7 @@ export const ShopDetailProductList = (props: ShopDetailProductListProps) => {
       }}
     >
       {props.productList.map(item => (
-        <TouchableOpacity key={item.id} onPress={() => RootNavigation.push("productDetail", { id: item.id })}>
+        <TouchableOpacity key={item.id} onPress={() => RootNavigation.push("ProductDetailScreen", { id: item.id })}>
           <View style={{ position: "relative" }}>
             <ProductItem {...item} />
             <Text

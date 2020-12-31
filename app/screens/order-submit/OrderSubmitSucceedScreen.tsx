@@ -23,7 +23,7 @@ export const OrderSubmitSucceedScreen = () => {
             marginRight: 12
           }}
           onPress={() => {
-            RootNavigation.navigate("orderListScreen");
+            RootNavigation.navigate("OrderListScreen");
           }}
         >
           完成
@@ -57,7 +57,7 @@ export const OrderSubmitSucceedScreen = () => {
         <View style={{ height: 48 }} />
         <UIButton
           onPress={() => {
-            RootNavigation.navigate("orderListScreen");
+            RootNavigation.navigate("OrderListScreen");
           }}
           containerStyle={{ width: "70%" }}
         >

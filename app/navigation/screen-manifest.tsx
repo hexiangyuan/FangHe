@@ -29,32 +29,32 @@ const commonScreens: Array<Screen> = [
 
 const mainTabScreen: Array<Screen> = [
   {
-    name: "mainTab",
+    name: "MainTab",
     component: MainTab,
     options: { headerShown: false }
   },
   {
-    name: "shopDetailScreen",
+    name: "ShopDetailScreen",
     component: ShopDetailScreen
   },
   {
-    name: "productDetail",
+    name: "ProductDetailScreen",
     component: ProductDetailScreen
   },
   {
-    name: "orderSubmitScreen",
+    name: "OrderSubmitScreen",
     component: OrderSubmitScreen
   },
   {
-    name: "orderSubmitSucceedScreen",
+    name: "OrderSubmitSucceedScreen",
     component: OrderSubmitSucceedScreen
   },
   {
-    name: "orderListScreen",
+    name: "OrderListScreen",
     component: OrderListScreen
   },
   {
-    name: "mobileLoginScreen",
+    name: "MobileLoginScreen",
     component: MobileLoginScreen
   },
   {
@@ -62,7 +62,7 @@ const mainTabScreen: Array<Screen> = [
     component: MobileLoginVerificationCodeScreen
   },
   {
-    name: "aboutUsScreen",
+    name: "AboutUsScreen",
     component: AboutUsScreen
   },
   {
@@ -70,7 +70,7 @@ const mainTabScreen: Array<Screen> = [
     component: PrivacyPolicyScreen
   },
   {
-    name: "cmsLoginScreen",
+    name: "CmsLoginScreen",
     component: CmsLoginScreen
   },
   {

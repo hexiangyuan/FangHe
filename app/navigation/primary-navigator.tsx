@@ -24,5 +24,5 @@ export function PrimaryNavigator() {
   );
 }
 
-const exitRoutes = ["mainTab"];
+const exitRoutes = ["MainTab"];
 export const canExit = (routeName: string) => exitRoutes.includes(routeName);

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
   Image,
@@ -10,75 +10,16 @@ import {
   View,
   ViewStyle
 } from "react-native";
-import { ProductDetailContent } from "./ProductDetailContent";
-import { ShopDetailProductList } from "../shop-detail-screen/ShopDetailContent";
+import { ProductDetailContent, ProductDetailProps } from "./ProductDetailContent";
+import { ShopDetailProductItem, ShopDetailProductList } from "../shop-detail-screen/ShopDetailContent";
 import { Colors } from "../../theme/Theme";
 import Window from "../../constant/window";
 import { RootNavigation } from "../../navigation";
 import { Icon } from "../../components";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
-const MockData = {
-  id: 0,
-  mainImg: "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-  productName: "这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么",
-  subProductTitle:
-    "stri这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么ng",
-  tags: ["泷泽萝拉", "小泽玛利亚", "苍老师"],
-  discountPrice: 120,
-  price: 200,
-  productDescImgs: [
-    "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-    "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-    "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg"
-  ],
-  shopInfo: {
-    id: 0,
-    img: "string",
-    shopName: "string",
-    score: 0,
-    averPrice: 0,
-    tag: ["string"],
-    info: "string",
-    distanceMeter: 0,
-    shopDetailsImgs: ["string"]
-  }
-};
-
-const MockProList = [
-  {
-    id: 0,
-    mainImg: "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-    productName: "这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么",
-    tags: ["泷泽萝拉", "小泽玛利亚", "苍老师"],
-    discountPrice: 100,
-    price: 200
-  },
-  {
-    id: 1,
-    mainImg: "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-    productName: "这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么",
-    tags: ["泷泽萝拉", "小泽玛利亚", "苍老师"],
-    discountPrice: 100,
-    price: 200
-  },
-  {
-    id: 2,
-    mainImg: "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-    productName: "这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么",
-    tags: ["泷泽萝拉", "小泽玛利亚", "苍老师"],
-    discountPrice: 100,
-    price: 200
-  },
-  {
-    id: 3,
-    mainImg: "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-    productName: "这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么",
-    tags: ["泷泽萝拉", "小泽玛利亚", "苍老师"],
-    discountPrice: 100,
-    price: 200
-  }
-];
+import HomeApi from "../main-screen/HomeApi";
+import { useRoute } from "@react-navigation/native";
+import { ProductItemProps } from "../shop-detail-screen/ProductItem";
 
 const FULL: ViewStyle = {
   flex: 1,
@@ -86,6 +27,7 @@ const FULL: ViewStyle = {
 };
 
 export const ProductDetailScreen = () => {
+  const productId = useRoute().params?.id;
   const insets = useSafeAreaInsets();
   const animatedScrollYValue = useRef<Animated.Value>(new Animated.Value(0)).current;
   const [statusBarStyle, setStatusBarStyle] = useState<StatusBarStyle>("light-content");
@@ -95,6 +37,7 @@ export const ProductDetailScreen = () => {
     extrapolate: "clamp"
   });
   const [value, setValue] = useState<number>(0);
+
   animatedScrollYValue.addListener(state => {
     if (state.value < Window.width / 4) {
       setStatusBarStyle("light-content");
@@ -103,6 +46,22 @@ export const ProductDetailScreen = () => {
     }
     setValue(state.value);
   });
+
+  const [productDetail, setProductDetail] = useState<ProductDetailProps>(undefined);
+  const [productList, setProductList] = useState<Array<ShopDetailProductItem>>(undefined);
+
+  useEffect(() => {
+    HomeApi.productDetail(productId).then(value => {
+      if (value.code === 200) {
+        value.data && setProductDetail(value.data);
+        HomeApi.shopDetailProductList(value.data.shop.id).then(shopList => {
+          if (shopList.code === 200) {
+            setProductList(shopList.data);
+          }
+        });
+      }
+    });
+  }, [productId]);
 
   return (
     <View style={FULL}>
@@ -144,7 +103,7 @@ export const ProductDetailScreen = () => {
           useNativeDriver: false
         })}
       >
-        <ProductDetailContent {...MockData} />
+        {productDetail && <ProductDetailContent {...productDetail} />}
         <View
           style={{
             flexDirection: "row",
@@ -195,7 +154,7 @@ export const ProductDetailScreen = () => {
             />
           </View>
         </View>
-        <ShopDetailProductList productList={MockProList} />
+        {productList && <ShopDetailProductList productList={productList} />}
       </ScrollView>
     </View>
   );

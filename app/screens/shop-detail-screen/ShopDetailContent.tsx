@@ -2,7 +2,7 @@ import { TouchableOpacity, View } from "react-native";
 import { ImageStyle } from "react-native-fast-image";
 import Window from "../../constant/window";
 import { UIImage, H6 } from "react-native-pjt-ui-lib";
-import React from "react";
+import React, { useEffect } from "react";
 import { Score } from "../../components/score/Score";
 import { Tags } from "../../components/tag/Tags";
 import { Text } from "../../components";
@@ -110,10 +110,8 @@ export const ShopDetailProductList = (props: ShopDetailProductListProps) => {
         paddingBottom: 36
       }}
     >
-      {props.productList.map(item => (
-        <TouchableOpacity key={item.id} onPress={() => RootNavigation.push("productDetail", { id: item.id })}>
-          <ProductItem {...item} />
-        </TouchableOpacity>
+      {props.productList?.map(item => (
+        <ProductItem {...item} />
       ))}
     </View>
   );
