@@ -6,6 +6,8 @@ import { Colors } from "../../theme/Theme";
 import { UIButton } from "react-native-pjt-ui-lib";
 import StringUtils from "../../utils/ReularUtils";
 import { RootNavigation } from "../../navigation";
+import ToastGlobal from "../../utils/Toast";
+import HomeApi from "../main-screen/HomeApi";
 
 export const MobileLoginScreen = () => {
   const [mobile, setMobile] = useState<string>();
@@ -14,8 +16,11 @@ export const MobileLoginScreen = () => {
 
   function onVerificationBtnPressed() {
     if (StringUtils.isPhone(mobile)) {
-      RootNavigation.navigate("MobileLoginVerificationCodeScreen", { mobile: mobile });
+      HomeApi.getVerificationCode(mobile).then(response => {
+        RootNavigation.navigate("MobileLoginVerificationCodeScreen", { mobile: mobile });
+      });
     } else {
+      ToastGlobal.show("您输入的手机号码不合法");
     }
   }
 
@@ -75,6 +80,7 @@ export const MobileLoginScreen = () => {
           />
           <TouchableOpacity
             onPress={() => {
+              setMobile("")
               inputMobile.current.clear();
             }}
           >

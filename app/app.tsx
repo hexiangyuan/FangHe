@@ -27,9 +27,10 @@ import { RootStore, RootStoreProvider, setupRootStore } from "./models";
 
 import { enableScreens } from "react-native-screens";
 import { StatusBar } from "react-native";
-import { FangHeApi, GaoDeMapApi } from "./services/api";
+import { FangHeApi, GaoDeMapApi, setFangHeApiCookie } from "./services/api";
 import Toast from "react-native-easy-toast";
 import { setToastRef } from "./utils/Toast";
+import LocalCookieStore from "./services/local/UserCookieStore";
 
 enableScreens();
 
@@ -56,6 +57,10 @@ function App() {
     FangHeApi.setup();
     GaoDeMapApi.setup();
     (async () => {
+      LocalCookieStore.getCookie().then(cookie => {
+        console.log("cookie", cookie);
+        setFangHeApiCookie(cookie);
+      });
       setupRootStore().then(setRootStore);
     })();
   }, []);

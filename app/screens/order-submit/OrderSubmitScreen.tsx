@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StatusBar, Text, TouchableOpacity, View } from "react-native";
 import { UIButton, UIImage } from "react-native-pjt-ui-lib";
 import { Colors } from "../../theme/Theme";
 import { useRoute } from "@react-navigation/native";
@@ -10,6 +10,9 @@ import { BottomModal, ModalContent } from "react-native-modals";
 import { DateTimeSelector } from "../../components/date-time-selector/DateTimeSelector";
 import { KeyValue } from "../../components/date-time-selector/DateTimeSelector.props";
 import { RootNavigation } from "../../navigation";
+import { getCurrentHouseFloor, getDateList } from "../../utils/date";
+import HomeApi from "../main-screen/HomeApi";
+import ToastGlobal from "../../utils/Toast";
 
 export interface SkuInfo {
   id: number;
@@ -23,6 +26,7 @@ export interface SkuInfo {
 export const Sku = (props: SkuInfo) => {
   return (
     <View style={{ padding: 12 }}>
+      <StatusBar barStyle={"dark-content"} />
       <Text
         style={{
           fontSize: 18,
@@ -95,68 +99,59 @@ export const Sku = (props: SkuInfo) => {
   );
 };
 
-const dateArray: KeyValue[] = [
-  {
-    key: "12-10",
-    value: "12-10[今天]"
-  },
-  {
-    key: "12-11",
-    value: "12-11[后天]"
-  },
-  {
-    key: "12-12",
-    value: "12-12[明天]"
-  }
-];
-
-const timeArray: KeyValue[] = [
-  {
-    key: "9:00-10:00",
-    value: "9:00-10:00"
-  },
-  {
-    key: "10:00-11:00",
-    value: "9:00-10:00"
-  },
-  {
-    key: "11:00-12:00",
-    value: "11:00-12:00"
-  },
-  {
-    key: "12:00-13:00",
-    value: "12:00-13:00"
-  },
-  {
-    key: "13:00-14:00",
-    value: "13:00-14:00"
-  },
-  {
-    key: "14:00-15:00",
-    value: "14:00-15:00"
-  },
-  {
-    key: "15:00-16:00",
-    value: "15:00-16:00"
-  },
-  {
-    key: "16:00-17:00",
-    value: "15:00-16:00"
-  }
-];
-
 export const OrderSubmitScreen = () => {
   const route = useRoute();
   const productInfo = route.params as SkuInfo;
   const [date, setDate] = useState<KeyValue>(undefined);
   const [time, setTime] = useState<KeyValue>(undefined);
   const [visible, setVisible] = useState<boolean>(false);
+  const [dateArray, setDateArray] = useState<KeyValue[]>();
+  const [timeArray, setTimeArray] = useState<KeyValue[]>();
+
+  useEffect(() => {
+    const dateList = getDateList(3).map((item, index) => {
+      let value = "";
+      switch (index) {
+        case 0:
+          value = "[今天]";
+          break;
+        case 1:
+          value = "[明天]";
+          break;
+        case 2:
+          value = "[后天]";
+          break;
+      }
+      return {
+        key: item,
+        value: item + value
+      };
+    });
+    setDateArray(dateList);
+
+    setTimeArray(
+      getCurrentHouseFloor().map(item => ({
+        key: item,
+        value: item
+      }))
+    );
+  }, []);
 
   const bottomBtnPressed = () => {
     if (!date && !time) {
       setVisible(true);
     } else {
-      RootNavigation.navigate("OrderSubmitSucceedScreen");
+      HomeApi.orderSubmit({
+        productId: productInfo.id,
+        quantity: 1,
+        time: date.key + " " + time.key
+      }).then(value => {
+        if (value.code === 200) {
+          RootNavigation.navigate("OrderSubmitSucceedScreen", value.data?.orderNo);
+        } else {
+          ToastGlobal.show(value.errorMsg);
+        }
+      });
     }
   };
 

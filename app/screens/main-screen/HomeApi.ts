@@ -24,11 +24,26 @@ function productDetail(id: number) {
   return FangHeApi.post("/product/detail?id=5", { id: id });
 }
 
+function orderSubmit(request: { productId: number; quantity: number; time: string }) {
+  return FangHeApi.post("/order/create", request);
+}
+
+function getVerificationCode(mobile: string) {
+  return FangHeApi.get("/common/verification-code", { mobile: mobile });
+}
+
+function loginMobile(request: { mobile: string; verificationCode: string }) {
+  return FangHeApi.post("/login/mobile", request);
+}
+
 const HomeApi = {
   getHomeList,
   shopDetail,
   shopDetailProductList,
-  productDetail
+  productDetail,
+  orderSubmit,
+  getVerificationCode,
+  loginMobile
 };
 
 export default HomeApi;

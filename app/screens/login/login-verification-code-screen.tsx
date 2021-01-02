@@ -1,16 +1,22 @@
 import { Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Header } from "../../components";
 import { Colors } from "../../theme/Theme";
 import { UIButton } from "react-native-pjt-ui-lib";
 import { useRoute } from "@react-navigation/native";
+import HomeApi from "../main-screen/HomeApi";
+import ToastGlobal from "../../utils/Toast";
+import LocalCookieStore from "../../services/local/UserCookieStore";
+import { FangHeApi, setFangHeApiCookie } from "../../services/api";
 
 export const MobileLoginVerificationCodeScreen = () => {
   const params = useRoute<any>().params;
+  const [code, setCode] = useState<string>("");
+
   const [countDown, setCountDown] = useState<number>();
   let interval: NodeJS.Timeout;
-  let time = 5;
+  let time = 30;
 
   function startCountDown() {
     interval = setInterval(() => {
@@ -22,7 +28,6 @@ export const MobileLoginVerificationCodeScreen = () => {
         interval = null;
       }
     }, 1000);
-    // }
   }
 
   useEffect(() => {
@@ -32,13 +37,38 @@ export const MobileLoginVerificationCodeScreen = () => {
     };
   }, []);
 
-  let verificationCode = "";
-
   function countDownPressed() {
     if (countDown <= 0 && interval === undefined) {
-      time = 5;
-      startCountDown();
+      time = 30;
+      HomeApi.getVerificationCode(params.mobile).then(value => {
+        if (value.code === 200) {
+          startCountDown();
+        } else {
+          ToastGlobal.show(value.errorMsg);
+        }
+      });
     }
+  }
+
+  function loginPressed() {
+    HomeApi.loginMobile({
+      mobile: params.mobile,
+      verificationCode: code
+    })
+      .then(value => {
+        if (value.code === 200) {
+          if (value.data?.cookie) {
+            LocalCookieStore.saveCookie(value.data?.cookie).then(result => {
+              setFangHeApiCookie(value.data?.cookie);
+            });
+          }
+        } else {
+          ToastGlobal.show(value.errorMsg);
+        }
+      })
+      .catch(e => {
+        console.log("abcd", e);
+      });
   }
 
   return (
@@ -77,9 +107,7 @@ export const MobileLoginVerificationCodeScreen = () => {
           }}
         >
           <TextInput
-            onChangeText={text => {
-              verificationCode = text;
-            }}
+            onChangeText={text => setCode(text)}
             maxLength={6}
             placeholder={"短信验证码"}
             keyboardType={"phone-pad"}
@@ -112,6 +140,10 @@ export const MobileLoginVerificationCodeScreen = () => {
         />
 
         <UIButton
+          onPress={() => {
+            console.log("dddd");
+            loginPressed();
+          }}
           containerStyle={{
             width: "100%",
             marginTop: 16
