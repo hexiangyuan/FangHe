@@ -1,17 +1,18 @@
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
 import { RootNavigation } from "../../../navigation";
 import { UIButton, UIImage } from "react-native-pjt-ui-lib";
 import { IconTypes } from "../../../components/icon/icons";
 import { Icon } from "../../../components";
 import { useNavigation } from "@react-navigation/native";
+import LocalCookieStore from "../../../services/local/UserCookieStore";
+import { FangHeApi, setFangHeApiCookie } from "../../../services/api";
 
 const UnLoginView = () => {
-
   return (
     <TouchableOpacity
       onPress={() => {
-        RootNavigation.push( "MobileLoginScreen");
+        RootNavigation.push("MobileLoginScreen");
       }}
     >
       <View
@@ -45,11 +46,10 @@ const UnLoginView = () => {
 };
 
 const LoginHeaderView = () => {
-
   return (
     <TouchableOpacity
       onPress={() => {
-        RootNavigation.push( "MobileLoginScreen");
+        RootNavigation.push("MobileLoginScreen");
       }}
     >
       <View
@@ -128,7 +128,6 @@ const MineItem = (props: ItemProps) => {
 };
 
 const MineOrder = () => {
-
   return (
     <View
       style={{
@@ -140,7 +139,7 @@ const MineOrder = () => {
         icon={"order"}
         text={"我的订单"}
         onPress={() => {
-          RootNavigation.push( "OrderListScreen");
+          RootNavigation.push("OrderListScreen");
         }}
       />
 
@@ -157,7 +156,7 @@ const MineOrder = () => {
         icon={"about"}
         text={"关于我们"}
         onPress={() => {
-          RootNavigation.push( "AboutUsScreen");
+          RootNavigation.push("AboutUsScreen");
         }}
       />
 
@@ -174,7 +173,7 @@ const MineOrder = () => {
         icon={"protected"}
         text={"隐私申明"}
         onPress={() => {
-          RootNavigation.push( "PrivacyPolicyScreen");
+          RootNavigation.push("PrivacyPolicyScreen");
         }}
       />
     </View>
@@ -182,6 +181,21 @@ const MineOrder = () => {
 };
 
 const MineScreen = () => {
+  function logout() {
+    Alert.alert("", "退出登录？", [
+      {
+        text: "取消",
+        onPress: () => console.log("OK Pressed")
+      },
+      {
+        text: "退出",
+        onPress: () => {
+          LocalCookieStore.clearCookie().then(value => setFangHeApiCookie(""));
+        }
+      }
+    ]);
+  }
+
   return (
     <View
       style={{
@@ -216,7 +230,9 @@ const MineScreen = () => {
           marginTop: 120
         }}
       >
-        <UIButton containerStyle={{ width: "80%" }}>退出登录</UIButton>
+        <UIButton onPress={logout} containerStyle={{ width: "80%" }}>
+          退出登录
+        </UIButton>
       </View>
     </View>
   );

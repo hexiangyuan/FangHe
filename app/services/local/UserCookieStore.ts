@@ -10,9 +10,14 @@ async function getCookie(): Promise<string> {
   return storage.loadString(COOKIE_KEY_LOCAL_STORE);
 }
 
+async function clearCookie(): Promise<void> {
+  return storage.remove(COOKIE_KEY_LOCAL_STORE);
+}
+
 const LocalCookieStore = {
   saveCookie,
-  getCookie
+  getCookie,
+  clearCookie
 };
 
 export default LocalCookieStore;

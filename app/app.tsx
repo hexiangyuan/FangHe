@@ -21,7 +21,6 @@ import {
   RootNavigator,
   canExit,
   useNavigationPersistence,
-  setRootNavigation
 } from "./navigation";
 import { RootStore, RootStoreProvider, setupRootStore } from "./models";
 
