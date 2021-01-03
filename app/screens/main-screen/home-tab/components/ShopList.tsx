@@ -4,6 +4,7 @@ import { HomeShopItem } from "./HomeShopItem";
 import { RootNavigation } from "../../../../navigation";
 import { getLocation, useLocation, useLocationStore } from "../../../../models/location-store/LocationStore";
 import HomeApi from "../../HomeApi";
+import { useNavigation } from "@react-navigation/native"
 
 export interface Props {
   key: "100" | "200";
@@ -56,6 +57,7 @@ export const ShopList = (props: { type: number }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+
   useEffect(() => {
     getLocation()
       .then(location => {
@@ -86,7 +88,7 @@ export const ShopList = (props: { type: number }) => {
           return (
             <TouchableOpacity
               onPress={() => {
-                RootNavigation.navigate("ShopDetailScreen", { id: item.id });
+                RootNavigation.push("ShopDetailScreen", { id: item.id });
               }}
             >
               <HomeShopItem {...item} />

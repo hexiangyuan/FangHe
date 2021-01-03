@@ -2,8 +2,11 @@ import { SafeAreaView, TextInput, View } from "react-native";
 import React from "react";
 import { UIButton } from "react-native-pjt-ui-lib";
 import { RootNavigation } from "../navigation";
+import { useNavigation } from "@react-navigation/native";
 
 export const CmsLoginScreen = () => {
+
+
   return (
     <SafeAreaView
       style={{
@@ -27,7 +30,7 @@ export const CmsLoginScreen = () => {
             marginTop: 72
           }}
           onPress={() => {
-            RootNavigation.navigate("CmsMainScreen");
+            RootNavigation.push( "CmsMainScreen");
           }}
         >
           登录管理后台

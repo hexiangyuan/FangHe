@@ -5,6 +5,7 @@ import Window from "../../constant/window";
 import { UIImage } from "react-native-pjt-ui-lib";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RootNavigation } from "../../navigation";
+import { useNavigation } from "@react-navigation/native"
 
 type ItemProps = {
   title: string;
@@ -63,6 +64,7 @@ const Item = (props: ItemProps) => {
 };
 
 export const AboutUsScreen = () => {
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Header headerText={"关于我们"} />
@@ -93,7 +95,7 @@ export const AboutUsScreen = () => {
         <Item
           title={"CMS"}
           onPress={() => {
-            RootNavigation.navigate("CmsLoginScreen");
+            RootNavigation.push("CmsLoginScreen");
           }}
         />
       </View>

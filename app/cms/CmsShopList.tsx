@@ -9,6 +9,7 @@ import { Header } from "../components";
 import { FangHeApi } from "../services/api";
 import ToastRef from "../utils/Toast";
 import ToastGlobal from "../utils/Toast";
+import { useNavigation } from "@react-navigation/native"
 
 const styles = StyleSheet.create({
   imgStyle: {
@@ -119,6 +120,7 @@ export const CmsShopItem = (props: CMSShopItemProps) => {
 };
 
 export const CmsShopList = () => {
+
   const [data, setData] = useState<Array<CMSShopItemProps>>([]);
 
   useEffect(() => {
@@ -138,7 +140,7 @@ export const CmsShopList = () => {
         rightIcon={"order"}
         headerText={"店铺管理"}
         onRightPress={() => {
-          RootNavigation.navigate("CmsAddShopScreen");
+          RootNavigation.push("CmsAddShopScreen");
         }}
       />
       <FlatList
@@ -149,7 +151,7 @@ export const CmsShopList = () => {
           return (
             <TouchableOpacity
               onPress={() => {
-                RootNavigation.navigate("PreviewShopDetailScreen", { id: item.id });
+                RootNavigation.push("PreviewShopDetailScreen", { id: item.id });
               }}
             >
               <CmsShopItem {...item} />

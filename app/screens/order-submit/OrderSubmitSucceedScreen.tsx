@@ -1,12 +1,13 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import React from "react";
 import { Image, View, Text } from "react-native";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native"
 import { UIButton } from "react-native-pjt-ui-lib";
 import { RootNavigation } from "../../navigation";
 
 export const OrderSubmitSucceedScreen = () => {
   const route = useRoute();
+
 
   return (
     <SafeAreaView>
@@ -23,7 +24,7 @@ export const OrderSubmitSucceedScreen = () => {
             marginRight: 12
           }}
           onPress={() => {
-            RootNavigation.navigate("OrderListScreen");
+            RootNavigation.push("OrderListScreen");
           }}
         >
           完成
@@ -57,7 +58,7 @@ export const OrderSubmitSucceedScreen = () => {
         <View style={{ height: 48 }} />
         <UIButton
           onPress={() => {
-            RootNavigation.navigate("OrderListScreen");
+            RootNavigation.push("OrderListScreen");
           }}
           containerStyle={{ width: "70%" }}
         >

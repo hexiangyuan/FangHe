@@ -66,9 +66,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    setRootNavigation(navigationRef);
     setToastRef(toastRef);
-  });
+  }, []);
 
   if (!rootStore) return null;
 

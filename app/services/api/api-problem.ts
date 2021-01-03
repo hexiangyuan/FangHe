@@ -1,5 +1,6 @@
 import { ApiResponse } from "apisauce";
 import { RootNavigation } from "../../navigation";
+import { useNavigation } from "@react-navigation/native";
 
 export type GeneralApiProblem =
   /**
@@ -89,7 +90,6 @@ export function getGeneralApiProblem(response: ApiResponse<any>): GeneralApiProb
 export function resolveApiCode(response: { code: number; data: any; errorMsg: string }) {
   switch (response.code) {
     case 401:
-      console.log("aaaaa");
       RootNavigation.navigate("MobileLoginScreen");
       break;
   }

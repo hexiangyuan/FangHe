@@ -8,13 +8,15 @@ import { Colors } from "../../theme/Theme";
 import { canCancelOrder, getOrderNameByStatus } from "./OrderStatus";
 import { RootNavigation } from "../../navigation";
 import HomeApi from "../main-screen/HomeApi";
+import { useNavigation } from "@react-navigation/native"
 
 export const OrderItem = (props: OrderListItem) => {
+
   return (
     <View style={{ padding: 12 }}>
       <Text
         onPress={() => {
-          RootNavigation.navigate("ShopDetailScreen", { id: props.shopId });
+          RootNavigation.push("ShopDetailScreen", { id: props.shopId });
         }}
         style={{
           fontSize: 18,
@@ -26,7 +28,7 @@ export const OrderItem = (props: OrderListItem) => {
       </Text>
       <TouchableOpacity
         onPress={() => {
-          RootNavigation.navigate("ProductDetailScreen", { id: props.id });
+          RootNavigation.push("ProductDetailScreen", { id: props.id });
         }}
       >
         <View

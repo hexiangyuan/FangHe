@@ -7,6 +7,7 @@ import { Text } from "../../components";
 import { RedTags } from "../../components/tag/RedTags";
 import { Score } from "../../components/score/Score";
 import { RootNavigation } from "../../navigation";
+import { useNavigation } from "@react-navigation/native";
 
 export interface ShopInfo {
   id: number;
@@ -124,6 +125,7 @@ const ShopInfoComponent = (props: ShopInfo) => {
 };
 
 export const ProductDetailContent = (props: ProductDetailProps) => {
+
   return (
     <View
       style={{
@@ -213,7 +215,7 @@ export const ProductDetailContent = (props: ProductDetailProps) => {
           </View>
           <UIButton
             onPress={() => {
-              RootNavigation.navigate("OrderSubmitScreen", {
+              RootNavigation.push( "OrderSubmitScreen", {
                 id: props.id,
                 shopName: props.shop.shopName,
                 productImg: props.mainImg,

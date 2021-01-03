@@ -8,16 +8,18 @@ import StringUtils from "../../utils/ReularUtils";
 import { RootNavigation } from "../../navigation";
 import ToastGlobal from "../../utils/Toast";
 import HomeApi from "../main-screen/HomeApi";
+import { useNavigation } from "@react-navigation/native"
 
 export const MobileLoginScreen = () => {
   const [mobile, setMobile] = useState<string>();
+
 
   const inputMobile = useRef<TextInput>();
 
   function onVerificationBtnPressed() {
     if (StringUtils.isPhone(mobile)) {
       HomeApi.getVerificationCode(mobile).then(response => {
-        RootNavigation.navigate("MobileLoginVerificationCodeScreen", { mobile: mobile });
+        RootNavigation.push("MobileLoginVerificationCodeScreen", { mobile: mobile });
       });
     } else {
       ToastGlobal.show("您输入的手机号码不合法");

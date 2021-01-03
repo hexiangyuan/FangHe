@@ -4,12 +4,14 @@ import { RootNavigation } from "../../../navigation";
 import { UIButton, UIImage } from "react-native-pjt-ui-lib";
 import { IconTypes } from "../../../components/icon/icons";
 import { Icon } from "../../../components";
+import { useNavigation } from "@react-navigation/native";
 
 const UnLoginView = () => {
+
   return (
     <TouchableOpacity
       onPress={() => {
-        RootNavigation.navigate("MobileLoginScreen");
+        RootNavigation.push( "MobileLoginScreen");
       }}
     >
       <View
@@ -43,10 +45,11 @@ const UnLoginView = () => {
 };
 
 const LoginHeaderView = () => {
+
   return (
     <TouchableOpacity
       onPress={() => {
-        RootNavigation.navigate("MobileLoginScreen");
+        RootNavigation.push( "MobileLoginScreen");
       }}
     >
       <View
@@ -125,6 +128,7 @@ const MineItem = (props: ItemProps) => {
 };
 
 const MineOrder = () => {
+
   return (
     <View
       style={{
@@ -136,7 +140,7 @@ const MineOrder = () => {
         icon={"order"}
         text={"我的订单"}
         onPress={() => {
-          RootNavigation.navigate("OrderListScreen");
+          RootNavigation.push( "OrderListScreen");
         }}
       />
 
@@ -153,7 +157,7 @@ const MineOrder = () => {
         icon={"about"}
         text={"关于我们"}
         onPress={() => {
-          RootNavigation.navigate("AboutUsScreen");
+          RootNavigation.push( "AboutUsScreen");
         }}
       />
 
@@ -170,7 +174,7 @@ const MineOrder = () => {
         icon={"protected"}
         text={"隐私申明"}
         onPress={() => {
-          RootNavigation.navigate("PrivacyPolicyScreen");
+          RootNavigation.push( "PrivacyPolicyScreen");
         }}
       />
     </View>

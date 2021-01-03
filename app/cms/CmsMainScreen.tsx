@@ -2,6 +2,7 @@ import { Image, SafeAreaView, Text, TouchableOpacity, View } from "react-native"
 import React from "react";
 import Window from "../constant/window";
 import { RootNavigation } from "../navigation";
+import { useNavigation } from "@react-navigation/native"
 
 export interface CMSShopItemProps {
   id: number;
@@ -15,6 +16,7 @@ export interface CMSShopItemProps {
 }
 
 export const CmsMainScreen = () => {
+
   return (
     <SafeAreaView
       style={{
@@ -24,7 +26,7 @@ export const CmsMainScreen = () => {
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity
           onPress={() => {
-            RootNavigation.navigate("CmsShopList");
+            RootNavigation.push("CmsShopList");
           }}
           style={{
             width: Window.width / 3,

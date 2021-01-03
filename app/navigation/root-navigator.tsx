@@ -4,11 +4,12 @@
  * and a "main" flow (which is contained in your PrimaryNavigator) which the user
  * will use once logged in.
  */
-import React from "react";
-import { NavigationContainer, NavigationContainerRef } from "@react-navigation/native";
+import React, { useEffect, useRef } from "react";
+import { NavigationContainer, NavigationContainerRef, useNavigation } from "@react-navigation/native";
 
 import { createNativeStackNavigator } from "react-native-screens/native-stack";
 import { PrimaryNavigator } from "./primary-navigator";
+import { setRootNavigation } from "./navigation-utilities";
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -32,7 +33,6 @@ const RootStack = () => {
       screenOptions={{
         headerShown: false,
         gestureEnabled: true,
-
         stackPresentation: "modal"
       }}
     >
@@ -40,22 +40,17 @@ const RootStack = () => {
         name="primaryStack"
         component={PrimaryNavigator}
         options={{
-          headerShown: false,
+          headerShown: false
         }}
       />
     </Stack.Navigator>
   );
 };
 
-export const RootNavigator = React.forwardRef<
-  NavigationContainerRef,
-  Partial<React.ComponentProps<typeof NavigationContainer>>
->((props, ref) => {
+export const RootNavigator = props => {
   return (
-    <NavigationContainer {...props} ref={ref}>
+    <NavigationContainer {...props}>
       <RootStack />
     </NavigationContainer>
   );
-});
-
-RootNavigator.displayName = "RootNavigator";
+};

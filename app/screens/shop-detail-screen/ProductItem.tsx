@@ -3,6 +3,7 @@ import React from "react";
 import { Subtitle1, UIImage } from "react-native-pjt-ui-lib";
 import { RedTags } from "../../components/tag/RedTags";
 import { RootNavigation } from "../../navigation";
+import { useNavigation } from "@react-navigation/native";
 
 export interface ProductItemProps {
   id: number;
@@ -28,11 +29,12 @@ const styles = StyleSheet.create({
 });
 
 export const ProductItem = (props: ProductItemProps) => {
+
   return (
     <TouchableOpacity
       style={styles.itemContainer}
       onPress={() => {
-        RootNavigation.navigate("ProductDetailScreen", { id: props.id });
+        RootNavigation.push( "ProductDetailScreen", { id: props.id });
       }}
     >
       {!!props.mainImg && props.mainImg !== "string" && (

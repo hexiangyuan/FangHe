@@ -5,6 +5,7 @@ import { color } from "../../theme";
 import { PreviewShopDetailContent, ShopDetailProductList } from "./PreviewShopDetailContent";
 import { UIButton } from "react-native-pjt-ui-lib";
 import { RootNavigation } from "../../navigation";
+import { useNavigation } from "@react-navigation/native"
 
 const MockData = {
   id: 1000,
@@ -89,6 +90,7 @@ const CONTAINER: ViewStyle = {
 const CONTENT_CONTAINER: ViewStyle = {};
 
 export const PreviewShopDetailScreen = () => {
+
   return (
     <View style={FULL}>
       <Screen
@@ -146,7 +148,7 @@ export const PreviewShopDetailScreen = () => {
           <ShopDetailProductList productList={MockProList} />
           <UIButton
             onPress={() => {
-              RootNavigation.navigate("CmsAddProductScreen", { shopId: 4 });
+              RootNavigation.push("CmsAddProductScreen", { shopId: 4 });
             }}
             containerStyle={{ width: "100%" }}
           >

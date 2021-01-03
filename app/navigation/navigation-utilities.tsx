@@ -1,26 +1,25 @@
 import React, { useCallback, useState, useEffect, useRef } from "react";
 import { BackHandler } from "react-native";
-import { PartialState, NavigationState, NavigationContainerRef } from "@react-navigation/native";
+import { PartialState, NavigationState, NavigationContainerRef, NavigationContext } from "@react-navigation/native";
+
+const navigation = React.createRef();
+
+export function setRootNavigation(navigationContext) {
+  navigation.current = navigationContext;
+}
 
 export const RootNavigation = {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  navigate(...args) {},
-  push(...args) {},
-  goBack() {}, // eslint-disable-line @typescript-eslint/no-empty-function
-  resetRoot(state?: PartialState<NavigationState> | NavigationState) {}, // eslint-disable-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-  getRootState(): NavigationState {
-    return {} as any;
-  }
-};
-
-export const setRootNavigation = (ref: React.RefObject<NavigationContainerRef>) => {
-  for (const method in RootNavigation) {
-    RootNavigation[method] = (...args: any) => {
-      if (ref.current) {
-        return ref.current[method](...args);
-      }
-    };
-  }
+  navigate(routeName: string, params?: {}) {
+    navigation?.current?.navigate(routeName, params);
+  },
+  push(routeName: string, params?: {}) {
+    navigation?.current?.push(routeName, params);
+  },
+  goBack() {
+    navigation?.current?.canGoBack() && navigation?.current?.goBack();
+  }, // eslint-disable-line @typescript-eslint/no-empty-function
+  resetRoot(state?: PartialState<NavigationState> | NavigationState) {} // eslint-disable-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
 };
 
 /**

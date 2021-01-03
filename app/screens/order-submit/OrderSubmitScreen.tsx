@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { StatusBar, Text, TouchableOpacity, View } from "react-native";
 import { UIButton, UIImage } from "react-native-pjt-ui-lib";
 import { Colors } from "../../theme/Theme";
-import { useRoute } from "@react-navigation/native";
+import { useRoute, useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Header, Icon } from "../../components";
 import Window from "../../constant/window";
@@ -101,6 +101,7 @@ export const Sku = (props: SkuInfo) => {
 
 export const OrderSubmitScreen = () => {
   const route = useRoute();
+
   const productInfo = route.params as SkuInfo;
   const [date, setDate] = useState<KeyValue>(undefined);
   const [time, setTime] = useState<KeyValue>(undefined);
@@ -147,7 +148,7 @@ export const OrderSubmitScreen = () => {
         time: date.key + " " + time.key
       }).then(value => {
         if (value.code === 200) {
-          RootNavigation.navigate("OrderSubmitSucceedScreen", value.data?.orderNo);
+          RootNavigation.push("OrderSubmitSucceedScreen", value.data?.orderNo);
         } else {
           ToastGlobal.show(value.errorMsg);
         }
