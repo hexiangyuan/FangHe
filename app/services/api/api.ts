@@ -44,7 +44,7 @@ export class Api {
     });
   }
 
-  async get(path: string, params?: {}): Promise<string | GeneralApiProblem> {
+  async get(path: string, params?: {}): Promise<{ code: number; data: any; errorMsg: string } | GeneralApiProblem> {
     const response: ApiResponse<string, string> = await this.apisauce.get(path, params);
     if (!response.ok) {
       const problem = getGeneralApiProblem(response);
