@@ -1,16 +1,12 @@
-export interface ProductInfo {
-  productName: string;
-  productId: number;
-  productImg: string;
-  shopName: string;
-  shopId: number;
-}
-
 export interface OrderListItem {
   orderNo: string;
   quantity: number;
   price: number;
+  shopId: number;
+  shopName: string;
+  productImg: string;
+  id: number;
   time: string;
-  orderStatus: number;
-  productInfo: ProductInfo;
+  status: number;
+  productName: string;
 }

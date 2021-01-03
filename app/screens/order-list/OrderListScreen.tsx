@@ -7,134 +7,14 @@ import { UIButton, UIImage } from "react-native-pjt-ui-lib";
 import { Colors } from "../../theme/Theme";
 import { canCancelOrder, getOrderNameByStatus } from "./OrderStatus";
 import { RootNavigation } from "../../navigation";
-
-const MOCK_DATA: OrderListItem[] = [
-  {
-    orderNo: "KKKKKKK",
-    quantity: 1,
-    price: 100,
-    time: "12-10 9:00-10:00",
-    orderStatus: 10,
-    productInfo: {
-      shopName: "惺惺惜惺惺休息休息嘻嘻嘻嘻嘻嘻嘻",
-      productImg: "https://tse4-mm.cn.bing.net/th/id/OIP.cXt1-NxPSVRV7Zya9YgjUwHaNK?pid=Api&rs=1",
-      productName: "惺惺惜惺惺休息休息嘻嘻嘻嘻嘻嘻嘻",
-      productId: 1111,
-      shopId: 2222
-    }
-  },{
-    orderNo: "KKKKKKK",
-    quantity: 1,
-    price: 100,
-    time: "12-10 9:00-10:00",
-    orderStatus: 10,
-    productInfo: {
-      shopName: "惺惺惜惺惺休息休息嘻嘻嘻嘻嘻嘻嘻",
-      productImg: "https://tse4-mm.cn.bing.net/th/id/OIP.cXt1-NxPSVRV7Zya9YgjUwHaNK?pid=Api&rs=1",
-      productName: "惺惺惜惺惺休息休息嘻嘻嘻嘻嘻嘻嘻",
-      productId: 1111,
-      shopId: 2222
-    }
-  },{
-    orderNo: "KKKKKKK",
-    quantity: 1,
-    price: 100,
-    time: "12-10 9:00-10:00",
-    orderStatus: 10,
-    productInfo: {
-      shopName: "惺惺惜惺惺休息休息嘻嘻嘻嘻嘻嘻嘻",
-      productImg: "https://tse4-mm.cn.bing.net/th/id/OIP.cXt1-NxPSVRV7Zya9YgjUwHaNK?pid=Api&rs=1",
-      productName: "惺惺惜惺惺休息休息嘻嘻嘻嘻嘻嘻嘻",
-      productId: 1111,
-      shopId: 2222
-    }
-  },{
-    orderNo: "KKKKKKK",
-    quantity: 1,
-    price: 100,
-    time: "12-10 9:00-10:00",
-    orderStatus: 10,
-    productInfo: {
-      shopName: "惺惺惜惺惺休息休息嘻嘻嘻嘻嘻嘻嘻",
-      productImg: "https://tse4-mm.cn.bing.net/th/id/OIP.cXt1-NxPSVRV7Zya9YgjUwHaNK?pid=Api&rs=1",
-      productName: "惺惺惜惺惺休息休息嘻嘻嘻嘻嘻嘻嘻",
-      productId: 1111,
-      shopId: 2222
-    }
-  },{
-    orderNo: "KKKKKKK",
-    quantity: 1,
-    price: 100,
-    time: "12-10 9:00-10:00",
-    orderStatus: 10,
-    productInfo: {
-      shopName: "惺惺惜惺惺休息休息嘻嘻嘻嘻嘻嘻嘻",
-      productImg: "https://tse4-mm.cn.bing.net/th/id/OIP.cXt1-NxPSVRV7Zya9YgjUwHaNK?pid=Api&rs=1",
-      productName: "惺惺惜惺惺休息休息嘻嘻嘻嘻嘻嘻嘻",
-      productId: 1111,
-      shopId: 2222
-    }
-  },{
-    orderNo: "KKKKKKK",
-    quantity: 1,
-    price: 100,
-    time: "12-10 9:00-10:00",
-    orderStatus: 10,
-    productInfo: {
-      shopName: "惺惺惜惺惺休息休息嘻嘻嘻嘻嘻嘻嘻",
-      productImg: "https://tse4-mm.cn.bing.net/th/id/OIP.cXt1-NxPSVRV7Zya9YgjUwHaNK?pid=Api&rs=1",
-      productName: "惺惺惜惺惺休息休息嘻嘻嘻嘻嘻嘻嘻",
-      productId: 1111,
-      shopId: 2222
-    }
-  },{
-    orderNo: "KKKKKKK",
-    quantity: 1,
-    price: 100,
-    time: "12-10 9:00-10:00",
-    orderStatus: 10,
-    productInfo: {
-      shopName: "惺惺惜惺惺休息休息嘻嘻嘻嘻嘻嘻嘻",
-      productImg: "https://tse4-mm.cn.bing.net/th/id/OIP.cXt1-NxPSVRV7Zya9YgjUwHaNK?pid=Api&rs=1",
-      productName: "惺惺惜惺惺休息休息嘻嘻嘻嘻嘻嘻嘻",
-      productId: 1111,
-      shopId: 2222
-    }
-  },{
-    orderNo: "KKKKKKK",
-    quantity: 1,
-    price: 100,
-    time: "12-10 9:00-10:00",
-    orderStatus: 40,
-    productInfo: {
-      shopName: "惺惺惜惺惺休息休息嘻嘻嘻嘻嘻嘻嘻",
-      productImg: "https://tse4-mm.cn.bing.net/th/id/OIP.cXt1-NxPSVRV7Zya9YgjUwHaNK?pid=Api&rs=1",
-      productName: "惺惺惜惺惺休息休息嘻嘻嘻嘻嘻嘻嘻",
-      productId: 1111,
-      shopId: 2222
-    }
-  },{
-    orderNo: "KKKKKKK",
-    quantity: 1,
-    price: 100,
-    time: "12-10 9:00-10:00",
-    orderStatus: 10,
-    productInfo: {
-      shopName: "惺惺惜惺惺休息休息嘻嘻嘻嘻嘻嘻嘻",
-      productImg: "https://tse4-mm.cn.bing.net/th/id/OIP.cXt1-NxPSVRV7Zya9YgjUwHaNK?pid=Api&rs=1",
-      productName: "惺惺惜惺惺休息休息嘻嘻嘻嘻嘻嘻嘻",
-      productId: 1111,
-      shopId: 2222
-    }
-  }
-];
+import HomeApi from "../main-screen/HomeApi";
 
 export const OrderItem = (props: OrderListItem) => {
   return (
     <View style={{ padding: 12 }}>
       <Text
         onPress={() => {
-          RootNavigation.navigate("ShopDetailScreen", { id: props.productInfo.shopId });
+          RootNavigation.navigate("ShopDetailScreen", { id: props.shopId });
         }}
         style={{
           fontSize: 18,
@@ -142,11 +22,11 @@ export const OrderItem = (props: OrderListItem) => {
           fontWeight: "bold"
         }}
       >
-        {props.productInfo.shopName}
+        {props.shopName}
       </Text>
       <TouchableOpacity
         onPress={() => {
-          RootNavigation.navigate("ProductDetailScreen", { id: props.productInfo.productId });
+          RootNavigation.navigate("ProductDetailScreen", { id: props.id });
         }}
       >
         <View
@@ -157,7 +37,7 @@ export const OrderItem = (props: OrderListItem) => {
           }}
         >
           <UIImage
-            source={{ uri: props.productInfo.productImg }}
+            source={{ uri: props.productImg }}
             style={{
               width: 72,
               height: 72
@@ -180,7 +60,7 @@ export const OrderItem = (props: OrderListItem) => {
                 }}
                 numberOfLines={2}
               >
-                {props.productInfo.productName}
+                {props.productName}
               </Text>
               <Text
                 style={{
@@ -189,7 +69,7 @@ export const OrderItem = (props: OrderListItem) => {
                   marginLeft: 12
                 }}
               >
-                {getOrderNameByStatus(props.orderStatus)}
+                {getOrderNameByStatus(props.status)}
               </Text>
             </View>
             <View
@@ -219,7 +99,7 @@ export const OrderItem = (props: OrderListItem) => {
           </View>
         </View>
       </TouchableOpacity>
-      {canCancelOrder(props.orderStatus) && (
+      {canCancelOrder(props.status) && (
         <View
           style={{
             flexDirection: "row-reverse",
@@ -244,9 +124,15 @@ export const OrderItem = (props: OrderListItem) => {
 
 export const OrderListScreen = () => {
   const [data, setDate] = useState<Array<OrderListItem>>([]);
+
+  useEffect(() => {}, []);
   useEffect(() => {
-    setDate(MOCK_DATA);
-  });
+    HomeApi.orderList(0).then(value => {
+      if (value.code === 200 && value.data) {
+        setDate(value.data);
+      }
+    });
+  }, []);
 
   const renderItem = (item: OrderListItem) => {
     return <OrderItem {...item} />;

@@ -36,6 +36,13 @@ function loginMobile(request: { mobile: string; verificationCode: string }) {
   return FangHeApi.post("/login/mobile", request);
 }
 
+function orderList(page: number) {
+  return FangHeApi.get("/order/list", {
+    pageSize: 20,
+    page: page
+  });
+}
+
 const HomeApi = {
   getHomeList,
   shopDetail,
@@ -43,7 +50,8 @@ const HomeApi = {
   productDetail,
   orderSubmit,
   getVerificationCode,
-  loginMobile
+  loginMobile,
+  orderList
 };
 
 export default HomeApi;
