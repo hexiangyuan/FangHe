@@ -4,9 +4,9 @@ import { RootNavigation } from "../../../navigation";
 import { UIButton, UIImage } from "react-native-pjt-ui-lib";
 import { IconTypes } from "../../../components/icon/icons";
 import { Icon } from "../../../components";
-import { useNavigation } from "@react-navigation/native";
 import LocalCookieStore from "../../../services/local/UserCookieStore";
-import { FangHeApi, setFangHeApiCookie } from "../../../services/api";
+import { setFangHeApiCookie } from "../../../services/api";
+import { userUserStore } from "../../../models/user-store/user-store";
 
 const UnLoginView = () => {
   return (
@@ -45,7 +45,7 @@ const UnLoginView = () => {
   );
 };
 
-const LoginHeaderView = () => {
+const LoginHeaderView = (props: { mobile: string }) => {
   return (
     <TouchableOpacity
       onPress={() => {
@@ -66,7 +66,7 @@ const LoginHeaderView = () => {
             fontWeight: "bold"
           }}
         >
-          18964014563
+          {props.mobile}
         </Text>
       </View>
     </TouchableOpacity>
@@ -181,6 +181,8 @@ const MineOrder = () => {
 };
 
 const MineScreen = () => {
+  const user = userUserStore();
+
   function logout() {
     Alert.alert("", "退出登录？", [
       {
@@ -190,7 +192,7 @@ const MineScreen = () => {
       {
         text: "退出",
         onPress: () => {
-          LocalCookieStore.clearCookie().then(value => setFangHeApiCookie(""));
+          LocalCookieStore.clearUser().then(value => setFangHeApiCookie(""));
         }
       }
     ]);
@@ -220,7 +222,7 @@ const MineScreen = () => {
             height: 72
           }}
         />
-        <LoginHeaderView />
+        {user?.isLogin() ? <LoginHeaderView mobile={user.mobile} /> : <UnLoginView />}
       </View>
       <MineOrder />
       <View

@@ -9,10 +9,13 @@ import HomeApi from "../main-screen/HomeApi";
 import ToastGlobal from "../../utils/Toast";
 import LocalCookieStore from "../../services/local/UserCookieStore";
 import { FangHeApi, setFangHeApiCookie } from "../../services/api";
+import { userUserStore } from "../../models/user-store/user-store";
 
 export const MobileLoginVerificationCodeScreen = () => {
   const params = useRoute<any>().params;
   const [code, setCode] = useState<string>("");
+
+  const userStore = userUserStore();
 
   const [countDown, setCountDown] = useState<number>();
   let interval: NodeJS.Timeout;
@@ -58,7 +61,11 @@ export const MobileLoginVerificationCodeScreen = () => {
       .then(value => {
         if (value.code === 200) {
           if (value.data?.cookie) {
-            LocalCookieStore.saveCookie(value.data?.cookie).then(result => {
+            LocalCookieStore.saveUser({
+              mobile: params.mobile,
+              cookie: value.data.cookie
+            }).then(result => {
+              userStore.loginSucceed(params.mobile, value.data?.cookie);
               setFangHeApiCookie(value.data?.cookie);
             });
           }

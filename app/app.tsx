@@ -16,12 +16,7 @@ import { NavigationContainerRef } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as storage from "./utils/storage";
 import { ModalPortal } from "react-native-modals";
-import {
-  useBackButtonHandler,
-  RootNavigator,
-  canExit,
-  useNavigationPersistence,
-} from "./navigation";
+import { useBackButtonHandler, RootNavigator, canExit, useNavigationPersistence } from "./navigation";
 import { RootStore, RootStoreProvider, setupRootStore } from "./models";
 
 import { enableScreens } from "react-native-screens";
@@ -30,6 +25,8 @@ import { FangHeApi, GaoDeMapApi, setFangHeApiCookie } from "./services/api";
 import Toast from "react-native-easy-toast";
 import { setToastRef } from "./utils/Toast";
 import LocalCookieStore from "./services/local/UserCookieStore";
+import { logUser, setupUserStore, UserStore, UserStoreProvider } from "./models/user-store/user-store";
+import { useLocalStore } from "mobx-react-lite";
 
 enableScreens();
 
@@ -45,6 +42,9 @@ function App() {
 
   const statusBarRef = useRef();
   const [rootStore, setRootStore] = useState<RootStore | undefined>(undefined);
+
+  const [userStore, setUserStore] = useState<UserStore | undefined>(undefined);
+
   useBackButtonHandler(navigationRef, canExit);
   const { initialNavigationState, onNavigationStateChange } = useNavigationPersistence(
     storage,
@@ -56,9 +56,11 @@ function App() {
     FangHeApi.setup();
     GaoDeMapApi.setup();
     (async () => {
-      LocalCookieStore.getCookie().then(cookie => {
-        console.log("cookie", cookie);
-        setFangHeApiCookie(cookie);
+      LocalCookieStore.getUser().then(user => {
+        if (user) {
+          setFangHeApiCookie(user?.cookie);
+        }
+        setUserStore(setupUserStore(user));
       });
       setupRootStore().then(setRootStore);
     })();
@@ -72,18 +74,20 @@ function App() {
 
   // otherwise, we're ready to render the app
   return (
-    <RootStoreProvider value={rootStore}>
-      <SafeAreaProvider>
-        <StatusBar ref={statusBarRef} barStyle={"dark-content"} translucent={true} backgroundColor={"transparent"} />
-        <RootNavigator
-          ref={navigationRef}
-          initialState={initialNavigationState}
-          onStateChange={onNavigationStateChange}
-        />
-        <Toast ref={toastRef} />
-      </SafeAreaProvider>
-      <ModalPortal />
-    </RootStoreProvider>
+    <UserStoreProvider value={userStore}>
+      <RootStoreProvider value={rootStore}>
+        <SafeAreaProvider>
+          <StatusBar ref={statusBarRef} barStyle={"dark-content"} translucent={true} backgroundColor={"transparent"} />
+          <RootNavigator
+            ref={navigationRef}
+            initialState={initialNavigationState}
+            onStateChange={onNavigationStateChange}
+          />
+          <Toast ref={toastRef} />
+        </SafeAreaProvider>
+        <ModalPortal />
+      </RootStoreProvider>
+    </UserStoreProvider>
   );
 }
 

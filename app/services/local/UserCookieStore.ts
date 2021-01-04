@@ -2,22 +2,27 @@ import * as storage from "../../utils/storage";
 
 const COOKIE_KEY_LOCAL_STORE = "COOKIE_KEY_LOCAL_STORE_FANG_HE";
 
-async function saveCookie(cookie: string): Promise<boolean> {
-  return await storage.save(COOKIE_KEY_LOCAL_STORE, cookie);
+export interface UserModel {
+  cookie: string;
+  mobile: string;
 }
 
-async function getCookie(): Promise<string> {
-  return storage.loadString(COOKIE_KEY_LOCAL_STORE);
+async function saveUser(user: UserModel): Promise<boolean> {
+  return await storage.save(COOKIE_KEY_LOCAL_STORE, user);
 }
 
-async function clearCookie(): Promise<void> {
+async function getUser(): Promise<UserModel> {
+  return storage.load(COOKIE_KEY_LOCAL_STORE);
+}
+
+async function clearUser(): Promise<void> {
   return storage.remove(COOKIE_KEY_LOCAL_STORE);
 }
 
 const LocalCookieStore = {
-  saveCookie,
-  getCookie,
-  clearCookie
+  saveUser,
+  getUser,
+  clearUser
 };
 
 export default LocalCookieStore;
