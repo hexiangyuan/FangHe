@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { ImageStyle } from "react-native-fast-image";
 import Window from "../../constant/window";
 import { UIButton, UIImage } from "react-native-pjt-ui-lib";
@@ -7,7 +7,6 @@ import { Text } from "../../components";
 import { RedTags } from "../../components/tag/RedTags";
 import { Score } from "../../components/score/Score";
 import { RootNavigation } from "../../navigation";
-import { useNavigation } from "@react-navigation/native";
 
 export interface ShopInfo {
   id: number;
@@ -17,7 +16,9 @@ export interface ShopInfo {
   averPrice: number;
   tag: string[];
   info: string;
-  distanceMeter: number;
+  shopAddress: string;
+  latitude: number;
+  longitude: number;
   shopDetailsImgs: string[];
 }
 
@@ -69,7 +70,7 @@ export const ShopDetailImgList = (props: { shopDetailsImgs: string[] }) => {
   );
 };
 
-const ShopInfoComponent = (props: ShopInfo) => {
+const ShopInfoComponent = (props: ShopInfo & { mapClick: () => void }) => {
   return (
     <View
       style={{
@@ -95,7 +96,8 @@ const ShopInfoComponent = (props: ShopInfo) => {
         {props.shopName}
       </Text>
       <Score score={props.score} />
-      <View
+      <TouchableOpacity
+        onPress={props.mapClick}
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
@@ -108,7 +110,7 @@ const ShopInfoComponent = (props: ShopInfo) => {
             color: "#333"
           }}
         >
-          {props.shopName}
+          {props.shopAddress}
         </Text>
 
         <Text
@@ -117,15 +119,14 @@ const ShopInfoComponent = (props: ShopInfo) => {
             color: "#666"
           }}
         >
-          距您{props.distanceMeter}米
+          导航
         </Text>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
 
-export const ProductDetailContent = (props: ProductDetailProps) => {
-
+export const ProductDetailContent = (props: ProductDetailProps & { mapClick: () => void }) => {
   return (
     <View
       style={{
@@ -215,7 +216,7 @@ export const ProductDetailContent = (props: ProductDetailProps) => {
           </View>
           <UIButton
             onPress={() => {
-              RootNavigation.push( "OrderSubmitScreen", {
+              RootNavigation.push("OrderSubmitScreen", {
                 id: props.id,
                 shopName: props.shop.shopName,
                 productImg: props.mainImg,
@@ -236,7 +237,7 @@ export const ProductDetailContent = (props: ProductDetailProps) => {
           backgroundColor: "#D8D8D8"
         }}
       />
-      <ShopInfoComponent {...props.shop} />
+      <ShopInfoComponent {...props.shop} mapClick={props.mapClick} />
       <View
         style={{
           height: 8,

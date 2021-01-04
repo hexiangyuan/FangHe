@@ -19,7 +19,8 @@ import { Icon } from "../../components";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import HomeApi from "../main-screen/HomeApi";
 import { useRoute } from "@react-navigation/native";
-import { ProductItemProps } from "../shop-detail-screen/ProductItem";
+import { BottomModal, ModalContent } from "react-native-modals";
+import MapUtils from "../../utils/MapUtils";
 
 const FULL: ViewStyle = {
   flex: 1,
@@ -49,6 +50,7 @@ export const ProductDetailScreen = () => {
 
   const [productDetail, setProductDetail] = useState<ProductDetailProps>(undefined);
   const [productList, setProductList] = useState<Array<ShopDetailProductItem>>(undefined);
+  const [mapVisible, setMapVisible] = useState<boolean>(false);
 
   useEffect(() => {
     HomeApi.productDetail(productId).then(value => {
@@ -62,6 +64,10 @@ export const ProductDetailScreen = () => {
       }
     });
   }, [productId]);
+
+  function mapLinking(lon: number, lat: number, address: string, mapType: string) {
+    MapUtils.turn2MapApp(lon, lat, mapType, address);
+  }
 
   return (
     <View style={FULL}>
@@ -103,7 +109,14 @@ export const ProductDetailScreen = () => {
           useNativeDriver: false
         })}
       >
-        {productDetail && <ProductDetailContent {...productDetail} />}
+        {productDetail && (
+          <ProductDetailContent
+            {...productDetail}
+            mapClick={() => {
+              setMapVisible(true);
+            }}
+          />
+        )}
         <View
           style={{
             flexDirection: "row",
@@ -156,6 +169,59 @@ export const ProductDetailScreen = () => {
         </View>
         {productList && <ShopDetailProductList productList={productList} />}
       </ScrollView>
+      <BottomModal
+        visible={mapVisible}
+        onTouchOutside={() => {
+          setMapVisible(false);
+        }}
+      >
+        <ModalContent>
+          <View>
+            <TouchableOpacity
+              style={{ paddingVertical: 12 }}
+              onPress={() => {
+                setMapVisible(false);
+                mapLinking(
+                  productDetail.shop.longitude,
+                  productDetail.shop.latitude,
+                  productDetail.shop.shopAddress,
+                  "gaode"
+                );
+              }}
+            >
+              <Text style={{ color: "#333" }}>高德地图导航</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ paddingVertical: 12 }}
+              onPress={() => {
+                setMapVisible(false);
+                mapLinking(
+                  productDetail.shop.longitude,
+                  productDetail.shop.latitude,
+                  productDetail.shop.shopAddress,
+                  "baidu"
+                );
+              }}
+            >
+              <Text style={{ color: "#333" }}>百度地图导航</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ paddingVertical: 12 }}
+              onPress={() => {
+                setMapVisible(false);
+                mapLinking(
+                  productDetail.shop.longitude,
+                  productDetail.shop.latitude,
+                  productDetail.shop.shopAddress,
+                  "browser"
+                );
+              }}
+            >
+              <Text style={{ color: "#333" }}>浏览器地图导航(不推荐)</Text>
+            </TouchableOpacity>
+          </View>
+        </ModalContent>
+      </BottomModal>
     </View>
   );
 };
