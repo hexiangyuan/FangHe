@@ -40,9 +40,20 @@ export function isVerificationCode(code: string): boolean {
   return false;
 }
 
+export function formatDistanceMeter(distanceMeter: number): string {
+  if (distanceMeter === null || distanceMeter === undefined || distanceMeter < 0) {
+    return "未知";
+  }
+  if (distanceMeter < 1000) {
+    return distanceMeter + "米";
+  }
+  return distanceMeter / 1000 + "千米";
+}
+
 const StringUtils = {
   isEmpty,
-  isPhone
+  isPhone,
+  formatDistanceMeter
 };
 
 export default StringUtils;

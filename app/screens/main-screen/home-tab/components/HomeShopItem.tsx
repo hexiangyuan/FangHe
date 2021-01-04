@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { UIImage, Subtitle1 } from "react-native-pjt-ui-lib";
 import { Tags } from "../../../../components/tag/Tags";
 import { Score } from "../../../../components/score/Score";
+import StringUtils from "../../../../utils/ReularUtils";
 
 const styles = StyleSheet.create({
   imgStyle: {
@@ -51,7 +52,7 @@ export const HomeShopItem = (props: HomeShopItemProps) => {
               color: "#333"
             }}
           >
-            ￥{props.averPrice}/人
+            ￥{props.averPrice / 100}/人
           </Text>
           <Text
             style={{
@@ -59,10 +60,10 @@ export const HomeShopItem = (props: HomeShopItemProps) => {
               color: "#666"
             }}
           >
-            {props.distanceMeter}
+            {StringUtils.formatDistanceMeter(props.distanceMeter)}
           </Text>
         </View>
-        {/*<Tags tag={props.tag} />*/}
+        <Tags tag={props.tagList || []} />
         {!!props.info && (
           <View
             style={{

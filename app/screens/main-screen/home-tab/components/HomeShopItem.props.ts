@@ -4,7 +4,7 @@ export interface HomeShopItemProps {
   shopName: string;
   score: number;
   averPrice: number;
-  tag: string[];
+  tagList: string[];
   info: string;
   distanceMeter: number;
 }
