@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { StatusBar, Text, TouchableOpacity, View } from "react-native";
 import { UIButton, UIImage } from "react-native-pjt-ui-lib";
 import { Colors } from "../../theme/Theme";
-import { useRoute, useNavigation } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Header, Icon } from "../../components";
 import Window from "../../constant/window";

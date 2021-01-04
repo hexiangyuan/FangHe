@@ -8,11 +8,9 @@ import StringUtils from "../../utils/ReularUtils";
 import { RootNavigation } from "../../navigation";
 import ToastGlobal from "../../utils/Toast";
 import HomeApi from "../main-screen/HomeApi";
-import { useNavigation } from "@react-navigation/native"
 
 export const MobileLoginScreen = () => {
   const [mobile, setMobile] = useState<string>();
-
 
   const inputMobile = useRef<TextInput>();
 
