@@ -1,6 +1,6 @@
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { DeviceEventEmitter, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import React, { useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Header, Icon } from "../../components";
 import { Colors } from "../../theme/Theme";
 import { UIButton } from "react-native-pjt-ui-lib";
@@ -8,11 +8,22 @@ import StringUtils from "../../utils/ReularUtils";
 import { RootNavigation } from "../../navigation";
 import ToastGlobal from "../../utils/Toast";
 import HomeApi from "../main-screen/HomeApi";
+import { EVENT_NAME_LOGIN_SUCCEED } from "./login-verification-code-screen";
 
 export const MobileLoginScreen = () => {
   const [mobile, setMobile] = useState<string>();
 
   const inputMobile = useRef<TextInput>();
+
+  useEffect(() => {
+    const event = DeviceEventEmitter.addListener(EVENT_NAME_LOGIN_SUCCEED, () => {
+      RootNavigation.goBack();
+      console.log("EVENT_NAME_LOGIN_SUCCEED");
+    });
+    return () => {
+      event.remove();
+    };
+  }, []);
 
   function onVerificationBtnPressed() {
     if (StringUtils.isPhone(mobile)) {
@@ -80,7 +91,7 @@ export const MobileLoginScreen = () => {
           />
           <TouchableOpacity
             onPress={() => {
-              setMobile("")
+              setMobile("");
               inputMobile.current.clear();
             }}
           >

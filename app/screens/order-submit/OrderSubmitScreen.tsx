@@ -8,9 +8,9 @@ import { Header, Icon } from "../../components";
 import Window from "../../constant/window";
 import { BottomModal, ModalContent } from "react-native-modals";
 import { DateTimeSelector } from "../../components/date-time-selector/DateTimeSelector";
-import { KeyValue } from "../../components/date-time-selector/DateTimeSelector.props";
+import { DateTimeModel, KeyValue } from "../../components/date-time-selector/DateTimeSelector.props";
 import { RootNavigation } from "../../navigation";
-import { getCurrentHouseFloor, getDateList } from "../../utils/date";
+import { getCurrentHouseFloor, getDateList, getHoursTotalDay } from "../../utils/date";
 import HomeApi from "../main-screen/HomeApi";
 import ToastGlobal from "../../utils/Toast";
 
@@ -106,8 +106,7 @@ export const OrderSubmitScreen = () => {
   const [date, setDate] = useState<KeyValue>(undefined);
   const [time, setTime] = useState<KeyValue>(undefined);
   const [visible, setVisible] = useState<boolean>(false);
-  const [dateArray, setDateArray] = useState<KeyValue[]>();
-  const [timeArray, setTimeArray] = useState<KeyValue[]>();
+  const [dateTimeArray, setDateTimeArray] = useState<DateTimeModel[]>([]);
 
   useEffect(() => {
     const dateList = getDateList(3).map((item, index) => {
@@ -128,14 +127,28 @@ export const OrderSubmitScreen = () => {
         value: item + value
       };
     });
-    setDateArray(dateList);
 
-    setTimeArray(
-      getCurrentHouseFloor().map(item => ({
-        key: item,
-        value: item
-      }))
-    );
+    let dataTimeTemp = [];
+    dateList.forEach((value, index) => {
+      let times;
+      if (index === 0) {
+        times = getCurrentHouseFloor().map(item => ({
+          key: item,
+          value: item
+        }));
+      } else {
+        times = getHoursTotalDay().map(item => ({
+          key: item,
+          value: item
+        }));
+      }
+      dataTimeTemp.push({
+        date: value,
+        time: times
+      });
+    });
+
+    setDateTimeArray(dataTimeTemp);
   }, []);
 
   const bottomBtnPressed = () => {
@@ -315,8 +328,7 @@ export const OrderSubmitScreen = () => {
               }}
               selectedDate={date}
               selectedTime={time}
-              date={dateArray}
-              time={timeArray}
+              dateTime={dateTimeArray}
               onSelected={onDateTimeSelected}
             />
           </View>

@@ -1,4 +1,4 @@
-import { Text, TextInput, View } from "react-native";
+import { DeviceEventEmitter, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useRef, useState } from "react";
 import { Header } from "../../components";
@@ -10,6 +10,9 @@ import ToastGlobal from "../../utils/Toast";
 import LocalCookieStore from "../../services/local/UserCookieStore";
 import { FangHeApi, setFangHeApiCookie } from "../../services/api";
 import { userUserStore } from "../../models/user-store/user-store";
+import { RootNavigation } from "../../navigation"
+
+export const EVENT_NAME_LOGIN_SUCCEED = "EVENT_NAME_LOGIN_SUCCEED";
 
 export const MobileLoginVerificationCodeScreen = () => {
   const params = useRoute<any>().params;
@@ -69,6 +72,8 @@ export const MobileLoginVerificationCodeScreen = () => {
               setFangHeApiCookie(value.data?.cookie);
             });
           }
+          RootNavigation.goBack();
+          DeviceEventEmitter.emit(EVENT_NAME_LOGIN_SUCCEED, true);
         } else {
           ToastGlobal.show(value.errorMsg);
         }

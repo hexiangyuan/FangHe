@@ -5,9 +5,13 @@ export interface KeyValue {
   value: string;
 }
 
-export interface DateTimeSelectorProps {
-  date: KeyValue[];
+export interface DateTimeModel {
+  date: KeyValue;
   time: KeyValue[];
+}
+
+export interface DateTimeSelectorProps {
+  dateTime: DateTimeModel[];
   containStyle?: ViewStyle;
   selectedDate?: KeyValue;
   selectedTime?: KeyValue;

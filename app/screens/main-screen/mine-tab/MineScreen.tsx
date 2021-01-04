@@ -128,6 +128,7 @@ const MineItem = (props: ItemProps) => {
 };
 
 const MineOrder = () => {
+  const user = userUserStore();
   return (
     <View
       style={{
@@ -139,7 +140,11 @@ const MineOrder = () => {
         icon={"order"}
         text={"我的订单"}
         onPress={() => {
-          RootNavigation.push("OrderListScreen");
+          if (user.isLogin()) {
+            RootNavigation.push("OrderListScreen");
+          } else {
+            RootNavigation.push("MobileLoginScreen");
+          }
         }}
       />
 
@@ -192,7 +197,10 @@ const MineScreen = () => {
       {
         text: "退出",
         onPress: () => {
-          LocalCookieStore.clearUser().then(value => setFangHeApiCookie(""));
+          LocalCookieStore.clearUser().then(value => {
+            user.logout();
+            setFangHeApiCookie("");
+          });
         }
       }
     ]);
@@ -232,9 +240,11 @@ const MineScreen = () => {
           marginTop: 120
         }}
       >
-        <UIButton onPress={logout} containerStyle={{ width: "80%" }}>
-          退出登录
-        </UIButton>
+        {user.isLogin() && (
+          <UIButton onPress={logout} containerStyle={{ width: "80%" }}>
+            退出登录
+          </UIButton>
+        )}
       </View>
     </View>
   );

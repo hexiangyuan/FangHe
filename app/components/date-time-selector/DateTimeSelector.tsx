@@ -1,11 +1,17 @@
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { DateTimeSelectorProps, KeyValue } from "./DateTimeSelector.props";
 import { UIButton } from "react-native-pjt-ui-lib";
 
 export const DateTimeSelector = (props: DateTimeSelectorProps) => {
-  const [selectedDate, setSelectedDate] = useState<KeyValue>(props.selectedDate || props.date[0]);
-  const [selectedTime, setSelectedTime] = useState<KeyValue>(props.selectedTime || props.time[0]);
+  const [selectedDate, setSelectedDate] = useState<KeyValue>(props.selectedDate || props.dateTime[0].date);
+  const [selectedTime, setSelectedTime] = useState<KeyValue>(
+    props.selectedTime || props.dateTime[0]?.time[0] || undefined
+  );
+  const currentSelectedDateIndex = useRef(0);
+  useEffect(() => {
+    currentSelectedDateIndex.current = props.dateTime.findIndex(value => value.date.key === selectedDate.key);
+  }, []);
 
   return (
     <View>
@@ -24,21 +30,22 @@ export const DateTimeSelector = (props: DateTimeSelectorProps) => {
           }}
         >
           <ScrollView horizontal={false} showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
-            {props.date?.map((item, index) => (
+            {props.dateTime?.map((item, index) => (
               <TouchableOpacity
                 activeOpacity={1}
                 onPress={() => {
-                  setSelectedDate(item);
+                  setSelectedDate(item.date);
+                  currentSelectedDateIndex.current = index;
                 }}
-                key={item.key}
+                key={item.date.key}
                 style={{
-                  height: 48,
-                  backgroundColor: selectedDate.key === item.key ? "white" : "transparent",
+                  height: 64,
+                  backgroundColor: currentSelectedDateIndex.current === index ? "white" : "transparent",
                   justifyContent: "center",
                   alignItems: "center"
                 }}
               >
-                <Text>{item.value}</Text>
+                <Text>{item.date.value}</Text>
               </TouchableOpacity>
             ))}
           </ScrollView>
@@ -50,7 +57,7 @@ export const DateTimeSelector = (props: DateTimeSelectorProps) => {
           }}
         >
           <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
-            {props.time?.map((item, index) => (
+            {props.dateTime[currentSelectedDateIndex.current]?.time?.map((item, index) => (
               <TouchableOpacity
                 onPress={() => {
                   setSelectedTime(item);
@@ -82,8 +89,17 @@ export const DateTimeSelector = (props: DateTimeSelectorProps) => {
         </View>
       </View>
       <UIButton
-        onPress={() => props.onSelected && props.onSelected(selectedDate, selectedTime)}
-        containerStyle={{ width: "100%", marginTop: 24 }}
+        onPress={() => {
+          if (selectedTime) {
+            if (props.onSelected) {
+              props.onSelected(selectedDate, selectedTime);
+            }
+          }
+        }}
+        containerStyle={{
+          width: "100%",
+          marginTop: 24
+        }}
       >
         确定
       </UIButton>
