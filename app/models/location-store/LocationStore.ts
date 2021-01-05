@@ -15,6 +15,8 @@ export async function getLocation(): Promise<{ latitude: number; longitude: numb
     android: { detail: "fine" }
   });
 
+  console.log("hasPermission", hasPermission);
+
   if (!hasPermission) {
     const granted = await RNLocation.requestPermission({
       ios: "whenInUse",
@@ -23,7 +25,7 @@ export async function getLocation(): Promise<{ latitude: number; longitude: numb
       }
     });
     if (granted) {
-      return await RNLocation.getLatestLocation({ timeout: 60000 });
+      return await RNLocation.getLatestLocation({ timeout: 3000 });
     } else {
       errorToat();
       return {
@@ -32,7 +34,7 @@ export async function getLocation(): Promise<{ latitude: number; longitude: numb
       };
     }
   } else {
-    return await RNLocation.getLatestLocation({ timeout: 60000 });
+    return await RNLocation.getLatestLocation({ timeout: 3000 });
   }
 }
 

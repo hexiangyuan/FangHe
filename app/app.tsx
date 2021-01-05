@@ -26,6 +26,7 @@ import Toast from "react-native-easy-toast";
 import { setToastRef } from "./utils/Toast";
 import LocalCookieStore from "./services/local/UserCookieStore";
 import { setupUserStore, UserStore, UserStoreProvider } from "./models/user-store/user-store";
+import RNLocation from "react-native-location";
 
 enableScreens();
 
@@ -35,6 +36,9 @@ export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE";
  * This is the root component of our app.
  */
 function App() {
+  RNLocation.configure({
+    distanceFilter: 5.0
+  });
   const navigationRef = useRef<NavigationContainerRef>();
 
   const toastRef = useRef();

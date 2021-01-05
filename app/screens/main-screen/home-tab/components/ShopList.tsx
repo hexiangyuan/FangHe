@@ -29,8 +29,8 @@ export const ShopList = observer((props: { type: number }) => {
           HomeApi.getHomeList({
             id: props.type,
             location: {
-              latitude: location.latitude,
-              longitude: location.longitude
+              latitude: location?.latitude || 0,
+              longitude: location?.longitude || 0
             },
             page: 0,
             pagesize: 100
@@ -57,10 +57,8 @@ export const ShopList = observer((props: { type: number }) => {
   }, []);
 
   if (store.empty) {
-    console.log("empty", store.empty);
     return <EmptyView onPress={store.refreshData} />;
   } else {
-    console.log("empty2", store.empty);
     return (
       <View
         style={{
