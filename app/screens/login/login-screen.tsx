@@ -28,7 +28,10 @@ export const MobileLoginScreen = () => {
   function onVerificationBtnPressed() {
     if (StringUtils.isPhone(mobile)) {
       HomeApi.getVerificationCode(mobile).then(response => {
-        RootNavigation.push("MobileLoginVerificationCodeScreen", { mobile: mobile });
+        RootNavigation.push("MobileLoginVerificationCodeScreen", {
+          mobile: mobile,
+          codeDev: response.data
+        });
       });
     } else {
       ToastGlobal.show("您输入的手机号码不合法");
