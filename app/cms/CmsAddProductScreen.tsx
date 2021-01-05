@@ -1,10 +1,12 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import React from "react";
+import React, { useState } from "react";
 import { ScrollView, Text, TextInput, TextInputProps, TouchableOpacity, View, ViewStyle } from "react-native";
 import { UIButton, UIImage } from "react-native-pjt-ui-lib";
 import { Header } from "../components";
 import { FangHeApi } from "../services/api";
 import { useRoute } from "@react-navigation/native";
+import { launchImageLibrary } from "react-native-image-picker";
+import HomeApi from "../screens/main-screen/HomeApi";
 
 const InputItem = (props: { title: string; containerStyle: ViewStyle } & TextInputProps) => {
   return (
@@ -48,11 +50,13 @@ export const CmsAddProductScreen = () => {
   let mainImag: string;
   let shopImags: string[];
 
+  const [mainImage, setMainImage] = useState("");
+
   const shopId = useRoute().params.shopId;
 
   function confirm() {
     FangHeApi.post("/product/create", {
-      shopId: 6,
+      shopId: shopId,
       mainImg: mainImag,
       productName: productName,
       subProductTitle: productSubTitle,
@@ -63,7 +67,14 @@ export const CmsAddProductScreen = () => {
     });
   }
 
-  function uploadImag() {}
+  function uploadImag() {
+    launchImageLibrary({ mediaType: "photo" }, callback => {
+      console.log(callback);
+      // HomeApi.pictureUpload(callback.uri, callback.filename).then(value => {
+      //   setMainImage({...callback});
+      // });
+    });
+  }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -139,7 +150,7 @@ export const CmsAddProductScreen = () => {
             </Text>
             <TouchableOpacity onPress={uploadImag}>
               <UIImage
-                source={require("./ic_upload_img.png")}
+                source={mainImage ? { uri: mainImage } : require("./ic_upload_img.png")}
                 style={{
                   width: 64,
                   marginLeft: 16,

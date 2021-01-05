@@ -1,11 +1,12 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import React from "react";
+import React, { useState } from "react";
 import { Alert, ScrollView, Text, TextInput, TextInputProps, TouchableOpacity, View, ViewStyle } from "react-native";
 import { UIButton, UIImage } from "react-native-pjt-ui-lib";
 import { Header } from "../components";
 import { FangHeApi, GaoDeMapApi } from "../services/api";
-import ToastRef from "../utils/Toast";
 import ToastGlobal from "../utils/Toast";
+import { launchImageLibrary } from "react-native-image-picker";
+import HomeApi from "../screens/main-screen/HomeApi";
 
 const InputItem = (props: { title: string; containerStyle: ViewStyle } & TextInputProps) => {
   return (
@@ -50,6 +51,8 @@ export const CmsAddShopScreen = () => {
   let shopTags: string[];
   let shopMobile: string;
 
+  const [mainImage, setMainImage] = useState();
+
   async function getAddressLocationByAddress(): Promise<string> {
     const respone = await GaoDeMapApi.get("/v3/geocode/geo", {
       address: shopAddress,
@@ -63,8 +66,7 @@ export const CmsAddShopScreen = () => {
       .then(value => {
         const locations = value.split(",");
         FangHeApi.post("/shop/create", {
-          img:
-            "https://th.bing.com/th/id/R902edc69ee486cfa57fd777f8ecba267?rik=QaIQBf4RBz3ORg&riu=http%3a%2f%2fyyoriga.com%2fcityphoto%2fetc%2fjk_collection35_sample%2fm%2fjk_collection35_sample-007.jpg&ehk=pE5wbhkK6vv1YS6s%2bctcz0pOUZioWwDT%2bphkuVuVIi4%3d&risl=&pid=ImgRaw",
+          img: shopImg,
           shopName: shopName,
           score: shopScore,
           averPrice: shopAvaPrice,
@@ -92,7 +94,23 @@ export const CmsAddShopScreen = () => {
       });
   }
 
-  function uploadImag() {}
+  function uploadImag() {
+    launchImageLibrary({ mediaType: "photo" }, callback => {
+      console.log(callback);
+      HomeApi.pictureUpload({
+        name: new Date().getTime().toString(),
+        uri: callback.uri.replace("content://",""),
+        type: callback.type
+      })
+        .then(value => {
+          console.log(value);
+          setMainImage(callback.uri);
+        })
+        .catch(e => {
+          console.log(e.toString());
+        });
+    });
+  }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -187,7 +205,7 @@ export const CmsAddShopScreen = () => {
             </Text>
             <TouchableOpacity onPress={uploadImag}>
               <UIImage
-                source={require("./ic_upload_img.png")}
+                source={mainImage ? { uri: mainImage } : require("./ic_upload_img.png")}
                 style={{
                   width: 64,
                   marginLeft: 16,

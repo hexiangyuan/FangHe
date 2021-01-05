@@ -1,4 +1,5 @@
 import { FangHeApi } from "../../services/api";
+import { DEFAULT_API_CONFIG } from "../../services/api/api-config"
 
 function getHomeList(request: {
   id: number;
@@ -43,6 +44,14 @@ function orderList(page: number) {
   });
 }
 
+function pictureUpload(file: { uri: string; name: string; type: string }) {
+  const body = new FormData();
+  console.log(file);
+  body.append("file", file);
+  body.append("fileName", file.name);
+  return FangHeApi.post("/picture/upload", body);
+}
+
 const HomeApi = {
   getHomeList,
   shopDetail,
@@ -51,7 +60,8 @@ const HomeApi = {
   orderSubmit,
   getVerificationCode,
   loginMobile,
-  orderList
+  orderList,
+  pictureUpload
 };
 
 export default HomeApi;

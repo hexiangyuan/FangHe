@@ -46,7 +46,10 @@ export class Api {
 
   async get(path: string, params?: {}): Promise<{ code: number; data: any; errorMsg: string } | GeneralApiProblem> {
     const response: ApiResponse<string, string> = await this.apisauce.get(path, params);
+    console.log("=========================");
+    console.log("request  path====", "get  ", path);
     if (!response.ok) {
+      console.log("request  error====", response);
       const problem = getGeneralApiProblem(response);
       if (problem) return problem;
     }
@@ -69,7 +72,10 @@ export class Api {
 
   async post(path: string, data?: any): Promise<string | GeneralApiProblem> {
     const response: ApiResponse<string, string> = await this.apisauce.post(path, data);
+    console.log("=========================");
+    console.log("request  path====", "post  ",path);
     if (!response.ok) {
+      console.log("request  error====", response);
       const problem = getGeneralApiProblem(response);
       if (problem) return problem;
     }
@@ -78,8 +84,7 @@ export class Api {
       if (raw.code !== 200) {
         resolveApiCode(raw);
       }
-      console.log("=========================");
-      console.log("request  path====", path);
+
       console.log("request  data==== ", JSON.stringify(data));
       console.log("response data==== ", JSON.stringify(raw));
       console.log("=========================");
