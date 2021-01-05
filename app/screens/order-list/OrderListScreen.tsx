@@ -8,7 +8,6 @@ import { Colors } from "../../theme/Theme";
 import { canCancelOrder, getOrderNameByStatus } from "./OrderStatus";
 import { RootNavigation } from "../../navigation";
 import HomeApi from "../main-screen/HomeApi";
-import { useNavigation } from "@react-navigation/native"
 
 export const OrderItem = (props: OrderListItem) => {
 

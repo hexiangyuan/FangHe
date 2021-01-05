@@ -7,6 +7,9 @@ import { Icon } from "../../../components";
 import LocalCookieStore from "../../../services/local/UserCookieStore";
 import { setFangHeApiCookie } from "../../../services/api";
 import { userUserStore } from "../../../models/user-store/user-store";
+import { observer, useLocalStore } from "mobx-react-lite";
+import { useFocusEffect } from "@react-navigation/native";
+import StringUtils from "../../../utils/ReularUtils";
 
 const UnLoginView = () => {
   return (
@@ -185,8 +188,26 @@ const MineOrder = () => {
   );
 };
 
-const MineScreen = () => {
+const MineScreen = observer(() => {
   const user = userUserStore();
+  const userStore = useLocalStore(() => ({
+    isLogin: false,
+    mobile: "",
+    getUserFormLocal() {
+      LocalCookieStore.getUser()
+        .then(value => {
+          userStore.isLogin = !StringUtils.isEmpty(value?.cookie || "");
+          userStore.mobile = value?.mobile || "";
+        })
+        .catch(e => {
+          console.log("abcd", e);
+        });
+    }
+  }));
+
+  useFocusEffect(() => {
+    userStore.getUserFormLocal();
+  });
 
   function logout() {
     Alert.alert("", "退出登录？", [
@@ -199,6 +220,7 @@ const MineScreen = () => {
         onPress: () => {
           LocalCookieStore.clearUser().then(value => {
             user.logout();
+            userStore.getUserFormLocal();
             setFangHeApiCookie("");
           });
         }
@@ -230,7 +252,7 @@ const MineScreen = () => {
             height: 72
           }}
         />
-        {user?.isLogin() ? <LoginHeaderView mobile={user.mobile} /> : <UnLoginView />}
+        {userStore?.isLogin ? <LoginHeaderView mobile={userStore.mobile} /> : <UnLoginView />}
       </View>
       <MineOrder />
       <View
@@ -240,7 +262,7 @@ const MineScreen = () => {
           marginTop: 120
         }}
       >
-        {user.isLogin() && (
+        {userStore.isLogin && (
           <UIButton onPress={logout} containerStyle={{ width: "80%" }}>
             退出登录
           </UIButton>
@@ -248,5 +270,5 @@ const MineScreen = () => {
       </View>
     </View>
   );
-};
+});
 export default MineScreen;

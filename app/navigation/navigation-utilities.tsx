@@ -17,7 +17,6 @@ export const RootNavigation = {
     navigation?.current?.push(routeName, params);
   },
   goBack() {
-    console.log(navigation.current);
     navigation?.current?.goBack();
   }, // eslint-disable-line @typescript-eslint/no-empty-function
   resetRoot(state?: PartialState<NavigationState> | NavigationState) {} // eslint-disable-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function

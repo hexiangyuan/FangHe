@@ -25,8 +25,7 @@ import { FangHeApi, GaoDeMapApi, setFangHeApiCookie } from "./services/api";
 import Toast from "react-native-easy-toast";
 import { setToastRef } from "./utils/Toast";
 import LocalCookieStore from "./services/local/UserCookieStore";
-import { logUser, setupUserStore, UserStore, UserStoreProvider } from "./models/user-store/user-store";
-import { useLocalStore } from "mobx-react-lite";
+import { setupUserStore, UserStore, UserStoreProvider } from "./models/user-store/user-store";
 
 enableScreens();
 
@@ -78,11 +77,7 @@ function App() {
       <RootStoreProvider value={rootStore}>
         <SafeAreaProvider>
           <StatusBar ref={statusBarRef} barStyle={"dark-content"} translucent={true} backgroundColor={"transparent"} />
-          <RootNavigator
-            ref={navigationRef}
-            initialState={initialNavigationState}
-            onStateChange={onNavigationStateChange}
-          />
+          <RootNavigator initialState={initialNavigationState} onStateChange={onNavigationStateChange} />
           <Toast ref={toastRef} />
         </SafeAreaProvider>
         <ModalPortal />

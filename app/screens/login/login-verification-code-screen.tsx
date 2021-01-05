@@ -1,6 +1,6 @@
 import { DeviceEventEmitter, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Header } from "../../components";
 import { Colors } from "../../theme/Theme";
 import { UIButton } from "react-native-pjt-ui-lib";
@@ -8,9 +8,9 @@ import { useRoute } from "@react-navigation/native";
 import HomeApi from "../main-screen/HomeApi";
 import ToastGlobal from "../../utils/Toast";
 import LocalCookieStore from "../../services/local/UserCookieStore";
-import { FangHeApi, setFangHeApiCookie } from "../../services/api";
+import { setFangHeApiCookie } from "../../services/api";
 import { userUserStore } from "../../models/user-store/user-store";
-import { RootNavigation } from "../../navigation"
+import { RootNavigation } from "../../navigation";
 
 export const EVENT_NAME_LOGIN_SUCCEED = "EVENT_NAME_LOGIN_SUCCEED";
 
@@ -70,10 +70,10 @@ export const MobileLoginVerificationCodeScreen = () => {
             }).then(result => {
               userStore.loginSucceed(params.mobile, value.data?.cookie);
               setFangHeApiCookie(value.data?.cookie);
+              RootNavigation.goBack();
+              DeviceEventEmitter.emit(EVENT_NAME_LOGIN_SUCCEED, true);
             });
           }
-          RootNavigation.goBack();
-          DeviceEventEmitter.emit(EVENT_NAME_LOGIN_SUCCEED, true);
         } else {
           ToastGlobal.show(value.errorMsg);
         }
@@ -122,7 +122,6 @@ export const MobileLoginVerificationCodeScreen = () => {
             onChangeText={text => setCode(text)}
             maxLength={6}
             placeholder={"短信验证码"}
-            keyboardType={"phone-pad"}
             style={{
               fontSize: 16,
               flex: 1,
