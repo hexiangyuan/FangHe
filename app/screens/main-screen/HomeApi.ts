@@ -1,5 +1,5 @@
 import { FangHeApi } from "../../services/api";
-import { DEFAULT_API_CONFIG } from "../../services/api/api-config"
+import { DEFAULT_API_CONFIG } from "../../services/api/api-config";
 
 function getHomeList(request: {
   id: number;
@@ -48,7 +48,16 @@ function pictureUpload(file: { uri: string; name: string; type: string }) {
   const body = new FormData();
   console.log(file);
   body.append("file", file);
-  body.append("fileName", file.name);
+  body.append("fileName", file.name + ".jpg");
+  // return fetch(DEFAULT_API_CONFIG.url + "/picture/upload", {
+  //   // Your POST endpoint
+  //   method: "POST",
+  //   headers: {
+  //     Accept: "application/json",
+  //     "Content-Type": "multipart/form-data"
+  //   },
+  //   body: body
+  // }); // This
   return FangHeApi.post("/picture/upload", body);
 }
 

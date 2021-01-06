@@ -5,8 +5,17 @@ import { UIButton, UIImage } from "react-native-pjt-ui-lib";
 import { Header } from "../components";
 import { FangHeApi, GaoDeMapApi } from "../services/api";
 import ToastGlobal from "../utils/Toast";
-import { launchImageLibrary } from "react-native-image-picker";
+import ImagePicker from "react-native-image-picker";
 import HomeApi from "../screens/main-screen/HomeApi";
+import OS from "../constant/OS";
+
+const options = {
+  title: "选择图片",
+  storageOptions: {
+    skipBackup: true,
+    path: "images"
+  }
+};
 
 const InputItem = (props: { title: string; containerStyle: ViewStyle } & TextInputProps) => {
   return (
@@ -42,52 +51,59 @@ const InputItem = (props: { title: string; containerStyle: ViewStyle } & TextInp
 };
 
 export const CmsAddShopScreen = () => {
-  let shopName: string;
-  let shopImg: string;
-  let shopScore: number;
-  let shopAddress: string;
-  let shopAvaPrice: number;
-  let shopInfo: string;
-  let shopTags: string[];
-  let shopMobile: string;
+  const [mainImage, setMainImage] = useState(undefined);
+  const [shopName, setShopName] = useState(undefined);
+  const [shopScore, setShopScore] = useState(undefined);
+  const [shopAddress, setShopAddress] = useState(undefined);
+  const [shopAvaPrice, setAvaPrice] = useState<number>(undefined);
+  const [shopInfo, setShopInfo] = useState(undefined);
+  const [shopTags, setShopTags] = useState<string[]>(undefined);
+  const [shopMobile, setShopMobile] = useState(undefined);
 
-  const [mainImage, setMainImage] = useState();
-
-  async function getAddressLocationByAddress(): Promise<string> {
+  async function getAddressLocationByAddress(address: string): Promise<string> {
     const respone = await GaoDeMapApi.get("/v3/geocode/geo", {
-      address: shopAddress,
+      address: address,
+      city: "上海",
       key: "5f43991b2d421e409b43af4064993f94"
     });
-    return respone.geocodes[0]?.location;
+    if (respone.status === "1") {
+      return respone.geocodes[0]?.location;
+    } else {
+      return Promise.reject("获取地址经纬度失败");
+    }
   }
 
   function confirm() {
-    getAddressLocationByAddress()
+    getAddressLocationByAddress(shopAddress)
       .then(value => {
-        const locations = value.split(",");
-        FangHeApi.post("/shop/create", {
-          img: shopImg,
-          shopName: shopName,
-          score: shopScore,
-          averPrice: shopAvaPrice,
-          tag: shopTags,
-          info: shopInfo,
-          shopDetailsImgs: ["string"],
-          contactMobie: shopMobile,
-          shopAddress: shopAddress,
-          latitude: locations[0],
-          longitude: locations[1]
-        })
-          .then(v => {
-            if (v.code === 200) {
-              ToastGlobal.show("添加成功");
-            } else {
-              Alert.alert("添加失败", v.errorMsg);
-            }
+        if (value) {
+          const locations = value.split(",");
+          FangHeApi.post("/shop/create", {
+            img: mainImage,
+            shopName: shopName,
+            score: shopScore,
+            averPrice: shopAvaPrice * 100,
+            tag: shopTags,
+            info: shopInfo,
+            shopDetailsImgs: [],
+            contactMobie: shopMobile,
+            shopAddress: shopAddress,
+            latitude: locations[1],
+            longitude: locations[0]
           })
-          .catch(e => {
-            ToastGlobal.show(e);
-          });
+            .then(v => {
+              if (v.code === 200) {
+                ToastGlobal.show("添加成功");
+              } else {
+                Alert.alert("添加失败", v.errorMsg);
+              }
+            })
+            .catch(e => {
+              ToastGlobal.show(e);
+            });
+        } else {
+          ToastGlobal.show("获取商家经纬度失败");
+        }
       })
       .catch(e => {
         ToastGlobal.show(e);
@@ -95,20 +111,28 @@ export const CmsAddShopScreen = () => {
   }
 
   function uploadImag() {
-    launchImageLibrary({ mediaType: "photo" }, callback => {
-      console.log(callback);
-      HomeApi.pictureUpload({
-        name: new Date().getTime().toString(),
-        uri: callback.uri.replace("content://",""),
-        type: callback.type
-      })
-        .then(value => {
-          console.log(value);
-          setMainImage(callback.uri);
+    ImagePicker.launchImageLibrary(options, response => {
+      if (!response.didCancel) {
+        const filePath = OS.isAndroid ? "file://" + response.path : response.path;
+        setMainImage(filePath);
+        HomeApi.pictureUpload({
+          uri: filePath,
+          name: response.fileName,
+          type: response.type
         })
-        .catch(e => {
-          console.log(e.toString());
-        });
+          .then(value => {
+            if (value.code === 200) {
+              ToastGlobal.show("图片上传成功");
+              setMainImage(value.data);
+              console.log(value);
+            } else {
+              ToastGlobal.show("图片上传失败" + value.errorMsg);
+            }
+          })
+          .catch(e => {
+            ToastGlobal.show("图片上传失败" + e.toString());
+          });
+      }
     });
   }
 
@@ -128,8 +152,9 @@ export const CmsAddShopScreen = () => {
         >
           <InputItem
             onChangeText={text => {
-              shopName = text;
+              setShopName(text);
             }}
+            value={shopName}
             containerStyle={{ marginVertical: 12 }}
             title={"店铺名称"}
             placeholder={"请输入店铺名称"}
@@ -138,9 +163,10 @@ export const CmsAddShopScreen = () => {
           <InputItem
             containerStyle={{ marginVertical: 12 }}
             title={"商家手机号"}
+            value={shopMobile}
             keyboardType={"phone-pad"}
             onChangeText={text => {
-              shopMobile = text;
+              setShopMobile(text);
             }}
             placeholder={"商家手机号码"}
           />
@@ -151,7 +177,7 @@ export const CmsAddShopScreen = () => {
             placeholder={"请输入1-5分"}
             keyboardType={"numeric"}
             onChangeText={text => {
-              shopScore = Number.parseInt(text);
+              setShopScore(text);
             }}
           />
 
@@ -159,14 +185,15 @@ export const CmsAddShopScreen = () => {
             containerStyle={{ marginVertical: 12 }}
             title={"商家标签"}
             onChangeText={text => {
-              shopTags = text.split(";");
+              setShopTags(text.split(" "));
             }}
-            placeholder={"红色标签;分号隔开;最多四个"}
+            placeholder={"红色标签 空格分开 最多四个"}
           />
           <InputItem
             onChangeText={text => {
-              shopAddress = text;
+              setShopAddress(text);
             }}
+            value={shopAddress}
             containerStyle={{ marginVertical: 12 }}
             title={"商家位置"}
             placeholder={"商家具体地址"}
@@ -175,7 +202,7 @@ export const CmsAddShopScreen = () => {
             containerStyle={{ marginVertical: 12 }}
             title={"人均消费"}
             onChangeText={text => {
-              shopAvaPrice = Number.parseInt(text);
+              setAvaPrice(Number.parseInt(text));
             }}
             placeholder={"请输入人均消费价格"}
             keyboardType={"numeric"}
@@ -184,7 +211,7 @@ export const CmsAddShopScreen = () => {
             containerStyle={{ marginVertical: 12 }}
             title={"商家优惠"}
             onChangeText={text => {
-              shopInfo = text;
+              setShopInfo(text);
             }}
             placeholder={"235元套餐，App 预约8折优惠"}
           />

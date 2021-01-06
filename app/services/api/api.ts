@@ -48,6 +48,7 @@ export class Api {
     const response: ApiResponse<string, string> = await this.apisauce.get(path, params);
     console.log("=========================");
     console.log("request  path====", "get  ", path);
+    console.log("request  data==== ", JSON.stringify(params));
     if (!response.ok) {
       console.log("request  error====", response);
       const problem = getGeneralApiProblem(response);
@@ -58,9 +59,6 @@ export class Api {
       if (raw.code !== 200) {
         resolveApiCode(raw);
       }
-      console.log("=========================");
-      console.log("request  path====", path);
-      console.log("request  data==== ", JSON.stringify(params));
       console.log("response data==== ", JSON.stringify(raw));
       console.log("=========================");
       return raw;
@@ -70,10 +68,11 @@ export class Api {
     return "";
   }
 
-  async post(path: string, data?: any): Promise<string | GeneralApiProblem> {
+  async post(path: string, data?: any): Promise<{ code: string; data?: any; errorMsg?: String } | GeneralApiProblem> {
     const response: ApiResponse<string, string> = await this.apisauce.post(path, data);
     console.log("=========================");
-    console.log("request  path====", "post  ",path);
+    console.log("request  path====", "post  ", path);
+    console.log("request  data==== ", JSON.stringify(data));
     if (!response.ok) {
       console.log("request  error====", response);
       const problem = getGeneralApiProblem(response);
@@ -85,7 +84,6 @@ export class Api {
         resolveApiCode(raw);
       }
 
-      console.log("request  data==== ", JSON.stringify(data));
       console.log("response data==== ", JSON.stringify(raw));
       console.log("=========================");
       return raw;
