@@ -9,7 +9,7 @@ import ImagePicker from "react-native-image-picker";
 import HomeApi from "../screens/main-screen/HomeApi";
 import OS from "../constant/OS";
 
-const options = {
+export const options = {
   title: "选择图片",
   storageOptions: {
     skipBackup: true,
@@ -114,7 +114,6 @@ export const CmsAddShopScreen = () => {
     ImagePicker.launchImageLibrary(options, response => {
       if (!response.didCancel) {
         const filePath = OS.isAndroid ? "file://" + response.path : response.path;
-        setMainImage(filePath);
         HomeApi.pictureUpload({
           uri: filePath,
           name: response.fileName,

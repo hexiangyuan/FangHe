@@ -5,8 +5,11 @@ import { UIButton, UIImage } from "react-native-pjt-ui-lib";
 import { Header } from "../components";
 import { FangHeApi } from "../services/api";
 import { useRoute } from "@react-navigation/native";
-import { launchImageLibrary } from "react-native-image-picker";
+import ImagePicker, { launchImageLibrary } from "react-native-image-picker";
 import HomeApi from "../screens/main-screen/HomeApi";
+import OS from "../constant/OS";
+import ToastGlobal from "../utils/Toast";
+import { options } from "./CmsAddShopScreen";
 
 const InputItem = (props: { title: string; containerStyle: ViewStyle } & TextInputProps) => {
   return (
@@ -42,15 +45,13 @@ const InputItem = (props: { title: string; containerStyle: ViewStyle } & TextInp
 };
 
 export const CmsAddProductScreen = () => {
-  let productName: string;
-  let productSubTitle: string;
-  let tags: string[];
-  let price: number;
-  let originPrice: number;
-  let mainImag: string;
-  let shopImags: string[];
-
-  const [mainImage, setMainImage] = useState("");
+  const [mainImag, setMainImag] = useState<string>(undefined);
+  const [shopImags, setShopImags] = useState<Array<string>>(undefined);
+  const [originPrice, setOriginPrice] = useState<number>(undefined);
+  const [price, setPrice] = useState<number>(undefined);
+  const [tags, setTags] = useState<string[]>(undefined);
+  const [productSubTitle, setProductSubTitle] = useState<string>(undefined);
+  const [productName, setProductName] = useState<string[]>(undefined);
 
   const shopId = useRoute().params.shopId;
 
@@ -68,11 +69,52 @@ export const CmsAddProductScreen = () => {
   }
 
   function uploadImag() {
-    launchImageLibrary({ mediaType: "photo" }, callback => {
-      console.log(callback);
-      // HomeApi.pictureUpload(callback.uri, callback.filename).then(value => {
-      //   setMainImage({...callback});
-      // });
+    ImagePicker.launchImageLibrary(options, response => {
+      if (!response.didCancel) {
+        const filePath = OS.isAndroid ? "file://" + response.path : response.path;
+        HomeApi.pictureUpload({
+          uri: filePath,
+          name: response.fileName,
+          type: response.type
+        })
+          .then(value => {
+            if (value.code === 200) {
+              ToastGlobal.show("图片上传成功");
+              setMainImag(value.data);
+              console.log(value);
+            } else {
+              ToastGlobal.show("图片上传失败" + value.errorMsg);
+            }
+          })
+          .catch(e => {
+            ToastGlobal.show("图片上传失败" + e.toString());
+          });
+      }
+    });
+  }
+
+  function uploadProductImagList(index: number) {
+    ImagePicker.launchImageLibrary(options, response => {
+      if (!response.didCancel) {
+        const filePath = OS.isAndroid ? "file://" + response.path : response.path;
+        HomeApi.pictureUpload({
+          uri: filePath,
+          name: response.fileName,
+          type: response.type
+        })
+          .then(value => {
+            if (value.code === 200) {
+              ToastGlobal.show("图片上传成功");
+              setMainImag(value.data);
+              console.log(value);
+            } else {
+              ToastGlobal.show("图片上传失败" + value.errorMsg);
+            }
+          })
+          .catch(e => {
+            ToastGlobal.show("图片上传失败" + e.toString());
+          });
+      }
     });
   }
 
@@ -92,7 +134,7 @@ export const CmsAddProductScreen = () => {
         >
           <InputItem
             onChangeText={text => {
-              productName = text;
+              setProductName(text);
             }}
             containerStyle={{ marginVertical: 12 }}
             title={"物品名称"}
@@ -104,7 +146,7 @@ export const CmsAddProductScreen = () => {
             title={"副标题"}
             placeholder={"请输入副标题"}
             onChangeText={text => {
-              productSubTitle = text;
+              setProductSubTitle(text);
             }}
           />
 
@@ -112,13 +154,13 @@ export const CmsAddProductScreen = () => {
             containerStyle={{ marginVertical: 12 }}
             title={"物品标签"}
             onChangeText={text => {
-              tags = text.split(";");
+              setTags(text.split(" "));
             }}
             placeholder={"红色标签;分号隔开;最多四个"}
           />
           <InputItem
             onChangeText={text => {
-              price = Number.parseInt(text);
+              setPrice(Number.parseInt(text));
             }}
             containerStyle={{ marginVertical: 12 }}
             title={"出售价格"}
@@ -129,7 +171,7 @@ export const CmsAddProductScreen = () => {
             containerStyle={{ marginVertical: 12 }}
             title={"商品原价"}
             onChangeText={text => {
-              originPrice = Number.parseInt(text);
+              setOriginPrice(Number.parseInt(text));
             }}
             placeholder={"填写商品原来的价格"}
             keyboardType={"numeric"}
@@ -177,7 +219,11 @@ export const CmsAddProductScreen = () => {
             </Text>
             <View>
               <View style={{ flexDirection: "row" }}>
-                <TouchableOpacity onPress={uploadImag}>
+                <TouchableOpacity
+                  onPress={() => {
+                    uploadProductImagList(0);
+                  }}
+                >
                   <UIImage
                     source={require("./ic_upload_img.png")}
                     style={{
@@ -188,7 +234,11 @@ export const CmsAddProductScreen = () => {
                     }}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={uploadImag}>
+                <TouchableOpacity
+                  onPress={() => {
+                    uploadProductImagList(1);
+                  }}
+                >
                   <UIImage
                     source={require("./ic_upload_img.png")}
                     style={{
@@ -199,47 +249,11 @@ export const CmsAddProductScreen = () => {
                     }}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={uploadImag}>
-                  <UIImage
-                    source={require("./ic_upload_img.png")}
-                    style={{
-                      width: 64,
-                      marginLeft: 16,
-                      marginTop: 16,
-                      height: 64
-                    }}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  marginTop: 12
-                }}
-              >
-                <TouchableOpacity onPress={uploadImag}>
-                  <UIImage
-                    source={require("./ic_upload_img.png")}
-                    style={{
-                      width: 64,
-                      marginLeft: 16,
-                      marginTop: 16,
-                      height: 64
-                    }}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={uploadImag}>
-                  <UIImage
-                    source={require("./ic_upload_img.png")}
-                    style={{
-                      width: 64,
-                      marginLeft: 16,
-                      marginTop: 16,
-                      height: 64
-                    }}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={uploadImag}>
+                <TouchableOpacity
+                  onPress={() => {
+                    uploadProductImagList(2);
+                  }}
+                >
                   <UIImage
                     source={require("./ic_upload_img.png")}
                     style={{
@@ -257,7 +271,11 @@ export const CmsAddProductScreen = () => {
                   marginTop: 12
                 }}
               >
-                <TouchableOpacity onPress={uploadImag}>
+                <TouchableOpacity
+                  onPress={() => {
+                    uploadProductImagList(3);
+                  }}
+                >
                   <UIImage
                     source={require("./ic_upload_img.png")}
                     style={{
@@ -268,7 +286,11 @@ export const CmsAddProductScreen = () => {
                     }}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={uploadImag}>
+                <TouchableOpacity
+                  onPress={() => {
+                    uploadProductImagList(4);
+                  }}
+                >
                   <UIImage
                     source={require("./ic_upload_img.png")}
                     style={{
@@ -279,7 +301,63 @@ export const CmsAddProductScreen = () => {
                     }}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={uploadImag}>
+                <TouchableOpacity
+                  onPress={() => {
+                    uploadProductImagList(5);
+                  }}
+                >
+                  <UIImage
+                    source={require("./ic_upload_img.png")}
+                    style={{
+                      width: 64,
+                      marginLeft: 16,
+                      marginTop: 16,
+                      height: 64
+                    }}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  marginTop: 12
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() => {
+                    uploadProductImagList(6);
+                  }}
+                >
+                  <UIImage
+                    source={require("./ic_upload_img.png")}
+                    style={{
+                      width: 64,
+                      marginLeft: 16,
+                      marginTop: 16,
+                      height: 64
+                    }}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    uploadProductImagList(7);
+                  }}
+                >
+                  <UIImage
+                    source={require("./ic_upload_img.png")}
+                    style={{
+                      width: 64,
+                      marginLeft: 16,
+                      marginTop: 16,
+                      height: 64
+                    }}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    uploadProductImagList(8);
+                  }}
+                >
                   <UIImage
                     source={require("./ic_upload_img.png")}
                     style={{

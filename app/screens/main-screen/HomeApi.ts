@@ -49,15 +49,6 @@ function pictureUpload(file: { uri: string; name: string; type: string }) {
   console.log(file);
   body.append("file", file);
   body.append("fileName", file.name + ".jpg");
-  // return fetch(DEFAULT_API_CONFIG.url + "/picture/upload", {
-  //   // Your POST endpoint
-  //   method: "POST",
-  //   headers: {
-  //     Accept: "application/json",
-  //     "Content-Type": "multipart/form-data"
-  //   },
-  //   body: body
-  // }); // This
   return FangHeApi.post("/picture/upload", body);
 }
 
