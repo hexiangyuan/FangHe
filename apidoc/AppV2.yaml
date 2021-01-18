@@ -1,0 +1,1033 @@
+openapi: 3.0.1
+info:
+  title: Sample API
+  description: API description in Markdown.
+  version: 1.0.0
+servers:
+  - url: 'https://api.example.com'
+paths:
+  /app/article/list:
+    get:
+      summary: 获取精选文章的
+      tags:
+        - 精选文章
+      description: 获取精选文章的列表
+      parameters:
+        - name: pageSize
+          in: query
+          required: true
+          description: 分页大小默认20
+          schema:
+            type: integer
+            format: int32
+        - name: page
+          in: query
+          required: true
+          description: 分页信息从0也开始
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/articleItem'
+
+  /app/article/detail:
+    get:
+      tags:
+        - 精选文章
+      summary: 获取精选文章的详情
+      description: 获取精选文章的详情
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: 文章的ID
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    $ref: '#/components/schemas/articleDetail'
+
+  /app/article/comment/list:
+    get:
+      tags:
+        - 精选文章
+      summary: 获取精选文章的评论列表
+      parameters:
+        - name: pageSize
+          in: query
+          required: true
+          description: 分页大小默认20
+          schema:
+            type: integer
+            format: int32
+        - name: page
+          in: query
+          required: true
+          description: 分页信息从0也开始
+          schema:
+            type: integer
+            format: int64
+        - name: id
+          in: query
+          required: true
+          description: 文章ID
+          schema:
+            type: integer
+            format: int32
+
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/commentItem'
+
+  /app/article/comment/add:
+    post:
+      tags:
+        - 精选文章
+      summary: 添加文章的评论
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addCommentReqBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /app/article/comment/delete:
+    get:
+      tags:
+        - 精选文章
+      summary: 删除自己的评论
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: 评论ID
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /app/article/likes/add:
+    get:
+      tags:
+        - 精选文章
+      summary: 新增自己的喜欢❤️
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: 文章ID
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /app/article/likes/cancel:
+    get:
+      tags:
+        - 精选文章
+      summary: 取消自己的喜欢❤️
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: 文章ID
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /app/article/collect/add:
+    get:
+      tags:
+        - 精选文章
+      summary: 收藏到我的收藏集
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: 文章ID
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /app/article/collect/cancel:
+    get:
+      tags:
+        - 精选文章
+      summary: 从收藏集里取消收藏
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: 文章ID
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /app/imgs/list:
+    get:
+      tags:
+        - 美女图册
+      summary: 获取图册列表
+      parameters:
+        - name: pageSize
+          in: query
+          required: true
+          description: 分页大小默认20
+          schema:
+            type: integer
+            format: int32
+        - name: page
+          in: query
+          required: true
+          description: 分页信息从0也开始
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/imgsItem'
+
+  /app/imgs/details:
+    get:
+      tags:
+        - 美女图册
+      summary: 获取图册详情
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: 图册ID
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    $ref: '#/components/schemas/imgsItem'
+
+
+  /app/imgs/collect/add:
+    get:
+      tags:
+        - 美女图册
+      summary: 收藏到我的收藏集
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: iMG 图册 ID
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /app/imgs/collect/cancel:
+    get:
+      tags:
+        - 美女图册
+      summary: 从收藏集里取消收藏
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: iMG 图册 ID
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /app/imgs/likes/add:
+    get:
+      tags:
+        - 美女图册
+      summary: 新增自己的喜欢❤️
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: Imgs ID
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /app/imgs/likes/cancel:
+    get:
+      tags:
+        - 美女图册
+      summary: 取消自己的喜欢❤️
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: Imgs ID
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /app/imgs/comment/list:
+    get:
+      tags:
+        - 美女图册
+      summary: 获取美女图册的评论列表
+      parameters:
+        - name: pageSize
+          in: query
+          required: true
+          description: 分页大小默认20
+          schema:
+            type: integer
+            format: int32
+        - name: page
+          in: query
+          required: true
+          description: 分页信息从0也开始
+          schema:
+            type: integer
+            format: int64
+        - name: id
+          in: query
+          required: true
+          description: 图册ID
+          schema:
+            type: integer
+            format: int32
+
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/commentItem'
+
+  /app/imgs/comment/add:
+    post:
+      tags:
+        - 美女图册
+      summary: 添加imgs的评论
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addCommentReqBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /app/imgs/comment/delete:
+    get:
+      tags:
+        - 美女图册
+      summary: 删除自己的评论
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: 评论ID
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /app/video/list:
+    get:
+      tags:
+        - 短视频
+      summary: 获取短视频列表
+      parameters:
+        - name: pageSize
+          in: query
+          required: true
+          description: 分页大小默认20
+          schema:
+            type: integer
+            format: int32
+        - name: page
+          in: query
+          required: true
+          description: 分页信息从0也开始
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/videoItem'
+
+  /app/video/details:
+    get:
+      tags:
+        - 短视频
+      summary: 获取短视频详情
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: 短视频ID
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    $ref: '#/components/schemas/videoItem'
+
+  /app/video/collect/add:
+    get:
+      tags:
+        - 短视频
+      summary: 添加到我的Vedio收藏集
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: iMG 图册 ID
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /app/vedio/collect/cancel:
+    get:
+      tags:
+        - 短视频
+      summary: 从收藏集里取消收藏
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: video ID
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /app/vedio/likes/add:
+    get:
+      tags:
+        - 短视频
+      summary: 新增自己的喜欢❤️
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: Imgs ID
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /app/vedio/likes/cancel:
+    get:
+      tags:
+        - 短视频
+      summary: 取消自己的喜欢❤️
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: Imgs ID
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /app/video/comment/list:
+    get:
+      tags:
+        - 短视频
+      summary: 获取短视频的评论列表
+      parameters:
+        - name: pageSize
+          in: query
+          required: true
+          description: 分页大小默认20
+          schema:
+            type: integer
+            format: int32
+        - name: page
+          in: query
+          required: true
+          description: 分页信息从0也开始
+          schema:
+            type: integer
+            format: int64
+        - name: id
+          in: query
+          required: true
+          description: 文章ID
+          schema:
+            type: integer
+            format: int32
+
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/commentItem'
+
+  /app/vedio/comment/add:
+    post:
+      tags:
+        - 短视频
+      summary: 添加Video的评论
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addCommentReqBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /app/vedio/comment/delete:
+    get:
+      tags:
+        - 短视频
+      summary: 删除自己的评论
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: 评论ID
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /app/collection/article/list:
+    get:
+      summary: 获取我的收藏精选文章的
+      tags:
+        - 我的收藏
+      description: 获取收藏的精选文章的列表
+      parameters:
+        - name: pageSize
+          in: query
+          required: true
+          description: 分页大小默认20
+          schema:
+            type: integer
+            format: int32
+        - name: page
+          in: query
+          required: true
+          description: 分页信息从0也开始
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/articleItem'
+
+  /app/collection/imgs/list:
+    get:
+      summary: 获取我的收藏图片列表
+      tags:
+        - 我的收藏
+      description: 获取我的收藏图片列表
+      parameters:
+        - name: pageSize
+          in: query
+          required: true
+          description: 分页大小默认20
+          schema:
+            type: integer
+            format: int32
+        - name: page
+          in: query
+          required: true
+          description: 分页信息从0也开始
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/imgsItem'
+
+  /app/collection/video/list:
+    get:
+      summary: 获取我的收藏短视频列表
+      tags:
+        - 我的收藏
+      description: 获取我的收藏短视频列表
+      parameters:
+        - name: pageSize
+          in: query
+          required: true
+          description: 分页大小默认20
+          schema:
+            type: integer
+            format: int32
+        - name: page
+          in: query
+          required: true
+          description: 分页信息从0也开始
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/videoItem'
+
+
+components:
+  schemas:
+    articleItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+          description: 标题
+        mainImg:
+          type: string
+          description: 主图
+        likesNum:
+          type: integer
+          description: 点赞数量
+        commentNum:
+          type: integer
+          description: 评论数量
+        isLikes:
+          type: boolean
+          description: 是否点赞
+        isCollected:
+          type: boolean
+          description: 是否已经加入收藏夹
+
+    articleDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+          description: 文章标题
+        mainImg:
+          type: string
+          description: 文章主图片
+        content:
+          type: string
+          description: 文章富文本内容图文混排
+        likesNum:
+          type: integer
+          description: 点赞数量
+        commentNum:
+          type: integer
+          description: 评论数量
+        isLikes:
+          type: boolean
+          description: 是否点赞
+        isCollected:
+            type: boolean
+            description: 是否已经加入收藏夹
+
+    commentItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: 评论ID
+        content:
+          type: string
+          description: 评论内容
+        time:
+          type: string
+          format: date-time
+          description: 评论时间
+        userName:
+          type: string
+          description: 评论用户名称
+        userAvatar:
+          type: string
+          description: 用户头像，暂时没有
+        userId:
+          type: string
+          description: userId
+
+    addCommentReqBody:
+      type: object
+      properties:
+        id:
+          type: string
+          description: 评论的ID
+        cotent:
+          type: string
+          description: 评论内容，最大500字
+        img:
+          type: string
+          description: 支持一张图片。暂时可以不做
+
+    imgsItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+          description: 标题
+        imgs:
+          type: array
+          items:
+            type: string
+            description: 图片链接
+        likesNum:
+          type: integer
+          description: 点赞数量
+        commentNum:
+          type: integer
+          description: 评论数量
+        isLikes:
+          type: boolean
+          description: 是否点赞
+        isCollected:
+            type: boolean
+            description: 是否已经加入收藏夹
+
+    videoItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+          description: 标题
+        vedio:
+          type: string
+          description: 短视频链接
+        likesNum:
+          type: integer
+          description: 点赞数量
+        commentNum:
+          type: integer
+          description: 评论数量
+        isLikes:
+          type: boolean
+          description: 是否点赞
+        isCollected:
+            type: boolean
+            description: 是否已经加入收藏夹
