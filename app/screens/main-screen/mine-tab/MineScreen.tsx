@@ -1,14 +1,14 @@
 import React from "react";
-import { Alert, Text, TouchableOpacity, View } from "react-native";
-import { RootNavigation } from "../../../navigation";
-import { UIButton, UIImage } from "react-native-pjt-ui-lib";
-import { IconTypes } from "../../../components/icon/icons";
-import { Icon } from "../../../components";
+import {Alert, Text, TouchableOpacity, View} from "react-native";
+import {RootNavigation} from "../../../navigation";
+import {UIButton, UIImage} from "react-native-pjt-ui-lib";
+import {IconTypes} from "../../../components/icon/icons";
+import {Icon} from "../../../components";
 import LocalCookieStore from "../../../services/local/UserCookieStore";
-import { setFangHeApiCookie } from "../../../services/api";
-import { userUserStore } from "../../../models/user-store/user-store";
-import { observer, useLocalStore } from "mobx-react-lite";
-import { useFocusEffect } from "@react-navigation/native";
+import {setFangHeApiCookie} from "../../../services/api";
+import {userUserStore} from "../../../models/user-store/user-store";
+import {observer, useLocalStore} from "mobx-react-lite";
+import {useFocusEffect} from "@react-navigation/native";
 import StringUtils from "../../../utils/ReularUtils";
 
 const UnLoginView = () => {
@@ -252,9 +252,9 @@ const MineScreen = observer(() => {
             height: 72
           }}
         />
-        {userStore?.isLogin ? <LoginHeaderView mobile={userStore.mobile} /> : <UnLoginView />}
+        {userStore?.isLogin ? <LoginHeaderView mobile={userStore.mobile}/> : <UnLoginView/>}
       </View>
-      <MineOrder />
+      <MineOrder/>
       <View
         style={{
           width: "100%",
@@ -263,7 +263,7 @@ const MineScreen = observer(() => {
         }}
       >
         {userStore.isLogin && (
-          <UIButton onPress={logout} containerStyle={{ width: "80%" }}>
+          <UIButton onPress={logout} containerStyle={{width: "80%"}}>
             退出登录
           </UIButton>
         )}

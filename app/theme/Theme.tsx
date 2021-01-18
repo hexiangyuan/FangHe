@@ -1,7 +1,7 @@
-import { NavigationState, SceneRendererProps } from "react-native-tab-view/lib/typescript/src/types";
+import {NavigationState, SceneRendererProps} from "react-native-tab-view/lib/typescript/src/types";
 import React from "react";
-import { TabBar, Route } from "react-native-tab-view";
-import { StyleSheet, Text } from "react-native";
+import {Route, TabBar} from "react-native-tab-view";
+import {StyleSheet, Text} from "react-native";
 
 const primary = "#FF4D4D";
 const primaryDark = "#FF3535";
@@ -14,14 +14,14 @@ export const Colors = {
 };
 
 export function CustomerTabBar<T extends Route>(
-  props: SceneRendererProps & {
-    navigationState: NavigationState<T>;
-  }
+  props: SceneRendererProps & { navigationState: NavigationState<T>; } & { tabWidth?: number }
 ) {
+  console.log("CustomerTabBar")
+  const tabWidth = props.tabWidth ? props.tabWidth : 72
   return (
     <TabBar
       {...props}
-      tabStyle={{ width: 72 }}
+      tabStyle={{width: tabWidth}}
       style={{
         backgroundColor: "white",
         elevation: 0,
@@ -39,7 +39,7 @@ export function CustomerTabBar<T extends Route>(
         height: 3,
         borderRadius: 3,
         width: 18,
-        marginHorizontal: (72 - 18) / 2,
+        marginHorizontal: (tabWidth - 18) / 2,
         alignSelf: "center"
       }}
     />

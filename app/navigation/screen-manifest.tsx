@@ -1,21 +1,24 @@
 import MainTab from "../screens/main-screen/MainTab";
 import React from "react";
-import { ShopDetailScreen } from "../screens/shop-detail-screen/ShopDetailScreen";
-import { ProductDetailScreen } from "../screens/product-detail-screen/ProductDetailScreen";
-import { OrderSubmitScreen } from "../screens/order-submit/OrderSubmitScreen";
-import { MobileLoginScreen } from "../screens/login/login-screen";
-import { MobileLoginVerificationCodeScreen } from "../screens/login/login-verification-code-screen";
-import { OrderSubmitSucceedScreen } from "../screens/order-submit/OrderSubmitSucceedScreen";
-import { OrderListScreen } from "../screens/order-list/OrderListScreen";
-import { NativeStackNavigationOptions } from "react-native-screens/native-stack";
-import { AboutUsScreen } from "../screens/about-screen/AboutUsScreen";
-import { CmsLoginScreen } from "../cms/CmsLoginScreen";
-import { CmsMainScreen } from "../cms/CmsMainScreen";
-import { CmsShopList } from "../cms/CmsShopList";
-import { CmsAddShopScreen } from "../cms/CmsAddShopScreen";
-import { PreviewShopDetailScreen } from "../cms/preview-shop-detail/PreviewShopDetailScreen";
-import { CmsAddProductScreen } from "../cms/CmsAddProductScreen";
-import { PrivacyPolicyScreen } from "../screens/policy-screens/privacy-policy-screen";
+import {ShopDetailScreen} from "../screens/shop-detail-screen/ShopDetailScreen";
+import {ProductDetailScreen} from "../screens/product-detail-screen/ProductDetailScreen";
+import {OrderSubmitScreen} from "../screens/order-submit/OrderSubmitScreen";
+import {MobileLoginScreen} from "../screens/login/login-screen";
+import {MobileLoginVerificationCodeScreen} from "../screens/login/login-verification-code-screen";
+import {OrderSubmitSucceedScreen} from "../screens/order-submit/OrderSubmitSucceedScreen";
+import {OrderListScreen} from "../screens/order-list/OrderListScreen";
+import {NativeStackNavigationOptions} from "react-native-screens/native-stack";
+import {AboutUsScreen} from "../screens/about-screen/AboutUsScreen";
+import {CmsLoginScreen} from "../cms/CmsLoginScreen";
+import {CmsMainScreen} from "../cms/CmsMainScreen";
+import {CmsShopList} from "../cms/CmsShopList";
+import {CmsAddShopScreen} from "../cms/CmsAddShopScreen";
+import {PreviewShopDetailScreen} from "../cms/preview-shop-detail/PreviewShopDetailScreen";
+import {CmsAddProductScreen} from "../cms/CmsAddProductScreen";
+import {PrivacyPolicyScreen} from "../screens/policy-screens/privacy-policy-screen";
+import ArticleDetailScreen from "../screens/article-detail-screen/ArticleDetailScreen"
+import PhotoDetailScreen from "../screens/ptoto-detail-screen/PhotoDetailScreen"
+import VideoDetailScreen from "../screens/video-detail-screen/VideoDetailScreen"
 
 interface Screen {
   name: string;
@@ -31,7 +34,7 @@ const mainTabScreen: Array<Screen> = [
   {
     name: "MainTab",
     component: MainTab,
-    options: { headerShown: false }
+    options: {headerShown: false}
   },
   {
     name: "ShopDetailScreen",
@@ -92,6 +95,18 @@ const mainTabScreen: Array<Screen> = [
   {
     name: "PreviewShopDetailScreen",
     component: PreviewShopDetailScreen
+  },
+  {
+    name: "ArticleDetailScreen",
+    component: ArticleDetailScreen
+  },
+  {
+    name: "PhotoDetailScreen",
+    component: PhotoDetailScreen
+  },
+  {
+    name: "VideoDetailScreen",
+    component: VideoDetailScreen
   }
 ];
 

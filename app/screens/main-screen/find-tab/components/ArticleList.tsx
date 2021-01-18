@@ -1,17 +1,21 @@
 import React, {useEffect} from "react";
 import {FlatList, RefreshControl, TouchableOpacity, View} from "react-native";
-import {HomeShopItem} from "./HomeShopItem";
+import {ArticleItem} from "./ArticleItem";
 import {RootNavigation} from "../../../../navigation";
-import {getLocation} from "../../../../models/location-store/LocationStore";
 import HomeApi from "../../HomeApi";
 import {observer, useLocalStore} from "mobx-react-lite";
 import {EmptyView} from "./EmptyView";
+import {getLocation} from "../../../../models/location-store/LocationStore";
 
 export interface Props {
   key: "100" | "200";
 }
 
-export const ShopList = observer((props: { type: number }) => {
+const keyTabArticle = "30";
+const keyTabPhoto = "40";
+const keyTabVideo = "50";
+
+export const ArticleList = observer((props: { type: string }) => {
   const store = useLocalStore(() => ({
     data: undefined,
     refreshing: false,
@@ -24,18 +28,17 @@ export const ShopList = observer((props: { type: number }) => {
     },
     refreshData() {
       store.refreshing = true;
+      // HomeApi.getFindArticleList().then(value => {
+      //   store.refreshing = false;
+      //   if (value.code === 200) {
+      //     store.data = value.data;
+      //   }
+      // });
       getLocation()
         .then(location => {
-          HomeApi.getHomeList({
-            id: props.type,
-            location: {
-              latitude: location?.latitude || 0,
-              longitude: location?.longitude || 0
-            },
-            page: 0,
-            pagesize: 100
-          }).then(value => {
+          HomeApi.getFindArticleList().then(value => {
             store.refreshing = false;
+            console.log("response data==== ", value.code);
             if (value.code === 200) {
               store.data = value.data;
             }
@@ -66,18 +69,30 @@ export const ShopList = observer((props: { type: number }) => {
         }}
       >
         <FlatList
-          style={{flex: 1}}
+          style={{flex: 1, paddingRight: 12}}
           data={store.data}
+          numColumns={2}
           keyExtractor={(item, index) => index.toString()}
           refreshControl={<RefreshControl refreshing={store.refreshing} onRefresh={onRefresh}/>}
           renderItem={({item}) => {
             return (
               <TouchableOpacity
                 onPress={() => {
-                  RootNavigation.push("ShopDetailScreen", {id: item.id});
+                  switch (props.type) {
+                    case keyTabArticle:
+                      RootNavigation.push("ArticleDetailScreen", {id: item.id});
+                      break
+                    case keyTabPhoto:
+                      RootNavigation.push("PhotoDetailScreen", {id: item.id});
+                      break
+                    case keyTabVideo:
+                      RootNavigation.push("VideoDetailScreen", {id: item.id});
+                      break
+                  }
                 }}
+                style={{flex: 1}}
               >
-                <HomeShopItem {...item} />
+                <ArticleItem {...item} />
               </TouchableOpacity>
             );
           }}

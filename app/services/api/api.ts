@@ -1,6 +1,6 @@
-import { ApisauceInstance, create, ApiResponse } from "apisauce";
-import { GeneralApiProblem, getGeneralApiProblem, resolveApiCode } from "./api-problem";
-import { ApiConfig, DEFAULT_API_CONFIG } from "./api-config";
+import {ApiResponse, ApisauceInstance, create} from "apisauce";
+import {GeneralApiProblem, getGeneralApiProblem, resolveApiCode} from "./api-problem";
+import {ApiConfig, DEFAULT_API_CONFIG} from "./api-config";
 
 /**
  * Manages all requests to the API.
@@ -91,6 +91,11 @@ export class Api {
       console.log(e);
     }
     return "";
+  }
+
+  async test(data?: string): Promise<{ code: string; data?: any; errorMsg?: String } | GeneralApiProblem> {
+    console.log("response data==== ", JSON.parse(data));
+    return JSON.parse(data);
   }
 }
 
