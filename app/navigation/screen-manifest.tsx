@@ -17,7 +17,7 @@ import {PreviewShopDetailScreen} from "../cms/preview-shop-detail/PreviewShopDet
 import {CmsAddProductScreen} from "../cms/CmsAddProductScreen";
 import {PrivacyPolicyScreen} from "../screens/policy-screens/privacy-policy-screen";
 import ArticleDetailScreen from "../screens/article-detail-screen/ArticleDetailScreen"
-import PhotoDetailScreen from "../screens/ptoto-detail-screen/PhotoDetailScreen"
+import PhotoDetailScreen from "../screens/find/ptoto-detail-screen/PhotoDetailScreen"
 import VideoDetailScreen from "../screens/video-detail-screen/VideoDetailScreen"
 
 interface Screen {

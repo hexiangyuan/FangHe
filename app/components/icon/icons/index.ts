@@ -11,7 +11,12 @@ export const icons = {
   tab_mine: require("./mine.png"),
   clear: require("./clear.png"),
   back_white: require("./back_black_circle.png"),
-  back_black: require("./back_black.png")
+  back_black: require("./back_black.png"),
+  collect_true: require("./collect_true.png"),
+  collect_false: require("./collect_false.png"),
+  like_true: require("./like_true.png"),
+  like_false: require("./like_false.png"),
+  comment: require("./comment.png")
 };
 
 export type IconTypes = keyof typeof icons;

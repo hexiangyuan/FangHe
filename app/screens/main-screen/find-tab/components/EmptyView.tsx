@@ -1,4 +1,4 @@
-import { Image, Text, TouchableOpacity } from "react-native";
+import {Image, Text, TouchableOpacity} from "react-native";
 import React from "react";
 
 export const EmptyView = (props: { onPress: () => void }) => (
@@ -11,7 +11,7 @@ export const EmptyView = (props: { onPress: () => void }) => (
     }}
   >
     <Image
-      source={require("./home_empty.png")}
+      source={require("../../../../components/icon/icons/home_empty.png")}
       style={{
         width: 200,
         height: 200
