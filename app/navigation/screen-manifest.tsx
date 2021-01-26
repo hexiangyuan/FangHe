@@ -16,9 +16,9 @@ import {CmsAddShopScreen} from "../cms/CmsAddShopScreen";
 import {PreviewShopDetailScreen} from "../cms/preview-shop-detail/PreviewShopDetailScreen";
 import {CmsAddProductScreen} from "../cms/CmsAddProductScreen";
 import {PrivacyPolicyScreen} from "../screens/policy-screens/privacy-policy-screen";
-import ArticleDetailScreen from "../screens/article-detail-screen/ArticleDetailScreen"
+import ArticleDetailScreen from "../screens/find/article-detail-screen/ArticleDetailScreen"
 import PhotoDetailScreen from "../screens/find/ptoto-detail-screen/PhotoDetailScreen"
-import VideoDetailScreen from "../screens/video-detail-screen/VideoDetailScreen"
+import VideoDetailScreen from "../screens/find/video-detail-screen/VideoDetailScreen"
 
 interface Screen {
   name: string;
