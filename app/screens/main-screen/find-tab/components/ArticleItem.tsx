@@ -22,11 +22,19 @@ const styles = StyleSheet.create({
 });
 
 export const ArticleItem = (props: ArticleItemProps) => {
+
+  function transformLikeNum(num: number): string {
+    if (num >= 1000) {
+      return (num / 1000.0).toString() + "k"
+    }
+    return num.toString()
+  }
+
   return (
     <View style={styles.itemContainer}>
       <FastImage
         source={{
-          uri: props.icon,
+          uri: props.imgs[0],
         }}
         resizeMode={FastImage.resizeMode.cover}
         style={styles.imgStyle}
@@ -48,11 +56,11 @@ export const ArticleItem = (props: ArticleItemProps) => {
           marginTop: 5,
         }}>
         <Text style={{lineHeight: 17, fontSize: 12, color: "#666", flex: 1}}>
-          评论 23
+          评论 {props.commentNum}
         </Text>
         <Text
           style={{lineHeight: 17, fontSize: 12, color: "#666", flex: 1, textAlign: "right"}}>
-          点赞 2.3k
+          点赞 {transformLikeNum(props.likesNum)}
         </Text>
       </View>
     </View>

@@ -51,10 +51,10 @@ export const CommentItem = (props: CommentItemProps) => {
       <View style={{flex: 1, display: "flex", flexDirection: "column", paddingHorizontal: 8}}>
         <Text
           style={styles.userName}>
-          用户名 {props.id}
+          用户名 {props.userName}
         </Text>
         <Text style={styles.comment}>{props.content}</Text>
-        <Text style={styles.commentTime}>2021-01-23 14:51:23</Text>
+        <Text style={styles.commentTime}>{props.time}</Text>
       </View>
 
     </View>

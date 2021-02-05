@@ -16,7 +16,8 @@ export const icons = {
   collect_false: require("./collect_false.png"),
   like_true: require("./like_true.png"),
   like_false: require("./like_false.png"),
-  comment: require("./comment.png")
+  comment: require("./comment.png"),
+  commit: require("./commit.png")
 };
 
 export type IconTypes = keyof typeof icons;

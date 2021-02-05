@@ -1,15 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Dimensions, FlatList, Pressable, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Dimensions, FlatList, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import ImageViewer from "react-native-image-zoom-viewer";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {useLocalStore} from "mobx-react-lite";
 import {Icon} from "../../../components";
 import {BottomModal, ModalContent} from 'react-native-modals';
 import {CommentItem} from "../../main-screen/find-tab/components/CommentItem";
+import FindApi from "../FindApi";
 
-const PhotoDetailScreen = () => {
+const PhotoDetailScreen = (props) => {
 
   const store = useLocalStore(() => ({
+    id: 0,
     data: {
       count: 1,
       images: [{
@@ -31,19 +33,8 @@ const PhotoDetailScreen = () => {
           source: "require('../../../components/icon/icons/home_empty.png')"
         }
       }],
-      commentList: [{id: 1, content: "评论1", userAvatar: ""}, {id: 2, content: "美女真好看", userAvatar: ""}, {
-        id: 3,
-        content: "好大",
-        userAvatar: ""
-      }, {
-        id: 4,
-        content: "好白", userAvatar: ""
-      }, {id: 1, content: "评论1", userAvatar: ""}, {id: 2, content: "美女真好看", userAvatar: ""}, {
-        id: 3,
-        content: "好大",
-        userAvatar: ""
-      }, {id: 4, content: "好白", userAvatar: ""}]
     },
+    commentPage: 0,
     refreshing: false,
     get empty() {
       if (store.data) {
@@ -53,44 +44,140 @@ const PhotoDetailScreen = () => {
       }
     },
     refreshData() {
-      store.data.count += 1
-      console.log("refreshData")
       // store.refreshing = true;
-      // getLocation()
-      //   .then(location => {
-      //     HomeApi.getFindArticleList().then(value => {
-      //       store.refreshing = false;
-      //       console.log("response data==== ", value.code);
-      //       if (value.code === 200) {
-      //         store.data = value.data;
-      //       }
-      //     });
-      //   })
-      //   .catch(e => {
-      //     store.refreshing = false;
-      //     console.log(e);
-      //   });
+      // props.imgs.forEach((value, index) => store.data.images[index] = {url: value, props: {}})
+      FindApi.getImgsDetail(store.id).then(value => {
+        store.refreshing = false;
+        console.log("response data==== ", value.code);
+        if (value.code === 200) {
+          const imgs = value.data.imgs
+          if (imgs != null && imgs.length > 0) {
+            const list = new Array(imgs.length)
+            imgs.forEach((v, i) => {
+              list[i] = {
+                url: v,
+                props: {}
+              }
+            })
+            setDataList(list)
+          }
+          if (value.data.collected) {
+            setIsCollected(true)
+          }
+          if (value.data.likes) {
+            setIsLiked(true)
+          }
+          setLikesNum(value.data.likesNum)
+          setCommentNum(value.data.commentNum)
+        }
+      });
+
     }
   }));
 
+  const [dataList, setDataList] = useState([])
+  const [commentList, setCommentList] = useState([])
   const [isCollected, setIsCollected] = useState(false)
   const [isLiked, setIsLiked] = useState(false)
+  const [likesNum, setLikesNum] = useState(0)
+  const [commentNum, setCommentNum] = useState(0)
+  const [commentValue, setCommentValue] = useState("")
 
+  /**
+   * 点击收藏
+   */
   function clickCollect() {
-    setIsCollected((current) => !current)
+    // TODO 检查登陆
+    if (isCollected) {
+      FindApi.cancelImgsCollect(store.id).then(value => {
+        if (value.code === 200) {
+          setIsCollected((current) => !current)
+        } else {
+
+        }
+      })
+    } else {
+      FindApi.addImgsCollect(store.id).then(value => {
+        if (value.code === 200) {
+          setIsCollected((current) => !current)
+        } else {
+
+        }
+      });
+    }
   }
 
+  /**
+   * 点击喜欢
+   */
   function clickLike() {
-    setIsLiked((current) => !current)
+    // TODO 检查登陆
+    if (isLiked) {
+      FindApi.cancelImgsLike(store.id).then(value => {
+        if (value.code === 200) {
+          setIsLiked((current) => !current)
+        }
+      })
+    } else {
+      FindApi.addImgsLike(store.id).then(value => {
+        if (value.code === 200) {
+          setIsLiked((current) => !current)
+        }
+      });
+    }
   }
 
+  /**
+   * 点击评论，弹出评论列表
+   */
   function clickComment() {
     setCommentListWindowVisible(true)
-    // bottomSheetRef.current?.expand();
+  }
+
+  /**
+   * 发表评论
+   */
+  function commitComment() {
+    FindApi.addImgsComment({
+      id: store.id,
+      content: commentValue,
+      img: ""
+    }).then(value => {
+      if (value.code === 200) {
+        // TODO 需要返回当前评论
+        // setCommentList(current => current.concat([commentValue]))
+        setCommentValue("")
+        setAddCommentWindowVisible(false)
+      }
+    });
+  }
+
+  function getCommentList(isRefresh) {
+
+    FindApi.getImgsCommentList(store.id, isRefresh ? 0 : store.commentPage).then(value => {
+      console.log("response data==== ", value.code);
+      if (value.code === 200) {
+        if (isRefresh) {
+          setCommentList(value.data)
+          store.commentPage = 1
+        } else {
+          if (value.data.length > 0) {
+            setCommentList(current => current.concat(value.data))
+            store.commentPage += 1
+          }
+        }
+      }
+    });
+  }
+
+  function onLoadMore() {
+    getCommentList(false)
   }
 
   useEffect(() => {
+    store.id = props.route.params.id
     store.refreshData();
+    getCommentList(true)
   }, []);
 
   const [commentListWindowVisible, setCommentListWindowVisible] = useState(false)
@@ -121,13 +208,13 @@ const PhotoDetailScreen = () => {
                      onPress={clickLike}>
             <Icon style={styles.bottom_button_image}
                   icon={isLiked ? "like_true" : "like_false"}/>
-            <Text style={styles.bottom_button_text}>30.8W</Text>
+            <Text style={styles.bottom_button_text}>{likesNum}</Text>
           </Pressable>
           <Pressable style={styles.bottom_button_wrapper}
                      onPress={clickComment}>
             <Icon style={styles.bottom_button_image}
                   icon={"comment"}/>
-            <Text style={styles.bottom_button_text}>120</Text>
+            <Text style={styles.bottom_button_text}>{commentNum}</Text>
           </Pressable>
         </View>
 
@@ -136,19 +223,21 @@ const PhotoDetailScreen = () => {
           onTouchOutside={() => {
             setCommentListWindowVisible(false)
           }}
-          height={0.75}
+          height={0.6}
           width={1}
           onSwipeOut={() => setCommentListWindowVisible(false)}
         >
           <ModalContent style={styles.commentListWindow}>
             <View style={{height: 400, display: "flex"}}>
 
-              <Text style={styles.commentCount}>210条评论</Text>
+              <Text style={styles.commentCount}>{commentList.length}条评论</Text>
 
               <FlatList style={{flex: 1, marginVertical: 10}}
-                        data={store.data.commentList}
+                        data={commentList}
                         numColumns={1}
                         keyExtractor={(item, index) => index.toString()}
+                        onEndReachedThreshold={0.1}
+                        onEndReached={() => onLoadMore()}
                         renderItem={({item}) => {
                           return (
                             <TouchableOpacity style={{flex: 1}}
@@ -176,19 +265,25 @@ const PhotoDetailScreen = () => {
           onTouchOutside={() => {
             setAddCommentWindowVisible(false)
           }}
-          height={0.5}
+          height={0.2}
           width={1}
           onSwipeOut={() => setAddCommentWindowVisible(false)}
         >
           <ModalContent style={{backgroundColor: '#fff'}}>
-            <Text>Default Animation</Text>
-            <Text>No onTouchOutside handler. will not dismiss when touch overlay.</Text>
-
-            <Button
-              title="To Empty Screen"
-              onPress={() => {
+            <View style={styles.inputCommentWrapper}>
+              <TextInput style={styles.inputComment} value={commentValue} onChangeText={text => {
+                setCommentValue(text)
               }}
-            />
+                         autoFocus={true}
+                         clearButtonMode={"while-editing"}
+                         placeholder={"留下你的精彩评论吧"}
+                         placeholderTextColor={"#c0c0c0"}/>
+              <Pressable style={styles.btnCommitCommentWrapper}
+                         onPress={commitComment}>
+                <Icon style={styles.btnCommitComment}
+                      icon={"commit"}/>
+              </Pressable>
+            </View>
           </ModalContent>
         </BottomModal>
 
@@ -255,11 +350,36 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 14,
     lineHeight: 40,
-    color: "black",
+    color: "#c0c0c0",
     alignSelf: "center",
-    backgroundColor: "#c0c0c0",
+    backgroundColor: "#e7e8e9",
     paddingHorizontal: 20,
     borderRadius: 50
+  },
+  inputCommentWrapper: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  inputComment: {
+    flex: 1,
+    height: 40,
+    borderColor: 'gray',
+    borderRadius: 50,
+    backgroundColor: "#e7e8e9",
+    paddingHorizontal: 20,
+    color: "black"
+  },
+  btnCommitCommentWrapper: {
+    width: 40,
+    height: 40,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center"
+  },
+  btnCommitComment: {
+    width: 22,
+    height: 22,
   }
 });
 
