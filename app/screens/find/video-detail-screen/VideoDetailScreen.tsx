@@ -25,6 +25,14 @@ const VideoDetailScreen = () => {
     }
   }
 
+  function onLoad(data) {
+    setDuration(data.duration)
+  }
+
+  function onProgress(data) {
+    setCurrentTime(data.currentTime)
+  }
+
   function renderRateControl(newRate) {
     const isSelected = (rate == newRate);
 
@@ -33,7 +41,7 @@ const VideoDetailScreen = () => {
         setRate(newRate)
       }}>
         <Text style={[styles.controlOption, {fontWeight: isSelected ? "bold" : "normal"}]}>
-          {rate}x
+          {newRate}x
         </Text>
       </TouchableOpacity>
     )
@@ -47,7 +55,7 @@ const VideoDetailScreen = () => {
         setResizeMode(newResizeMode)
       }}>
         <Text style={[styles.controlOption, {fontWeight: isSelected ? "bold" : "normal"}]}>
-          {resizeMode}
+          {newResizeMode}
         </Text>
       </TouchableOpacity>
     )
@@ -61,7 +69,7 @@ const VideoDetailScreen = () => {
         setVolume(newVolume)
       }}>
         <Text style={[styles.controlOption, {fontWeight: isSelected ? "bold" : "normal"}]}>
-          {volume * 100}%
+          {newVolume * 100}%
         </Text>
       </TouchableOpacity>
     )
@@ -82,6 +90,8 @@ const VideoDetailScreen = () => {
                volume={volume}
                muted={muted}
                resizeMode={resizeMode}
+               onLoad={onLoad}
+               onProgress={onProgress}
                onEnd={() => {
                  console.log('Done!')
                }}
