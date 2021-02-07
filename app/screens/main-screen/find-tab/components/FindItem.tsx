@@ -1,5 +1,5 @@
 import React from "react";
-import {ArticleItemProps} from "./ArticleItem.props";
+import {FindItemProps} from "./FindItem.props";
 import {Dimensions, StyleSheet, Text, View} from "react-native";
 import FastImage from 'react-native-fast-image'
 
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export const ArticleItem = (props: ArticleItemProps) => {
+export const FindItem = (props: FindItemProps) => {
 
   function transformLikeNum(num: number): string {
     if (num >= 1000) {

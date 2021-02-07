@@ -4,7 +4,7 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import {Route, TabView} from "react-native-tab-view";
 import {CustomerTabBar} from "../../../theme/Theme";
 import {ShopList} from "../home-tab/components/ShopList";
-import {ArticleList} from "../find-tab/components/ArticleList";
+import {FindList} from "./components/FindList";
 
 const keyTabArticle = "30";
 const keyTabPhoto = "40";
@@ -29,11 +29,11 @@ const tabRoutes: Array<Route> = [
 const _renderScene = ({route}) => {
   switch (route.key) {
     case keyTabArticle:
-      return <ArticleList type={route.key}/>;
+      return <FindList type={route.key}/>;
     case keyTabPhoto:
-      return <ArticleList type={route.key}/>;
+      return <FindList type={route.key}/>;
     case keyTabVideo:
-      return <ArticleList type={route.key}/>;
+      return <FindList type={route.key}/>;
     default:
       return <ShopList type={route.key}/>;
   }

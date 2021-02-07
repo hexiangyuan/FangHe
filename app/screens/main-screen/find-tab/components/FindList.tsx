@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Animated, FlatList, RefreshControl, TouchableOpacity, View} from "react-native";
-import {ArticleItem} from "./ArticleItem";
+import {FindItem} from "./FindItem";
 import {RootNavigation} from "../../../../navigation";
 import FindApi from "../../../find/FindApi";
 import {observer, useLocalStore} from "mobx-react-lite";
@@ -15,7 +15,7 @@ const keyTabArticle = "30";
 const keyTabPhoto = "40";
 const keyTabVideo = "50";
 
-export const ArticleList = observer((props: { type: string }) => {
+export const FindList = observer((props: { type: string }) => {
   const store = useLocalStore(() => ({
     data: {
       page: 0,
@@ -115,7 +115,7 @@ export const ArticleList = observer((props: { type: string }) => {
                 }}
                 style={{flex: 1}}
               >
-                <ArticleItem {...item} />
+                <FindItem {...item} />
               </TouchableOpacity>
             );
           }}

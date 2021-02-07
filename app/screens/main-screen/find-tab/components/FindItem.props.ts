@@ -1,4 +1,4 @@
-export interface ArticleItemProps {
+export interface FindItemProps {
   id: number;
   mainImg: string;
   icon: string;
