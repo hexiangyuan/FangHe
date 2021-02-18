@@ -72,6 +72,80 @@ function deleteImgsComment(id: number) {
   return FangHeApi.get("/app/imgs/comment/delete", {id: id})
 }
 
+
+/**
+ * 获取短视频列表
+ * @param page
+ */
+function getVideoList(page) {
+  return FangHeApi.get("/app/video/list", {page: page, pageSize: 20})
+}
+
+/**
+ * 获取短视频详情
+ * @param id 图册id
+ */
+function getVideoDetail(id) {
+  return FangHeApi.get("/app/video/detail", {id: id})
+}
+
+/**
+ * 添加短视频喜欢
+ * @param id 图册id
+ */
+function addVideoLike(id: number) {
+  return FangHeApi.get("/app/video/likes/add", {id: id})
+}
+
+/**
+ * 取消短视频喜欢
+ * @param id 图册id
+ */
+function cancelVideoLike(id: number) {
+  return FangHeApi.get("/app/video/likes/cancel", {id: id})
+}
+
+/**
+ * 添加短视频收藏
+ * @param id 图册id
+ */
+function addVideoCollect(id: number) {
+  return FangHeApi.get("/app/video/collect/add", {id: id})
+}
+
+/**
+ * 取消短视频收藏
+ * @param id 图册id
+ */
+function cancelVideoCollect(id: number) {
+  return FangHeApi.get("/app/video/collect/cancel", {id: id})
+}
+
+/**
+ * 获取短视频评论列表
+ * @param id 图册id
+ */
+function getVideoCommentList(id: number, page: number) {
+  return FangHeApi.get("/app/video/comment/list", {id: id, page: page, pageSize: 20})
+}
+
+/**
+ * 添加短视频评论
+ * @param id 图册id
+ */
+function addVideoComment(request: { id: number; content: string; img: string }) {
+  return FangHeApi.post("/app/video/comment/add", request)
+}
+
+/**
+ * 删除短视频评论
+ * @param id
+ */
+function deleteVideoComment(id: number) {
+  return FangHeApi.get("/app/video/comment/delete", {id: id})
+}
+
+
 const FindApi = {
   getImgsList,
   getImgsDetail,
@@ -81,7 +155,16 @@ const FindApi = {
   cancelImgsCollect,
   getImgsCommentList,
   addImgsComment,
-  deleteImgsComment
+  deleteImgsComment,
+  getVideoList,
+  getVideoDetail,
+  addVideoLike,
+  cancelVideoLike,
+  addVideoCollect,
+  cancelVideoCollect,
+  getVideoCommentList,
+  addVideoComment,
+  deleteVideoComment
 };
 
 export default FindApi
