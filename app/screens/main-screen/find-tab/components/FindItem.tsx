@@ -21,6 +21,14 @@ const styles = StyleSheet.create({
   }
 });
 
+export interface FindListProps {
+  key: "30" | "40" | "50";
+}
+
+const keyTabArticle = 1;
+const keyTabPhoto = 2;
+const keyTabVideo = 3;
+
 export const FindItem = (props: FindItemProps) => {
 
   function transformLikeNum(num: number): string {
@@ -34,7 +42,7 @@ export const FindItem = (props: FindItemProps) => {
     <View style={styles.itemContainer}>
       <FastImage
         source={{
-          uri: props.imgs[0],
+          uri: props.type == keyTabVideo ? props.mainImg : props.imgs[0],
         }}
         resizeMode={FastImage.resizeMode.cover}
         style={styles.imgStyle}

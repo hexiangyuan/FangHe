@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Video from 'react-native-video';
 import {Dimensions, FlatList, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {useLocalStore} from "mobx-react-lite";
@@ -7,13 +7,34 @@ import {CommentItem} from "../../main-screen/find-tab/components/CommentItem";
 import {BottomModal, ModalContent} from 'react-native-modals';
 import FindApi from "../FindApi";
 
-const VideoDetailScreen = () => {
+const VideoDetailScreen = (props) => {
 
   const store = useLocalStore(() => ({
+      id: 0,
       commentPage: 0,
+      refreshData() {
+        // store.refreshing = true;
+        // props.imgs.forEach((value, index) => store.data.images[index] = {url: value, props: {}})
+        FindApi.getVideoDetail(store.id).then(value => {
+          console.log("response data==== ", value.code);
+          if (value.code === 200) {
+            setData(value.data)
+            if (value.data.collected) {
+              setIsCollected(true)
+            }
+            if (value.data.likes) {
+              setIsLiked(true)
+            }
+            setLikesNum(value.data.likesNum)
+            setCommentNum(value.data.commentNum)
+          }
+        });
+
+      }
     }
   ))
 
+  const [data, setData] = useState(null)
   const [rate, setRate] = useState(1)
   const [volume, setVolume] = useState(1)
   const [muted, setMuted] = useState(false)
@@ -180,6 +201,12 @@ const VideoDetailScreen = () => {
     getCommentList(false)
   }
 
+  useEffect(() => {
+    store.id = props.route.params.id
+    store.refreshData();
+    getCommentList(true)
+  }, []);
+
   const flexCompleted = getCurrentTimePercentage() * 100;
   const flexRemaining = (1 - getCurrentTimePercentage()) * 100;
 
@@ -188,20 +215,22 @@ const VideoDetailScreen = () => {
       <TouchableOpacity style={styles.fullScreen} onPress={() => {
         setPaused((current) => !current)
       }}>
-        <Video source={require('./broadchurch.mp4')}
-               style={styles.fullScreen}
-               rate={rate}
-               paused={paused}
-               volume={volume}
-               muted={muted}
-               resizeMode={resizeMode}
-               onLoad={onLoad}
-               onProgress={onProgress}
-               onEnd={() => {
-                 console.log('Done!')
-               }}
-               controls={true}
-               repeat={true}/>
+        {/*<Video source={require('./broadchurch.mp4')}*/}
+        <Video
+          source={{uri: data == null ? "" : data.content.startsWith("http") ? data.content : "http://qope25exv.hn-bkt.clouddn.com/" + data.content}}
+          style={styles.fullScreen}
+          rate={rate}
+          paused={paused}
+          volume={volume}
+          muted={muted}
+          resizeMode={resizeMode}
+          onLoad={onLoad}
+          onProgress={onProgress}
+          onEnd={() => {
+            console.log('Done!')
+          }}
+          controls={true}
+          repeat={true}/>
       </TouchableOpacity>
 
       <View style={styles.controls}>

@@ -7,15 +7,15 @@ import {observer, useLocalStore} from "mobx-react-lite";
 import {EmptyView} from "./EmptyView";
 import {getLocation} from "../../../../models/location-store/LocationStore";
 
-export interface Props {
-  key: "100" | "200";
+export interface FindListProps {
+  key: "30" | "40" | "50";
 }
 
-const keyTabArticle = "30";
-const keyTabPhoto = "40";
-const keyTabVideo = "50";
+const keyTabArticle = 1;
+const keyTabPhoto = 2;
+const keyTabVideo = 3;
 
-export const FindList = observer((props: { type: string }) => {
+export const FindList = observer((props: { type: number }) => {
   const store = useLocalStore(() => ({
     data: {
       page: 0,
@@ -44,10 +44,23 @@ export const FindList = observer((props: { type: string }) => {
 
   const [dataList, setDataList] = useState([])
 
+  function switchApi(isRefresh: boolean) {
+    switch (props.type) {
+      case keyTabArticle:
+        return FindApi.getImgsList(isRefresh ? 0 : store.data.page)
+      case keyTabPhoto:
+        return FindApi.getImgsList(isRefresh ? 0 : store.data.page)
+      case keyTabVideo:
+        return FindApi.getVideoList(isRefresh ? 0 : store.data.page)
+      default:
+        return FindApi.getImgsList(isRefresh ? 0 : store.data.page)
+    }
+  }
+
   function getDataList(isRefresh: boolean) {
     getLocation()
       .then(location => {
-        FindApi.getImgsList(isRefresh ? 0 : store.data.page).then(value => {
+        switchApi(isRefresh).then(value => {
           store.refreshing = false;
           console.log("response data==== ", value.code);
           if (value.code === 200) {
@@ -58,7 +71,6 @@ export const FindList = observer((props: { type: string }) => {
               setDataList(current => current.concat(value.data))
               store.data.page += 1
             }
-
           }
         });
       })
@@ -115,7 +127,7 @@ export const FindList = observer((props: { type: string }) => {
                 }}
                 style={{flex: 1}}
               >
-                <FindItem {...item} />
+                <FindItem {...item} type={props.type}/>
               </TouchableOpacity>
             );
           }}

@@ -6,9 +6,9 @@ import {CustomerTabBar} from "../../../theme/Theme";
 import {ShopList} from "../home-tab/components/ShopList";
 import {FindList} from "./components/FindList";
 
-const keyTabArticle = "30";
-const keyTabPhoto = "40";
-const keyTabVideo = "50";
+const keyTabArticle = "1";
+const keyTabPhoto = "2";
+const keyTabVideo = "3";
 
 const tabRoutes: Array<Route> = [
   {
@@ -29,13 +29,13 @@ const tabRoutes: Array<Route> = [
 const _renderScene = ({route}) => {
   switch (route.key) {
     case keyTabArticle:
-      return <FindList type={route.key}/>;
+      return <FindList type={parseInt(route.key)}/>;
     case keyTabPhoto:
-      return <FindList type={route.key}/>;
+      return <FindList type={parseInt(route.key)}/>;
     case keyTabVideo:
-      return <FindList type={route.key}/>;
+      return <FindList type={parseInt(route.key)}/>;
     default:
-      return <ShopList type={route.key}/>;
+      return <ShopList type={parseInt(route.key)}/>;
   }
 };
 
