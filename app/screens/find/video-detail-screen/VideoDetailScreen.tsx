@@ -8,6 +8,7 @@ import { BottomModal, ModalContent } from "react-native-modals";
 import FindApi from "../FindApi";
 import { RootNavigation } from "../../../navigation";
 import { userUserStore } from "../../../models/user-store/user-store";
+import { Colors } from "../../../theme/Theme";
 
 const VideoDetailScreen = props => {
   const store = useLocalStore(() => ({
@@ -37,7 +38,7 @@ const VideoDetailScreen = props => {
   const [rate, setRate] = useState(1);
   const [volume, setVolume] = useState(1);
   const [muted, setMuted] = useState(false);
-  const [resizeMode, setResizeMode] = useState("contain");
+  const [resizeMode, setResizeMode] = useState("cover");
   const [duration, setDuration] = useState(0.0);
   const [currentTime, setCurrentTime] = useState(0.0);
   const [paused, setPaused] = useState(false);
@@ -222,7 +223,7 @@ const VideoDetailScreen = props => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
+      <Pressable
         style={styles.fullScreen}
         onPress={() => {
           setPaused(current => !current);
@@ -248,34 +249,12 @@ const VideoDetailScreen = props => {
           onEnd={() => {
             console.log("Done!");
           }}
-          controls={true}
+          controls={false}
           repeat={true}
         />
-      </TouchableOpacity>
+      </Pressable>
 
       <View style={styles.controls}>
-        <View style={styles.generalControls}>
-          <View style={styles.rateControl}>
-            {renderRateControl(0.25)}
-            {renderRateControl(0.5)}
-            {renderRateControl(1.0)}
-            {renderRateControl(1.5)}
-            {renderRateControl(2.0)}
-          </View>
-
-          <View style={styles.volumeControl}>
-            {renderVolumeControl(0.5)}
-            {renderVolumeControl(1)}
-            {renderVolumeControl(1.5)}
-          </View>
-
-          <View style={styles.resizeModeControl}>
-            {renderResizeModeControl("cover")}
-            {renderResizeModeControl("contain")}
-            {renderResizeModeControl("stretch")}
-          </View>
-        </View>
-
         <View style={styles.trackingControls}>
           <View style={styles.progress}>
             <View style={[styles.innerProgressCompleted, { flex: flexCompleted }]} />
@@ -397,19 +376,20 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     borderRadius: 5,
     position: "absolute",
-    bottom: 60,
-    left: 20,
-    right: 20
+    bottom: 0,
+    left: 0,
+    right: 0
   },
   progress: {
     flex: 1,
+    height: 2,
     flexDirection: "row",
     borderRadius: 3,
     overflow: "hidden"
   },
   innerProgressCompleted: {
-    height: 20,
-    backgroundColor: "#cccccc"
+    height: 2,
+    backgroundColor: Colors.primaryDark
   },
   innerProgressRemaining: {
     height: 20,
