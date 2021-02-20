@@ -6,6 +6,8 @@ import {Icon} from "../../../components";
 import {CommentItem} from "../../main-screen/find-tab/components/CommentItem";
 import {BottomModal, ModalContent} from 'react-native-modals';
 import FindApi from "../FindApi";
+import {RootNavigation} from "../../../navigation";
+import {userUserStore} from "../../../models/user-store/user-store";
 
 const VideoDetailScreen = (props) => {
 
@@ -50,6 +52,8 @@ const VideoDetailScreen = (props) => {
   const [commentValue, setCommentValue] = useState("")
   const [commentListWindowVisible, setCommentListWindowVisible] = useState(false)
   const [addCommentWindowVisible, setAddCommentWindowVisible] = useState(false)
+
+  const user = userUserStore();
 
 
   function getCurrentTimePercentage() {
@@ -128,11 +132,22 @@ const VideoDetailScreen = (props) => {
     });
   }
 
+  function checkLogin(): boolean {
+    if (user.isLogin()) {
+      return true
+    } else {
+      RootNavigation.push("MobileLoginScreen");
+      return false
+    }
+  }
+
   /**
    * 点击收藏
    */
   function clickCollect() {
-    // TODO 检查登陆
+    if (!checkLogin()) {
+      return
+    }
     if (isCollected) {
       FindApi.cancelVideoCollect(store.id).then(value => {
         if (value.code === 200) {
@@ -156,7 +171,9 @@ const VideoDetailScreen = (props) => {
    * 点击喜欢
    */
   function clickLike() {
-    // TODO 检查登陆
+    if (!checkLogin()) {
+      return
+    }
     if (isLiked) {
       FindApi.cancelVideoLike(store.id).then(value => {
         if (value.code === 200) {
@@ -317,6 +334,9 @@ const VideoDetailScreen = (props) => {
                       }}/>
 
             <Pressable onPress={() => {
+              if (!checkLogin()) {
+                return
+              }
               setAddCommentWindowVisible(true)
             }}>
               <Text style={styles.btnAddComment}>留下你的精彩评论吧</Text>

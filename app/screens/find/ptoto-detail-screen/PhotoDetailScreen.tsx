@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Dimensions, FlatList, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import React, {useEffect, useState} from "react";
+import {Dimensions, FlatList, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import ImageViewer from "react-native-image-zoom-viewer";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { observer, useLocalStore, useObserver } from "mobx-react-lite";
-import { Icon } from "../../../components";
-import { BottomModal, ModalContent } from "react-native-modals";
-import { CommentItem } from "../../main-screen/find-tab/components/CommentItem";
+import {SafeAreaView} from "react-native-safe-area-context";
+import {useLocalStore, useObserver} from "mobx-react-lite";
+import {Icon} from "../../../components";
+import {BottomModal, ModalContent} from "react-native-modals";
+import {CommentItem} from "../../main-screen/find-tab/components/CommentItem";
 import FindApi from "../FindApi";
+import {userUserStore} from "../../../models/user-store/user-store";
+import {RootNavigation} from "../../../navigation";
+
 const PhotoDetailScreen = props => {
   const store = useLocalStore(() => ({
     id: 0,
@@ -36,6 +39,8 @@ const PhotoDetailScreen = props => {
     }
   }));
 
+  const user = userUserStore();
+
   const [commentValue, setCommentValue] = useState("");
 
   function getImgDetails(id: number) {
@@ -60,29 +65,47 @@ const PhotoDetailScreen = props => {
    * 点击收藏
    */
   function clickCollect() {
-    // TODO 检查登陆
+    if (!checkLogin()) {
+      return
+    }
     if (store.data.isCollected) {
       store.cancelCollect();
-      FindApi.cancelImgsCollect(store.id).then(value => {});
+      FindApi.cancelImgsCollect(store.id).then(value => {
+      });
     } else {
       store.data.isCollected = true;
-      FindApi.addImgsCollect(store.id).then(value => {});
+      FindApi.addImgsCollect(store.id).then(value => {
+      });
     }
   }
+
+  function checkLogin(): boolean {
+    if (user.isLogin()) {
+      return true
+    } else {
+      RootNavigation.push("MobileLoginScreen");
+      return false
+    }
+  }
+
 
   /**
    * 点击喜欢
    */
   function clickLike() {
-    // TODO 检查登陆
+    if (!checkLogin()) {
+      return
+    }
     if (store.data.isLiked) {
       store.cancelLike();
       store.data.likesNum--;
-      FindApi.cancelImgsLike(store.id).then(value => {});
+      FindApi.cancelImgsLike(store.id).then(value => {
+      });
     } else {
       store.data.isLiked = true;
       store.data.likesNum++;
-      FindApi.addImgsLike(store.id).then(value => {});
+      FindApi.addImgsLike(store.id).then(value => {
+      });
     }
   }
 
@@ -151,7 +174,7 @@ const PhotoDetailScreen = props => {
       >
         <View style={styles.main_wrapper}>
           {store.data.images && (
-            <ImageViewer imageUrls={store.data.images?.map(item => ({ url: item }))} backgroundColor={"#333"} />
+            <ImageViewer imageUrls={store.data.images?.map(item => ({url: item}))} backgroundColor={"#333"}/>
           )}
 
           <View style={styles.bottom_wrapper}>
@@ -164,11 +187,11 @@ const PhotoDetailScreen = props => {
               <Text style={styles.bottom_button_text}>收藏</Text>
             </Pressable>
             <Pressable style={styles.bottom_button_wrapper} onPress={clickLike}>
-              <Icon style={styles.bottom_button_image} icon={store.data.isLiked ? "like_true" : "like_false"} />
+              <Icon style={styles.bottom_button_image} icon={store.data.isLiked ? "like_true" : "like_false"}/>
               <Text style={styles.bottom_button_text}>{store.data.likesNum}</Text>
             </Pressable>
             <Pressable style={styles.bottom_button_wrapper} onPress={clickComment}>
-              <Icon style={styles.bottom_button_image} icon={"comment"} />
+              <Icon style={styles.bottom_button_image} icon={"comment"}/>
               <Text style={styles.bottom_button_text}>{store.data.commentNum}</Text>
             </Pressable>
           </View>
@@ -201,10 +224,10 @@ const PhotoDetailScreen = props => {
                   keyExtractor={(item, index) => index.toString()}
                   onEndReachedThreshold={0.1}
                   onEndReached={() => onLoadMore()}
-                  renderItem={({ item }) => {
+                  renderItem={({item}) => {
                     return (
                       <TouchableOpacity
-                        style={{ flex: 1 }}
+                        style={{flex: 1}}
                         onPress={() => {
                           console.log(item.content);
                         }}
@@ -217,6 +240,9 @@ const PhotoDetailScreen = props => {
 
                 <Pressable
                   onPress={() => {
+                    if (!checkLogin()) {
+                      return
+                    }
                     setAddCommentWindowVisible(true);
                   }}
                 >
@@ -235,7 +261,7 @@ const PhotoDetailScreen = props => {
             width={1}
             onSwipeOut={() => setAddCommentWindowVisible(false)}
           >
-            <ModalContent style={{ backgroundColor: "#fff" }}>
+            <ModalContent style={{backgroundColor: "#fff"}}>
               <View style={styles.inputCommentWrapper}>
                 <TextInput
                   style={styles.inputComment}
@@ -249,7 +275,7 @@ const PhotoDetailScreen = props => {
                   placeholderTextColor={"#c0c0c0"}
                 />
                 <Pressable style={styles.btnCommitCommentWrapper} onPress={commitComment}>
-                  <Icon style={styles.btnCommitComment} icon={"commit"} />
+                  <Icon style={styles.btnCommitComment} icon={"commit"}/>
                 </Pressable>
               </View>
             </ModalContent>
