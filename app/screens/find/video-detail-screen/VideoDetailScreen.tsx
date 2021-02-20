@@ -15,10 +15,7 @@ const VideoDetailScreen = props => {
     id: 0,
     commentPage: 0,
     refreshData() {
-      // store.refreshing = true;
-      // props.imgs.forEach((value, index) => store.data.images[index] = {url: value, props: {}})
       FindApi.getVideoDetail(store.id).then(value => {
-        console.log("response data==== ", value.code);
         if (value.code === 200) {
           setData(value.data);
           if (value.data.collected) {
@@ -252,6 +249,7 @@ const VideoDetailScreen = props => {
           controls={false}
           repeat={true}
         />
+        {paused && <Icon icon={"video_play"} />}
       </Pressable>
 
       <View style={styles.controls}>
@@ -370,7 +368,9 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     bottom: 0,
-    right: 0
+    right: 0,
+    justifyContent: "center",
+    alignItems: "center"
   },
   controls: {
     backgroundColor: "transparent",

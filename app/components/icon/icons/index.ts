@@ -17,7 +17,8 @@ export const icons = {
   like_true: require("./like_true.png"),
   like_false: require("./like_false.png"),
   comment: require("./comment.png"),
-  commit: require("./commit.png")
+  commit: require("./commit.png"),
+  video_play: require("./video_play.png")
 };
 
 export type IconTypes = keyof typeof icons;
