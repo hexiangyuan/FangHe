@@ -1,60 +1,56 @@
-import React, {useEffect, useState} from 'react';
-import Video from 'react-native-video';
-import {Dimensions, FlatList, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
-import {useLocalStore} from "mobx-react-lite";
-import {Icon} from "../../../components";
-import {CommentItem} from "../../main-screen/find-tab/components/CommentItem";
-import {BottomModal, ModalContent} from 'react-native-modals';
+import React, { useEffect, useState } from "react";
+import Video from "react-native-video";
+import { Dimensions, FlatList, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useLocalStore } from "mobx-react-lite";
+import { Icon } from "../../../components";
+import { CommentItem } from "../../main-screen/find-tab/components/CommentItem";
+import { BottomModal, ModalContent } from "react-native-modals";
 import FindApi from "../FindApi";
-import {RootNavigation} from "../../../navigation";
-import {userUserStore} from "../../../models/user-store/user-store";
+import { RootNavigation } from "../../../navigation";
+import { userUserStore } from "../../../models/user-store/user-store";
 
-const VideoDetailScreen = (props) => {
-
+const VideoDetailScreen = props => {
   const store = useLocalStore(() => ({
-      id: 0,
-      commentPage: 0,
-      refreshData() {
-        // store.refreshing = true;
-        // props.imgs.forEach((value, index) => store.data.images[index] = {url: value, props: {}})
-        FindApi.getVideoDetail(store.id).then(value => {
-          console.log("response data==== ", value.code);
-          if (value.code === 200) {
-            setData(value.data)
-            if (value.data.collected) {
-              setIsCollected(true)
-            }
-            if (value.data.likes) {
-              setIsLiked(true)
-            }
-            setLikesNum(value.data.likesNum)
-            setCommentNum(value.data.commentNum)
+    id: 0,
+    commentPage: 0,
+    refreshData() {
+      // store.refreshing = true;
+      // props.imgs.forEach((value, index) => store.data.images[index] = {url: value, props: {}})
+      FindApi.getVideoDetail(store.id).then(value => {
+        console.log("response data==== ", value.code);
+        if (value.code === 200) {
+          setData(value.data);
+          if (value.data.collected) {
+            setIsCollected(true);
           }
-        });
-
-      }
+          if (value.data.likes) {
+            setIsLiked(true);
+          }
+          setLikesNum(value.data.likesNum);
+          setCommentNum(value.data.commentNum);
+        }
+      });
     }
-  ))
+  }));
 
-  const [data, setData] = useState(null)
-  const [rate, setRate] = useState(1)
-  const [volume, setVolume] = useState(1)
-  const [muted, setMuted] = useState(false)
-  const [resizeMode, setResizeMode] = useState('contain')
-  const [duration, setDuration] = useState(0.0)
-  const [currentTime, setCurrentTime] = useState(0.0)
-  const [paused, setPaused] = useState(false)
-  const [commentList, setCommentList] = useState([])
-  const [isCollected, setIsCollected] = useState(false)
-  const [isLiked, setIsLiked] = useState(false)
-  const [likesNum, setLikesNum] = useState(0)
-  const [commentNum, setCommentNum] = useState(0)
-  const [commentValue, setCommentValue] = useState("")
-  const [commentListWindowVisible, setCommentListWindowVisible] = useState(false)
-  const [addCommentWindowVisible, setAddCommentWindowVisible] = useState(false)
+  const [data, setData] = useState(null);
+  const [rate, setRate] = useState(1);
+  const [volume, setVolume] = useState(1);
+  const [muted, setMuted] = useState(false);
+  const [resizeMode, setResizeMode] = useState("contain");
+  const [duration, setDuration] = useState(0.0);
+  const [currentTime, setCurrentTime] = useState(0.0);
+  const [paused, setPaused] = useState(false);
+  const [commentList, setCommentList] = useState([]);
+  const [isCollected, setIsCollected] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likesNum, setLikesNum] = useState(0);
+  const [commentNum, setCommentNum] = useState(0);
+  const [commentValue, setCommentValue] = useState("");
+  const [commentListWindowVisible, setCommentListWindowVisible] = useState(false);
+  const [addCommentWindowVisible, setAddCommentWindowVisible] = useState(false);
 
   const user = userUserStore();
-
 
   function getCurrentTimePercentage() {
     if (currentTime > 0) {
@@ -65,67 +61,66 @@ const VideoDetailScreen = (props) => {
   }
 
   function onLoad(data) {
-    setDuration(data.duration)
+    setDuration(data.duration);
   }
 
   function onProgress(data) {
-    setCurrentTime(data.currentTime)
+    setCurrentTime(data.currentTime);
   }
 
   function renderRateControl(newRate) {
-    const isSelected = (rate == newRate);
+    const isSelected = rate == newRate;
 
     return (
-      <TouchableOpacity onPress={() => {
-        setRate(newRate)
-      }}>
-        <Text style={[styles.controlOption, {fontWeight: isSelected ? "bold" : "normal"}]}>
-          {newRate}x
-        </Text>
+      <TouchableOpacity
+        onPress={() => {
+          setRate(newRate);
+        }}
+      >
+        <Text style={[styles.controlOption, { fontWeight: isSelected ? "bold" : "normal" }]}>{newRate}x</Text>
       </TouchableOpacity>
-    )
+    );
   }
 
   function renderResizeModeControl(newResizeMode) {
-    const isSelected = (resizeMode == newResizeMode);
+    const isSelected = resizeMode == newResizeMode;
 
     return (
-      <TouchableOpacity onPress={() => {
-        setResizeMode(newResizeMode)
-      }}>
-        <Text style={[styles.controlOption, {fontWeight: isSelected ? "bold" : "normal"}]}>
-          {newResizeMode}
-        </Text>
+      <TouchableOpacity
+        onPress={() => {
+          setResizeMode(newResizeMode);
+        }}
+      >
+        <Text style={[styles.controlOption, { fontWeight: isSelected ? "bold" : "normal" }]}>{newResizeMode}</Text>
       </TouchableOpacity>
-    )
+    );
   }
 
   function renderVolumeControl(newVolume) {
-    const isSelected = (volume == newVolume);
+    const isSelected = volume == newVolume;
 
     return (
-      <TouchableOpacity onPress={() => {
-        setVolume(newVolume)
-      }}>
-        <Text style={[styles.controlOption, {fontWeight: isSelected ? "bold" : "normal"}]}>
-          {newVolume * 100}%
-        </Text>
+      <TouchableOpacity
+        onPress={() => {
+          setVolume(newVolume);
+        }}
+      >
+        <Text style={[styles.controlOption, { fontWeight: isSelected ? "bold" : "normal" }]}>{newVolume * 100}%</Text>
       </TouchableOpacity>
-    )
+    );
   }
 
   function getCommentList(isRefresh) {
-
     FindApi.getVideoCommentList(store.id, isRefresh ? 0 : store.commentPage).then(value => {
       console.log("response data==== ", value.code);
       if (value.code === 200) {
         if (isRefresh) {
-          setCommentList(value.data)
-          store.commentPage = 1
+          setCommentList(value.data);
+          store.commentPage = 1;
         } else {
           if (value.data.length > 0) {
-            setCommentList(current => current.concat(value.data))
-            store.commentPage += 1
+            setCommentList(current => current.concat(value.data));
+            store.commentPage += 1;
           }
         }
       }
@@ -134,10 +129,10 @@ const VideoDetailScreen = (props) => {
 
   function checkLogin(): boolean {
     if (user.isLogin()) {
-      return true
+      return true;
     } else {
       RootNavigation.push("MobileLoginScreen");
-      return false
+      return false;
     }
   }
 
@@ -146,22 +141,20 @@ const VideoDetailScreen = (props) => {
    */
   function clickCollect() {
     if (!checkLogin()) {
-      return
+      return;
     }
     if (isCollected) {
       FindApi.cancelVideoCollect(store.id).then(value => {
         if (value.code === 200) {
-          setIsCollected((current) => !current)
+          setIsCollected(current => !current);
         } else {
-
         }
-      })
+      });
     } else {
       FindApi.addVideoCollect(store.id).then(value => {
         if (value.code === 200) {
-          setIsCollected((current) => !current)
+          setIsCollected(current => !current);
         } else {
-
         }
       });
     }
@@ -172,18 +165,18 @@ const VideoDetailScreen = (props) => {
    */
   function clickLike() {
     if (!checkLogin()) {
-      return
+      return;
     }
     if (isLiked) {
       FindApi.cancelVideoLike(store.id).then(value => {
         if (value.code === 200) {
-          setIsLiked((current) => !current)
+          setIsLiked(current => !current);
         }
-      })
+      });
     } else {
       FindApi.addVideoLike(store.id).then(value => {
         if (value.code === 200) {
-          setIsLiked((current) => !current)
+          setIsLiked(current => !current);
         }
       });
     }
@@ -193,7 +186,7 @@ const VideoDetailScreen = (props) => {
    * 点击评论，弹出评论列表
    */
   function clickComment() {
-    setCommentListWindowVisible(true)
+    setCommentListWindowVisible(true);
   }
 
   /**
@@ -208,20 +201,20 @@ const VideoDetailScreen = (props) => {
       if (value.code === 200) {
         // TODO 需要返回当前评论
         // setCommentList(current => current.concat([commentValue]))
-        setCommentValue("")
-        setAddCommentWindowVisible(false)
+        setCommentValue("");
+        setAddCommentWindowVisible(false);
       }
     });
   }
 
   function onLoadMore() {
-    getCommentList(false)
+    getCommentList(false);
   }
 
   useEffect(() => {
-    store.id = props.route.params.id
+    store.id = props.route.params.id;
     store.refreshData();
-    getCommentList(true)
+    getCommentList(true);
   }, []);
 
   const flexCompleted = getCurrentTimePercentage() * 100;
@@ -229,12 +222,21 @@ const VideoDetailScreen = (props) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.fullScreen} onPress={() => {
-        setPaused((current) => !current)
-      }}>
-        {/*<Video source={require('./broadchurch.mp4')}*/}
+      <TouchableOpacity
+        style={styles.fullScreen}
+        onPress={() => {
+          setPaused(current => !current);
+        }}
+      >
         <Video
-          source={{uri: data == null ? "" : data.content.startsWith("http") ? data.content : "http://qope25exv.hn-bkt.clouddn.com/" + data.content}}
+          source={{
+            uri:
+              data == null
+                ? ""
+                : data.content.startsWith("http")
+                ? data.content
+                : "http://qope25exv.hn-bkt.clouddn.com/" + data.content
+          }}
           style={styles.fullScreen}
           rate={rate}
           paused={paused}
@@ -244,10 +246,11 @@ const VideoDetailScreen = (props) => {
           onLoad={onLoad}
           onProgress={onProgress}
           onEnd={() => {
-            console.log('Done!')
+            console.log("Done!");
           }}
           controls={true}
-          repeat={true}/>
+          repeat={true}
+        />
       </TouchableOpacity>
 
       <View style={styles.controls}>
@@ -267,37 +270,31 @@ const VideoDetailScreen = (props) => {
           </View>
 
           <View style={styles.resizeModeControl}>
-            {renderResizeModeControl('cover')}
-            {renderResizeModeControl('contain')}
-            {renderResizeModeControl('stretch')}
+            {renderResizeModeControl("cover")}
+            {renderResizeModeControl("contain")}
+            {renderResizeModeControl("stretch")}
           </View>
         </View>
 
         <View style={styles.trackingControls}>
           <View style={styles.progress}>
-            <View style={[styles.innerProgressCompleted, {flex: flexCompleted}]}/>
-            <View style={[styles.innerProgressRemaining, {flex: flexRemaining}]}/>
+            <View style={[styles.innerProgressCompleted, { flex: flexCompleted }]} />
+            <View style={[styles.innerProgressRemaining, { flex: flexRemaining }]} />
           </View>
         </View>
       </View>
       <View style={styles.bottom_wrapper}>
-        <Pressable style={styles.bottom_button_wrapper}
-                   onPress={clickCollect}>
-          <Icon style={styles.bottom_button_image}
-                icon={isCollected ? "collect_true" : "collect_false"}/>
+        <Pressable style={styles.bottom_button_wrapper} onPress={clickCollect}>
+          <Icon style={styles.bottom_button_image} icon={isCollected ? "collect_true" : "collect_false"} />
 
           <Text style={styles.bottom_button_text}>收藏</Text>
         </Pressable>
-        <Pressable style={styles.bottom_button_wrapper}
-                   onPress={clickLike}>
-          <Icon style={styles.bottom_button_image}
-                icon={isLiked ? "like_true" : "like_false"}/>
+        <Pressable style={styles.bottom_button_wrapper} onPress={clickLike}>
+          <Icon style={styles.bottom_button_image} icon={isLiked ? "like_true" : "like_false"} />
           <Text style={styles.bottom_button_text}>{likesNum}</Text>
         </Pressable>
-        <Pressable style={styles.bottom_button_wrapper}
-                   onPress={clickComment}>
-          <Icon style={styles.bottom_button_image}
-                icon={"comment"}/>
+        <Pressable style={styles.bottom_button_wrapper} onPress={clickComment}>
+          <Icon style={styles.bottom_button_image} icon={"comment"} />
           <Text style={styles.bottom_button_text}>{commentNum}</Text>
         </Pressable>
       </View>
@@ -305,150 +302,155 @@ const VideoDetailScreen = (props) => {
       <BottomModal
         visible={commentListWindowVisible}
         onTouchOutside={() => {
-          setCommentListWindowVisible(false)
+          setCommentListWindowVisible(false);
         }}
         height={0.6}
         width={1}
         onSwipeOut={() => setCommentListWindowVisible(false)}
       >
         <ModalContent style={styles.commentListWindow}>
-          <View style={{height: 400, display: "flex"}}>
-
+          <View style={{ height: 400, display: "flex" }}>
             <Text style={styles.commentCount}>{commentList.length}条评论</Text>
 
-            <FlatList style={{flex: 1, marginVertical: 10}}
-                      data={commentList}
-                      numColumns={1}
-                      keyExtractor={(item, index) => index.toString()}
-                      onEndReachedThreshold={0.1}
-                      onEndReached={() => onLoadMore()}
-                      renderItem={({item}) => {
-                        return (
-                          <TouchableOpacity style={{flex: 1}}
-                                            onPress={() => {
-                                              console.log(item.content)
-                                            }}>
-                            <CommentItem {...item}/>
-                          </TouchableOpacity>
-                        )
-                      }}/>
+            <FlatList
+              style={{ flex: 1, marginVertical: 10 }}
+              data={commentList}
+              numColumns={1}
+              keyExtractor={(item, index) => index.toString()}
+              onEndReachedThreshold={0.1}
+              onEndReached={() => onLoadMore()}
+              renderItem={({ item }) => {
+                return (
+                  <TouchableOpacity
+                    style={{ flex: 1 }}
+                    onPress={() => {
+                      console.log(item.content);
+                    }}
+                  >
+                    <CommentItem {...item} />
+                  </TouchableOpacity>
+                );
+              }}
+            />
 
-            <Pressable onPress={() => {
-              if (!checkLogin()) {
-                return
-              }
-              setAddCommentWindowVisible(true)
-            }}>
+            <Pressable
+              onPress={() => {
+                if (!checkLogin()) {
+                  return;
+                }
+                setAddCommentWindowVisible(true);
+              }}
+            >
               <Text style={styles.btnAddComment}>留下你的精彩评论吧</Text>
             </Pressable>
-
           </View>
-
         </ModalContent>
       </BottomModal>
 
       <BottomModal
         visible={addCommentWindowVisible}
         onTouchOutside={() => {
-          setAddCommentWindowVisible(false)
+          setAddCommentWindowVisible(false);
         }}
         height={0.2}
         width={1}
         onSwipeOut={() => setAddCommentWindowVisible(false)}
       >
-        <ModalContent style={{backgroundColor: '#fff'}}>
+        <ModalContent style={{ backgroundColor: "#fff" }}>
           <View style={styles.inputCommentWrapper}>
-            <TextInput style={styles.inputComment} value={commentValue} onChangeText={text => {
-              setCommentValue(text)
-            }}
-                       autoFocus={true}
-                       clearButtonMode={"while-editing"}
-                       placeholder={"留下你的精彩评论吧"}
-                       placeholderTextColor={"#c0c0c0"}/>
-            <Pressable style={styles.btnCommitCommentWrapper}
-                       onPress={commitComment}>
-              <Icon style={styles.btnCommitComment}
-                    icon={"commit"}/>
+            <TextInput
+              style={[styles.inputComment, { flex: 1 }]}
+              value={commentValue}
+              onChangeText={text => {
+                setCommentValue(text);
+              }}
+              autoFocus={true}
+              clearButtonMode={"while-editing"}
+              placeholder={"留下你的精彩评论吧"}
+              placeholderTextColor={"#c0c0c0"}
+            />
+            <Pressable style={styles.btnCommitCommentWrapper} onPress={commitComment}>
+              <Icon style={styles.btnCommitComment} icon={"commit"} />
             </Pressable>
           </View>
         </ModalContent>
       </BottomModal>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'black',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "black"
   },
   fullScreen: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     bottom: 0,
-    right: 0,
+    right: 0
   },
   controls: {
     backgroundColor: "transparent",
     borderRadius: 5,
-    position: 'absolute',
+    position: "absolute",
     bottom: 60,
     left: 20,
-    right: 20,
+    right: 20
   },
   progress: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row",
     borderRadius: 3,
-    overflow: 'hidden',
+    overflow: "hidden"
   },
   innerProgressCompleted: {
     height: 20,
-    backgroundColor: '#cccccc',
+    backgroundColor: "#cccccc"
   },
   innerProgressRemaining: {
     height: 20,
-    backgroundColor: '#2C2C2C',
+    backgroundColor: "#2C2C2C"
   },
   generalControls: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row",
     borderRadius: 4,
-    overflow: 'hidden',
-    paddingBottom: 10,
+    overflow: "hidden",
+    paddingBottom: 10
   },
   rateControl: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center"
   },
   volumeControl: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center"
   },
   resizeModeControl: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center"
   },
   controlOption: {
-    alignSelf: 'center',
+    alignSelf: "center",
     fontSize: 11,
     color: "white",
     paddingLeft: 2,
     paddingRight: 2,
-    lineHeight: 12,
+    lineHeight: 12
   },
   trackingControls: {},
   bottom_wrapper: {
     position: "absolute",
     bottom: 10,
-    width: Dimensions.get('window').width,
+    width: Dimensions.get("window").width,
     height: 50,
     display: "flex",
     flexDirection: "row",
@@ -465,7 +467,7 @@ const styles = StyleSheet.create({
   },
   bottom_button_image: {
     width: 22,
-    height: 22,
+    height: 22
   },
   bottom_button_text: {
     width: 70,
@@ -478,22 +480,22 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 46,
     lineHeight: 46,
-    fontWeight: '800',
+    fontWeight: "800"
   },
   headerContainer: {
     paddingVertical: 24,
-    backgroundColor: 'white',
+    backgroundColor: "white"
   },
   commentListWindow: {
     display: "flex",
     flexDirection: "column",
-    backgroundColor: "white",
+    backgroundColor: "white"
   },
   commentCount: {
     height: 30,
     fontSize: 14,
     color: "black",
-    alignSelf: "center",
+    alignSelf: "center"
   },
   btnAddComment: {
     height: 40,
@@ -506,13 +508,13 @@ const styles = StyleSheet.create({
     borderRadius: 50
   },
   inputCommentWrapper: {
-    display: "flex",
-    flexDirection: "row",
+    width: "100%",
+    flexDirection: "row"
   },
   inputComment: {
     flex: 1,
     height: 40,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderRadius: 50,
     backgroundColor: "#e7e8e9",
     paddingHorizontal: 20,
@@ -528,7 +530,7 @@ const styles = StyleSheet.create({
   },
   btnCommitComment: {
     width: 22,
-    height: 22,
+    height: 22
   }
 });
 

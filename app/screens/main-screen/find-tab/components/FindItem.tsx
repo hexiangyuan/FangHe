@@ -43,7 +43,7 @@ export const FindItem = (props: FindItemProps) => {
         source={{
           uri: props.type == keyTabVideo ? props.mainImg : props.imgs[0]
         }}
-        resizeMode={FastImage.resizeMode.center}
+        resizeMode={FastImage.resizeMode.cover}
         style={styles.imgStyle}
       />
       <Text

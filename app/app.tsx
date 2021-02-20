@@ -82,9 +82,9 @@ function App() {
         <SafeAreaProvider>
           <StatusBar ref={statusBarRef} barStyle={"dark-content"} translucent={true} backgroundColor={"transparent"} />
           <RootNavigator initialState={initialNavigationState} onStateChange={onNavigationStateChange} />
-          <Toast ref={toastRef} />
         </SafeAreaProvider>
         <ModalPortal />
+        <Toast ref={toastRef} />
       </RootStoreProvider>
     </UserStoreProvider>
   );

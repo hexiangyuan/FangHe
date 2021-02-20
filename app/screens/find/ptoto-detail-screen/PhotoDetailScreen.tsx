@@ -1,14 +1,26 @@
-import React, {useEffect, useState} from "react";
-import {Dimensions, FlatList, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  BackHandler,
+  Dimensions,
+  FlatList,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View
+} from "react-native";
 import ImageViewer from "react-native-image-zoom-viewer";
-import {SafeAreaView} from "react-native-safe-area-context";
-import {useLocalStore, useObserver} from "mobx-react-lite";
-import {Icon} from "../../../components";
-import {BottomModal, ModalContent} from "react-native-modals";
-import {CommentItem} from "../../main-screen/find-tab/components/CommentItem";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useLocalStore, useObserver } from "mobx-react-lite";
+import { Icon } from "../../../components";
+import { BottomModal, ModalContent } from "react-native-modals";
+import { CommentItem } from "../../main-screen/find-tab/components/CommentItem";
 import FindApi from "../FindApi";
-import {userUserStore} from "../../../models/user-store/user-store";
-import {RootNavigation} from "../../../navigation";
+import { userUserStore } from "../../../models/user-store/user-store";
+import { RootNavigation } from "../../../navigation";
+import ToastGlobal from "../../../utils/Toast";
 
 const PhotoDetailScreen = props => {
   const store = useLocalStore(() => ({
@@ -66,46 +78,41 @@ const PhotoDetailScreen = props => {
    */
   function clickCollect() {
     if (!checkLogin()) {
-      return
+      return;
     }
     if (store.data.isCollected) {
       store.cancelCollect();
-      FindApi.cancelImgsCollect(store.id).then(value => {
-      });
+      FindApi.cancelImgsCollect(store.id).then(value => {});
     } else {
       store.data.isCollected = true;
-      FindApi.addImgsCollect(store.id).then(value => {
-      });
+      FindApi.addImgsCollect(store.id).then(value => {});
     }
   }
 
   function checkLogin(): boolean {
     if (user.isLogin()) {
-      return true
+      return true;
     } else {
       RootNavigation.push("MobileLoginScreen");
-      return false
+      return false;
     }
   }
-
 
   /**
    * 点击喜欢
    */
   function clickLike() {
     if (!checkLogin()) {
-      return
+      return;
     }
     if (store.data.isLiked) {
       store.cancelLike();
       store.data.likesNum--;
-      FindApi.cancelImgsLike(store.id).then(value => {
-      });
+      FindApi.cancelImgsLike(store.id).then(value => {});
     } else {
       store.data.isLiked = true;
       store.data.likesNum++;
-      FindApi.addImgsLike(store.id).then(value => {
-      });
+      FindApi.addImgsLike(store.id).then(value => {});
     }
   }
 
@@ -120,16 +127,19 @@ const PhotoDetailScreen = props => {
    * 发表评论
    */
   function commitComment() {
-    FindApi.addImgsComment({
-      id: store.id,
-      content: commentValue,
-      img: ""
-    }).then(value => {
-      if (value.code === 200) {
-        // TODO 需要返回当前评论
-        setAddCommentWindowVisible(false);
-      }
-    });
+    if (commentValue) {
+      FindApi.addImgsComment({
+        id: store.id,
+        content: commentValue,
+        img: ""
+      }).then(value => {
+        if (value.code === 200) {
+          ToastGlobal.show("发表成功");
+          setCommentValue("");
+          setAddCommentWindowVisible(false);
+        }
+      });
+    }
   }
 
   function getCommentList(isRefresh) {
@@ -152,17 +162,33 @@ const PhotoDetailScreen = props => {
     getCommentList(false);
   }
 
+  const [commentListWindowVisible, setCommentListWindowVisible] = useState(false);
+  const [addCommentWindowVisible, setAddCommentWindowVisible] = useState(false);
+
   useEffect(() => {
     store.id = props.route.params.id;
     getImgDetails(store.id);
     getCommentList(true);
   }, []);
 
-  const [commentListWindowVisible, setCommentListWindowVisible] = useState(false);
-  const [addCommentWindowVisible, setAddCommentWindowVisible] = useState(false);
+  useEffect(() => {
+    const backAction = () => {
+      if (addCommentWindowVisible) {
+        setAddCommentWindowVisible(false);
+        return true;
+      }
+      if (commentListWindowVisible) {
+        setCommentListWindowVisible(false);
+        return true;
+      } else {
+        return false;
+      }
+    };
+    const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+    return () => backHandler.remove();
+  }, [commentListWindowVisible, addCommentWindowVisible]);
 
   return useObserver(() => {
-    console.log(store.data.images);
     return (
       <SafeAreaView
         edges={["top"]}
@@ -174,7 +200,7 @@ const PhotoDetailScreen = props => {
       >
         <View style={styles.main_wrapper}>
           {store.data.images && (
-            <ImageViewer imageUrls={store.data.images?.map(item => ({url: item}))} backgroundColor={"#333"}/>
+            <ImageViewer imageUrls={store.data.images?.map(item => ({ url: item }))} backgroundColor={"#333"} />
           )}
 
           <View style={styles.bottom_wrapper}>
@@ -187,11 +213,11 @@ const PhotoDetailScreen = props => {
               <Text style={styles.bottom_button_text}>收藏</Text>
             </Pressable>
             <Pressable style={styles.bottom_button_wrapper} onPress={clickLike}>
-              <Icon style={styles.bottom_button_image} icon={store.data.isLiked ? "like_true" : "like_false"}/>
+              <Icon style={styles.bottom_button_image} icon={store.data.isLiked ? "like_true" : "like_false"} />
               <Text style={styles.bottom_button_text}>{store.data.likesNum}</Text>
             </Pressable>
             <Pressable style={styles.bottom_button_wrapper} onPress={clickComment}>
-              <Icon style={styles.bottom_button_image} icon={"comment"}/>
+              <Icon style={styles.bottom_button_image} icon={"comment"} />
               <Text style={styles.bottom_button_text}>{store.data.commentNum}</Text>
             </Pressable>
           </View>
@@ -206,49 +232,32 @@ const PhotoDetailScreen = props => {
             onSwipeOut={() => setCommentListWindowVisible(false)}
           >
             <ModalContent style={styles.commentListWindow}>
-              <View
+              <Text style={styles.commentCount}>{store.data.commentNum}条评论</Text>
+              <FlatList
                 style={{
-                  height: 400,
-                  display: "flex"
+                  flex: 1,
+                  marginVertical: 10
+                }}
+                data={store.data.commentList}
+                numColumns={1}
+                keyExtractor={(item, index) => index.toString()}
+                onEndReachedThreshold={0.1}
+                onEndReached={() => onLoadMore()}
+                renderItem={({ item }) => {
+                  return (
+                    <TouchableOpacity style={{ flex: 1 }}>
+                      <CommentItem {...item} />
+                    </TouchableOpacity>
+                  );
+                }}
+              />
+              <Pressable
+                onPress={() => {
+                  setAddCommentWindowVisible(true);
                 }}
               >
-                <Text style={styles.commentCount}>{store.data.commentNum}条评论</Text>
-
-                <FlatList
-                  style={{
-                    flex: 1,
-                    marginVertical: 10
-                  }}
-                  data={store.data.commentList}
-                  numColumns={1}
-                  keyExtractor={(item, index) => index.toString()}
-                  onEndReachedThreshold={0.1}
-                  onEndReached={() => onLoadMore()}
-                  renderItem={({item}) => {
-                    return (
-                      <TouchableOpacity
-                        style={{flex: 1}}
-                        onPress={() => {
-                          console.log(item.content);
-                        }}
-                      >
-                        <CommentItem {...item} />
-                      </TouchableOpacity>
-                    );
-                  }}
-                />
-
-                <Pressable
-                  onPress={() => {
-                    if (!checkLogin()) {
-                      return
-                    }
-                    setAddCommentWindowVisible(true);
-                  }}
-                >
-                  <Text style={styles.btnAddComment}>留下你的精彩评论吧</Text>
-                </Pressable>
-              </View>
+                <Text style={styles.inputComment}>留下你的精彩评论吧</Text>
+              </Pressable>
             </ModalContent>
           </BottomModal>
 
@@ -261,10 +270,10 @@ const PhotoDetailScreen = props => {
             width={1}
             onSwipeOut={() => setAddCommentWindowVisible(false)}
           >
-            <ModalContent style={{backgroundColor: "#fff"}}>
+            <ModalContent style={{ backgroundColor: "#fff" }}>
               <View style={styles.inputCommentWrapper}>
                 <TextInput
-                  style={styles.inputComment}
+                  style={[styles.inputComment, { flex: 1 }]}
                   value={commentValue}
                   onChangeText={text => {
                     setCommentValue(text);
@@ -274,9 +283,9 @@ const PhotoDetailScreen = props => {
                   placeholder={"留下你的精彩评论吧"}
                   placeholderTextColor={"#c0c0c0"}
                 />
-                <Pressable style={styles.btnCommitCommentWrapper} onPress={commitComment}>
-                  <Icon style={styles.btnCommitComment} icon={"commit"}/>
-                </Pressable>
+                <TouchableOpacity style={styles.btnCommitCommentWrapper} onPress={commitComment}>
+                  <Icon style={styles.btnCommitComment} icon={"commit"} />
+                </TouchableOpacity>
               </View>
             </ModalContent>
           </BottomModal>
@@ -330,7 +339,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white"
   },
   commentListWindow: {
-    display: "flex",
+    flex: 1,
     flexDirection: "column",
     backgroundColor: "white"
   },
@@ -338,27 +347,30 @@ const styles = StyleSheet.create({
     height: 30,
     fontSize: 14,
     color: "black",
+    fontWeight: "bold",
     alignSelf: "center"
   },
   btnAddComment: {
-    height: 40,
+    width: "100%",
     fontSize: 14,
     lineHeight: 40,
-    color: "#c0c0c0",
+    color: "#666",
     alignSelf: "center",
     backgroundColor: "#e7e8e9",
     paddingHorizontal: 20,
     borderRadius: 50
   },
   inputCommentWrapper: {
-    display: "flex",
-    flexDirection: "row"
+    flexDirection: "row",
+    height: 40,
+    flex: 1,
+    width: "100%"
   },
   inputComment: {
-    flex: 1,
     height: 40,
     borderColor: "gray",
     borderRadius: 50,
+    textAlignVertical: "center",
     backgroundColor: "#e7e8e9",
     paddingHorizontal: 20,
     color: "black"
