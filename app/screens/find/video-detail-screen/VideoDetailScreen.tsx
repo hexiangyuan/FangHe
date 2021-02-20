@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Video from "react-native-video";
 import { Dimensions, FlatList, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { useLocalStore } from "mobx-react-lite";
+import { useLocalStore, useObserver } from "mobx-react-lite";
 import { Icon } from "../../../components";
 import { CommentItem } from "../../main-screen/find-tab/components/CommentItem";
 import { BottomModal, ModalContent } from "react-native-modals";
@@ -12,41 +12,53 @@ import { Colors } from "../../../theme/Theme";
 
 const VideoDetailScreen = props => {
   const store = useLocalStore(() => ({
-    id: 0,
-    commentPage: 0,
-    refreshData() {
-      FindApi.getVideoDetail(store.id).then(value => {
-        if (value.code === 200) {
-          setData(value.data);
-          if (value.data.collected) {
-            setIsCollected(true);
-          }
-          if (value.data.likes) {
-            setIsLiked(true);
-          }
-          setLikesNum(value.data.likesNum);
-          setCommentNum(value.data.commentNum);
-        }
-      });
-    }
+    videoUrl: null,
+    isLike: false,
+    isCollected: false,
+    likeNum: 0,
+    commentNum: 0,
+    loadingVideo: false,
+    commentList: []
   }));
 
-  const [data, setData] = useState(null);
-  const [rate, setRate] = useState(1);
-  const [volume, setVolume] = useState(1);
-  const [muted, setMuted] = useState(false);
-  const [resizeMode, setResizeMode] = useState("cover");
+  const [id, setId] = useState(0);
   const [duration, setDuration] = useState(0.0);
   const [currentTime, setCurrentTime] = useState(0.0);
   const [paused, setPaused] = useState(false);
-  const [commentList, setCommentList] = useState([]);
-  const [isCollected, setIsCollected] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
-  const [likesNum, setLikesNum] = useState(0);
-  const [commentNum, setCommentNum] = useState(0);
   const [commentValue, setCommentValue] = useState("");
   const [commentListWindowVisible, setCommentListWindowVisible] = useState(false);
   const [addCommentWindowVisible, setAddCommentWindowVisible] = useState(false);
+
+  let commentPage = 0;
+
+  const fetchVideoInfo = (id: number) => {
+    store.loadingVideo = true;
+    FindApi.getVideoDetail(id).then(value => {
+      if (value.code === 200) {
+        store.videoUrl = value.data.content;
+        store.isLike = value.data.likes;
+        store.isCollected = value.data.collected;
+        store.likeNum = value.data.likesNum;
+        store.commentNum = value.data.commentNum;
+      }
+    });
+  };
+
+  function getCommentList(isRefresh: boolean, id: number) {
+    if (isRefresh) commentPage = 0;
+    FindApi.getVideoCommentList(id, commentPage).then(value => {
+      if (value.code === 200) {
+        if (isRefresh) {
+          store.commentList = value.data;
+        } else {
+          if (value.data.length > 0) {
+            store.commentList = store.commentList.concat(value.data);
+            commentPage += 1;
+          }
+        }
+      }
+    });
+  }
 
   const user = userUserStore();
 
@@ -66,65 +78,6 @@ const VideoDetailScreen = props => {
     setCurrentTime(data.currentTime);
   }
 
-  function renderRateControl(newRate) {
-    const isSelected = rate == newRate;
-
-    return (
-      <TouchableOpacity
-        onPress={() => {
-          setRate(newRate);
-        }}
-      >
-        <Text style={[styles.controlOption, { fontWeight: isSelected ? "bold" : "normal" }]}>{newRate}x</Text>
-      </TouchableOpacity>
-    );
-  }
-
-  function renderResizeModeControl(newResizeMode) {
-    const isSelected = resizeMode == newResizeMode;
-
-    return (
-      <TouchableOpacity
-        onPress={() => {
-          setResizeMode(newResizeMode);
-        }}
-      >
-        <Text style={[styles.controlOption, { fontWeight: isSelected ? "bold" : "normal" }]}>{newResizeMode}</Text>
-      </TouchableOpacity>
-    );
-  }
-
-  function renderVolumeControl(newVolume) {
-    const isSelected = volume == newVolume;
-
-    return (
-      <TouchableOpacity
-        onPress={() => {
-          setVolume(newVolume);
-        }}
-      >
-        <Text style={[styles.controlOption, { fontWeight: isSelected ? "bold" : "normal" }]}>{newVolume * 100}%</Text>
-      </TouchableOpacity>
-    );
-  }
-
-  function getCommentList(isRefresh) {
-    FindApi.getVideoCommentList(store.id, isRefresh ? 0 : store.commentPage).then(value => {
-      console.log("response data==== ", value.code);
-      if (value.code === 200) {
-        if (isRefresh) {
-          setCommentList(value.data);
-          store.commentPage = 1;
-        } else {
-          if (value.data.length > 0) {
-            setCommentList(current => current.concat(value.data));
-            store.commentPage += 1;
-          }
-        }
-      }
-    });
-  }
-
   function checkLogin(): boolean {
     if (user.isLogin()) {
       return true;
@@ -137,46 +90,34 @@ const VideoDetailScreen = props => {
   /**
    * 点击收藏
    */
-  function clickCollect() {
+  function clickCollect(id: number) {
     if (!checkLogin()) {
       return;
     }
-    if (isCollected) {
-      FindApi.cancelVideoCollect(store.id).then(value => {
-        if (value.code === 200) {
-          setIsCollected(current => !current);
-        } else {
-        }
-      });
+    if (store.isCollected) {
+      store.isCollected = false;
+      FindApi.cancelVideoCollect(id).then(value => {});
     } else {
-      FindApi.addVideoCollect(store.id).then(value => {
-        if (value.code === 200) {
-          setIsCollected(current => !current);
-        } else {
-        }
-      });
+      store.isCollected = true;
+      FindApi.addVideoCollect(id).then(value => {});
     }
   }
 
   /**
    * 点击喜欢
    */
-  function clickLike() {
+  function clickLike(id: number) {
     if (!checkLogin()) {
       return;
     }
-    if (isLiked) {
-      FindApi.cancelVideoLike(store.id).then(value => {
-        if (value.code === 200) {
-          setIsLiked(current => !current);
-        }
-      });
+    if (store.isLike) {
+      store.isLike = false;
+      store.likeNum--;
+      FindApi.cancelVideoLike(id).then(value => {});
     } else {
-      FindApi.addVideoLike(store.id).then(value => {
-        if (value.code === 200) {
-          setIsLiked(current => !current);
-        }
-      });
+      store.isLike = true;
+      store.likeNum++;
+      FindApi.addVideoLike(id).then(value => {});
     }
   }
 
@@ -190,15 +131,13 @@ const VideoDetailScreen = props => {
   /**
    * 发表评论
    */
-  function commitComment() {
+  function commitComment(id: number) {
     FindApi.addVideoComment({
-      id: store.id,
+      id: id,
       content: commentValue,
       img: ""
     }).then(value => {
       if (value.code === 200) {
-        // TODO 需要返回当前评论
-        // setCommentList(current => current.concat([commentValue]))
         setCommentValue("");
         setAddCommentWindowVisible(false);
       }
@@ -206,19 +145,22 @@ const VideoDetailScreen = props => {
   }
 
   function onLoadMore() {
-    getCommentList(false);
+    getCommentList(false, id);
   }
 
   useEffect(() => {
-    store.id = props.route.params.id;
-    store.refreshData();
-    getCommentList(true);
+    setId(props.route.params.id);
   }, []);
+
+  useEffect(() => {
+    fetchVideoInfo(id);
+    getCommentList(true, id);
+  }, [id]);
 
   const flexCompleted = getCurrentTimePercentage() * 100;
   const flexRemaining = (1 - getCurrentTimePercentage()) * 100;
 
-  return (
+  return useObserver(() => (
     <View style={styles.container}>
       <Pressable
         style={styles.fullScreen}
@@ -229,22 +171,19 @@ const VideoDetailScreen = props => {
         <Video
           source={{
             uri:
-              data == null
+              store.videoUrl === null
                 ? ""
-                : data.content.startsWith("http")
-                ? data.content
-                : "http://qope25exv.hn-bkt.clouddn.com/" + data.content
+                : store.videoUrl.startsWith("http")
+                ? store.videoUrl
+                : "http://qope25exv.hn-bkt.clouddn.com/" + store.videoUrl
           }}
           style={styles.fullScreen}
-          rate={rate}
           paused={paused}
-          volume={volume}
-          muted={muted}
-          resizeMode={resizeMode}
+          resizeMode={"cover"}
           onLoad={onLoad}
           onProgress={onProgress}
           onEnd={() => {
-            console.log("Done!");
+            store.loadingVideo = false;
           }}
           controls={false}
           repeat={true}
@@ -261,18 +200,28 @@ const VideoDetailScreen = props => {
         </View>
       </View>
       <View style={styles.bottom_wrapper}>
-        <Pressable style={styles.bottom_button_wrapper} onPress={clickCollect}>
-          <Icon style={styles.bottom_button_image} icon={isCollected ? "collect_true" : "collect_false"} />
+        <Pressable
+          style={styles.bottom_button_wrapper}
+          onPress={() => {
+            clickCollect(id);
+          }}
+        >
+          <Icon style={styles.bottom_button_image} icon={store.isCollected ? "collect_true" : "collect_false"} />
 
           <Text style={styles.bottom_button_text}>收藏</Text>
         </Pressable>
-        <Pressable style={styles.bottom_button_wrapper} onPress={clickLike}>
-          <Icon style={styles.bottom_button_image} icon={isLiked ? "like_true" : "like_false"} />
-          <Text style={styles.bottom_button_text}>{likesNum}</Text>
+        <Pressable
+          style={styles.bottom_button_wrapper}
+          onPress={() => {
+            clickLike(id);
+          }}
+        >
+          <Icon style={styles.bottom_button_image} icon={store.isLike ? "like_true" : "like_false"} />
+          <Text style={styles.bottom_button_text}>{store.likeNum}</Text>
         </Pressable>
         <Pressable style={styles.bottom_button_wrapper} onPress={clickComment}>
           <Icon style={styles.bottom_button_image} icon={"comment"} />
-          <Text style={styles.bottom_button_text}>{commentNum}</Text>
+          <Text style={styles.bottom_button_text}>{store.commentNum}</Text>
         </Pressable>
       </View>
 
@@ -287,23 +236,18 @@ const VideoDetailScreen = props => {
       >
         <ModalContent style={styles.commentListWindow}>
           <View style={{ height: 400, display: "flex" }}>
-            <Text style={styles.commentCount}>{commentList.length}条评论</Text>
+            <Text style={styles.commentCount}>{store.commentNum}条评论</Text>
 
             <FlatList
               style={{ flex: 1, marginVertical: 10 }}
-              data={commentList}
+              data={store.commentList}
               numColumns={1}
               keyExtractor={(item, index) => index.toString()}
               onEndReachedThreshold={0.1}
               onEndReached={() => onLoadMore()}
               renderItem={({ item }) => {
                 return (
-                  <TouchableOpacity
-                    style={{ flex: 1 }}
-                    onPress={() => {
-                      console.log(item.content);
-                    }}
-                  >
+                  <TouchableOpacity style={{ flex: 1 }}>
                     <CommentItem {...item} />
                   </TouchableOpacity>
                 );
@@ -353,7 +297,7 @@ const VideoDetailScreen = props => {
         </ModalContent>
       </BottomModal>
     </View>
-  );
+  ));
 };
 
 const styles = StyleSheet.create({
