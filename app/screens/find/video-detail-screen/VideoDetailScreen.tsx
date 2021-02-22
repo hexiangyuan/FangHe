@@ -9,9 +9,16 @@ import FindApi from "../FindApi";
 import { RootNavigation } from "../../../navigation";
 import { userUserStore } from "../../../models/user-store/user-store";
 import { Colors } from "../../../theme/Theme";
+import FastImage from "react-native-fast-image";
 
-const VideoDetailScreen = props => {
+export interface VideoPlayProps {
+  id: number;
+  playing: boolean;
+}
+
+const VideoDetailScreen = (props: VideoPlayProps) => {
   const store = useLocalStore(() => ({
+    mainImg: null,
     videoUrl: null,
     isLike: false,
     isCollected: false,
@@ -28,6 +35,7 @@ const VideoDetailScreen = props => {
   const [commentValue, setCommentValue] = useState("");
   const [commentListWindowVisible, setCommentListWindowVisible] = useState(false);
   const [addCommentWindowVisible, setAddCommentWindowVisible] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
 
   let commentPage = 0;
 
@@ -36,6 +44,7 @@ const VideoDetailScreen = props => {
     FindApi.getVideoDetail(id).then(value => {
       if (value.code === 200) {
         store.videoUrl = value.data.content;
+        store.mainImg = value.data.mainImg;
         store.isLike = value.data.likes;
         store.isCollected = value.data.collected;
         store.likeNum = value.data.likesNum;
@@ -75,6 +84,9 @@ const VideoDetailScreen = props => {
   }
 
   function onProgress(data) {
+    if (data.currentTime > 0) {
+      setVideoReady(true);
+    }
     setCurrentTime(data.currentTime);
   }
 
@@ -149,7 +161,7 @@ const VideoDetailScreen = props => {
   }
 
   useEffect(() => {
-    setId(props.route.params.id);
+    setId(props.id);
   }, []);
 
   useEffect(() => {
@@ -162,43 +174,56 @@ const VideoDetailScreen = props => {
 
   return useObserver(() => (
     <View style={styles.container}>
-      <Pressable
-        style={styles.fullScreen}
-        onPress={() => {
-          setPaused(current => !current);
-        }}
-      >
-        <Video
-          source={{
-            uri:
-              store.videoUrl === null
-                ? ""
-                : store.videoUrl.startsWith("http")
-                ? store.videoUrl
-                : "http://qope25exv.hn-bkt.clouddn.com/" + store.videoUrl
-          }}
+      {props.playing ? (
+        <Pressable
           style={styles.fullScreen}
-          paused={paused}
-          resizeMode={"cover"}
-          onLoad={onLoad}
-          onProgress={onProgress}
-          onEnd={() => {
-            store.loadingVideo = false;
+          onPress={() => {
+            setPaused(current => !current);
           }}
-          controls={false}
-          repeat={true}
-        />
-        {paused && <Icon icon={"video_play"} />}
-      </Pressable>
+        >
+          {!!store.videoUrl && (
+            <Video
+              source={{
+                uri: store.videoUrl.startsWith("http")
+                  ? store.videoUrl
+                  : "http://qope25exv.hn-bkt.clouddn.com/" + store.videoUrl
+              }}
+              style={styles.fullScreen}
+              paused={paused}
+              resizeMode={"cover"}
+              onLoad={onLoad}
+              onProgress={onProgress}
+              onEnd={() => {
+                store.loadingVideo = false;
+              }}
+              controls={false}
+              repeat={true}
+            />
+          )}
+          {paused && <Icon icon={"video_play"} />}
+        </Pressable>
+      ) : (
+        <View style={styles.fullScreen} />
+      )}
 
-      <View style={styles.controls}>
-        <View style={styles.trackingControls}>
-          <View style={styles.progress}>
-            <View style={[styles.innerProgressCompleted, { flex: flexCompleted }]} />
-            <View style={[styles.innerProgressRemaining, { flex: flexRemaining }]} />
+      {!videoReady && (
+        <FastImage
+          style={[styles.fullScreen]}
+          source={{ uri: store.mainImg }}
+          resizeMode={FastImage.resizeMode.cover}
+        />
+      )}
+
+      {props.playing && (
+        <View style={styles.controls}>
+          <View style={styles.trackingControls}>
+            <View style={styles.progress}>
+              <View style={[styles.innerProgressCompleted, { flex: flexCompleted }]} />
+              <View style={[styles.innerProgressRemaining, { flex: flexRemaining }]} />
+            </View>
           </View>
         </View>
-      </View>
+      )}
       <View style={styles.bottom_wrapper}>
         <Pressable
           style={styles.bottom_button_wrapper}

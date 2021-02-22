@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
-import {Animated, FlatList, RefreshControl, TouchableOpacity, View} from "react-native";
-import {FindItem} from "./FindItem";
-import {RootNavigation} from "../../../../navigation";
+import React, { useEffect, useState } from "react";
+import { Animated, FlatList, RefreshControl, TouchableOpacity, View } from "react-native";
+import { FindItem } from "./FindItem";
+import { RootNavigation } from "../../../../navigation";
 import FindApi from "../../../find/FindApi";
-import {observer, useLocalStore} from "mobx-react-lite";
-import {EmptyView} from "./EmptyView";
-import {getLocation} from "../../../../models/location-store/LocationStore";
+import { observer, useLocalStore } from "mobx-react-lite";
+import { EmptyView } from "./EmptyView";
+import { getLocation } from "../../../../models/location-store/LocationStore";
 
 export interface FindListProps {
   key: "30" | "40" | "50";
@@ -38,22 +38,22 @@ export const FindList = observer((props: { type: number }) => {
       //     store.data = value.data;
       //   }
       // });
-      getDataList(true)
+      getDataList(true);
     }
   }));
 
-  const [dataList, setDataList] = useState([])
+  const [dataList, setDataList] = useState([]);
 
   function switchApi(isRefresh: boolean) {
     switch (props.type) {
       case keyTabArticle:
-        return FindApi.getImgsList(isRefresh ? 0 : store.data.page)
+        return FindApi.getImgsList(isRefresh ? 0 : store.data.page);
       case keyTabPhoto:
-        return FindApi.getImgsList(isRefresh ? 0 : store.data.page)
+        return FindApi.getImgsList(isRefresh ? 0 : store.data.page);
       case keyTabVideo:
-        return FindApi.getVideoList(isRefresh ? 0 : store.data.page)
+        return FindApi.getVideoList(isRefresh ? 0 : store.data.page);
       default:
-        return FindApi.getImgsList(isRefresh ? 0 : store.data.page)
+        return FindApi.getImgsList(isRefresh ? 0 : store.data.page);
     }
   }
 
@@ -65,11 +65,11 @@ export const FindList = observer((props: { type: number }) => {
           console.log("response data==== ", value.code);
           if (value.code === 200) {
             if (isRefresh) {
-              setDataList(value.data)
-              store.data.page = 1
+              setDataList(value.data);
+              store.data.page = 1;
             } else {
-              setDataList(current => current.concat(value.data))
-              store.data.page += 1
+              setDataList(current => current.concat(value.data));
+              store.data.page += 1;
             }
           }
         });
@@ -85,7 +85,7 @@ export const FindList = observer((props: { type: number }) => {
   }
 
   function onLoadMore() {
-    getDataList(false)
+    getDataList(false);
   }
 
   useEffect(() => {
@@ -93,7 +93,7 @@ export const FindList = observer((props: { type: number }) => {
   }, []);
 
   if (dataList.length == 0) {
-    return <EmptyView onPress={store.refreshData}/>;
+    return <EmptyView onPress={store.refreshData} />;
   } else {
     return (
       <View
@@ -102,32 +102,36 @@ export const FindList = observer((props: { type: number }) => {
         }}
       >
         <FlatList
-          style={{flex: 1, paddingRight: 12}}
+          style={{ flex: 1, paddingRight: 12 }}
           data={dataList}
           numColumns={2}
           keyExtractor={(item, index) => index.toString()}
-          refreshControl={<RefreshControl refreshing={store.refreshing} onRefresh={onRefresh}/>}
+          refreshControl={<RefreshControl refreshing={store.refreshing} onRefresh={onRefresh} />}
           onEndReachedThreshold={0.1}
           onEndReached={() => onLoadMore()}
-          renderItem={({item}) => {
+          renderItem={({ item, index }) => {
             return (
               <TouchableOpacity
                 onPress={() => {
                   switch (props.type) {
                     case keyTabArticle:
-                      RootNavigation.push("ArticleDetailScreen", {id: item.id});
-                      break
+                      RootNavigation.push("ArticleDetailScreen", { id: item.id });
+                      break;
                     case keyTabPhoto:
-                      RootNavigation.push("PhotoDetailScreen", {id: item.id});
-                      break
+                      RootNavigation.push("PhotoDetailScreen", { id: item.id });
+                      break;
                     case keyTabVideo:
-                      RootNavigation.push("VideoDetailScreen", {id: item.id});
-                      break
+                      RootNavigation.push("VideoSwiperScreen", {
+                        currentId: item.id,
+                        currentIndex: index,
+                        idList: dataList.map(i => i.id)
+                      });
+                      break;
                   }
                 }}
-                style={{flex: 1}}
+                style={{ flex: 1 }}
               >
-                <FindItem {...item} type={props.type}/>
+                <FindItem {...item} type={props.type} />
               </TouchableOpacity>
             );
           }}
