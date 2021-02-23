@@ -47,7 +47,9 @@ export const VideoSwiperScreen = props => {
           );
         })}
       </ParallaxSwiper>
-    ) : null
+    ) : (
+      <View style={{ backgroundColor: "black" }} />
+    )
   );
 };
 

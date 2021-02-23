@@ -46,7 +46,7 @@ const InputItem = (props: { title: string; containerStyle: ViewStyle } & TextInp
 
 export const CmsAddProductScreen = () => {
   const [mainImag, setMainImag] = useState<string>(undefined);
-  const [shopImags, setShopImags] = useState<Array<string>>(undefined);
+  const [shopImags, setShopImags] = useState<Array<string>>(["", "", "", "", "", "", "", "", ""]);
   const [originPrice, setOriginPrice] = useState<number>(undefined);
   const [price, setPrice] = useState<number>(undefined);
   const [tags, setTags] = useState<string[]>(undefined);
@@ -64,7 +64,7 @@ export const CmsAddProductScreen = () => {
       tags: tags,
       discountPrice: price * 100,
       price: originPrice * 100,
-      productDescImgs: shopImags
+      productDescImgs: shopImags.filter((value, index) => value)
     });
   }
 
@@ -105,7 +105,8 @@ export const CmsAddProductScreen = () => {
           .then(value => {
             if (value.code === 200) {
               ToastGlobal.show("图片上传成功");
-              setMainImag(value.data);
+              shopImags[index] = value.data;
+              setShopImags(shopImags);
               console.log(value);
             } else {
               ToastGlobal.show("图片上传失败" + value.errorMsg);
@@ -192,7 +193,7 @@ export const CmsAddProductScreen = () => {
             </Text>
             <TouchableOpacity onPress={uploadImag}>
               <UIImage
-                source={mainImage ? { uri: mainImage } : require("./ic_upload_img.png")}
+                source={mainImag ? { uri: mainImag } : require("./ic_upload_img.png")}
                 style={{
                   width: 64,
                   marginLeft: 16,
@@ -225,7 +226,7 @@ export const CmsAddProductScreen = () => {
                   }}
                 >
                   <UIImage
-                    source={require("./ic_upload_img.png")}
+                    source={shopImags[0] ? { uri: shopImags[0] } : require("./ic_upload_img.png")}
                     style={{
                       width: 64,
                       marginLeft: 16,
@@ -240,7 +241,7 @@ export const CmsAddProductScreen = () => {
                   }}
                 >
                   <UIImage
-                    source={require("./ic_upload_img.png")}
+                    source={shopImags[1] ? { uri: shopImags[1] } : require("./ic_upload_img.png")}
                     style={{
                       width: 64,
                       marginLeft: 16,
@@ -255,7 +256,7 @@ export const CmsAddProductScreen = () => {
                   }}
                 >
                   <UIImage
-                    source={require("./ic_upload_img.png")}
+                    source={shopImags[2] ? { uri: shopImags[2] } : require("./ic_upload_img.png")}
                     style={{
                       width: 64,
                       marginLeft: 16,
@@ -277,7 +278,7 @@ export const CmsAddProductScreen = () => {
                   }}
                 >
                   <UIImage
-                    source={require("./ic_upload_img.png")}
+                    source={shopImags[3] ? { uri: shopImags[3] } : require("./ic_upload_img.png")}
                     style={{
                       width: 64,
                       marginLeft: 16,
@@ -292,7 +293,7 @@ export const CmsAddProductScreen = () => {
                   }}
                 >
                   <UIImage
-                    source={require("./ic_upload_img.png")}
+                    source={shopImags[4] ? { uri: shopImags[4] } : require("./ic_upload_img.png")}
                     style={{
                       width: 64,
                       marginLeft: 16,
@@ -307,7 +308,7 @@ export const CmsAddProductScreen = () => {
                   }}
                 >
                   <UIImage
-                    source={require("./ic_upload_img.png")}
+                    source={shopImags[5] ? { uri: shopImags[5] } : require("./ic_upload_img.png")}
                     style={{
                       width: 64,
                       marginLeft: 16,
@@ -329,7 +330,7 @@ export const CmsAddProductScreen = () => {
                   }}
                 >
                   <UIImage
-                    source={require("./ic_upload_img.png")}
+                    source={shopImags[6] ? { uri: shopImags[6] } : require("./ic_upload_img.png")}
                     style={{
                       width: 64,
                       marginLeft: 16,
@@ -344,7 +345,7 @@ export const CmsAddProductScreen = () => {
                   }}
                 >
                   <UIImage
-                    source={require("./ic_upload_img.png")}
+                    source={shopImags[7] ? { uri: shopImags[7] } : require("./ic_upload_img.png")}
                     style={{
                       width: 64,
                       marginLeft: 16,
@@ -359,7 +360,7 @@ export const CmsAddProductScreen = () => {
                   }}
                 >
                   <UIImage
-                    source={require("./ic_upload_img.png")}
+                    source={shopImags[8] ? { uri: shopImags[8] } : require("./ic_upload_img.png")}
                     style={{
                       width: 64,
                       marginLeft: 16,
