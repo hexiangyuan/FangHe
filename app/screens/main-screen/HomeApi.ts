@@ -21,7 +21,7 @@ function shopDetailProductList(id: number) {
 }
 
 function productDetail(id: number) {
-  return FangHeApi.post("/product/detail?id=5", {id: id});
+  return FangHeApi.get("/product/detail", {id: id});
 }
 
 function orderSubmit(request: { productId: number; quantity: number; time: string }) {

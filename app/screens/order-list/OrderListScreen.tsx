@@ -1,4 +1,4 @@
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useState } from "react";
 import { Header } from "../../components";
@@ -10,7 +10,6 @@ import { RootNavigation } from "../../navigation";
 import HomeApi from "../main-screen/HomeApi";
 
 export const OrderItem = (props: OrderListItem) => {
-
   return (
     <View style={{ padding: 12 }}>
       <Text
@@ -25,9 +24,9 @@ export const OrderItem = (props: OrderListItem) => {
       >
         {props.shopName}
       </Text>
-      <TouchableOpacity
+      <TouchableWithoutFeedback
         onPress={() => {
-          RootNavigation.push("ProductDetailScreen", { id: props.id });
+          // RootNavigation.push("ProductDetailScreen", { id: props.id });
         }}
       >
         <View
@@ -37,13 +36,15 @@ export const OrderItem = (props: OrderListItem) => {
             height: 72
           }}
         >
-          <UIImage
-            source={{ uri: props.productImg }}
-            style={{
-              width: 72,
-              height: 72
-            }}
-          />
+          {props.productImg && (
+            <UIImage
+              source={{ uri: props.productImg }}
+              style={{
+                width: 72,
+                height: 72
+              }}
+            />
+          )}
           <View
             style={{
               height: 72,
@@ -99,7 +100,7 @@ export const OrderItem = (props: OrderListItem) => {
             </View>
           </View>
         </View>
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
       {canCancelOrder(props.status) && (
         <View
           style={{
