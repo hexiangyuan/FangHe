@@ -33,7 +33,7 @@ export const ShopList = observer((props: { type: number }) => {
               longitude: location?.longitude || 0
             },
             page: 0,
-            pagesize: 100
+            pagesize: 1000
           }).then(value => {
             store.refreshing = false;
             if (value.code === 200) {

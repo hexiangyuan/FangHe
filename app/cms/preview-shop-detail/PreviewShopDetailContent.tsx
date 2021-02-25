@@ -2,12 +2,13 @@ import { TouchableOpacity, View } from "react-native";
 import { ImageStyle } from "react-native-fast-image";
 import Window from "../../constant/window";
 import { UIImage, H6 } from "react-native-pjt-ui-lib";
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 import { Score } from "../../components/score/Score";
 import { Tags } from "../../components/tag/Tags";
 import { Text } from "../../components";
 import { RootNavigation } from "../../navigation";
 import { ProductItem } from "../../screens/shop-detail-screen/ProductItem";
+import ToastGlobal from "../../utils/Toast";
 
 export interface ShopDetail {
   id: number;
@@ -40,7 +41,6 @@ const TOP_IMAGE: ImageStyle = {
 };
 
 export const PreviewShopDetailContent = (props: ShopDetail) => {
-
   return (
     <View>
       <UIImage
@@ -58,7 +58,7 @@ export const PreviewShopDetailContent = (props: ShopDetail) => {
         <View style={{ marginTop: 12 }} />
         <Score score={props.score} />
         <View style={{ marginTop: 12 }} />
-        {/*<Tags tag={props.tag} />*/}
+        {/* <Tags tag={props.tag} />*/}
         <View
           style={{
             flexDirection: "row",
@@ -125,7 +125,7 @@ export const ShopDetailProductList = (props: ShopDetailProductListProps) => {
                 bottom: 0
               }}
               onPress={() => {
-
+                ToastGlobal.show("该功能 暂未实现");
               }}
             >
               下架物品
