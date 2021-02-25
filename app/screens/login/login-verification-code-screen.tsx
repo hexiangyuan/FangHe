@@ -116,7 +116,8 @@ export const MobileLoginVerificationCodeScreen = () => {
         >
           验证码已发送到你的手机：{params.mobile}
         </Text>
-        {__DEV__ && <Text>{"验证码是（DEV 环境可看）  " + codeDev}</Text>}
+        {/*{__DEV__ && <Text>{"验证码是（DEV 环境可看）  " + codeDev}</Text>}*/}
+        {<Text>{"验证码是（DEV 环境可看）  " + codeDev}</Text>}
         <View
           style={{
             marginTop: 80,

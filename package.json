@@ -1,6 +1,6 @@
 {
   "name": "fang-he",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -50,7 +50,7 @@
     "react-native-localize": "^1.0.0",
     "react-native-location": "^2.5.0",
     "react-native-modals": "^0.22.3",
-    "react-native-pjt-ui-lib": "^0.3.0",
+    "react-native-pjt-ui-lib": "^0.9.0",
     "react-native-reanimated": "^1.13.2",
     "react-native-safe-area-context": "^3.1.9",
     "react-native-screens": "^2.10.1",
