@@ -1,4 +1,4 @@
-import {FangHeApi} from "../../services/api";
+import { FangHeApi } from "../../services/api";
 
 function getHomeList(request: {
   id: number;
@@ -13,15 +13,15 @@ function getHomeList(request: {
 }
 
 function shopDetail(id: number) {
-  return FangHeApi.get("/shop/detail", {id: id});
+  return FangHeApi.get("/shop/detail", { id: id });
 }
 
 function shopDetailProductList(id: number) {
-  return FangHeApi.get("/shop/product/list", {shopId: id});
+  return FangHeApi.get("/shop/product/list", { shopId: id });
 }
 
 function productDetail(id: number) {
-  return FangHeApi.get("/product/detail", {id: id});
+  return FangHeApi.get("/product/detail", { id: id });
 }
 
 function orderSubmit(request: { productId: number; quantity: number; time: string }) {
@@ -29,10 +29,10 @@ function orderSubmit(request: { productId: number; quantity: number; time: strin
 }
 
 function getVerificationCode(mobile: string) {
-  return FangHeApi.get("/common/verification-code", {mobile: mobile});
+  return FangHeApi.get("/common/verification-code", { mobile: mobile });
 }
 
-function loginMobile(request: { mobile: string; verificationCode: string }) {
+function loginMobile(request: { mobile: string; verificationCode: string; invitedCode?: string }) {
   return FangHeApi.post("/login/mobile", request);
 }
 
@@ -60,7 +60,7 @@ const HomeApi = {
   getVerificationCode,
   loginMobile,
   orderList,
-  pictureUpload,
+  pictureUpload
 };
 
 export default HomeApi;

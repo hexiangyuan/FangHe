@@ -1,14 +1,14 @@
 import React from "react";
-import { Alert, BackHandler, Text, TouchableOpacity, View } from "react-native"
-import {RootNavigation} from "../../../navigation";
-import {UIButton, UIImage} from "react-native-pjt-ui-lib";
-import {IconTypes} from "../../../components/icon/icons";
-import {Icon} from "../../../components";
+import { Alert, BackHandler, Text, TouchableOpacity, View } from "react-native";
+import { RootNavigation } from "../../../navigation";
+import { UIButton, UIImage } from "react-native-pjt-ui-lib";
+import { IconTypes } from "../../../components/icon/icons";
+import { Icon } from "../../../components";
 import LocalCookieStore from "../../../services/local/UserCookieStore";
-import {setFangHeApiCookie} from "../../../services/api";
-import {userUserStore} from "../../../models/user-store/user-store";
-import {observer, useLocalStore} from "mobx-react-lite";
-import {useFocusEffect} from "@react-navigation/native";
+import { setFangHeApiCookie } from "../../../services/api";
+import { userUserStore } from "../../../models/user-store/user-store";
+import { observer, useLocalStore } from "mobx-react-lite";
+import { useFocusEffect } from "@react-navigation/native";
 import StringUtils from "../../../utils/ReularUtils";
 
 const UnLoginView = () => {
@@ -177,13 +177,13 @@ const MineOrder = () => {
         }}
       />
 
-      {/*<MineItem*/}
+      {/* <MineItem*/}
       {/*  icon={"protected"}*/}
       {/*  text={"隐私申明"}*/}
       {/*  onPress={() => {*/}
       {/*    RootNavigation.push("PrivacyPolicyScreen");*/}
       {/*  }}*/}
-      {/*/>*/}
+      {/* />*/}
     </View>
   );
 };
@@ -235,39 +235,42 @@ const MineScreen = observer(() => {
         backgroundColor: "white"
       }}
     >
-      <View
-        style={{
-          width: "100%",
-          alignItems: "flex-start",
-          flexDirection: "row",
-          paddingTop: 120,
-          paddingHorizontal: 16,
-          paddingBottom: 24
-        }}
-      >
-        <UIImage
-          source={require("./avatar.png")}
+      <View style={{ flex: 1 }}>
+        <View
           style={{
-            width: 72,
-            height: 72
+            width: "100%",
+            alignItems: "flex-start",
+            flexDirection: "row",
+            paddingTop: 120,
+            paddingHorizontal: 16,
+            paddingBottom: 24
           }}
-        />
-        {userStore?.isLogin ? <LoginHeaderView mobile={userStore.mobile}/> : <UnLoginView/>}
+        >
+          <UIImage
+            source={require("./avatar.png")}
+            style={{
+              width: 72,
+              height: 72
+            }}
+          />
+          {userStore?.isLogin ? <LoginHeaderView mobile={userStore.mobile} /> : <UnLoginView />}
+        </View>
+        <MineOrder />
+        <View
+          style={{
+            width: "100%",
+            alignItems: "center",
+            marginTop: 120
+          }}
+        >
+          {userStore.isLogin && (
+            <UIButton onPress={logout} containerStyle={{ width: "80%" }}>
+              退出登录
+            </UIButton>
+          )}
+        </View>
       </View>
-      <MineOrder/>
-      <View
-        style={{
-          width: "100%",
-          alignItems: "center",
-          marginTop: 120
-        }}
-      >
-        {userStore.isLogin && (
-          <UIButton onPress={logout} containerStyle={{width: "80%"}}>
-            退出登录
-          </UIButton>
-        )}
-      </View>
+      <Text style={{ textAlign: "center", fontSize: 14, marginBottom: 15 }}>店铺入驻，请微信搜索公众号『方泡泡』</Text>
     </View>
   );
 });
