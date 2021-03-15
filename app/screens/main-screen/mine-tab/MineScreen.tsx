@@ -1,5 +1,5 @@
 import React from "react";
-import {Alert, Text, TouchableOpacity, View} from "react-native";
+import { Alert, BackHandler, Text, TouchableOpacity, View } from "react-native"
 import {RootNavigation} from "../../../navigation";
 import {UIButton, UIImage} from "react-native-pjt-ui-lib";
 import {IconTypes} from "../../../components/icon/icons";
@@ -177,13 +177,13 @@ const MineOrder = () => {
         }}
       />
 
-      <MineItem
-        icon={"protected"}
-        text={"隐私申明"}
-        onPress={() => {
-          RootNavigation.push("PrivacyPolicyScreen");
-        }}
-      />
+      {/*<MineItem*/}
+      {/*  icon={"protected"}*/}
+      {/*  text={"隐私申明"}*/}
+      {/*  onPress={() => {*/}
+      {/*    RootNavigation.push("PrivacyPolicyScreen");*/}
+      {/*  }}*/}
+      {/*/>*/}
     </View>
   );
 };

@@ -8,6 +8,8 @@ export const icons = {
   tab_home: require("./home.png"),
   tab_home_focus: require("./home_focus.png"),
   tab_mine_focus: require("./mine_foucus.png"),
+  tab_discovery_focus: require("./home_faxian_focus.png"),
+  tab_discovery: require("./home_faxian.png"),
   tab_mine: require("./mine.png"),
   clear: require("./clear.png"),
   back_white: require("./back_black_circle.png"),

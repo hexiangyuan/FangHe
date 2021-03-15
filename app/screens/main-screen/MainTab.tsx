@@ -1,10 +1,12 @@
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React, { useEffect } from "react";
 import HomeScreen from "./home-tab/HomeScreen";
 import FindScreen from "./find-tab/FindScreen";
 import MineScreen from "./mine-tab/MineScreen";
-import {Icon} from "../../components";
-import {Colors} from "../../theme/Theme";
+import { Icon } from "../../components";
+import { Colors } from "../../theme/Theme";
+import { useFocusEffect } from "@react-navigation/native";
+import { BackHandler } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
@@ -27,9 +29,9 @@ const tabFind = (props: { focused: boolean }) => {
         width: 25,
         height: 25
       }}
-      icon={props.focused ? "tab_home_focus" : "tab_home"}
+      icon={props.focused ? "tab_discovery_focus" : "tab_discovery"}
     />
-  )
+  );
 };
 
 const tabMine = (props: { focused: boolean }) => {
@@ -46,7 +48,7 @@ const tabMine = (props: { focused: boolean }) => {
 
 export default function HomeTab() {
   return (
-    <Tab.Navigator tabBarOptions={{activeTintColor: Colors.primary}}>
+    <Tab.Navigator tabBarOptions={{ activeTintColor: Colors.primary }} backBehavior={"none"}>
       <Tab.Screen
         name="home"
         component={HomeScreen}

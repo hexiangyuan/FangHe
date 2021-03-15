@@ -1,20 +1,22 @@
 import React, {useState} from 'react';
-import {View} from "react-native";
+import { BackHandler, View } from "react-native"
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Route, TabView} from "react-native-tab-view";
 import {CustomerTabBar} from "../../../theme/Theme";
 import {ShopList} from "../home-tab/components/ShopList";
 import {FindList} from "./components/FindList";
+import { useFocusEffect } from "@react-navigation/native"
+import { RootNavigation } from "../../../navigation"
 
 const keyTabArticle = "1";
 const keyTabPhoto = "2";
 const keyTabVideo = "3";
 
 const tabRoutes: Array<Route> = [
-  {
-    key: keyTabArticle,
-    title: "精选文章"
-  },
+  // {
+  //   key: keyTabArticle,
+  //   title: "精选文章"
+  // },
   {
     key: keyTabPhoto,
     title: "美女图册"
@@ -41,6 +43,7 @@ const _renderScene = ({route}) => {
 
 const FindScreen = () => {
   const [index, setIndex] = useState(0);
+
   return (
     <SafeAreaView
       edges={["top"]}

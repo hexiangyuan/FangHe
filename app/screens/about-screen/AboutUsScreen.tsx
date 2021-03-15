@@ -5,7 +5,7 @@ import Window from "../../constant/window";
 import { UIImage } from "react-native-pjt-ui-lib";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RootNavigation } from "../../navigation";
-import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native";
 
 type ItemProps = {
   title: string;
@@ -64,7 +64,6 @@ const Item = (props: ItemProps) => {
 };
 
 export const AboutUsScreen = () => {
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Header headerText={"关于我们"} />
@@ -78,19 +77,20 @@ export const AboutUsScreen = () => {
         }}
       >
         <UIImage
-          source={{
-            uri:
-              "https://th.bing.com/th/id/R3bc8d2910c49988de330463f55b3d6ac?rik=aL44nhY2go3IfA&riu=http%3a%2f%2fimg02.tooopen.com%2fimages%2f20160406%2ftooopen_sy_158518878725.jpg&ehk=1GaWKdOcUGbYR0MzSz8iuv5TXRRermOasMbShG0CJ6U%3d&risl=&pid=ImgRaw"
-          }}
+          source={require("../../../assets/app-icon.png")}
           style={{
             width: 72,
             height: 72
           }}
         />
+        <Text style={{ fontSize: 18, marginTop: 16, fontWeight: "bold" }}>方泡泡</Text>
       </View>
       <View style={{ paddingHorizontal: 12 }}>
         <Item title={"应用版本"} content={"1.0.0"} onPress={() => {}} />
-        <Item title={"用户协议"} onPress={() => {}} />
+      </View>
+    </SafeAreaView>
+  );
+  /* <Item title={"用户协议"} onPress={() => {}} />
         <Item title={"开源代码许可"} onPress={() => {}} />
         <Item
           title={"CMS"}
@@ -98,7 +98,5 @@ export const AboutUsScreen = () => {
             RootNavigation.push("CmsLoginScreen");
           }}
         />
-      </View>
-    </SafeAreaView>
-  );
+  * */
 };

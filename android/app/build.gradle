@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.fanghe"
+        applicationId "com.fanghe.fangpaopao"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
