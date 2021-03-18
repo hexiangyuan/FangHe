@@ -1,0 +1,67 @@
+openapi: 3.0.1
+info:
+  title: Sample API
+  description: API description in Markdown.
+  version: 1.0.0
+servers:
+  - url: 'https://www.fanghe.cn/api'
+paths:
+  /app/key-value/put:
+    post:
+      tags:
+        - 远程控制
+      summary: 添加 key value,如果key 不存在就创建一个 key value，如果存在就修改原有 key 的 value
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/putRemoteControlKey'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /app/key-value/get:
+    get:
+      tags:
+        - 远程控制
+      summary:  获得对应key的value，key 不能为空
+      parameters:
+        - name: key
+          in: query
+          required: true
+          schema:
+            type: string
+            format: value
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: string
+
+components:
+  schemas:
+    putRemoteControlKey:
+      type: object
+      properties:
+        key:
+          type: string
+          description: 唯一标识
+        value:
+          type: string
+          description: 值
