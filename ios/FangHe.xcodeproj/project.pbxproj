@@ -149,6 +149,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		30B07076C8A443ECA6A612DC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		5F339C85FE19179E3A028D5F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -198,14 +206,6 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
-		};
-		30B07076C8A443ECA6A612DC /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -474,10 +474,12 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FangHe-FangHeTests/Pods-FangHe-FangHeTests-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
+				"${PODS_ROOT}/../../node_modules/react-native-update/ios/pushy_build_time.txt",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/pushy_build_time.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -492,10 +494,12 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FangHe/Pods-FangHe-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
+				"${PODS_ROOT}/../../node_modules/react-native-update/ios/pushy_build_time.txt",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/pushy_build_time.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

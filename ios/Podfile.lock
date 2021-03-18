@@ -253,6 +253,17 @@ PODS:
     - React-Core
   - react-native-splash-screen (3.2.0):
     - React
+  - react-native-update (5.10.0):
+    - React
+    - react-native-update/BSDiff (= 5.10.0)
+    - react-native-update/RCTPushy (= 5.10.0)
+    - SSZipArchive
+  - react-native-update/BSDiff (5.10.0):
+    - React
+    - SSZipArchive
+  - react-native-update/RCTPushy (5.10.0):
+    - React
+    - SSZipArchive
   - react-native-video (5.1.1):
     - React-Core
     - react-native-video/Video (= 5.1.1)
@@ -344,6 +355,7 @@ PODS:
   - SDWebImageWebPCoder (0.6.1):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.7)
+  - SSZipArchive (2.2.3)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -389,6 +401,7 @@ DEPENDENCIES:
   - react-native-location (from `../node_modules/react-native-location`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
+  - react-native-update (from `../node_modules/react-native-update`)
   - react-native-video (from `../node_modules/react-native-video`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -427,6 +440,7 @@ SPEC REPOS:
     - OpenSSL-Universal
     - SDWebImage
     - SDWebImageWebPCoder
+    - SSZipArchive
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -468,6 +482,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
+  react-native-update:
+    :path: "../node_modules/react-native-update"
   react-native-video:
     :path: "../node_modules/react-native-video"
   React-RCTActionSheet:
@@ -543,6 +559,7 @@ SPEC CHECKSUMS:
   react-native-location: 5a40ec1cc6abf2f6d94df979f98ec76c3a415681
   react-native-safe-area-context: b6e0e284002381d2ff29fa4fff42b4d8282e3c94
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
+  react-native-update: 2bf765d541619e6abc87abb21e30c409273c2f8e
   react-native-video: 0bb76b6d6b77da3009611586c7dbf817b947f30e
   React-RCTActionSheet: 910163b6b09685a35c4ebbc52b66d1bfbbe39fc5
   React-RCTAnimation: 9a883bbe1e9d2e158d4fb53765ed64c8dc2200c6
@@ -565,6 +582,7 @@ SPEC CHECKSUMS:
   RNScreens: 45c457af3d2ee9e08fc01e70da87e653d46b1198
   SDWebImage: 9169792e9eec3e45bba2a0c02f74bf8bd922d1ee
   SDWebImageWebPCoder: d0dac55073088d24b2ac1b191a71a8f8d0adac21
+  SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   Yoga: 7740b94929bbacbddda59bf115b5317e9a161598
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 

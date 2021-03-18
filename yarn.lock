@@ -11068,6 +11068,13 @@ react-native-tab-view@^2.15.2:
   resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-2.15.2.tgz#4bc7832d33a119306614efee667509672a7ee64e"
   integrity sha512-2hxLkBnZtEKFDyfvNO5EUywhy3f/EiLOBO8SWqKj4BMBTO0QwnybaPE5MVF00Fhz+VA4+h/iI40Dkrrtq70dGg==
 
+react-native-update@^5.10.0:
+  version "5.10.0"
+  resolved "http://121.43.178.15:5000/react-native-update/-/react-native-update-5.10.0.tgz#1117797092a65a49084b2b61afb20c19bf8bd5b7"
+  integrity sha1-ERd5cJKmWkkISythr7IMGb+L1bc=
+  dependencies:
+    uuid "3"
+
 react-native-video@^5.1.1:
   version "5.1.1"
   resolved "http://121.43.178.15:5000/react-native-video/-/react-native-video-5.1.1.tgz#89a7989efeb8d404611c06154d1da227a745d7d8"
@@ -13132,7 +13139,7 @@ utils-merge@1.0.1:
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
 
-uuid@^3.3.2:
+uuid@3, uuid@^3.3.2:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
