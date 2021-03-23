@@ -6,6 +6,7 @@ import { UIImage } from "react-native-pjt-ui-lib";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RootNavigation } from "../../navigation";
 import { useNavigation } from "@react-navigation/native";
+import { userUserStore } from "../../models/user-store/user-store";
 
 type ItemProps = {
   title: string;
@@ -64,6 +65,9 @@ const Item = (props: ItemProps) => {
 };
 
 export const AboutUsScreen = () => {
+  const { mobile } = userUserStore();
+  console.log(mobile)
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Header headerText={"关于我们"} />
@@ -87,6 +91,14 @@ export const AboutUsScreen = () => {
       </View>
       <View style={{ paddingHorizontal: 12 }}>
         <Item title={"应用版本"} content={"1.0.0"} onPress={() => {}} />
+        {mobile === "13788936717" && (
+          <Item
+            title={"CMS"}
+            onPress={() => {
+              RootNavigation.push("CmsLoginScreen");
+            }}
+          />
+        )}
       </View>
     </SafeAreaView>
   );

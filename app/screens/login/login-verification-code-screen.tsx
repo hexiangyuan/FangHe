@@ -102,7 +102,7 @@ export const MobileLoginVerificationCodeScreen = () => {
             fontWeight: "bold"
           }}
         >
-          请输入6位数验证码
+          请输入4位数验证码
         </Text>
         <Text
           style={{
