@@ -186,7 +186,7 @@ const VideoDetailScreen = (props: VideoPlayProps) => {
               source={{
                 uri: store.videoUrl.startsWith("http")
                   ? store.videoUrl
-                  : "http://qope25exv.hn-bkt.clouddn.com/" + store.videoUrl
+                  : "http://qqejj8oyy.hd-bkt.clouddn.com/" + store.videoUrl
               }}
               style={styles.fullScreen}
               paused={paused}
