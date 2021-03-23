@@ -6,7 +6,8 @@ import { H4 } from "react-native-pjt-ui-lib";
 import { CustomerTabBar } from "../../../theme/Theme";
 import { ShopList } from "./components/ShopList";
 import { useFocusEffect } from "@react-navigation/native";
-import { RootNavigation } from "../../../navigation"
+import { RootNavigation } from "../../../navigation";
+import Home2Screen from "../Home2Screen";
 
 type NavigationBarProps = {
   title: string;
@@ -55,18 +56,19 @@ const HomeScreen = () => {
     >
       <View style={{ flex: 1 }}>
         <NavigationBar title={"方泡泡"} />
-        <TabView
-          renderScene={_renderScene}
-          renderTabBar={props => <CustomerTabBar {...props} />}
-          onIndexChange={index => {
-            setIndex(index);
-          }}
-          navigationState={{
-            index,
-            routes: tabRoutes
-          }}
-          lazy={true}
-        />
+        <Home2Screen type={1} />
+        {/* <TabView*/}
+        {/*  renderScene={_renderScene}*/}
+        {/*  renderTabBar={props => <CustomerTabBar {...props} />}*/}
+        {/*  onIndexChange={index => {*/}
+        {/*    setIndex(index);*/}
+        {/*  }}*/}
+        {/*  navigationState={{*/}
+        {/*    index,*/}
+        {/*    routes: tabRoutes*/}
+        {/*  }}*/}
+        {/*  lazy={true}*/}
+        {/* />*/}
       </View>
     </SafeAreaView>
   );
