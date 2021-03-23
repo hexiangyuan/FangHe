@@ -9,7 +9,7 @@ import { Header } from "../components";
 import { FangHeApi } from "../services/api";
 import ToastRef from "../utils/Toast";
 import ToastGlobal from "../utils/Toast";
-import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native";
 
 const styles = StyleSheet.create({
   imgStyle: {
@@ -120,11 +120,10 @@ export const CmsShopItem = (props: CMSShopItemProps) => {
 };
 
 export const CmsShopList = () => {
-
   const [data, setData] = useState<Array<CMSShopItemProps>>([]);
 
   useEffect(() => {
-    FangHeApi.get("/shop/list")
+    FangHeApi.get("/shop/list", { isForAppStore: false })
       .then(value => {
         setData(value.data);
         ToastRef.show(value.code);
