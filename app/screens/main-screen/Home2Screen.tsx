@@ -1,13 +1,8 @@
-import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect } from "react";
-import { FlatList, Pressable, RefreshControl, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Pressable, Text, View } from "react-native";
 import { observer, useLocalStore } from "mobx-react-lite";
-import { EmptyView } from "./home-tab/components/EmptyView";
-import { RootNavigation } from "../../navigation";
-import { HomeShopItem } from "./home-tab/components/HomeShopItem";
 import HomeApi from "./HomeApi";
 import { Icon } from "../../components";
-import { icons } from "../../components/icon/icons";
 import FastImage from "react-native-fast-image";
 import Window from "../../constant/window";
 
@@ -16,31 +11,40 @@ function OrderNow(props) {
     <Pressable>
       <View
         style={{
-          backgroundColor: "white",
           flexDirection: "row",
-          justifyContent: "space-between"
+          justifyContent: "space-between",
+          position: "relative",
+          alignItems: "center"
         }}
       >
-        <Text style={{ flex: 1 }}>立即预订</Text>
-        <Icon icon={icons.home_arrow}></Icon>
+        <Text
+          style={{
+            flex: 1,
+            fontSize: 16,
+            color: "#333",
+            fontWeight: "bold",
+            paddingHorizontal: 12,
+            paddingVertical: 12
+          }}
+        >
+          立即预订
+        </Text>
+        <Icon icon={"home_arrow"} style={{ height: 24, width: 24, marginRight: 12 }} />
+        <View
+          style={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            top: 4,
+            left: 5,
+            borderColor: "white",
+            borderWidth: 1,
+            zIndex: -1
+          }}
+        />
       </View>
+      <View></View>
     </Pressable>
-  );
-}
-
-function Title(props) {
-  return (
-    <Text
-      style={{
-        backgroundColor: "white",
-        color: "#333",
-        paddingHorizontal: 6,
-        paddingVertical: 6,
-        fontSize: 20
-      }}
-    >
-      {props.title}
-    </Text>
   );
 }
 
@@ -88,18 +92,49 @@ const HomeProductList = observer((props: { type: number }) => {
         renderItem={({ item }) => {
           console.log(item.mainImg);
           return (
-            <View>
+            <View style={{ position: "relative" }}>
               <View style={{ backgroundColor: "#FEFEFE", flexDirection: "row", justifyContent: "space-between" }}>
-                <ShopName title={"方泡泡"} />
+                <ShopName title={"趣泡"} />
               </View>
               <FastImage
                 style={{ width: Window.width, height: (Window.width * 3) / 2 }}
                 source={{ uri: item.mainImg }}
                 resizeMode={FastImage.resizeMode.cover}
               />
+
               <View style={{ height: 48, backgroundColor: "rgb(230,235,237)" }} />
-              <Title title={item.productName} />
-              <OrderNow />
+              <View
+                style={{
+                  position: "absolute",
+                  bottom: 24,
+                  width: "100%",
+                  flexDirection: "column"
+                }}
+              >
+                <View
+                  style={{
+                    width: "84%",
+                    flexDirection: "row",
+                    marginHorizontal: "8%"
+                  }}
+                >
+                  <Text
+                    style={{
+                      backgroundColor: "white",
+                      color: "#333",
+                      paddingHorizontal: 6,
+                      paddingVertical: 6,
+                      fontSize: 24
+                    }}
+                  >
+                    {item.productName}
+                  </Text>
+                </View>
+
+                <View style={{ backgroundColor: "white", width: "84%", marginHorizontal: "8%", marginTop: 16 }}>
+                  <OrderNow />
+                </View>
+              </View>
             </View>
           );
         }}

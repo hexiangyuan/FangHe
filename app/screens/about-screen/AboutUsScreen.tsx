@@ -66,7 +66,7 @@ const Item = (props: ItemProps) => {
 
 export const AboutUsScreen = () => {
   const { mobile } = userUserStore();
-  console.log(mobile)
+  console.log(mobile);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -87,28 +87,26 @@ export const AboutUsScreen = () => {
             height: 72
           }}
         />
-        <Text style={{ fontSize: 18, marginTop: 16, fontWeight: "bold" }}>方泡泡</Text>
+        <Text
+          style={{
+            fontSize: 18,
+            marginTop: 16,
+            fontWeight: "bold"
+          }}
+        >
+          方泡泡
+        </Text>
       </View>
       <View style={{ paddingHorizontal: 12 }}>
         <Item title={"应用版本"} content={"1.0.0"} onPress={() => {}} />
-        {mobile === "13788936717" && (
-          <Item
-            title={"CMS"}
-            onPress={() => {
-              RootNavigation.push("CmsLoginScreen");
-            }}
-          />
-        )}
-      </View>
-    </SafeAreaView>
-  );
-  /* <Item title={"用户协议"} onPress={() => {}} />
-        <Item title={"开源代码许可"} onPress={() => {}} />
+
         <Item
           title={"CMS"}
           onPress={() => {
             RootNavigation.push("CmsLoginScreen");
           }}
         />
-  * */
+      </View>
+    </SafeAreaView>
+  );
 };
