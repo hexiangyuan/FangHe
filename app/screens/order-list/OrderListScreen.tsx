@@ -87,7 +87,7 @@ export const OrderItem = (props: OrderListItem) => {
                   color: Colors.primary
                 }}
               >
-                ￥{props.price}
+                ￥{props.price / 100}
               </Text>
               <Text
                 style={{
