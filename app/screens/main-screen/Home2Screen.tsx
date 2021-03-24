@@ -5,6 +5,7 @@ import HomeApi from "./HomeApi";
 import { Icon } from "../../components";
 import FastImage from "react-native-fast-image";
 import Window from "../../constant/window";
+import { RootNavigation } from "../../navigation";
 
 function OrderNow(props) {
   return (
@@ -90,52 +91,56 @@ const HomeProductList = observer((props: { type: number }) => {
         keyExtractor={(item, index) => index.toString()}
         // refreshControl={<RefreshControl refreshing={store.refreshing} onRefresh={onRefresh} />}
         renderItem={({ item }) => {
-          console.log(item.mainImg);
           return (
-            <View style={{ position: "relative" }}>
-              <View style={{ backgroundColor: "#FEFEFE", flexDirection: "row", justifyContent: "space-between" }}>
-                <ShopName title={"趣泡"} />
-              </View>
-              <FastImage
-                style={{ width: Window.width, height: (Window.width * 3) / 2 }}
-                source={{ uri: item.mainImg }}
-                resizeMode={FastImage.resizeMode.cover}
-              />
+            <Pressable
+              onPress={() => {
+                RootNavigation.push("ProductDetailScreen", { id: item.id });
+              }}
+            >
+              <View style={{ position: "relative" }}>
+                <View style={{ backgroundColor: "#FEFEFE", flexDirection: "row", justifyContent: "space-between" }}>
+                  <ShopName title={"趣泡"} />
+                </View>
+                <FastImage
+                  style={{ width: Window.width, height: (Window.width * 3) / 2 }}
+                  source={{ uri: item.mainImg }}
+                  resizeMode={FastImage.resizeMode.cover}
+                />
 
-              <View style={{ height: 48, backgroundColor: "rgb(230,235,237)" }} />
-              <View
-                style={{
-                  position: "absolute",
-                  bottom: 24,
-                  width: "100%",
-                  flexDirection: "column"
-                }}
-              >
+                <View style={{ height: 48, backgroundColor: "rgb(230,235,237)" }} />
                 <View
                   style={{
-                    width: "84%",
-                    flexDirection: "row",
-                    marginHorizontal: "8%"
+                    position: "absolute",
+                    bottom: 24,
+                    width: "100%",
+                    flexDirection: "column"
                   }}
                 >
-                  <Text
+                  <View
                     style={{
-                      backgroundColor: "white",
-                      color: "#333",
-                      paddingHorizontal: 6,
-                      paddingVertical: 6,
-                      fontSize: 24
+                      width: "84%",
+                      flexDirection: "row",
+                      marginHorizontal: "8%"
                     }}
                   >
-                    {item.productName}
-                  </Text>
-                </View>
-
-                <View style={{ backgroundColor: "white", width: "84%", marginHorizontal: "8%", marginTop: 16 }}>
-                  <OrderNow />
+                    <Text
+                      style={{
+                        backgroundColor: "white",
+                        color: "#333",
+                        paddingHorizontal: 6,
+                        paddingVertical: 6,
+                        fontSize: 24
+                      }}
+                    >
+                      {item.productName}
+                    </Text>
+                  </View>
+                  <View style={{ backgroundColor: "white", width: "84%", marginHorizontal: "8%", marginTop: 16 }}>
+                    <OrderNow />
+                  </View>
                 </View>
               </View>
-            </View>
+            </Pressable>
           );
         }}
       />

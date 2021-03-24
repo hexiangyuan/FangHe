@@ -27,6 +27,7 @@ import { setToastRef } from "./utils/Toast";
 import LocalCookieStore from "./services/local/UserCookieStore";
 import { setupUserStore, UserStore, UserStoreProvider } from "./models/user-store/user-store";
 import RNLocation from "react-native-location";
+import iosStore from "./models/user-store/ios-store-store";
 
 enableScreens();
 
