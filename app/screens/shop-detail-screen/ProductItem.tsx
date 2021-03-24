@@ -70,7 +70,7 @@ export const ProductItem = (props: ProductItemProps) => {
               fontWeight: "bold"
             }}
           >
-            ￥{props.discountPrice / 100}
+            ¥{props.discountPrice / 100}
           </Text>
           <Text
             style={{
@@ -80,7 +80,7 @@ export const ProductItem = (props: ProductItemProps) => {
               textDecorationLine: "line-through"
             }}
           >
-            ￥{props.price / 100}
+            ¥{props.price / 100}
           </Text>
         </View>
       </View>

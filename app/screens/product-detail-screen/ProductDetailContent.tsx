@@ -201,7 +201,7 @@ export const ProductDetailContent = (props: ProductDetailProps & { mapClick: () 
                 fontWeight: "bold"
               }}
             >
-              ￥{props.discountPrice / 100}
+              ¥{props.discountPrice / 100}
             </Text>
             <Text
               style={{
@@ -211,7 +211,7 @@ export const ProductDetailContent = (props: ProductDetailProps & { mapClick: () 
                 textDecorationLine: "line-through"
               }}
             >
-              ￥{props.price / 100}
+              ¥{props.price / 100}
             </Text>
           </View>
           <UIButton

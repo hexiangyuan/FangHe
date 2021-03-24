@@ -58,7 +58,7 @@ export const CmsShopItem = (props: CMSShopItemProps) => {
                 color: "#333"
               }}
             >
-              ￥{props.averPrice}/人
+              ¥{props.averPrice}/人
             </Text>
             <Text
               style={{

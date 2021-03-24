@@ -82,7 +82,7 @@ export const Sku = (props: SkuInfo) => {
                 color: Colors.primary
               }}
             >
-              ￥{props.price/100}
+              ¥{props.price/100}
             </Text>
             <Text
               style={{
