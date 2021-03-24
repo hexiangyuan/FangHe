@@ -123,7 +123,7 @@ export const CmsShopList = () => {
   const [data, setData] = useState<Array<CMSShopItemProps>>([]);
 
   useEffect(() => {
-    FangHeApi.get("/shop/list", { isForAppStore: false })
+    FangHeApi.get("/shop/list", { isForAppStore: true })
       .then(value => {
         setData(value.data);
         ToastRef.show(value.code);
