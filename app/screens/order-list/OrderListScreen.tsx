@@ -1,4 +1,4 @@
-import { FlatList, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { FlatList, Pressable, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useState } from "react";
 import { Header } from "../../components";
@@ -11,7 +11,12 @@ import HomeApi from "../main-screen/HomeApi";
 
 export const OrderItem = (props: OrderListItem) => {
   return (
-    <View style={{ padding: 12 }}>
+    <Pressable
+      style={{ padding: 12 }}
+      onPress={() => {
+        RootNavigation.push("ProductDetailScreen", { id: props.productId });
+      }}
+    >
       <Text
         onPress={() => {
           RootNavigation.push("ShopDetailScreen", { id: props.shopId });
@@ -24,83 +29,78 @@ export const OrderItem = (props: OrderListItem) => {
       >
         {props.shopName}
       </Text>
-      <TouchableWithoutFeedback
-        onPress={() => {
-          // RootNavigation.push("ProductDetailScreen", { id: props.id });
+
+      <View
+        style={{
+          flexDirection: "row",
+          marginTop: 8,
+          height: 72
         }}
       >
+        {props.productImg && (
+          <UIImage
+            source={{ uri: props.productImg }}
+            style={{
+              width: 72,
+              height: 72
+            }}
+          />
+        )}
         <View
           style={{
-            flexDirection: "row",
-            marginTop: 8,
-            height: 72
+            height: 72,
+            flex: 1,
+            marginLeft: 8,
+            justifyContent: "space-between"
           }}
         >
-          {props.productImg && (
-            <UIImage
-              source={{ uri: props.productImg }}
+          <View style={{ flexDirection: "row" }}>
+            <Text
               style={{
-                width: 72,
-                height: 72
+                fontSize: 14,
+                color: "#333",
+                flex: 1
               }}
-            />
-          )}
+              numberOfLines={2}
+            >
+              {props.productName}
+            </Text>
+            <Text
+              style={{
+                fontSize: 14,
+                color: "#FF4D4D",
+                marginLeft: 12
+              }}
+            >
+              {getOrderNameByStatus(props.status)}
+            </Text>
+          </View>
           <View
             style={{
-              height: 72,
-              flex: 1,
-              marginLeft: 8,
+              width: "100%",
+              flexDirection: "row",
               justifyContent: "space-between"
             }}
           >
-            <View style={{ flexDirection: "row" }}>
-              <Text
-                style={{
-                  fontSize: 14,
-                  color: "#333",
-                  flex: 1
-                }}
-                numberOfLines={2}
-              >
-                {props.productName}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 14,
-                  color: "#FF4D4D",
-                  marginLeft: 12
-                }}
-              >
-                {getOrderNameByStatus(props.status)}
-              </Text>
-            </View>
-            <View
+            <Text
               style={{
-                width: "100%",
-                flexDirection: "row",
-                justifyContent: "space-between"
+                fontSize: 16,
+                color: Colors.primary
               }}
             >
-              <Text
-                style={{
-                  fontSize: 16,
-                  color: Colors.primary
-                }}
-              >
-                ￥{props.price / 100}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 16,
-                  color: "#333"
-                }}
-              >
-                x1
-              </Text>
-            </View>
+              ￥{props.price / 100}
+            </Text>
+            <Text
+              style={{
+                fontSize: 16,
+                color: "#333"
+              }}
+            >
+              x1
+            </Text>
           </View>
         </View>
-      </TouchableWithoutFeedback>
+      </View>
       {canCancelOrder(props.status) && (
         <View
           style={{
@@ -120,7 +120,7 @@ export const OrderItem = (props: OrderListItem) => {
           </UIButton>
         </View>
       )}
-    </View>
+    </Pressable>
   );
 };
 
