@@ -7,6 +7,7 @@ import { Text } from "../../components";
 import { RedTags } from "../../components/tag/RedTags";
 import { Score } from "../../components/score/Score";
 import { RootNavigation } from "../../navigation";
+import ScaledImage from "./ScaledImage";
 
 export interface ShopInfo {
   id: number;
@@ -57,14 +58,7 @@ export const ShopDetailImgList = (props: { shopDetailsImgs: string[] }) => {
         商品描述
       </Text>
       {props.shopDetailsImgs?.map((item, index) => (
-        <UIImage
-          key={item + index}
-          source={{ uri: item }}
-          style={{
-            width: Window.width,
-            height: Window.width
-          }}
-        />
+        <ScaledImage key={item + index} uri={item} width={Window.width} />
       ))}
     </View>
   );

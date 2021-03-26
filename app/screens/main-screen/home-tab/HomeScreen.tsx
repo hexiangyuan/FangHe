@@ -1,13 +1,12 @@
-import React, { useState } from "react";
-import { BackHandler, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Platform, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Route, TabView } from "react-native-tab-view";
 import { H4 } from "react-native-pjt-ui-lib";
 import { CustomerTabBar } from "../../../theme/Theme";
 import { ShopList } from "./components/ShopList";
-import { useFocusEffect } from "@react-navigation/native";
-import { RootNavigation } from "../../../navigation";
 import Home2Screen from "../Home2Screen";
+import iosStore from "../../../models/user-store/ios-store-store";
 
 type NavigationBarProps = {
   title: string;
@@ -44,6 +43,48 @@ const _renderScene = ({ route }) => {
 
 const HomeScreen = () => {
   const [index, setIndex] = useState(0);
+  const [isIOsShell, setIsIosShell] = useState(() => {
+    if (Platform.OS === "ios") {
+      return undefined;
+    } else {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    if (Platform.OS === "ios") {
+      iosStore
+        .getIosShellParams()
+        .then(bool => {
+          setIsIosShell(bool);
+        })
+        .catch(e => {
+          setIsIosShell(true);
+        });
+    }
+  }, []);
+
+  if (isIOsShell === undefined) {
+    return null;
+  }
+
+  if (isIOsShell) {
+    return (
+      <SafeAreaView
+        edges={["top"]}
+        style={{
+          flex: 1,
+          backgroundColor: "white",
+          flexDirection: "row"
+        }}
+      >
+        <View style={{ flex: 1 }}>
+          <NavigationBar title={"方泡泡"} />
+          <Home2Screen type={1} />
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView
@@ -56,19 +97,18 @@ const HomeScreen = () => {
     >
       <View style={{ flex: 1 }}>
         <NavigationBar title={"方泡泡"} />
-        <Home2Screen type={1} />
-        {/* <TabView*/}
-        {/*  renderScene={_renderScene}*/}
-        {/*  renderTabBar={props => <CustomerTabBar {...props} />}*/}
-        {/*  onIndexChange={index => {*/}
-        {/*    setIndex(index);*/}
-        {/*  }}*/}
-        {/*  navigationState={{*/}
-        {/*    index,*/}
-        {/*    routes: tabRoutes*/}
-        {/*  }}*/}
-        {/*  lazy={true}*/}
-        {/* />*/}
+        <TabView
+          renderScene={_renderScene}
+          renderTabBar={props => <CustomerTabBar {...props} />}
+          onIndexChange={index => {
+            setIndex(index);
+          }}
+          navigationState={{
+            index,
+            routes: tabRoutes
+          }}
+          lazy={true}
+        />
       </View>
     </SafeAreaView>
   );
