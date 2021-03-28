@@ -61,7 +61,7 @@ export const MobileLoginVerificationCodeScreen = () => {
     HomeApi.loginMobile({
       mobile: params.mobile,
       verificationCode: code,
-      invitedCode: invitedCode ? undefined : invitedCode
+      inviteCode: invitedCode ? undefined : invitedCode
     })
       .then(value => {
         if (value.code === 200) {
