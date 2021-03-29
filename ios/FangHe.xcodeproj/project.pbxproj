@@ -17,6 +17,7 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* FangHeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* FangHeTests.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		C870BC262611BB690042A363 /* app-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C870BC252611BB690042A363 /* app-icon@2x.png */; };
 		CCA894C39218EEEE802B4158 /* libPods-FangHe-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71DAC7BCDA207530AD217980 /* libPods-FangHe-tvOS.a */; };
 		F6C340D018B37650701725BF /* libPods-FangHe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A33186B2F0E1BAEC314B6D54 /* libPods-FangHe.a */; };
 		FA08E3194B32F0C6B0142055 /* libPods-FangHe-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EAFE2C9586B4644241693B9 /* libPods-FangHe-tvOSTests.a */; };
@@ -65,6 +66,7 @@
 		97F5AE15A13AAC346605557B /* Pods-FangHe-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FangHe-tvOS.release.xcconfig"; path = "Target Support Files/Pods-FangHe-tvOS/Pods-FangHe-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		A33186B2F0E1BAEC314B6D54 /* libPods-FangHe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FangHe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9EC6B7734C749C0A8CFE9F1 /* Pods-FangHe-FangHeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FangHe-FangHeTests.debug.xcconfig"; path = "Target Support Files/Pods-FangHe-FangHeTests/Pods-FangHe-FangHeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C870BC252611BB690042A363 /* app-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon@2x.png"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -125,6 +127,7 @@
 		13B07FAE1A68108700A75B9A /* FangHe */ = {
 			isa = PBXGroup;
 			children = (
+				C870BC352611BEA70042A363 /* assets */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -203,6 +206,14 @@
 				2D02E4901E0B4A5D006451C7 /* FangHe-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C870BC352611BEA70042A363 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				C870BC252611BB690042A363 /* app-icon@2x.png */,
+			);
+			name = assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,7 +312,9 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 8D74NMH943;
 						LastSwiftMigration = 1120;
+						ProvisioningStyle = Manual;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -321,6 +334,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -349,6 +363,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				C870BC262611BB690042A363 /* app-icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -666,7 +681,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8D74NMH943;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = FangHe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -677,6 +695,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cn.fangpaopao.app;
 				PRODUCT_NAME = FangHe;
+				PROVISIONING_PROFILE_SPECIFIER = fangpaopao;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -689,7 +708,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8D74NMH943;
 				INFOPLIST_FILE = FangHe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -699,6 +721,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cn.fangpaopao.app;
 				PRODUCT_NAME = FangHe;
+				PROVISIONING_PROFILE_SPECIFIER = fangpaopao;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
