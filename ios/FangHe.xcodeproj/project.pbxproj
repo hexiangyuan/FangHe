@@ -154,7 +154,6 @@
 			children = (
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		5F339C85FE19179E3A028D5F /* Pods */ = {
@@ -169,7 +168,6 @@
 				01047483AB791CA06AF2C70B /* Pods-FangHe-tvOSTests.debug.xcconfig */,
 				5E35DB9646E2C4600D4638C3 /* Pods-FangHe-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -677,7 +675,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.fangpaopao.app;
 				PRODUCT_NAME = FangHe;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -699,7 +697,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.fangpaopao.app;
 				PRODUCT_NAME = FangHe;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

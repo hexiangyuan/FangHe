@@ -70,43 +70,51 @@ export const AboutUsScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Header headerText={"关于我们"} />
-
-      <View
-        style={{
-          height: 200,
-          width: Window.width,
-          alignItems: "center",
-          justifyContent: "center"
-        }}
-      >
-        <UIImage
-          source={require("../../../assets/app-icon.png")}
-          style={{
-            width: 72,
-            height: 72
-          }}
-        />
-        <Text
-          style={{
-            fontSize: 18,
-            marginTop: 16,
-            fontWeight: "bold"
-          }}
-        >
-          方泡泡
-        </Text>
-      </View>
-      <View style={{ paddingHorizontal: 12 }}>
-        <Item title={"应用版本"} content={"1.0.0"} onPress={() => {}} />
-        {mobile === "13788936717" && (
-          <Item
-            title={"CMS"}
-            onPress={() => {
-              RootNavigation.push("CmsLoginScreen");
+      <View style={{ flex: 1 }}>
+        <Header headerText={"关于我们"} />
+        <View style={{ flex: 1 }}>
+          <View
+            style={{
+              height: 200,
+              width: Window.width,
+              alignItems: "center",
+              justifyContent: "center"
             }}
-          />
-        )}
+          >
+            <UIImage
+              source={require("../../../assets/app-icon.png")}
+              style={{
+                width: 72,
+                height: 72
+              }}
+            />
+            <Text
+              style={{
+                fontSize: 18,
+                marginTop: 16,
+                fontWeight: "bold"
+              }}
+            >
+              方泡泡
+            </Text>
+          </View>
+          <View style={{ paddingHorizontal: 12 }}>
+            <Item title={"应用版本"} content={"1.0.0"} onPress={() => {}} />
+            {["17702120086", "13788936717", "18964014563"].includes(mobile) && (
+              <Item
+                title={"CMS"}
+                onPress={() => {
+                  RootNavigation.push("CmsLoginScreen");
+                }}
+              />
+            )}
+          </View>
+        </View>
+
+        <View style={{ alignItems: "center", marginBottom: 16 }}>
+          <Text>Coryright@2020-2021</Text>
+          <Text>方和信息版权所有</Text>
+        </View>
       </View>
     </SafeAreaView>
   );
