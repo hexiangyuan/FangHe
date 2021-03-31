@@ -26,7 +26,7 @@ export const HomeShopItem = (props: HomeShopItemProps) => {
         source={{
           uri: props.img
         }}
-        resizeMode={"center"}
+        resizeMode={"cover"}
         style={styles.imgStyle}
       />
       <View

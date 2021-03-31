@@ -21,7 +21,8 @@ export const icons = {
   comment: require("./comment.png"),
   commit: require("./commit.png"),
   video_play: require("./video_play.png"),
-  home_arrow: require("./home_arrow.png")
+  home_arrow: require("./home_arrow.png"),
+  close: require("./close.png")
 };
 
 export type IconTypes = keyof typeof icons;

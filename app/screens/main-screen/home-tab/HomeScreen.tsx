@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Platform, View } from "react-native";
+import { Platform, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Route, TabView } from "react-native-tab-view";
 import { H4 } from "react-native-pjt-ui-lib";
@@ -7,6 +7,8 @@ import { CustomerTabBar } from "../../../theme/Theme";
 import { ShopList } from "./components/ShopList";
 import Home2Screen from "../Home2Screen";
 import iosStore from "../../../models/user-store/ios-store-store";
+import { Modal, ModalContent } from "react-native-modals";
+import { WXCustomerService } from "../../WXCustomerService";
 
 type NavigationBarProps = {
   title: string;
@@ -43,6 +45,7 @@ const _renderScene = ({ route }) => {
 
 const HomeScreen = () => {
   const [index, setIndex] = useState(0);
+  const [customerModelVisible, setCustomerModelVisible] = useState(false);
   const [isIOsShell, setIsIosShell] = useState(() => {
     if (Platform.OS === "ios") {
       return undefined;
@@ -109,7 +112,30 @@ const HomeScreen = () => {
           }}
           lazy={true}
         />
+        <Text
+          style={{ textAlign: "center", margin: 12, fontSize: 16 }}
+          onPress={() => {
+            setCustomerModelVisible(true);
+          }}
+        >
+          联系客服
+        </Text>
       </View>
+      <Modal
+        width={0.9}
+        visible={customerModelVisible}
+        onTouchOutside={() => {
+          setCustomerModelVisible(false);
+        }}
+      >
+        <ModalContent>
+          <WXCustomerService
+            onClosePressed={() => {
+              setCustomerModelVisible(false);
+            }}
+          />
+        </ModalContent>
+      </Modal>
     </SafeAreaView>
   );
 };
