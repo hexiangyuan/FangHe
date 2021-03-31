@@ -21,7 +21,7 @@ export function WXCustomerService(props: { onClosePressed: () => void }) {
         resizeMode={"stretch"}
       />
       <Text style={{ fontSize: 16, marginBottom: 24, textAlign: "center", marginTop: 60 }}>
-        请截图保存相册后，扫一扫添加客服微信客服「方泡泡」好友
+        请截图保存相册后，扫一扫添加客服微信「方泡泡」
       </Text>
     </View>
   );
