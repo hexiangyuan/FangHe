@@ -1,7 +1,7 @@
-import {Image, Text, TouchableOpacity} from "react-native";
+import { Image, Text, TouchableOpacity } from "react-native";
 import React from "react";
 
-export const EmptyView = (props: { onPress: () => void }) => (
+export const EmptyView = (props: { onPress?: () => void; text?: string }) => (
   <TouchableOpacity
     onPress={props.onPress}
     style={{
@@ -17,7 +17,8 @@ export const EmptyView = (props: { onPress: () => void }) => (
         height: 200
       }}
     />
-    <Text>您的数据可能跑到外太空</Text>
-    <Text>点我重试</Text>
+    <Text style={{ textAlign: "center", lineHeight: 24, fontSize: 16 }}>
+      {props.text ? props.text : "您的数据可能跑到外太空"}
+    </Text>
   </TouchableOpacity>
 );

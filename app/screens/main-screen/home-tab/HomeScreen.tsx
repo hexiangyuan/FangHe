@@ -9,6 +9,7 @@ import Home2Screen from "../Home2Screen";
 import iosStore from "../../../models/user-store/ios-store-store";
 import { Modal, ModalContent } from "react-native-modals";
 import { WXCustomerService } from "../../WXCustomerService";
+import { useStoreStatus } from "../../hooks/useStoreStatus";
 
 type NavigationBarProps = {
   title: string;
@@ -46,32 +47,14 @@ const _renderScene = ({ route }) => {
 const HomeScreen = () => {
   const [index, setIndex] = useState(0);
   const [customerModelVisible, setCustomerModelVisible] = useState(false);
-  const [isIOsShell, setIsIosShell] = useState(() => {
-    if (Platform.OS === "ios") {
-      return undefined;
-    } else {
-      return false;
-    }
-  });
 
-  useEffect(() => {
-    if (Platform.OS === "ios") {
-      iosStore
-        .getIosShellParams()
-        .then(bool => {
-          setIsIosShell(bool);
-        })
-        .catch(e => {
-          setIsIosShell(true);
-        });
-    }
-  }, []);
+  const isIosShell = useStoreStatus();
 
-  if (isIOsShell === undefined) {
+  if (isIosShell === undefined) {
     return null;
   }
 
-  if (isIOsShell) {
+  if (isIosShell) {
     return (
       <SafeAreaView
         edges={["top"]}

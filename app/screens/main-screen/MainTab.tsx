@@ -1,12 +1,12 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import React, { useEffect } from "react";
+import React from "react";
 import HomeScreen from "./home-tab/HomeScreen";
 import FindScreen from "./find-tab/FindScreen";
 import MineScreen from "./mine-tab/MineScreen";
 import { Icon } from "../../components";
 import { Colors } from "../../theme/Theme";
-import { useFocusEffect } from "@react-navigation/native";
-import { BackHandler } from "react-native";
+import { useStoreStatus } from "../hooks/useStoreStatus";
+import { OrderListComponent, OrderListSafeAreComponent, OrderListScreen } from "../order-list/OrderListScreen"
 
 const Tab = createBottomTabNavigator();
 
@@ -47,6 +47,8 @@ const tabMine = (props: { focused: boolean }) => {
 };
 
 export default function HomeTab() {
+  const isStoreStatus = useStoreStatus();
+
   return (
     <Tab.Navigator tabBarOptions={{ activeTintColor: Colors.primary }} backBehavior={"none"}>
       <Tab.Screen
@@ -59,10 +61,10 @@ export default function HomeTab() {
       />
       <Tab.Screen
         name="find"
-        component={FindScreen}
+        component={isStoreStatus ? OrderListSafeAreComponent : FindScreen}
         options={{
           tabBarIcon: tabFind,
-          title: "发现"
+          title: isStoreStatus ? "订单" : "发现"
         }}
       />
       <Tab.Screen

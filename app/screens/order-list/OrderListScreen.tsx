@@ -1,4 +1,4 @@
-import { FlatList, Pressable, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { FlatList, Image, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useState } from "react";
 import { Header } from "../../components";
@@ -8,6 +8,8 @@ import { Colors } from "../../theme/Theme";
 import { canCancelOrder, getOrderNameByStatus } from "./OrderStatus";
 import { RootNavigation } from "../../navigation";
 import HomeApi from "../main-screen/HomeApi";
+import { EmptyView } from "../main-screen/find-tab/components/EmptyView";
+import { useNavigation, StackActions } from "@react-navigation/native";
 
 export const OrderItem = (props: OrderListItem) => {
   return (
@@ -87,7 +89,7 @@ export const OrderItem = (props: OrderListItem) => {
                 color: Colors.primary
               }}
             >
-              ¥{props.price/100}
+              ¥{props.price / 100}
             </Text>
             <Text
               style={{
@@ -123,10 +125,8 @@ export const OrderItem = (props: OrderListItem) => {
   );
 };
 
-export const OrderListScreen = () => {
-  const [data, setDate] = useState<Array<OrderListItem>>([]);
-
-  useEffect(() => {}, []);
+export const OrderListComponent = () => {
+  const [data, setDate] = useState<Array<OrderListItem>>(null);
   useEffect(() => {
     HomeApi.orderList(0).then(value => {
       if (value.code === 200 && value.data) {
@@ -140,24 +140,48 @@ export const OrderListScreen = () => {
   };
 
   return (
+    <FlatList
+      style={{ flex: 1, backgroundColor: "white" }}
+      keyExtractor={(item, index) => index.toString()}
+      data={data}
+      renderItem={({ item }) => renderItem(item)}
+      ListEmptyComponent={() => {
+        return <EmptyView onPress={() => {}} text={"暂时还没发现您的订单哦\n 快快去下单吧"} />;
+      }}
+      ItemSeparatorComponent={() => (
+        <View
+          style={{
+            height: 1,
+            backgroundColor: "#F0f0f0"
+          }}
+        />
+      )}
+    />
+  );
+};
+
+export const OrderListScreen = () => {
+  const navigation = useNavigation();
+
+  return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
-        <Header headerText={"我的预约单"} />
-        <FlatList
-          style={{ flex: 1 }}
-          keyExtractor={(item, index) => index.toString()}
-          data={data}
-          renderItem={({ item }) => renderItem(item)}
-          ItemSeparatorComponent={() => (
-            <View
-              style={{
-                height: 1,
-                backgroundColor: "#F0f0f0"
-              }}
-            />
-          )}
+        <Header
+          headerText={"我的预约单"}
+          onLeftPress={() => {
+            navigation.dispatch(StackActions.popToTop());
+          }}
         />
+        <OrderListComponent />
       </View>
+    </SafeAreaView>
+  );
+};
+
+export const OrderListSafeAreComponent = () => {
+  return (
+    <SafeAreaView edges={["top"]} style={{ flex: 1 ,backgroundColor:'white'}}>
+      <OrderListComponent />
     </SafeAreaView>
   );
 };

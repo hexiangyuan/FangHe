@@ -6,6 +6,7 @@ import { Icon } from "../../components";
 import FastImage from "react-native-fast-image";
 import Window from "../../constant/window";
 import { RootNavigation } from "../../navigation";
+import { useStoreStatus } from "../hooks/useStoreStatus";
 
 function OrderNow(props) {
   return (
@@ -71,7 +72,6 @@ const HomeProductList = observer((props: { type: number }) => {
   const store = useLocalStore(() => ({
     data: []
   }));
-
   useEffect(() => {
     HomeApi.shopDetailProductList(2).then(response => {
       if (response.code === 200) {
