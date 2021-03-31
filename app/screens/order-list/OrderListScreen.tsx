@@ -55,10 +55,10 @@ export const OrderItem = (props: OrderListItem) => {
             justifyContent: "space-between"
           }}
         >
-          <View style={{ flexDirection: "row" }}>
+          <View style={{ flexDirection: "row", marginTop: 8 }}>
             <Text
               style={{
-                fontSize: 14,
+                fontSize: 18,
                 color: "#333",
                 flex: 1
               }}
@@ -76,11 +76,34 @@ export const OrderItem = (props: OrderListItem) => {
               {getOrderNameByStatus(props.status)}
             </Text>
           </View>
+
+          <View>
+            <Text
+              style={{
+                fontSize: 14,
+                color: "#333",
+                marginTop: 8
+              }}
+            >
+              {"预约时间: " + props.time}
+            </Text>
+            <Text
+              style={{
+                fontSize: 14,
+                color: "#333",
+                marginTop: 8
+              }}
+            >
+              {"客服电话: " + props.contactMobie}
+            </Text>
+          </View>
+
           <View
             style={{
               width: "100%",
               flexDirection: "row",
-              justifyContent: "space-between"
+              justifyContent: "space-between",
+              marginTop: 8
             }}
           >
             <Text
@@ -180,7 +203,7 @@ export const OrderListScreen = () => {
 
 export const OrderListSafeAreComponent = () => {
   return (
-    <SafeAreaView edges={["top"]} style={{ flex: 1 ,backgroundColor:'white'}}>
+    <SafeAreaView edges={["top"]} style={{ flex: 1, backgroundColor: "white" }}>
       <OrderListComponent />
     </SafeAreaView>
   );

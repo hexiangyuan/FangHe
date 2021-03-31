@@ -74,7 +74,7 @@ function App() {
     setToastRef(toastRef);
   }, []);
 
-  if (!rootStore) return null;
+  // if (!rootStore) return null;
 
   // otherwise, we're ready to render the app
   return (
