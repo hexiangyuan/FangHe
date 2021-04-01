@@ -34,8 +34,7 @@ export const OrderItem = (props: OrderListItem) => {
       <View
         style={{
           flexDirection: "row",
-          marginTop: 8,
-          height: 72
+          marginTop: 8
         }}
       >
         {props.productImg && (
@@ -49,7 +48,6 @@ export const OrderItem = (props: OrderListItem) => {
         )}
         <View
           style={{
-            height: 72,
             flex: 1,
             marginLeft: 8,
             justifyContent: "space-between"

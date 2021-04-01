@@ -22,7 +22,8 @@ export const icons = {
   commit: require("./commit.png"),
   video_play: require("./video_play.png"),
   home_arrow: require("./home_arrow.png"),
-  close: require("./close.png")
+  close: require("./close.png"),
+  copy: require("./copy.png"),
 };
 
 export type IconTypes = keyof typeof icons;
