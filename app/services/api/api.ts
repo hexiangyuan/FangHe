@@ -1,11 +1,10 @@
-import {ApiResponse, ApisauceInstance, create} from "apisauce";
-import {GeneralApiProblem, getGeneralApiProblem, resolveApiCode} from "./api-problem";
-import {ApiConfig, DEFAULT_API_CONFIG} from "./api-config";
+import { ApiResponse, ApisauceInstance, create } from "apisauce";
+import { GeneralApiProblem, getGeneralApiProblem, resolveApiCode } from "./api-problem";
+import { ApiConfig, DEFAULT_API_CONFIG } from "./api-config";
 
 /**
  * Manages all requests to the API.
  */
-
 export class Api {
   /**
    * The underlying apisauce instance which performs the requests.
@@ -50,7 +49,7 @@ export class Api {
     console.log("request  path====", "get  ", path);
     console.log("request  data==== ", JSON.stringify(params));
     if (!response.ok) {
-      console.log("request  error====", response);
+      console.log("request  error====", response, response.status);
       const problem = getGeneralApiProblem(response);
       if (problem) return problem;
     }
@@ -63,7 +62,7 @@ export class Api {
       console.log("=========================");
       return raw;
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
     }
     return "";
   }
@@ -74,7 +73,7 @@ export class Api {
     console.log("request  path====", "post  ", path);
     console.log("request  data==== ", JSON.stringify(data));
     if (!response.ok) {
-      console.log("request  error====", response);
+      console.log("request  error====", JSON.stringify(response), response.status);
       const problem = getGeneralApiProblem(response);
       if (problem) return problem;
     }
@@ -88,7 +87,7 @@ export class Api {
       console.log("=========================");
       return raw;
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
     }
     return "";
   }
