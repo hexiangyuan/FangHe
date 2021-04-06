@@ -1,6 +1,5 @@
 package com.fanghe;
 
-import android.app.Application;
 import android.content.Context;
 
 import androidx.multidex.MultiDexApplication;
@@ -11,7 +10,8 @@ import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
-import cn.reactnative.modules.update.UpdateContext;
+import com.microsoft.codepush.react.CodePush;
+
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -36,7 +36,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
 
          @Override
          protected String getJSBundleFile() {
-                return UpdateContext.getBundleUrl(MainApplication.this);
+                return CodePush.getJSBundleFile();
          }
 
         @Override
