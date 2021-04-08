@@ -1,4 +1,4 @@
-import { FlatList, Image, Pressable, Text, View } from "react-native";
+import { DeviceEventEmitter, FlatList, Image, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useState } from "react";
 import { Header } from "../../components";
@@ -148,12 +148,26 @@ export const OrderItem = (props: OrderListItem) => {
 
 export const OrderListComponent = () => {
   const [data, setDate] = useState<Array<OrderListItem>>(null);
-  useEffect(() => {
+
+  function getList() {
     HomeApi.orderList(0).then(value => {
       if (value.code === 200 && value.data) {
         setDate(value.data);
       }
     });
+  }
+
+  useEffect(() => {
+    getList();
+  }, []);
+
+  useEffect(() => {
+    const event = DeviceEventEmitter.addListener("OrderListChanged", () => {
+      getList();
+    });
+    return () => {
+      event.remove();
+    };
   }, []);
 
   const renderItem = (item: OrderListItem) => {
@@ -167,7 +181,14 @@ export const OrderListComponent = () => {
       data={data}
       renderItem={({ item }) => renderItem(item)}
       ListEmptyComponent={() => {
-        return <EmptyView onPress={() => {}} text={"暂时还没发现您的订单哦\n 快快去下单吧"} />;
+        return (
+          <EmptyView
+            onPress={() => {
+              getList();
+            }}
+            text={"暂时还没发现您的订单哦\n 快快去下单吧"}
+          />
+        );
       }}
       ItemSeparatorComponent={() => (
         <View

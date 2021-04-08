@@ -126,7 +126,6 @@ export const CmsShopList = () => {
     FangHeApi.get("/shop/list", { isForAppStore: false })
       .then(value => {
         setData(value.data);
-        ToastRef.show(value.code);
       })
       .catch(e => {
         ToastGlobal.show(e.toString());

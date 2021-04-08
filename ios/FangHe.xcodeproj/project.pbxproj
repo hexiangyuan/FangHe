@@ -67,6 +67,7 @@
 		A33186B2F0E1BAEC314B6D54 /* libPods-FangHe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FangHe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9EC6B7734C749C0A8CFE9F1 /* Pods-FangHe-FangHeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FangHe-FangHeTests.debug.xcconfig"; path = "Target Support Files/Pods-FangHe-FangHeTests/Pods-FangHe-FangHeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C870BC252611BB690042A363 /* app-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon@2x.png"; sourceTree = "<group>"; };
+		C8DD0973261EEB7900B95DAE /* FangHe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = FangHe.entitlements; path = FangHe/FangHe.entitlements; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -127,6 +128,7 @@
 		13B07FAE1A68108700A75B9A /* FangHe */ = {
 			isa = PBXGroup;
 			children = (
+				C8DD0973261EEB7900B95DAE /* FangHe.entitlements */,
 				C870BC352611BEA70042A363 /* assets */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -228,7 +230,6 @@
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
 				70B371C5D896D3627A893E47 /* [CP] Copy Pods Resources */,
-				7CD9AC6777AAEC14F6BA2F80 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -251,7 +252,6 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				DE74030CFC34C4A6C62D1391 /* [CP] Copy Pods Resources */,
-				AEBE84DD6633382432443CB3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -335,8 +335,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 				"zh-Hans",
+				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -497,42 +497,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FangHe-FangHeTests/Pods-FangHe-FangHeTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7CD9AC6777AAEC14F6BA2F80 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FangHe-FangHeTests/Pods-FangHe-FangHeTests-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FangHe-FangHeTests/Pods-FangHe-FangHeTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AEBE84DD6633382432443CB3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FangHe/Pods-FangHe-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FangHe/Pods-FangHe-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DE74030CFC34C4A6C62D1391 /* [CP] Copy Pods Resources */ = {
@@ -715,9 +679,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_ENTITLEMENTS = FangHe/FangHe.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 8D74NMH943;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = FangHe/Info.plist;
@@ -729,7 +694,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cn.fangpaopao.app;
 				PRODUCT_NAME = FangHe;
-				PROVISIONING_PROFILE_SPECIFIER = fangpaopao;
+				PROVISIONING_PROFILE_SPECIFIER = hxyuan;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -742,9 +707,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_ENTITLEMENTS = FangHe/FangHe.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 8D74NMH943;
 				INFOPLIST_FILE = FangHe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -755,7 +721,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cn.fangpaopao.app;
 				PRODUCT_NAME = FangHe;
-				PROVISIONING_PROFILE_SPECIFIER = fangpaopao;
+				PROVISIONING_PROFILE_SPECIFIER = hxyuan;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
