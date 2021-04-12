@@ -39,8 +39,12 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>方泡泡需要您的同意,才能始终访问位置，给您进行最近位置店铺的推荐</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>方泡泡需要您的同意,才能在你使用期间访问位置，给您进行最近位置店铺的推荐</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>方泡泡需要您的同意,才能访问相机，方便上传您的头像以及其他图片信息</string>
 	<key>UIAppFonts</key>
 	<array/>
 	<key>UILaunchStoryboardName</key>

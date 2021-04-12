@@ -65,7 +65,6 @@ export const MobileLoginVerificationCodeScreen = () => {
     })
       .then(value => {
         if (value.code === 200) {
-          DeviceEventEmitter.emit("OrderListChanged");
           if (value.data?.cookie) {
             LocalCookieStore.saveUser({
               mobile: params.mobile,

@@ -10,6 +10,7 @@ import { RootNavigation } from "../../navigation";
 import HomeApi from "../main-screen/HomeApi";
 import { EmptyView } from "../main-screen/find-tab/components/EmptyView";
 import { useNavigation, StackActions } from "@react-navigation/native";
+import { EVENT_NAME_LOGIN_SUCCEED } from "../login/login-verification-code-screen"
 
 export const OrderItem = (props: OrderListItem) => {
   return (
@@ -159,6 +160,15 @@ export const OrderListComponent = () => {
 
   useEffect(() => {
     getList();
+  }, []);
+
+  useEffect(() => {
+    const event = DeviceEventEmitter.addListener(EVENT_NAME_LOGIN_SUCCEED, () => {
+      getList();
+    });
+    return () => {
+      event.remove();
+    };
   }, []);
 
   useEffect(() => {
