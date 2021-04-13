@@ -9,4 +9,5 @@ export interface OrderListItem {
   time: string;
   status: number;
   productName: string;
+  id: number;
 }

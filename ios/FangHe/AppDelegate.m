@@ -4,6 +4,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <CodePush/CodePush.h>
+#import <React/RCTLinkingManager.h>
 
 
 #ifdef FB_SONARKIT_ENABLED
@@ -57,4 +58,10 @@ static void InitializeFlipper(UIApplication *application) {
 #endif
 }
 
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+            options:(NSDictionary<NSString*, id> *)options
+{
+  return [RCTLinkingManager application:application openURL:url options:options];
+}
 @end

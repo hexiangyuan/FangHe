@@ -23,6 +23,5 @@ export function getOrderNameByStatus(status: OrderStatus): string {
 }
 
 export function canCancelOrder(orderStatus: OrderStatus): boolean {
-  return false;
-  // return orderStatus === OrderStatus.BOOKED || orderStatus === OrderStatus.ACCEPTED;
+  return orderStatus === OrderStatus.BOOKED || orderStatus === OrderStatus.ACCEPTED;
 }
