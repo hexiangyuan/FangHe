@@ -5,7 +5,11 @@ class iOSStore {
   async getIosShellParams() {
     const response = await FangHeApi.get("/app/key-value/get", { key: "ios_" + version + "_app_store_shell" });
     if (response.code === 200) {
-      return response.data.unValue;
+      if (response.data.unValue === "true") {
+        return true;
+      } else {
+        return false;
+      }
     } else {
       return false;
     }

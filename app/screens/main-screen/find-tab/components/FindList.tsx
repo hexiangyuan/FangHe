@@ -62,7 +62,6 @@ export const FindList = observer((props: { type: number }) => {
       .then(location => {
         switchApi(isRefresh).then(value => {
           store.refreshing = false;
-          console.log("response data==== ", value.code);
           if (value.code === 200) {
             if (isRefresh) {
               setDataList(value.data);

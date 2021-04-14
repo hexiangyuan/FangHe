@@ -29,6 +29,14 @@ const keyTabArticle = 1;
 const keyTabPhoto = 2;
 const keyTabVideo = 3;
 
+function webpToJpg(url: string) {
+  if (url && url.includes(".webp") && url.includes("douyinpic.com")) {
+    return url.replace(".webp", ".png");
+  } else {
+    return url;
+  }
+}
+
 export const FindItem = (props: FindItemProps) => {
   function transformLikeNum(num: number): string {
     if (num >= 1000) {
@@ -36,12 +44,11 @@ export const FindItem = (props: FindItemProps) => {
     }
     return num.toString();
   }
-
   return (
     <View style={styles.itemContainer}>
       <FastImage
         source={{
-          uri: props.type == keyTabVideo ? props.mainImg : props.imgs[0]
+          uri: props.type == keyTabVideo ? webpToJpg(props.mainImg) : props.imgs[0]
         }}
         resizeMode={FastImage.resizeMode.cover}
         style={styles.imgStyle}
