@@ -167,6 +167,22 @@ const MineOrder = () => {
           RootNavigation.push("AboutUsScreen");
         }}
       />
+      <View
+        style={{
+          marginLeft: 40,
+          height: 0.5,
+          marginVertical: 16,
+          backgroundColor: "#F0F0F0"
+        }}
+      />
+
+      <MineItem
+        icon={"about"}
+        text={"分享邀请"}
+        onPress={() => {
+          RootNavigation.push("ShareScreen");
+        }}
+      />
 
       <View
         style={{

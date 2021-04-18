@@ -20,6 +20,7 @@ import ArticleDetailScreen from "../screens/find/article-detail-screen/ArticleDe
 import PhotoDetailScreen from "../screens/find/ptoto-detail-screen/PhotoDetailScreen";
 import VideoDetailScreen from "../screens/find/video-detail-screen/VideoDetailScreen";
 import { VideoSwiperScreen } from "../screens/find/video-detail-screen/VideoSwpiperSreen";
+import ShareScreen from "../share/ShareScreen"
 
 interface Screen {
   name: string;
@@ -112,6 +113,10 @@ const mainTabScreen: Array<Screen> = [
   {
     name: "VideoSwiperScreen",
     component: VideoSwiperScreen
+  },
+  {
+    name: "ShareScreen",
+    component: ShareScreen
   }
 ];
 
