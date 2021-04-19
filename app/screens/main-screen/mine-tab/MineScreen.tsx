@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, BackHandler, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
 import { RootNavigation } from "../../../navigation";
 import { UIButton, UIImage } from "react-native-pjt-ui-lib";
 import { IconTypes } from "../../../components/icon/icons";
@@ -10,6 +10,7 @@ import { userUserStore } from "../../../models/user-store/user-store";
 import { observer, useLocalStore } from "mobx-react-lite";
 import { useFocusEffect } from "@react-navigation/native";
 import StringUtils from "../../../utils/ReularUtils";
+import { useStoreStatus } from "../../hooks/useStoreStatus";
 
 const UnLoginView = () => {
   return (
@@ -132,6 +133,7 @@ const MineItem = (props: ItemProps) => {
 
 const MineOrder = () => {
   const user = userUserStore();
+  const isIosShell = useStoreStatus();
   return (
     <View
       style={{
@@ -176,13 +178,15 @@ const MineOrder = () => {
         }}
       />
 
-      <MineItem
-        icon={"about"}
-        text={"分享邀请"}
-        onPress={() => {
-          RootNavigation.push("ShareScreen");
-        }}
-      />
+      {!isIosShell && (
+        <MineItem
+          icon={"about"}
+          text={"分享邀请"}
+          onPress={() => {
+            RootNavigation.push("ShareScreen");
+          }}
+        />
+      )}
 
       <View
         style={{

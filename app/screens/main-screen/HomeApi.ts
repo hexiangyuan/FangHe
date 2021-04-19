@@ -1,5 +1,11 @@
 import { FangHeApi } from "../../services/api";
 
+export class ApiConstant {
+  static getUserInfo() {
+    return FangHeApi.get("/user/get");
+  }
+}
+
 function getHomeList(request: {
   id: number;
   location: {

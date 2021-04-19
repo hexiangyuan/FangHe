@@ -34,6 +34,7 @@
     "apisauce": "1.1.2",
     "code-push": "4.0.2",
     "i18n-js": "^3.0.11",
+    "lodash": "^4.17.21",
     "lodash.throttle": "4.1.1",
     "mobx": "^4.15.4",
     "mobx-react-lite": "^1.4.1",

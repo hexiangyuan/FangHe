@@ -1,14 +1,24 @@
 import { Image, Pressable, Text, useWindowDimensions, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Header } from "../components";
 import FastImage from "react-native-fast-image";
 import QRCode from "react-native-qrcode-svg";
 import { Colors } from "../theme/Theme";
+import { useUserInfo } from "../screens/hooks/user";
 
 const ShareScreen = () => {
   const windows = useWindowDimensions();
+  const userInfo = useUserInfo();
+
+  const [shareUrl, setShareUrl] = useState("https://fangpaopao.cn?type=2");
+
+  useEffect(() => {
+    if (userInfo && userInfo.myCode) {
+      setShareUrl("https://fangpaopao.cn?type=2" + "&code=" + userInfo.myCode);
+    }
+  }, [userInfo]);
 
   return (
     <SafeAreaView style={{ backgroundColor: "rgba(103,117,131,1)", flex: 1 }}>
@@ -39,7 +49,7 @@ const ShareScreen = () => {
               }}
             >
               <QRCode
-                value="https://fangpaopao.cn?code=111111&type=2"
+                value={shareUrl}
                 color={Colors.primaryDark}
                 logo={require("../../assets/app-icon.png")}
                 logoSize={48}
@@ -52,7 +62,7 @@ const ShareScreen = () => {
         </View>
         <Pressable style={{ alignItems: "center" }}>
           <Image source={require("../../assets/weixin_icon.png")} style={{ width: 48, height: 48 }} />
-          <Text style={{ color: "white", marginTop: 8 }}>分享到微信好友</Text>
+          <Text style={{ color: "white", marginTop: 8 }}>分享到微信</Text>
         </Pressable>
       </View>
     </SafeAreaView>
