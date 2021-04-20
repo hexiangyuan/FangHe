@@ -17,7 +17,7 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* FangHeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* FangHeTests.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		C870BC262611BB690042A363 /* app-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C870BC252611BB690042A363 /* app-icon@2x.png */; };
+		C870BC262611BB690042A363 /* appicon.png in Resources */ = {isa = PBXBuildFile; fileRef = C870BC252611BB690042A363 /* appicon.png */; };
 		C87A44682623F58F004454A9 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = C87A44662623F58F004454A9 /* assets */; };
 		C87A44692623F58F004454A9 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = C87A44672623F58F004454A9 /* main.jsbundle */; };
 		CCA894C39218EEEE802B4158 /* libPods-FangHe-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71DAC7BCDA207530AD217980 /* libPods-FangHe-tvOS.a */; };
@@ -67,7 +67,7 @@
 		97F5AE15A13AAC346605557B /* Pods-FangHe-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FangHe-tvOS.release.xcconfig"; path = "Target Support Files/Pods-FangHe-tvOS/Pods-FangHe-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		A33186B2F0E1BAEC314B6D54 /* libPods-FangHe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FangHe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9EC6B7734C749C0A8CFE9F1 /* Pods-FangHe-FangHeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FangHe-FangHeTests.debug.xcconfig"; path = "Target Support Files/Pods-FangHe-FangHeTests/Pods-FangHe-FangHeTests.debug.xcconfig"; sourceTree = "<group>"; };
-		C870BC252611BB690042A363 /* app-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon@2x.png"; sourceTree = "<group>"; };
+		C870BC252611BB690042A363 /* appicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon.png; sourceTree = "<group>"; };
 		C87A44662623F58F004454A9 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = bundles/assets; sourceTree = "<group>"; };
 		C87A44672623F58F004454A9 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = bundles/main.jsbundle; sourceTree = "<group>"; };
 		C8DD0973261EEB7900B95DAE /* FangHe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = FangHe.entitlements; path = FangHe/FangHe.entitlements; sourceTree = "<group>"; };
@@ -131,8 +131,8 @@
 		13B07FAE1A68108700A75B9A /* FangHe */ = {
 			isa = PBXGroup;
 			children = (
+				C87550F326253C19005026F4 /* res */,
 				C8DD0973261EEB7900B95DAE /* FangHe.entitlements */,
-				C870BC352611BEA70042A363 /* assets */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -214,12 +214,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C870BC352611BEA70042A363 /* assets */ = {
+		C87550F326253C19005026F4 /* res */ = {
 			isa = PBXGroup;
 			children = (
-				C870BC252611BB690042A363 /* app-icon@2x.png */,
+				C870BC252611BB690042A363 /* appicon.png */,
 			);
-			name = assets;
+			name = res;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -371,7 +371,7 @@
 				C87A44682623F58F004454A9 /* assets in Resources */,
 				C87A44692623F58F004454A9 /* main.jsbundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				C870BC262611BB690042A363 /* app-icon@2x.png in Resources */,
+				C870BC262611BB690042A363 /* appicon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

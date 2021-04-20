@@ -1,6 +1,6 @@
 import { DeviceEventEmitter, FlatList, Image, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Header } from "../../components";
 import { OrderListItem } from "./OrderList.model";
 import { UIButton, UIImage } from "react-native-pjt-ui-lib";
@@ -10,9 +10,16 @@ import { RootNavigation } from "../../navigation";
 import HomeApi from "../main-screen/HomeApi";
 import { EmptyView } from "../main-screen/find-tab/components/EmptyView";
 import { useNavigation, StackActions } from "@react-navigation/native";
-import { EVENT_NAME_LOGIN_SUCCEED } from "../login/login-verification-code-screen"
+import { EVENT_NAME_LOGIN_SUCCEED } from "../login/login-verification-code-screen";
+import WeChatSdk from "../../weixin/WeChatSdk";
 
 export const OrderItem = (props: OrderListItem) => {
+  const payOrder = useCallback(() => {
+    WeChatSdk.payOrder(props.id).catch(e => {
+      console.log(e.toString());
+    });
+  }, [props.id]);
+
   return (
     <Pressable
       style={{ padding: 12 }}
@@ -136,11 +143,23 @@ export const OrderItem = (props: OrderListItem) => {
               borderColor: "#999",
               height: 32
             }}
+            fontStyle={{ color: "white" }}
+            type={"primary"}
+            onPress={payOrder}
+          >
+            支付
+          </UIButton>
+          <View style={{ width: 16 }} />
+          {/* <UIButton
+            containerStyle={{
+              borderColor: "#999",
+              height: 32
+            }}
             fontStyle={{ color: "#999" }}
             type={"minor"}
           >
             取消
-          </UIButton>
+          </UIButton>*/}
         </View>
       )}
     </Pressable>

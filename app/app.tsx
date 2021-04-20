@@ -28,6 +28,7 @@ import LocalCookieStore from "./services/local/UserCookieStore";
 import { setupUserStore, UserStore, UserStoreProvider } from "./models/user-store/user-store";
 import RNLocation from "react-native-location";
 import codePush from "react-native-code-push";
+import WeChatSdk from "./weixin/WeChatSdk";
 
 enableScreens();
 
@@ -68,6 +69,10 @@ function App() {
       });
       setupRootStore().then(setRootStore);
     })();
+  }, []);
+
+  useEffect(() => {
+    WeChatSdk.registerApp();
   }, []);
 
   useEffect(() => {

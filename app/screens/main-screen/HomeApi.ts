@@ -57,6 +57,14 @@ function pictureUpload(file: { uri: string; name: string; type: string }) {
   return FangHeApi.post("/picture/upload", body);
 }
 
+/**
+ * 支付的预付款
+ * @param orderId
+ */
+function orderPrePay(orderId: number) {
+  return FangHeApi.get("/order/prePay", { orderId: orderId });
+}
+
 const HomeApi = {
   getHomeList,
   shopDetail,
@@ -66,7 +74,8 @@ const HomeApi = {
   getVerificationCode,
   loginMobile,
   orderList,
-  pictureUpload
+  pictureUpload,
+  orderPrePay
 };
 
 export default HomeApi;
