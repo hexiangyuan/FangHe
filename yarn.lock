@@ -11393,19 +11393,17 @@ react-native-video@^5.1.1:
     prop-types "^15.7.2"
     shaka-player "^2.5.9"
 
-<<<<<<< HEAD
 react-native-view-shot@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/react-native-view-shot/-/react-native-view-shot-3.1.2.tgz#8c8e84c67a4bc8b603e697dbbd59dbc9b4f84825"
   integrity sha512-9u9fPtp6a52UMoZ/UCPrCjKZk8tnkI9To0Eh6yYnLKFEGkRZ7Chm6DqwDJbYJHeZrheCCopaD5oEOnRqhF4L2Q==
-=======
+
 react-native-wechat-lib@^1.1.26:
   version "1.1.26"
   resolved "http://121.43.178.15:5000/react-native-wechat-lib/-/react-native-wechat-lib-1.1.26.tgz#60be6ba92399a38c9df5ca0fc4c1353b089f7210"
   integrity sha1-YL5rqSOZo4yd9coPxME1OwifchA=
   dependencies:
     events "1.0.1"
->>>>>>> fea: wx 支付
 
 react-native@0.63.2:
   version "0.63.2"

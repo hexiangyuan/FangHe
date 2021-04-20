@@ -15,8 +15,10 @@ const ShareScreen = () => {
 
   useEffect(() => {
     if (userInfo && userInfo.myCode) {
+      console.log("bbbbbbbbb", userInfo);
       setShareUrl("https://fangpaopao.cn?type=2" + "&code=" + userInfo.myCode);
     }
+    console.log("aaaaaaaaa", userInfo);
   }, [userInfo]);
 
   const shareWebToWeiChat = useCallback(() => {

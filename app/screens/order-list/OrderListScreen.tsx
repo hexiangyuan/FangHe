@@ -131,7 +131,7 @@ export const OrderItem = (props: OrderListItem) => {
           </View>
         </View>
       </View>
-      {canCancelOrder(props.status) && (
+      {/* {canCancelOrder(props.status) && (
         <View
           style={{
             flexDirection: "row-reverse",
@@ -150,18 +150,8 @@ export const OrderItem = (props: OrderListItem) => {
             支付
           </UIButton>
           <View style={{ width: 16 }} />
-          {/* <UIButton
-            containerStyle={{
-              borderColor: "#999",
-              height: 32
-            }}
-            fontStyle={{ color: "#999" }}
-            type={"minor"}
-          >
-            取消
-          </UIButton>*/}
         </View>
-      )}
+      )}*/}
     </Pressable>
   );
 };
