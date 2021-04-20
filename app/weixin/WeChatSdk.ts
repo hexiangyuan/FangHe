@@ -2,7 +2,7 @@ import * as WeChat from "react-native-wechat-lib";
 import HomeApi from "../screens/main-screen/HomeApi";
 import ToastGlobal from "../utils/Toast";
 
-const wxUniversalLink = "https://fangpaopao.cn/apple-app-site-association/";
+const wxUniversalLink = "https://fangpaopao.cn/";
 
 class WeChatSdk {
   static registerApp() {
@@ -31,7 +31,7 @@ class WeChatSdk {
           console.log(value);
         })
         .catch(e => {
-          console.log(e);
+          ToastGlobal.show(e.toString());
         });
     } else {
       ToastGlobal.show(resp["errorMsg"]);

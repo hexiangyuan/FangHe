@@ -1,17 +1,18 @@
-import { DeviceEventEmitter, FlatList, Image, Pressable, Text, View } from "react-native";
+import { DeviceEventEmitter, FlatList, Image, Pressable, RefreshControl, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useCallback, useEffect, useState } from "react";
 import { Header } from "../../components";
 import { OrderListItem } from "./OrderList.model";
 import { UIButton, UIImage } from "react-native-pjt-ui-lib";
 import { Colors } from "../../theme/Theme";
-import { canCancelOrder, getOrderNameByStatus } from "./OrderStatus";
+import { canPayOrder, getOrderNameByStatus, getPayStatusNameByPayStatus } from "./OrderStatus";
 import { RootNavigation } from "../../navigation";
 import HomeApi from "../main-screen/HomeApi";
 import { EmptyView } from "../main-screen/find-tab/components/EmptyView";
-import { useNavigation, StackActions } from "@react-navigation/native";
+import { useNavigation, StackActions, useFocusEffect } from "@react-navigation/native";
 import { EVENT_NAME_LOGIN_SUCCEED } from "../login/login-verification-code-screen";
 import WeChatSdk from "../../weixin/WeChatSdk";
+import ToastGlobal from "../../utils/Toast";
 
 export const OrderItem = (props: OrderListItem) => {
   const payOrder = useCallback(() => {
@@ -131,7 +132,7 @@ export const OrderItem = (props: OrderListItem) => {
           </View>
         </View>
       </View>
-      {/* {canCancelOrder(props.status) && (
+      {canPayOrder(props.payStatus) ? (
         <View
           style={{
             flexDirection: "row-reverse",
@@ -151,19 +152,49 @@ export const OrderItem = (props: OrderListItem) => {
           </UIButton>
           <View style={{ width: 16 }} />
         </View>
-      )}*/}
+      ) : (
+        <View
+          style={{
+            flexDirection: "row-reverse",
+            marginTop: 12
+          }}
+        >
+          <Text>{getPayStatusNameByPayStatus(props.payStatus)}</Text>
+          <View style={{ width: 16 }} />
+        </View>
+      )}
     </Pressable>
   );
 };
 
 export const OrderListComponent = () => {
   const [data, setDate] = useState<Array<OrderListItem>>(null);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
+  useEffect(() => {
+    const listener = DeviceEventEmitter.addListener("WeChat_Resp", resp => {
+      if (resp.type === "WXLaunchMiniProgramReq.Resp") {
+        // 从小程序回到APP的事件
+      } else if (resp.type === "SendMessageToWX.Resp") {
+        // 发送微信消息后的事件
+      } else if (resp.type === "PayReq.Resp") {
+        // 支付回调
+        getList();
+      }
+      return () => {
+        listener.remove();
+      };
+    });
+  }, []);
 
   function getList() {
+    setRefreshing(true);
     HomeApi.orderList(0).then(value => {
       if (value.code === 200 && value.data) {
         setDate(value.data);
+      } else {
+        ToastGlobal.show(value["errorMsg"]);
       }
+      setRefreshing(false);
     });
   }
 
@@ -209,6 +240,7 @@ export const OrderListComponent = () => {
           />
         );
       }}
+      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={getList} />}
       ItemSeparatorComponent={() => (
         <View
           style={{

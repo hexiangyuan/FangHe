@@ -10,4 +10,6 @@ export interface OrderListItem {
   status: number;
   productName: string;
   id: number;
+  payStatus: number;
+  contactMobie: string;
 }
