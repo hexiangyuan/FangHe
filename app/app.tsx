@@ -29,6 +29,7 @@ import { setupUserStore, UserStore, UserStoreProvider } from "./models/user-stor
 import RNLocation from "react-native-location";
 import codePush from "react-native-code-push";
 import WeChatSdk from "./weixin/WeChatSdk";
+import { AppUpgrade } from "./utils/appUpgrade";
 
 enableScreens();
 
@@ -58,6 +59,7 @@ function App() {
 
   // Kick off initial async loading actions, like loading fonts and RootStore
   useEffect(() => {
+    AppUpgrade.checkAppVersion();
     FangHeApi.setup();
     GaoDeMapApi.setup();
     (async () => {
