@@ -29,6 +29,7 @@ import { setupUserStore, UserStore, UserStoreProvider } from "./models/user-stor
 import RNLocation from "react-native-location";
 import codePush from "react-native-code-push";
 import WeChatSdk from "./weixin/WeChatSdk";
+import AliPay from "./weixin/AliPay";
 
 enableScreens();
 
@@ -73,6 +74,7 @@ function App() {
 
   useEffect(() => {
     WeChatSdk.registerApp();
+    AliPay.init();
   }, []);
 
   useEffect(() => {

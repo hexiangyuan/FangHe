@@ -2452,6 +2452,11 @@
     "@typescript-eslint/types" "4.21.0"
     eslint-visitor-keys "^2.0.0"
 
+"@uiw/react-native-alipay@^3.0.0":
+  version "3.0.0"
+  resolved "http://121.43.178.15:5000/@uiw%2freact-native-alipay/-/react-native-alipay-3.0.0.tgz#6a5663210a8e4a72ac65f350fafef8f34a23ba1f"
+  integrity sha1-alZjIQqOSnKsZfNQ+v7480ojuh8=
+
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"
   resolved "http://121.43.178.15:5000/@webassemblyjs%2fast/-/ast-1.9.0.tgz#bd850604b4042459a5a41cd7d338cbed695ed964"

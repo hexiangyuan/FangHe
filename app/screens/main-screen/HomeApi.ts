@@ -65,6 +65,14 @@ function orderPrePay(orderId: number) {
   return FangHeApi.get("/order/prePay", { orderId: orderId });
 }
 
+/**
+ * 支付宝的预付款
+ * @param orderId
+ */
+function orderAliPrePay(orderId: number) {
+  return FangHeApi.get("/order/getAlipaySign", { orderId: orderId });
+}
+
 const HomeApi = {
   getHomeList,
   shopDetail,
@@ -75,7 +83,8 @@ const HomeApi = {
   loginMobile,
   orderList,
   pictureUpload,
-  orderPrePay
+  orderPrePay,
+  orderAliPrePay
 };
 
 export default HomeApi;

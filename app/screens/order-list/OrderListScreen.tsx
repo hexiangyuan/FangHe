@@ -13,13 +13,13 @@ import { useNavigation, StackActions, useFocusEffect } from "@react-navigation/n
 import { EVENT_NAME_LOGIN_SUCCEED } from "../login/login-verification-code-screen";
 import WeChatSdk from "../../weixin/WeChatSdk";
 import ToastGlobal from "../../utils/Toast";
+import PayScreen from "../pay/PayScreen";
+import { number } from "mobx-state-tree/dist/types/primitives";
 
 export const OrderItem = (props: OrderListItem) => {
   const payOrder = useCallback(() => {
-    WeChatSdk.payOrder(props.id).catch(e => {
-      console.log(e.toString());
-    });
-  }, [props.id]);
+    RootNavigation.push("PayScreen", { orderId: props.id, amount: props.price });
+  }, [props.id, props.price]);
 
   return (
     <Pressable

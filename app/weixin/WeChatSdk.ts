@@ -17,8 +17,8 @@ class WeChatSdk {
 
   static async payOrder(orderId: number) {
     const resp = await HomeApi.orderPrePay(orderId);
-    const { partnerId, prepayId, nonceStr, timeStamp, packageValue, sign } = resp["data"];
     if (resp["code"] === 200) {
+      const { partnerId, prepayId, nonceStr, timeStamp, packageValue, sign } = resp["data"];
       WeChat.pay({
         nonceStr: nonceStr,
         package: packageValue,
