@@ -5,6 +5,8 @@
 #import <React/RCTRootView.h>
 #import <CodePush/CodePush.h>
 #import <React/RCTLinkingManager.h>
+#import "WXApiManager.h"
+#import "WXApi.h"
 
 
 #ifdef FB_SONARKIT_ENABLED
@@ -62,6 +64,16 @@ static void InitializeFlipper(UIApplication *application) {
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
             options:(NSDictionary<NSString*, id> *)options
 {
+  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
   return [RCTLinkingManager application:application openURL:url options:options];
 }
+
+
+- (BOOL)application:(UIApplication *)application
+continueUserActivity:(NSUserActivity *)userActivity
+restorationHandler:(void(^)(NSArray<id<UIUserActivityRestoring>> * __nullable restorableObjects))restorationHandler {
+    return [WXApi handleOpenUniversalLink:userActivity delegate:[WXApiManager sharedManager]];
+}
+
+
 @end

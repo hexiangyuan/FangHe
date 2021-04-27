@@ -22,6 +22,7 @@ import VideoDetailScreen from "../screens/find/video-detail-screen/VideoDetailSc
 import { VideoSwiperScreen } from "../screens/find/video-detail-screen/VideoSwpiperSreen";
 import ShareScreen from "../share/ShareScreen";
 import PayScreen from "../screens/pay/PayScreen";
+import PayResultScreen from "../screens/pay/PayResultScreen";
 
 interface Screen {
   name: string;
@@ -122,6 +123,10 @@ const mainTabScreen: Array<Screen> = [
   {
     name: "PayScreen",
     component: PayScreen
+  },
+  {
+    name: "PayResultScreen",
+    component: PayResultScreen
   }
 ];
 
