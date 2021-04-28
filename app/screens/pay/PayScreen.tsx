@@ -17,8 +17,8 @@ import AliPay from "../../weixin/AliPay";
 import { NativeEvent } from "./NativeEvent";
 
 enum WXPAYRESPCODE {
-  OK = 0,
-  ERR_USER_CANCEL = -2
+  ERR_USER_CANCEL = -2,
+  OK = 0
 }
 
 enum PAYSTATUS {
