@@ -31,9 +31,10 @@ class WeChatSdk {
          return Promise.resolve(value)
         })
         .catch(e => {
-          return Promise.reject({errorMsg:resp['errorMsg']})
           ToastGlobal.show(e.toString());
+          return Promise.reject({errorMsg:resp['errorMsg']})
         });
+        return Promise.resolve();
     } else {
       ToastGlobal.show(resp["errorMsg"]);
       return Promise.reject({errorMsg:resp['errorMsg']})
