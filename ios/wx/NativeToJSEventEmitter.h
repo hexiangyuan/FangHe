@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PayEventManager : RCTEventEmitter <RCTBridgeModule>
+@interface NativeToJSEventEmitter : RCTEventEmitter <RCTBridgeModule>
 
 @end
 

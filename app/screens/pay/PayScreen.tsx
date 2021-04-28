@@ -1,12 +1,20 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useCallback, useEffect, useState } from "react";
-import { View, Text, Image, ImageSourcePropType, Pressable, ActivityIndicator, DeviceEventEmitter } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ImageSourcePropType,
+  Pressable,
+  ActivityIndicator
+} from "react-native";
 import { Header } from "../../components";
 import { Colors } from "../../theme/Theme";
 import { UIButton } from "react-native-pjt-ui-lib";
 import { useRoute } from "@react-navigation/native";
 import WeChatSdk from "../../weixin/WeChatSdk";
 import AliPay from "../../weixin/AliPay";
+import { NativeEvent } from "./NativeEvent";
 
 enum WXPAYRESPCODE {
   OK = 0,
@@ -75,9 +83,9 @@ const PayScreen = () => {
   const [payState, setPayState] = useState(PAYSTATUS.READY);
 
   useEffect(() => {
-    const WXRespEvent = DeviceEventEmitter.addListener("WXPayResp", data => {
+    const WXRespEvent = NativeEvent.emitter()?.addListener("WXPayResp", data => {
       const errCode = data["errCode"];
-      if (errCode && errCode === WXPAYRESPCODE.OK) {
+      if (errCode == WXPAYRESPCODE.OK) {
         setPayState(PAYSTATUS.SUCCEED);
       } else {
         setPayState(PAYSTATUS.FAILED);
@@ -89,7 +97,7 @@ const PayScreen = () => {
       }
     });
     return () => {
-      WXRespEvent.remove();
+      WXRespEvent?.remove();
     };
   }, []);
 
@@ -100,11 +108,12 @@ const PayScreen = () => {
       case 0:
         WeChatSdk.payOrder(params["orderId"])
           .then(value => {
-            console.log("weixin支付", value);
+            console.log("aaaaaaaa",value)
             setPayState(PAYSTATUS.DEALING);
           })
           .catch(e => {
-            console.log(e.toString());
+            setPayState(PAYSTATUS.FAILED)
+            setErrMsg(e["errorMsg"])
           });
         break;
       case 1:

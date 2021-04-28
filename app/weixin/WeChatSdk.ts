@@ -28,13 +28,15 @@ class WeChatSdk {
         partnerId: partnerId
       })
         .then(value => {
-          console.log(value);
+         return Promise.resolve(value)
         })
         .catch(e => {
+          return Promise.reject({errorMsg:resp['errorMsg']})
           ToastGlobal.show(e.toString());
         });
     } else {
       ToastGlobal.show(resp["errorMsg"]);
+      return Promise.reject({errorMsg:resp['errorMsg']})
     }
   }
 }

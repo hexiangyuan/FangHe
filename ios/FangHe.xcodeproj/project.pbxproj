@@ -16,9 +16,8 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* FangHeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* FangHeTests.m */; };
-		7BAFAB42263825F6003F1973 /* WXApiResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAFAB3D263825F6003F1973 /* WXApiResponseHandler.m */; };
 		7BAFAB44263825F6003F1973 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAFAB41263825F6003F1973 /* WXApiManager.m */; };
-		7BAFAB5A26382BA3003F1973 /* PayEventManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAFAB5926382BA3003F1973 /* PayEventManager.m */; };
+		7BAFAB5A26382BA3003F1973 /* NativeToJSEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAFAB5926382BA3003F1973 /* NativeToJSEventEmitter.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		C870BC262611BB690042A363 /* appicon.png in Resources */ = {isa = PBXBuildFile; fileRef = C870BC252611BB690042A363 /* appicon.png */; };
 		CCA894C39218EEEE802B4158 /* libPods-FangHe-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71DAC7BCDA207530AD217980 /* libPods-FangHe-tvOS.a */; };
@@ -64,11 +63,9 @@
 		71DAC7BCDA207530AD217980 /* libPods-FangHe-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FangHe-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		72D9C374F62FE4E97EDC6C70 /* Pods-FangHe-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FangHe-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-FangHe-tvOS/Pods-FangHe-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		7BAFAB3C263825F6003F1973 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
-		7BAFAB3D263825F6003F1973 /* WXApiResponseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiResponseHandler.m; sourceTree = "<group>"; };
-		7BAFAB40263825F6003F1973 /* WXApiResponseHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiResponseHandler.h; sourceTree = "<group>"; };
 		7BAFAB41263825F6003F1973 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
-		7BAFAB5826382BA3003F1973 /* PayEventManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayEventManager.h; sourceTree = "<group>"; };
-		7BAFAB5926382BA3003F1973 /* PayEventManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayEventManager.m; sourceTree = "<group>"; };
+		7BAFAB5826382BA3003F1973 /* NativeToJSEventEmitter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeToJSEventEmitter.h; sourceTree = "<group>"; };
+		7BAFAB5926382BA3003F1973 /* NativeToJSEventEmitter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeToJSEventEmitter.m; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = FangHe/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8EAFE2C9586B4644241693B9 /* libPods-FangHe-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FangHe-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		97F5AE15A13AAC346605557B /* Pods-FangHe-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FangHe-tvOS.release.xcconfig"; path = "Target Support Files/Pods-FangHe-tvOS/Pods-FangHe-tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -188,11 +185,9 @@
 			isa = PBXGroup;
 			children = (
 				7BAFAB3C263825F6003F1973 /* WXApiManager.h */,
-				7BAFAB3D263825F6003F1973 /* WXApiResponseHandler.m */,
-				7BAFAB40263825F6003F1973 /* WXApiResponseHandler.h */,
 				7BAFAB41263825F6003F1973 /* WXApiManager.m */,
-				7BAFAB5826382BA3003F1973 /* PayEventManager.h */,
-				7BAFAB5926382BA3003F1973 /* PayEventManager.m */,
+				7BAFAB5826382BA3003F1973 /* NativeToJSEventEmitter.h */,
+				7BAFAB5926382BA3003F1973 /* NativeToJSEventEmitter.m */,
 			);
 			path = wx;
 			sourceTree = "<group>";
@@ -618,8 +613,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				7BAFAB5A26382BA3003F1973 /* PayEventManager.m in Sources */,
-				7BAFAB42263825F6003F1973 /* WXApiResponseHandler.m in Sources */,
+				7BAFAB5A26382BA3003F1973 /* NativeToJSEventEmitter.m in Sources */,
 				7BAFAB44263825F6003F1973 /* WXApiManager.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
