@@ -30,6 +30,7 @@ import RNLocation from "react-native-location";
 import codePush from "react-native-code-push";
 import WeChatSdk from "./weixin/WeChatSdk";
 import AliPay from "./weixin/AliPay";
+import FangPaoPaoNativeModule from "./native/NativeModule";
 
 enableScreens();
 
@@ -61,6 +62,22 @@ function App() {
   useEffect(() => {
     FangHeApi.setup();
     GaoDeMapApi.setup();
+    FangPaoPaoNativeModule.getAppBuildNumber()
+      .then(value => {
+        console.log(value);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+
+    FangPaoPaoNativeModule.getAppVersion()
+      .then(value => {
+        console.log(value);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+
     (async () => {
       LocalCookieStore.getUser().then(user => {
         if (user) {
