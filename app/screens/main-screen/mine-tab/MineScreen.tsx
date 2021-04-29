@@ -10,7 +10,7 @@ import { userUserStore } from "../../../models/user-store/user-store";
 import { observer, useLocalStore } from "mobx-react-lite";
 import { useFocusEffect } from "@react-navigation/native";
 import StringUtils from "../../../utils/ReularUtils";
-import { useStoreStatus } from "../../hooks/useStoreStatus";
+import { useStoreStatus } from "../../../hooks/useStoreStatus";
 
 const UnLoginView = () => {
   return (

@@ -6,7 +6,6 @@ import { Icon } from "../../components";
 import FastImage from "react-native-fast-image";
 import Window from "../../constant/window";
 import { RootNavigation } from "../../navigation";
-import { useStoreStatus } from "../hooks/useStoreStatus";
 
 function OrderNow(props) {
   return (

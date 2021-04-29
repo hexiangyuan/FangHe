@@ -1,13 +1,6 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  ImageSourcePropType,
-  Pressable,
-  ActivityIndicator
-} from "react-native";
+import { View, Text, Image, ImageSourcePropType, Pressable, ActivityIndicator, DeviceEventEmitter } from "react-native";
 import { Header } from "../../components";
 import { Colors } from "../../theme/Theme";
 import { UIButton } from "react-native-pjt-ui-lib";
@@ -19,6 +12,10 @@ import { NativeEvent } from "./NativeEvent";
 enum WXPAYRESPCODE {
   ERR_USER_CANCEL = -2,
   OK = 0
+}
+
+enum ALIPAYRESULTCODE {
+  OK = "9000"
 }
 
 enum PAYSTATUS {
@@ -87,6 +84,7 @@ const PayScreen = () => {
       const errCode = data["errCode"];
       if (errCode == WXPAYRESPCODE.OK) {
         setPayState(PAYSTATUS.SUCCEED);
+        DeviceEventEmitter.emit("OrderListChanged");
       } else {
         setPayState(PAYSTATUS.FAILED);
         if (data["errCode"] === WXPAYRESPCODE.ERR_USER_CANCEL) {
@@ -108,22 +106,38 @@ const PayScreen = () => {
       case 0:
         WeChatSdk.payOrder(params["orderId"])
           .then(value => {
-            console.log("aaaaaaaa",value)
             setPayState(PAYSTATUS.DEALING);
           })
           .catch(e => {
-            setPayState(PAYSTATUS.FAILED)
-            setErrMsg(e["errorMsg"])
+            setPayState(PAYSTATUS.FAILED);
+            setErrMsg(e["errorMsg"]);
           });
         break;
       case 1:
-        AliPay.payOrder(params["orderId"])
+        AliPay.prePayOrder(params["orderId"])
           .then(value => {
-            console.log("Ali支付", value);
-            setPayState(PAYSTATUS.DEALING);
+            if (value["code"] === 200) {
+              setPayState(PAYSTATUS.DEALING);
+              return value["data"];
+            } else {
+              throw Error("支付失败 ，请稍后重试");
+            }
+          })
+          .then(value => {
+            return AliPay._pay(value);
+          })
+          .then(value => {
+            if (value && value.resultStatus == ALIPAYRESULTCODE.OK) {
+              setPayState(PAYSTATUS.SUCCEED);
+              DeviceEventEmitter.emit("OrderListChanged");
+            } else {
+              setPayState(PAYSTATUS.FAILED);
+              setErrMsg(value?.memo ?? "支付宝支付失败，请您稍后重试");
+            }
           })
           .catch(e => {
-            console.log(e);
+            setPayState(PAYSTATUS.FAILED);
+            setErrMsg("支付宝支付失败，请您稍后重试");
           });
         break;
     }

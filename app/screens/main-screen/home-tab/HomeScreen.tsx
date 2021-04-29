@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Platform, Text, View } from "react-native";
+import React, { useState } from "react";
+import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Route, TabView } from "react-native-tab-view";
 import { H4 } from "react-native-pjt-ui-lib";
 import { CustomerTabBar } from "../../../theme/Theme";
 import { ShopList } from "./components/ShopList";
 import Home2Screen from "../Home2Screen";
-import iosStore from "../../../models/user-store/ios-store-store";
 import { Modal, ModalContent } from "react-native-modals";
 import { WXCustomerService } from "../../WXCustomerService";
-import { useStoreStatus } from "../../hooks/useStoreStatus";
+import { useStoreStatus } from "../../../hooks/useStoreStatus";
 
 type NavigationBarProps = {
   title: string;

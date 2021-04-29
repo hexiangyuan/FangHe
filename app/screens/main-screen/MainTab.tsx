@@ -5,8 +5,8 @@ import FindScreen from "./find-tab/FindScreen";
 import MineScreen from "./mine-tab/MineScreen";
 import { Icon } from "../../components";
 import { Colors } from "../../theme/Theme";
-import { useStoreStatus } from "../hooks/useStoreStatus";
-import { OrderListComponent, OrderListSafeAreComponent, OrderListScreen } from "../order-list/OrderListScreen"
+import { useStoreStatus } from "../../hooks/useStoreStatus";
+import { OrderListSafeAreComponent } from "../order-list/OrderListScreen";
 
 const Tab = createBottomTabNavigator();
 

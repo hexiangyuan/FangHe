@@ -31,6 +31,7 @@ import codePush from "react-native-code-push";
 import WeChatSdk from "./weixin/WeChatSdk";
 import AliPay from "./weixin/AliPay";
 import FangPaoPaoNativeModule from "./native/NativeModule";
+import useAppUpdate from "./hooks/useAppUpdate";
 
 enableScreens();
 
@@ -51,6 +52,8 @@ function App() {
   const [rootStore, setRootStore] = useState<RootStore | undefined>(undefined);
 
   const [userStore, setUserStore] = useState<UserStore | undefined>(undefined);
+
+  const appUpdate = useAppUpdate();
 
   useBackButtonHandler(navigationRef, canExit);
   const { initialNavigationState, onNavigationStateChange } = useNavigationPersistence(

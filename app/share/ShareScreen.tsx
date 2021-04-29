@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Header } from "../components";
 import QRCode from "react-native-qrcode-svg";
 import * as WeChat from "react-native-wechat-lib";
-import { useUserInfo } from "../screens/hooks/user";
+import { useUserInfo } from "../hooks/user";
 
 const ShareScreen = () => {
   const windows = useWindowDimensions();

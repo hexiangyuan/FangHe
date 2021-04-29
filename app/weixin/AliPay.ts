@@ -1,7 +1,5 @@
 import Alipay, { OrderResult } from "@uiw/react-native-alipay";
 import HomeApi from "../screens/main-screen/HomeApi";
-import WeChat from "react-native-wechat-lib";
-import ToastGlobal from "../utils/Toast";
 
 const APP_ID = "2021002138698762";
 
@@ -17,13 +15,7 @@ export default class AliPay {
     return await Alipay.alipay(payInfo);
   }
 
-  static async payOrder(orderId: number) {
-    const resp = await HomeApi.orderAliPrePay(orderId);
-    if (resp["code"] === 200) {
-      const data = resp["data"];
-      return await AliPay._pay(data);
-    } else {
-      return Promise.reject("预付款接口失败");
-    }
+  static async prePayOrder(orderId: number) {
+    return await HomeApi.orderAliPrePay(orderId);
   }
 }
