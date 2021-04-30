@@ -67,6 +67,7 @@
     "react-native-wechat-lib": "^1.1.26",
     "reactotron-mst": "^3.1.1",
     "reactotron-react-native": "^5.0.0",
+    "rxjs": "^7.0.0",
     "validate.js": "0.13.1"
   },
   "devDependencies": {

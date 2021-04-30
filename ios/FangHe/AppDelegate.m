@@ -35,14 +35,14 @@ static void InitializeFlipper(UIApplication *application) {
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);
 #endif
-
+  
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"FangHe"
                                             initialProperties:nil];
-
+  
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-
+  
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
@@ -64,15 +64,16 @@ static void InitializeFlipper(UIApplication *application) {
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
             options:(NSDictionary<NSString*, id> *)options
 {
-  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+    [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+  
   return [RCTLinkingManager application:application openURL:url options:options];
 }
 
 
 - (BOOL)application:(UIApplication *)application
 continueUserActivity:(NSUserActivity *)userActivity
-restorationHandler:(void(^)(NSArray<id<UIUserActivityRestoring>> * __nullable restorableObjects))restorationHandler {
-    return [WXApi handleOpenUniversalLink:userActivity delegate:[WXApiManager sharedManager]];
+ restorationHandler:(void(^)(NSArray<id<UIUserActivityRestoring>> * __nullable restorableObjects))restorationHandler {
+  return [WXApi handleOpenUniversalLink:userActivity delegate:[WXApiManager sharedManager]];
 }
 
 

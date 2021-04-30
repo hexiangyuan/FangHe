@@ -29,7 +29,7 @@ import { setupUserStore, UserStore, UserStoreProvider } from "./models/user-stor
 import RNLocation from "react-native-location";
 import codePush from "react-native-code-push";
 import WeChatSdk from "./weixin/WeChatSdk";
-import AliPay from "./weixin/AliPay";
+import AliPaySDK from "./weixin/AliPay";
 import FangPaoPaoNativeModule from "./native/NativeModule";
 import useAppUpdate from "./hooks/useAppUpdate";
 
@@ -94,7 +94,8 @@ function App() {
 
   useEffect(() => {
     WeChatSdk.registerApp();
-    AliPay.init();
+    AliPaySDK.init();
+    AliPaySDK.setUrlSchema("fangpaopao");
   }, []);
 
   useEffect(() => {

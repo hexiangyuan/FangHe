@@ -6,8 +6,22 @@ import { Colors } from "../../theme/Theme";
 import { UIButton } from "react-native-pjt-ui-lib";
 import { useRoute } from "@react-navigation/native";
 import WeChatSdk from "../../weixin/WeChatSdk";
-import AliPay from "../../weixin/AliPay";
+import AliPaySDK from "../../weixin/AliPay";
 import { NativeEvent } from "./NativeEvent";
+import HomeApi from "../main-screen/HomeApi";
+import { interval, from, Subscription } from "rxjs";
+import { mergeMap, filter, take } from "rxjs/operators";
+
+/**
+ * 轮训查找订单状态 每隔2s查一次，一共查询10次
+ */
+
+function getOrderStatus(orderId: number) {
+  function getData(orderId) {
+    return from(HomeApi.getOrderInfo(orderId)).pipe(filter(it => it["code"] === 200 && it["data"]["payStatus"] === 1));
+  }
+  return interval(3000).pipe(mergeMap(() => getData(orderId)));
+}
 
 enum WXPAYRESPCODE {
   ERR_USER_CANCEL = -2,
@@ -79,6 +93,8 @@ const PayScreen = () => {
 
   const [payState, setPayState] = useState(PAYSTATUS.READY);
 
+  const [orderInfoSubscription, setOrderInfoSubscription] = useState<Subscription>(null);
+
   useEffect(() => {
     const WXRespEvent = NativeEvent.emitter()?.addListener("WXPayResp", data => {
       const errCode = data["errCode"];
@@ -101,6 +117,17 @@ const PayScreen = () => {
 
   const [errMsg, setErrMsg] = useState("");
 
+  useEffect(() => {
+    if (payState == PAYSTATUS.SUCCEED) {
+      console.log("payOrderStatusSubscribe", orderInfoSubscription);
+      orderInfoSubscription?.unsubscribe();
+    }
+    return () => {
+      console.log("payOrderStatusSubscribe", orderInfoSubscription);
+      orderInfoSubscription?.unsubscribe();
+    };
+  }, [payState, orderInfoSubscription]);
+
   const pay = useCallback(() => {
     switch (payMethod) {
       case 0:
@@ -114,17 +141,22 @@ const PayScreen = () => {
           });
         break;
       case 1:
-        AliPay.prePayOrder(params["orderId"])
+        AliPaySDK.prePayOrder(params["orderId"])
           .then(value => {
             if (value["code"] === 200) {
               setPayState(PAYSTATUS.DEALING);
+              const payOrderStatusSubscribe = getOrderStatus(params["orderId"]).subscribe(succeed => {
+                setPayState(PAYSTATUS.SUCCEED);
+                DeviceEventEmitter.emit("OrderListChanged");
+              });
+              setOrderInfoSubscription(payOrderStatusSubscribe);
               return value["data"];
             } else {
               throw Error("支付失败 ，请稍后重试");
             }
           })
           .then(value => {
-            return AliPay._pay(value);
+            return AliPaySDK.pay(value);
           })
           .then(value => {
             if (value && value.resultStatus == ALIPAYRESULTCODE.OK) {
@@ -132,7 +164,7 @@ const PayScreen = () => {
               DeviceEventEmitter.emit("OrderListChanged");
             } else {
               setPayState(PAYSTATUS.FAILED);
-              setErrMsg(value?.memo ?? "支付宝支付失败，请您稍后重试");
+              setErrMsg(value?.memo ?? "支付宝支付失败，请您稍后");
             }
           })
           .catch(e => {

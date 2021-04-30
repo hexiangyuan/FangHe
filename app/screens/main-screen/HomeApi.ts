@@ -73,6 +73,10 @@ function orderAliPrePay(orderId: number) {
   return FangHeApi.get("/order/getAlipaySign", { orderId: orderId });
 }
 
+function getOrderInfo(orderId: number) {
+  return FangHeApi.get("/order/getOrder", { orderId: orderId });
+}
+
 const HomeApi = {
   getHomeList,
   shopDetail,
@@ -84,7 +88,8 @@ const HomeApi = {
   orderList,
   pictureUpload,
   orderPrePay,
-  orderAliPrePay
+  orderAliPrePay,
+  getOrderInfo
 };
 
 export default HomeApi;
