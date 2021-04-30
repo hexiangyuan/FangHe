@@ -49,7 +49,7 @@ const HomeScreen = () => {
 
   const isIosShell = useStoreStatus();
 
-  if (isIosShell === undefined) {
+  if (isIosShell === undefined || isIosShell === null) {
     return null;
   }
 

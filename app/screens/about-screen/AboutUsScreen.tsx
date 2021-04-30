@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Header, Icon } from "../../components";
 import Window from "../../constant/window";
 import { UIImage } from "react-native-pjt-ui-lib";
@@ -7,6 +7,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { RootNavigation } from "../../navigation";
 import { useNavigation } from "@react-navigation/native";
 import { userUserStore } from "../../models/user-store/user-store";
+import FangPaoPaoNativeModule from "../../native/NativeModule";
 
 type ItemProps = {
   title: string;
@@ -66,7 +67,12 @@ const Item = (props: ItemProps) => {
 
 export const AboutUsScreen = () => {
   const { mobile } = userUserStore();
-  console.log(mobile);
+  const [version, setVersion] = useState("");
+  useEffect(() => {
+    FangPaoPaoNativeModule.getAppVersion().then(value => {
+      setVersion(value);
+    });
+  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -99,7 +105,7 @@ export const AboutUsScreen = () => {
             </Text>
           </View>
           <View style={{ paddingHorizontal: 12 }}>
-            <Item title={"应用版本"} content={"1.0.0"} onPress={() => {}} />
+            <Item title={"应用版本"} content={version} onPress={() => {}} />
             {["17702120086", "13788936717", "18964014563"].includes(mobile) && (
               <Item
                 title={"CMS"}

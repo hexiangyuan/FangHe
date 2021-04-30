@@ -23,7 +23,7 @@ export function useStoreStatus() {
           handleStatusChange(bool);
         })
         .catch(e => {
-          handleStatusChange(true);
+          handleStatusChange(null);
         });
     }
   });

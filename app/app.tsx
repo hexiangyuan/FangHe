@@ -20,7 +20,7 @@ import { useBackButtonHandler, RootNavigator, canExit, useNavigationPersistence 
 import { RootStore, RootStoreProvider, setupRootStore } from "./models";
 
 import { enableScreens } from "react-native-screens";
-import { StatusBar } from "react-native";
+import { Linking, Platform, StatusBar } from "react-native";
 import { FangHeApi, GaoDeMapApi, setFangHeApiCookie } from "./services/api";
 import Toast from "react-native-easy-toast";
 import { setToastRef } from "./utils/Toast";
@@ -32,11 +32,30 @@ import WeChatSdk from "./weixin/WeChatSdk";
 import AliPaySDK from "./weixin/AliPay";
 import FangPaoPaoNativeModule from "./native/NativeModule";
 import useAppUpdate from "./hooks/useAppUpdate";
+import AppUpdate from "./hooks/useAppUpdate";
+import { Alert } from "react-native";
 
 enableScreens();
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE";
 
+// 使用系统浏览器访问指定URL
+export const contactDownLoadApp = () => {
+  const links =
+    Platform.OS === "ios"
+      ? "https://apps.apple.com/cn/app/%E6%96%B9%E6%B3%A1%E6%B3%A1/id1560592820"
+      : "https://fanghe.oss-cn-beijing.aliyuncs.com/fangpaopao-android.f10a701e.apk";
+
+  Linking.canOpenURL(links)
+    .then(supported => {
+      if (!supported) {
+        console.warn("Can't handle url: " + links);
+      } else {
+        return Linking.openURL(links);
+      }
+    })
+    .catch(() => console.error("An error occurred", links));
+};
 /**
  * This is the root component of our app.
  */
@@ -53,8 +72,6 @@ function App() {
 
   const [userStore, setUserStore] = useState<UserStore | undefined>(undefined);
 
-  const appUpdate = useAppUpdate();
-
   useBackButtonHandler(navigationRef, canExit);
   const { initialNavigationState, onNavigationStateChange } = useNavigationPersistence(
     storage,
@@ -65,20 +82,16 @@ function App() {
   useEffect(() => {
     FangHeApi.setup();
     GaoDeMapApi.setup();
-    FangPaoPaoNativeModule.getAppBuildNumber()
+    AppUpdate.checkUpdate()
       .then(value => {
-        console.log(value);
+        if (value.needUpdate) {
+          Alert.alert("更新提示", value.desc ?? "我们有新的APP更新,请您及时更新", [
+            { text: "去下载", onPress: () => contactDownLoadApp(), style: "default" }
+          ]);
+        }
       })
       .catch(e => {
-        console.log(e);
-      });
-
-    FangPaoPaoNativeModule.getAppVersion()
-      .then(value => {
-        console.log(value);
-      })
-      .catch(e => {
-        console.log(e);
+        console.log(2222333222, e);
       });
 
     (async () => {
