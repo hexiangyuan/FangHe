@@ -113,7 +113,8 @@ const ShopInfoComponent = (props: ShopInfo & { mapClick: () => void }) => {
         <Text
           style={{
             fontSize: 12,
-            color: "#666"
+            color: "#666",
+            paddingLeft: 32
           }}
         >
           导航
@@ -131,7 +132,7 @@ const ShopInfoComponent = (props: ShopInfo & { mapClick: () => void }) => {
             客服电话: {props.contactMobie}
           </Text>
           <Text
-            style={{ fontSize: 12, color: "#333", marginTop: 12 }}
+            style={{ fontSize: 12, color: "#333", paddingLeft: 32, marginTop: 12 }}
             onPress={() => {
               setCustomerModelVisible(true);
             }}

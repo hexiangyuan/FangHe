@@ -89,6 +89,7 @@ export const PreviewShopDetailContent = (props: ShopDetail) => {
           <TouchableOpacity onPress={() => {}}>
             <Text
               style={{
+                paddingHorizontal: 12,
                 fontSize: 14,
                 color: "#333"
               }}

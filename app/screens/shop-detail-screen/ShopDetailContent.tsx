@@ -98,7 +98,8 @@ export const ShopDetailContent = (props: ShopDetail & { mapClick: () => void }) 
             <Text
               style={{
                 fontSize: 14,
-                color: "#333"
+                color: "#333",
+                paddingLeft: 32
               }}
             >
               导航
@@ -117,7 +118,7 @@ export const ShopDetailContent = (props: ShopDetail & { mapClick: () => void }) 
               客服电话: {props.contactMobie}
             </Text>
             <Text
-              style={{ fontSize: 12, color: "#333", marginTop: 12 }}
+              style={{ fontSize: 12, color: "#333", paddingLeft: 32, marginTop: 12 }}
               onPress={() => {
                 setCustomerModelVisible(true);
               }}

@@ -136,6 +136,7 @@ export const OrderSubmitScreen = () => {
           key: item,
           value: item
         }));
+
       } else {
         times = getHoursTotalDay().map(item => ({
           key: item,
