@@ -30,8 +30,6 @@ import RNLocation from "react-native-location";
 import codePush from "react-native-code-push";
 import WeChatSdk from "./weixin/WeChatSdk";
 import AliPaySDK from "./weixin/AliPay";
-import FangPaoPaoNativeModule from "./native/NativeModule";
-import useAppUpdate from "./hooks/useAppUpdate";
 import AppUpdate from "./hooks/useAppUpdate";
 import { Alert } from "react-native";
 
