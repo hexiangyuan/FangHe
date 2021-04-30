@@ -31,7 +31,6 @@ export default class AppUpdate {
           appInfo = apiJson["android"];
           break;
       }
-      console.log("222222222", appInfo);
 
       return { needUpdate: appVersion < appInfo.min_app_version, updateMode: appInfo.mode, desc: appInfo.desc };
     } else {
