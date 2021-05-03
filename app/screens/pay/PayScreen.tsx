@@ -42,7 +42,7 @@ enum PAYSTATUS {
 const PayMethod = (props: { logo: ImageSourcePropType; title: string; checked: boolean }) => {
   return (
     <View style={{ flexDirection: "row", width: "100%", padding: 16 }}>
-      <Image source={props.logo} style={{ width: 32, height: 32 }} resizeMode={"center"} />
+      <Image source={props.logo} style={{ width: 32, height: 32 }} resizeMode={"cover"} />
       <Text style={{ fontSize: 16, marginLeft: 12, color: "#333", flex: 1 }}>{props.title}</Text>
       {props.checked && (
         <Image source={require("../../../assets/checkbox_checked.png")} style={{ width: 24, height: 24 }} />
@@ -59,7 +59,7 @@ const PayDealView = (props: { payStatus: PAYSTATUS; errMsg: string }) => {
           <Image
             style={{ width: 96, height: 96 }}
             source={require("../../../assets/pay_succeed_icon.png")}
-            resizeMode={"center"}
+            resizeMode={"cover"}
           />
           <Text style={{ fontSize: 24, marginTop: 16 }}>支付成功</Text>
         </View>
@@ -70,7 +70,7 @@ const PayDealView = (props: { payStatus: PAYSTATUS; errMsg: string }) => {
           <Image
             style={{ width: 96, height: 96 }}
             source={require("../../../assets/pay_failed_icon.png")}
-            resizeMode={"center"}
+            resizeMode={"cover"}
           />
           <Text style={{ fontSize: 24, marginTop: 16 }}>支付失败</Text>
           <Text style={{ fontSize: 16, marginTop: 12, color: "#666" }}>{props.errMsg}</Text>

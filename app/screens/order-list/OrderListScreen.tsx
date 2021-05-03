@@ -1,4 +1,4 @@
-import { DeviceEventEmitter, FlatList, Image, Pressable, RefreshControl, Text, View } from "react-native";
+import { DeviceEventEmitter, FlatList, Pressable, RefreshControl, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useCallback, useEffect, useState } from "react";
 import { Header } from "../../components";
@@ -9,14 +9,12 @@ import { canPayOrder, getOrderNameByStatus, getPayStatusNameByPayStatus } from "
 import { RootNavigation } from "../../navigation";
 import HomeApi from "../main-screen/HomeApi";
 import { EmptyView } from "../main-screen/find-tab/components/EmptyView";
-import { useNavigation, StackActions, useFocusEffect } from "@react-navigation/native";
+import { useNavigation, StackActions } from "@react-navigation/native";
 import { EVENT_NAME_LOGIN_SUCCEED } from "../login/login-verification-code-screen";
-import WeChatSdk from "../../weixin/WeChatSdk";
 import ToastGlobal from "../../utils/Toast";
-import PayScreen from "../pay/PayScreen";
-import { number } from "mobx-state-tree/dist/types/primitives";
+import { useStoreStatus } from "../../hooks/useStoreStatus";
 
-export const OrderItem = (props: OrderListItem) => {
+export const OrderItem = (props: OrderListItem & { iosStatus: boolean }) => {
   const payOrder = useCallback(() => {
     RootNavigation.push("PayScreen", { orderId: props.id, amount: props.price });
   }, [props.id, props.price]);
@@ -132,37 +130,39 @@ export const OrderItem = (props: OrderListItem) => {
           </View>
         </View>
       </View>
-      {canPayOrder(props.payStatus) ? (
-        <View
-          style={{
-            flexDirection: "row-reverse",
-            marginTop: 12
-          }}
-        >
-          <UIButton
-            containerStyle={{
-              borderColor: "#999",
-              height: 32
+      {!props.iosStatus ? (
+        canPayOrder(props.payStatus) ? (
+          <View
+            style={{
+              flexDirection: "row-reverse",
+              marginTop: 12
             }}
-            fontStyle={{ color: "white" }}
-            type={"primary"}
-            onPress={payOrder}
           >
-            支付
-          </UIButton>
-          <View style={{ width: 16 }} />
-        </View>
-      ) : (
-        <View
-          style={{
-            flexDirection: "row-reverse",
-            marginTop: 12
-          }}
-        >
-          <Text>{getPayStatusNameByPayStatus(props.payStatus)}</Text>
-          <View style={{ width: 16 }} />
-        </View>
-      )}
+            <UIButton
+              containerStyle={{
+                borderColor: "#999",
+                height: 32
+              }}
+              fontStyle={{ color: "white" }}
+              type={"primary"}
+              onPress={payOrder}
+            >
+              支付
+            </UIButton>
+            <View style={{ width: 16 }} />
+          </View>
+        ) : (
+          <View
+            style={{
+              flexDirection: "row-reverse",
+              marginTop: 12
+            }}
+          >
+            <Text>{getPayStatusNameByPayStatus(props.payStatus)}</Text>
+            <View style={{ width: 16 }} />
+          </View>
+        )
+      ) : null}
     </Pressable>
   );
 };
@@ -170,6 +170,8 @@ export const OrderItem = (props: OrderListItem) => {
 export const OrderListComponent = () => {
   const [data, setDate] = useState<Array<OrderListItem>>(null);
   const [refreshing, setRefreshing] = useState<boolean>(false);
+  const iosStatus = useStoreStatus();
+
   useEffect(() => {
     const listener = DeviceEventEmitter.addListener("WeChat_Resp", resp => {
       if (resp.type === "WXLaunchMiniProgramReq.Resp") {
@@ -189,8 +191,8 @@ export const OrderListComponent = () => {
   function getList() {
     setRefreshing(true);
     HomeApi.orderList(0).then(value => {
-      if (value.code === 200 && value.data) {
-        setDate(value.data);
+      if (value["code"] === 200 && value["data"]) {
+        setDate(value["data"]);
       } else {
         ToastGlobal.show(value["errorMsg"]);
       }
@@ -220,7 +222,7 @@ export const OrderListComponent = () => {
     };
   }, []);
 
-  const renderItem = (item: OrderListItem) => {
+  const renderItem = (item: OrderListItem & { iosStatus: boolean }) => {
     return <OrderItem {...item} />;
   };
 
@@ -229,7 +231,7 @@ export const OrderListComponent = () => {
       style={{ flex: 1, backgroundColor: "white" }}
       keyExtractor={(item, index) => index.toString()}
       data={data}
-      renderItem={({ item }) => renderItem(item)}
+      renderItem={({ item }) => renderItem({ ...item, iosStatus: iosStatus })}
       ListEmptyComponent={() => {
         return (
           <EmptyView
