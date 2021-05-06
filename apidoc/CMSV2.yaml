@@ -1,0 +1,295 @@
+openapi: 3.0.1
+info:
+  title: Sample API
+  description: API description in Markdown.
+  version: 1.0.0
+servers:
+  - url: 'https://api.example.com'
+paths:
+  /cms/article/create:
+    post:
+      tags:
+        - 精选文章
+      summary: 创建一个精选文章
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/articleReqBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /cms/article/delete:
+    get:
+      tags:
+        - 精选文章
+      summary: 删除一个精选文章
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /cms/article/update:
+    post:
+      tags:
+        - 精选文章
+      summary: 更新精选文章内容
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/articleEditReqBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /cms/imgs/create:
+    post:
+      tags:
+        - 美女图片
+      summary: 创建一个美女图片
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/imgsCreateReqBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /cms/imgs/delete:
+    get:
+      tags:
+        - 美女图片
+      summary: 删除一个美女图片
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /cms/imgs/update:
+    post:
+      tags:
+        - 美女图片
+      summary: 更新一个美女图片
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/imgsEditReqBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /cms/video/create:
+    post:
+      tags:
+        - 短视频
+      summary: 创建短视频内容
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/videoCreateReqBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /cms/video/delete:
+    get:
+      tags:
+        - 短视频
+      summary: 删除短视频内容
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+  /cms/video/update:
+    post:
+      tags:
+        - 短视频
+      summary: 更新短视频内容
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/videoEditReqBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: boolean
+
+components:
+  schemas:
+    articleReqBody:
+      type: object
+      properties:
+        title:
+          type: string
+          description: 文章标题
+        content:
+          type: string
+          description: 文章内容富文本
+    articleEditReqBody:
+      type: object
+      properties:
+        id:
+          type: number
+          description: 文章id
+        title:
+          type: string
+          description: 文章标题
+        content:
+          type: string
+          description: 文章内容富文本
+
+    videoCreateReqBody:
+      type: object
+      properties:
+        title:
+          type: string
+          description: 标题
+        url:
+          type: string
+          description: 短视频链接
+    videoEditReqBody:
+      type: object
+      properties:
+        id:
+          type: number
+          description: 文章id
+        title:
+          type: string
+          description: 标题
+        url:
+            type: string
+            description: 短视频链接
+
+    imgsCreateReqBody:
+      type: object
+      properties:
+        title:
+          type: string
+          description: 标题
+        imgs:
+          type: array
+          items:
+            type: string
+
+    imgsEditReqBody:
+      type: object
+      properties:
+        id:
+          type: number
+          description: id
+        title:
+          type: string
+          description: 标题
+        imgs:
+          type: array
+          items:
+            type: string
+

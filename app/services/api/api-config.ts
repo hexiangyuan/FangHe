@@ -1,7 +1,7 @@
 // Use this import if you want to use "env.js" file
 // const { API_URL } = require("../../config/env")
 // Or just specify it directly like this:
-const API_URL = "http://116.85.50.52:8088";
+const API_URL = __DEV__ ? "https://fangpaopao.cn/api/" : "https://fangpaopao.cn/api/";
 
 /**
  * The options used to configure the API.
@@ -22,6 +22,6 @@ export interface ApiConfig {
  * The default configuration for the app.
  */
 export const DEFAULT_API_CONFIG: ApiConfig = {
-  url: API_URL || "http://116.85.50.52:8088",
+  url: API_URL,
   timeout: 10000
 };

@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import { FlatList, RefreshControl, TouchableOpacity, View } from "react-native";
-import { HomeShopItem } from "./HomeShopItem";
-import { RootNavigation } from "../../../../navigation";
-import { getLocation } from "../../../../models/location-store/LocationStore";
+import React, {useEffect} from "react";
+import {FlatList, RefreshControl, TouchableOpacity, View} from "react-native";
+import {HomeShopItem} from "./HomeShopItem";
+import {RootNavigation} from "../../../../navigation";
+import {getLocation} from "../../../../models/location-store/LocationStore";
 import HomeApi from "../../HomeApi";
-import { observer, useLocalStore } from "mobx-react-lite";
-import { EmptyView } from "./EmptyView";
+import {observer, useLocalStore} from "mobx-react-lite";
+import {EmptyView} from "./EmptyView";
 
 export interface Props {
   key: "100" | "200";
@@ -33,7 +33,7 @@ export const ShopList = observer((props: { type: number }) => {
               longitude: location?.longitude || 0
             },
             page: 0,
-            pagesize: 100
+            pagesize: 1000
           }).then(value => {
             store.refreshing = false;
             if (value.code === 200) {
@@ -57,7 +57,7 @@ export const ShopList = observer((props: { type: number }) => {
   }, []);
 
   if (store.empty) {
-    return <EmptyView onPress={store.refreshData} />;
+    return <EmptyView onPress={store.refreshData}/>;
   } else {
     return (
       <View
@@ -66,15 +66,15 @@ export const ShopList = observer((props: { type: number }) => {
         }}
       >
         <FlatList
-          style={{ flex: 1 }}
+          style={{flex: 1}}
           data={store.data}
           keyExtractor={(item, index) => index.toString()}
-          refreshControl={<RefreshControl refreshing={store.refreshing} onRefresh={onRefresh} />}
-          renderItem={({ item }) => {
+          refreshControl={<RefreshControl refreshing={store.refreshing} onRefresh={onRefresh}/>}
+          renderItem={({item}) => {
             return (
               <TouchableOpacity
                 onPress={() => {
-                  RootNavigation.push("ShopDetailScreen", { id: item.id });
+                  RootNavigation.push("ShopDetailScreen", {id: item.id});
                 }}
               >
                 <HomeShopItem {...item} />

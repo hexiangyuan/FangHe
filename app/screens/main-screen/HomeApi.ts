@@ -1,5 +1,10 @@
 import { FangHeApi } from "../../services/api";
-import { DEFAULT_API_CONFIG } from "../../services/api/api-config";
+
+export class ApiConstant {
+  static getUserInfo() {
+    return FangHeApi.get("/user/get");
+  }
+}
 
 function getHomeList(request: {
   id: number;
@@ -22,7 +27,7 @@ function shopDetailProductList(id: number) {
 }
 
 function productDetail(id: number) {
-  return FangHeApi.post("/product/detail?id=5", { id: id });
+  return FangHeApi.get("/product/detail", { id: id });
 }
 
 function orderSubmit(request: { productId: number; quantity: number; time: string }) {
@@ -33,13 +38,13 @@ function getVerificationCode(mobile: string) {
   return FangHeApi.get("/common/verification-code", { mobile: mobile });
 }
 
-function loginMobile(request: { mobile: string; verificationCode: string }) {
+function loginMobile(request: { mobile: string; verificationCode: string; invitedCode?: string }) {
   return FangHeApi.post("/login/mobile", request);
 }
 
 function orderList(page: number) {
   return FangHeApi.get("/order/list", {
-    pageSize: 20,
+    pageSize: 200,
     page: page
   });
 }
@@ -52,6 +57,26 @@ function pictureUpload(file: { uri: string; name: string; type: string }) {
   return FangHeApi.post("/picture/upload", body);
 }
 
+/**
+ * 支付的预付款
+ * @param orderId
+ */
+function orderPrePay(orderId: number) {
+  return FangHeApi.get("/order/prePay", { orderId: orderId });
+}
+
+/**
+ * 支付宝的预付款
+ * @param orderId
+ */
+function orderAliPrePay(orderId: number) {
+  return FangHeApi.get("/order/getAlipaySign", { orderId: orderId });
+}
+
+function getOrderInfo(orderId: number) {
+  return FangHeApi.get("/order/getOrder", { orderId: orderId });
+}
+
 const HomeApi = {
   getHomeList,
   shopDetail,
@@ -61,7 +86,10 @@ const HomeApi = {
   getVerificationCode,
   loginMobile,
   orderList,
-  pictureUpload
+  pictureUpload,
+  orderPrePay,
+  orderAliPrePay,
+  getOrderInfo
 };
 
 export default HomeApi;

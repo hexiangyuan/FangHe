@@ -5,8 +5,11 @@ export interface OrderListItem {
   shopId: number;
   shopName: string;
   productImg: string;
-  id: number;
+  productId: number;
   time: string;
   status: number;
   productName: string;
+  id: number;
+  payStatus: number;
+  contactMobie: string;
 }

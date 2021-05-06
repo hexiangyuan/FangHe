@@ -11,7 +11,7 @@ export const DateTimeSelector = (props: DateTimeSelectorProps) => {
   const currentSelectedDateIndex = useRef(0);
   useEffect(() => {
     currentSelectedDateIndex.current = props.dateTime.findIndex(value => value.date.key === selectedDate.key);
-  }, []);
+  }, [props, selectedDate.key]);
 
   return (
     <View>
@@ -67,7 +67,7 @@ export const DateTimeSelector = (props: DateTimeSelectorProps) => {
                   borderRadius: 2,
                   borderWidth: 1,
                   justifyContent: "center",
-                  borderColor: selectedTime.key === item.key ? "#FF4D4D" : "#F0F0F0",
+                  borderColor: selectedTime && selectedTime.key === item.key ? "#FF4D4D" : "#F0F0F0",
                   height: 32,
                   width: "100%",
                   paddingVertical: 8,
@@ -78,7 +78,7 @@ export const DateTimeSelector = (props: DateTimeSelectorProps) => {
                 <Text
                   style={{
                     fontSize: 14,
-                    color: selectedTime.key === item.key ? "#FF4D4D" : "#333"
+                    color: selectedTime && selectedTime.key === item.key ? "#FF4D4D" : "#333"
                   }}
                 >
                   {item.value}

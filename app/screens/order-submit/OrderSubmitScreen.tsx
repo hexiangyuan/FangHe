@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StatusBar, Text, TouchableOpacity, View } from "react-native";
+import { DeviceEventEmitter, StatusBar, Text, TouchableOpacity, View } from "react-native"
 import { UIButton, UIImage } from "react-native-pjt-ui-lib";
 import { Colors } from "../../theme/Theme";
 import { useRoute } from "@react-navigation/native";
@@ -82,7 +82,7 @@ export const Sku = (props: SkuInfo) => {
                 color: Colors.primary
               }}
             >
-              ￥{props.price}
+              ¥{props.price/100}
             </Text>
             <Text
               style={{
@@ -136,6 +136,7 @@ export const OrderSubmitScreen = () => {
           key: item,
           value: item
         }));
+
       } else {
         times = getHoursTotalDay().map(item => ({
           key: item,
@@ -161,7 +162,8 @@ export const OrderSubmitScreen = () => {
         time: date.key + " " + time.key
       }).then(value => {
         if (value.code === 200) {
-          RootNavigation.push("OrderSubmitSucceedScreen", value.data?.orderNo);
+            DeviceEventEmitter.emit("OrderListChanged");
+            RootNavigation.push("OrderSubmitSucceedScreen", value.data?.orderNo);
         } else {
           ToastGlobal.show(value.errorMsg);
         }

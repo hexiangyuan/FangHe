@@ -1,86 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, ViewStyle } from "react-native";
 import { Header, Screen, Text } from "../../components";
 import { color } from "../../theme";
-import { PreviewShopDetailContent, ShopDetailProductList } from "./PreviewShopDetailContent";
+import {
+  PreviewShopDetailContent,
+  ShopDetail,
+  ShopDetailProductItem,
+  ShopDetailProductList
+} from "./PreviewShopDetailContent";
 import { UIButton } from "react-native-pjt-ui-lib";
 import { RootNavigation } from "../../navigation";
-import { useNavigation } from "@react-navigation/native"
-
-const MockData = {
-  id: 1000,
-  img: "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-  shopName: "xxxxxxxxxx体验店",
-  score: 3,
-  averPrice: 100,
-  tag: ["24小时营业", "角色扮演", "免费零食", "场景多多"],
-  info: "我是优惠信息优惠信息",
-  distanceMeter: 1000,
-  shopDetailsImgs: [
-    "https://lh3.googleusercontent.com/proxy/vt6GBnZp_XkGvAnrGI2DUzZT4WNIlnk9ffJnsDZGnzeO3BMUFkKONoxNvmhLfVvUBAMZz49hHUMe3kh8NqKIgPvIjxK9KCDrZymIQYYSs5QMq_vlhubBsEIrytOgsc4KOugPeD_-_uFLbOrEArbsdqk",
-    "https://lh3.googleusercontent.com/proxy/vt6GBnZp_XkGvAnrGI2DUzZT4WNIlnk9ffJnsDZGnzeO3BMUFkKONoxNvmhLfVvUBAMZz49hHUMe3kh8NqKIgPvIjxK9KCDrZymIQYYSs5QMq_vlhubBsEIrytOgsc4KOugPeD_-_uFLbOrEArbsdqk",
-    "https://lh3.googleusercontent.com/proxy/vt6GBnZp_XkGvAnrGI2DUzZT4WNIlnk9ffJnsDZGnzeO3BMUFkKONoxNvmhLfVvUBAMZz49hHUMe3kh8NqKIgPvIjxK9KCDrZymIQYYSs5QMq_vlhubBsEIrytOgsc4KOugPeD_-_uFLbOrEArbsdqk"
-  ]
-};
-
-const MockProList = [
-  {
-    id: 0,
-    mainImg: "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-    productName: "这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么",
-    tags: ["泷泽萝拉", "小泽玛利亚", "苍老师"],
-    discountPrice: 100,
-    price: 200
-  },
-  {
-    id: 1,
-    mainImg: "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-    productName: "这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么",
-    tags: ["泷泽萝拉", "小泽玛利亚", "苍老师"],
-    discountPrice: 100,
-    price: 200
-  },
-  {
-    id: 2,
-    mainImg: "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-    productName: "这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么",
-    tags: ["泷泽萝拉", "小泽玛利亚", "苍老师"],
-    discountPrice: 100,
-    price: 200
-  },
-  {
-    id: 3,
-    mainImg: "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-    productName: "这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么",
-    tags: ["泷泽萝拉", "小泽玛利亚", "苍老师"],
-    discountPrice: 100,
-    price: 200
-  },
-  {
-    id: 4,
-    mainImg: "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-    productName: "这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么",
-    tags: ["泷泽萝拉", "小泽玛利亚", "苍老师"],
-    discountPrice: 100,
-    price: 200
-  },
-  {
-    id: 5,
-    mainImg: "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-    productName: "这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么",
-    tags: ["泷泽萝拉", "小泽玛利亚", "苍老师"],
-    discountPrice: 100,
-    price: 200
-  },
-  {
-    id: 6,
-    mainImg: "https://thumbs.dreamstime.com/b/%E7%9F%A5%E6%9B%B4%E9%B8%9F-12417503.jpg",
-    productName: "这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么这是商品名称么么么么么么",
-    tags: ["泷泽萝拉", "小泽玛利亚", "苍老师"],
-    discountPrice: 100,
-    price: 200
-  }
-];
+import { useNavigation, useRoute } from "@react-navigation/native";
+import HomeApi from "../../screens/main-screen/HomeApi";
+import ToastGlobal from "../../utils/Toast";
+import { ShopDetailContent } from "../../screens/shop-detail-screen/ShopDetailContent";
 
 const FULL: ViewStyle = { flex: 1 };
 const CONTAINER: ViewStyle = {
@@ -90,6 +23,25 @@ const CONTAINER: ViewStyle = {
 const CONTENT_CONTAINER: ViewStyle = {};
 
 export const PreviewShopDetailScreen = () => {
+  const shopId = useRoute().params.id;
+
+  const [shopDetail, setShopDetail] = useState<ShopDetail>(undefined);
+  const [productList, setProductList] = useState<Array<ShopDetailProductItem>>(undefined);
+
+  useEffect(() => {
+    HomeApi.shopDetail(shopId).then(response => {
+      if (response.code === 200) {
+        setShopDetail(response.data);
+      } else {
+        ToastGlobal.show(response.errorMsg);
+      }
+    });
+    HomeApi.shopDetailProductList(shopId).then(response => {
+      if (response.code === 200) {
+        setProductList(response.data);
+      }
+    });
+  }, []);
 
   return (
     <View style={FULL}>
@@ -102,7 +54,7 @@ export const PreviewShopDetailScreen = () => {
       >
         <View style={CONTENT_CONTAINER}>
           <Header headerText={"查看店铺"} />
-          <PreviewShopDetailContent {...MockData} />
+          {shopDetail && <PreviewShopDetailContent {...shopDetail} />}
           <View
             style={{
               backgroundColor: "#D8D8D8",
@@ -145,10 +97,10 @@ export const PreviewShopDetailScreen = () => {
               商品橱窗
             </Text>
           </View>
-          <ShopDetailProductList productList={MockProList} />
+          {productList && <ShopDetailProductList productList={productList} />}
           <UIButton
             onPress={() => {
-              RootNavigation.push("CmsAddProductScreen", { shopId: 4 });
+              RootNavigation.push("CmsAddProductScreen", { shopId: shopId });
             }}
             containerStyle={{ width: "100%" }}
           >

@@ -16,6 +16,13 @@ import { CmsAddShopScreen } from "../cms/CmsAddShopScreen";
 import { PreviewShopDetailScreen } from "../cms/preview-shop-detail/PreviewShopDetailScreen";
 import { CmsAddProductScreen } from "../cms/CmsAddProductScreen";
 import { PrivacyPolicyScreen } from "../screens/policy-screens/privacy-policy-screen";
+import ArticleDetailScreen from "../screens/find/article-detail-screen/ArticleDetailScreen";
+import PhotoDetailScreen from "../screens/find/ptoto-detail-screen/PhotoDetailScreen";
+import VideoDetailScreen from "../screens/find/video-detail-screen/VideoDetailScreen";
+import { VideoSwiperScreen } from "../screens/find/video-detail-screen/VideoSwpiperSreen";
+import ShareScreen from "../share/ShareScreen";
+import PayScreen from "../screens/pay/PayScreen";
+import PayResultScreen from "../screens/pay/PayResultScreen";
 
 interface Screen {
   name: string;
@@ -92,6 +99,34 @@ const mainTabScreen: Array<Screen> = [
   {
     name: "PreviewShopDetailScreen",
     component: PreviewShopDetailScreen
+  },
+  {
+    name: "ArticleDetailScreen",
+    component: ArticleDetailScreen
+  },
+  {
+    name: "PhotoDetailScreen",
+    component: PhotoDetailScreen
+  },
+  {
+    name: "VideoDetailScreen",
+    component: VideoDetailScreen
+  },
+  {
+    name: "VideoSwiperScreen",
+    component: VideoSwiperScreen
+  },
+  {
+    name: "ShareScreen",
+    component: ShareScreen
+  },
+  {
+    name: "PayScreen",
+    component: PayScreen
+  },
+  {
+    name: "PayResultScreen",
+    component: PayResultScreen
   }
 ];
 

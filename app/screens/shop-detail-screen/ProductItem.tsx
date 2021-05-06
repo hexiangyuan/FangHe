@@ -29,12 +29,11 @@ const styles = StyleSheet.create({
 });
 
 export const ProductItem = (props: ProductItemProps) => {
-
   return (
     <TouchableOpacity
       style={styles.itemContainer}
       onPress={() => {
-        RootNavigation.push( "ProductDetailScreen", { id: props.id });
+        RootNavigation.push("ProductDetailScreen", { id: props.id });
       }}
     >
       {!!props.mainImg && props.mainImg !== "string" && (
@@ -71,7 +70,7 @@ export const ProductItem = (props: ProductItemProps) => {
               fontWeight: "bold"
             }}
           >
-            ￥{props.discountPrice}
+            ¥{props.discountPrice / 100}
           </Text>
           <Text
             style={{
@@ -81,7 +80,7 @@ export const ProductItem = (props: ProductItemProps) => {
               textDecorationLine: "line-through"
             }}
           >
-            ￥{props.price}
+            ¥{props.price / 100}
           </Text>
         </View>
       </View>

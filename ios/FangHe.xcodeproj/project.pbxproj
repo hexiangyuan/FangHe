@@ -16,6 +16,10 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* FangHeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* FangHeTests.m */; };
+		7B450BB1263C13CA000F38B6 /* app-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B450BB0263C13CA000F38B6 /* app-icon.png */; };
+		7BAFAB44263825F6003F1973 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAFAB41263825F6003F1973 /* WXApiManager.m */; };
+		7BAFAB5A26382BA3003F1973 /* NativeToJSEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAFAB5926382BA3003F1973 /* NativeToJSEventEmitter.m */; };
+		7BAFAB6D263956C1003F1973 /* FangHeNativeModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAFAB6C263956C1003F1973 /* FangHeNativeModule.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		CCA894C39218EEEE802B4158 /* libPods-FangHe-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71DAC7BCDA207530AD217980 /* libPods-FangHe-tvOS.a */; };
 		F6C340D018B37650701725BF /* libPods-FangHe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A33186B2F0E1BAEC314B6D54 /* libPods-FangHe.a */; };
@@ -40,7 +44,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00E356EE1AD99517003FC87E /* FangHeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FangHeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* FangHeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FangHeTests.m; sourceTree = "<group>"; };
@@ -60,11 +63,19 @@
 		6B46CFF281912F99C487F425 /* Pods-FangHe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FangHe.release.xcconfig"; path = "Target Support Files/Pods-FangHe/Pods-FangHe.release.xcconfig"; sourceTree = "<group>"; };
 		71DAC7BCDA207530AD217980 /* libPods-FangHe-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FangHe-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		72D9C374F62FE4E97EDC6C70 /* Pods-FangHe-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FangHe-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-FangHe-tvOS/Pods-FangHe-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		7B450BB0263C13CA000F38B6 /* app-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon.png"; sourceTree = "<group>"; };
+		7BAFAB3C263825F6003F1973 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
+		7BAFAB41263825F6003F1973 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
+		7BAFAB5826382BA3003F1973 /* NativeToJSEventEmitter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeToJSEventEmitter.h; sourceTree = "<group>"; };
+		7BAFAB5926382BA3003F1973 /* NativeToJSEventEmitter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeToJSEventEmitter.m; sourceTree = "<group>"; };
+		7BAFAB6B263956C1003F1973 /* FangHeNativeModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FangHeNativeModule.h; sourceTree = "<group>"; };
+		7BAFAB6C263956C1003F1973 /* FangHeNativeModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FangHeNativeModule.m; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = FangHe/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8EAFE2C9586B4644241693B9 /* libPods-FangHe-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FangHe-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		97F5AE15A13AAC346605557B /* Pods-FangHe-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FangHe-tvOS.release.xcconfig"; path = "Target Support Files/Pods-FangHe-tvOS/Pods-FangHe-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		A33186B2F0E1BAEC314B6D54 /* libPods-FangHe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FangHe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9EC6B7734C749C0A8CFE9F1 /* Pods-FangHe-FangHeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FangHe-FangHeTests.debug.xcconfig"; path = "Target Support Files/Pods-FangHe-FangHeTests/Pods-FangHe-FangHeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C8DD0973261EEB7900B95DAE /* FangHe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = FangHe.entitlements; path = FangHe/FangHe.entitlements; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -125,13 +136,17 @@
 		13B07FAE1A68108700A75B9A /* FangHe */ = {
 			isa = PBXGroup;
 			children = (
-				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				7BAFAB3B263825F6003F1973 /* wx */,
+				C87550F326253C19005026F4 /* res */,
+				C8DD0973261EEB7900B95DAE /* FangHe.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				7BAFAB6B263956C1003F1973 /* FangHeNativeModule.h */,
+				7BAFAB6C263956C1003F1973 /* FangHeNativeModule.m */,
 			);
 			name = FangHe;
 			sourceTree = "<group>";
@@ -149,6 +164,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		30B07076C8A443ECA6A612DC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		5F339C85FE19179E3A028D5F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,8 +183,18 @@
 				01047483AB791CA06AF2C70B /* Pods-FangHe-tvOSTests.debug.xcconfig */,
 				5E35DB9646E2C4600D4638C3 /* Pods-FangHe-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		7BAFAB3B263825F6003F1973 /* wx */ = {
+			isa = PBXGroup;
+			children = (
+				7BAFAB3C263825F6003F1973 /* WXApiManager.h */,
+				7BAFAB41263825F6003F1973 /* WXApiManager.m */,
+				7BAFAB5826382BA3003F1973 /* NativeToJSEventEmitter.h */,
+				7BAFAB5926382BA3003F1973 /* NativeToJSEventEmitter.m */,
+			);
+			path = wx;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -199,13 +231,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		30B07076C8A443ECA6A612DC /* Resources */ = {
-			isa = "PBXGroup";
+		C87550F326253C19005026F4 /* res */ = {
+			isa = PBXGroup;
 			children = (
+				7B450BB0263C13CA000F38B6 /* app-icon.png */,
 			);
-			name = Resources;
+			name = res;
 			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -303,7 +335,9 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 8D74NMH943;
 						LastSwiftMigration = 1120;
+						ProvisioningStyle = Manual;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -322,6 +356,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				"zh-Hans",
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
@@ -351,6 +386,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				7B450BB1263C13CA000F38B6 /* app-icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,10 +509,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FangHe-FangHeTests/Pods-FangHe-FangHeTests-resources.sh",
+				"${PODS_ROOT}/../../node_modules/@uiw/react-native-alipay/ios/AlipaySDK.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AlipaySDK.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -491,10 +529,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FangHe/Pods-FangHe-resources.sh",
+				"${PODS_ROOT}/../../node_modules/@uiw/react-native-alipay/ios/AlipaySDK.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AlipaySDK.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -578,7 +618,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				7BAFAB5A26382BA3003F1973 /* NativeToJSEventEmitter.m in Sources */,
+				7BAFAB44263825F6003F1973 /* WXApiManager.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				7BAFAB6D263956C1003F1973 /* FangHeNativeModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -664,17 +707,23 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CODE_SIGN_ENTITLEMENTS = FangHe/FangHe.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 21;
+				DEVELOPMENT_TEAM = 8D74NMH943;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = FangHe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.fangpaopao.app;
 				PRODUCT_NAME = FangHe;
+				PROVISIONING_PROFILE_SPECIFIER = fangpaopao;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -687,16 +736,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CODE_SIGN_ENTITLEMENTS = FangHe/FangHe.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 21;
+				DEVELOPMENT_TEAM = 8D74NMH943;
 				INFOPLIST_FILE = FangHe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.fangpaopao.app;
 				PRODUCT_NAME = FangHe;
+				PROVISIONING_PROFILE_SPECIFIER = fangpaopao;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -920,6 +975,7 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

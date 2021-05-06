@@ -10,6 +10,8 @@ import HomeApi from "../screens/main-screen/HomeApi";
 import OS from "../constant/OS";
 import ToastGlobal from "../utils/Toast";
 import { options } from "./CmsAddShopScreen";
+import * as Global from "global";
+import { RootNavigation } from "../navigation";
 
 const InputItem = (props: { title: string; containerStyle: ViewStyle } & TextInputProps) => {
   return (
@@ -46,7 +48,7 @@ const InputItem = (props: { title: string; containerStyle: ViewStyle } & TextInp
 
 export const CmsAddProductScreen = () => {
   const [mainImag, setMainImag] = useState<string>(undefined);
-  const [shopImags, setShopImags] = useState<Array<string>>(undefined);
+  const [shopImags, setShopImags] = useState<Array<string>>(["", "", "", "", "", "", "", "", ""]);
   const [originPrice, setOriginPrice] = useState<number>(undefined);
   const [price, setPrice] = useState<number>(undefined);
   const [tags, setTags] = useState<string[]>(undefined);
@@ -55,7 +57,40 @@ export const CmsAddProductScreen = () => {
 
   const shopId = useRoute().params.shopId;
 
+  function showInputToast(msg) {
+    ToastGlobal.show(msg);
+  }
+
   function confirm() {
+    if (!mainImag) {
+      showInputToast("清上传物品主图");
+      return;
+    }
+    if (!productName) {
+      showInputToast("填写物品名称");
+      return;
+    }
+    if (!productSubTitle) {
+      showInputToast("填写物品副标题");
+      return;
+    }
+    if (!tags || tags.length <= 0) {
+      showInputToast("请填写物品标签");
+      return;
+    }
+    if (!price) {
+      showInputToast("请填写物品出销价格");
+      return;
+    }
+    if (!originPrice) {
+      showInputToast("请填写商品原价");
+      return;
+    }
+    if (shopImags.filter((value, index) => value).length <= 0) {
+      showInputToast("请上传物品详情图片");
+      return;
+    }
+
     FangHeApi.post("/product/create", {
       shopId: shopId,
       mainImg: mainImag,
@@ -64,7 +99,14 @@ export const CmsAddProductScreen = () => {
       tags: tags,
       discountPrice: price * 100,
       price: originPrice * 100,
-      productDescImgs: shopImags
+      productDescImgs: shopImags.filter((value, index) => value)
+    }).then(res => {
+      if (res.code === 200) {
+        ToastGlobal.show("上传成功");
+        RootNavigation.goBack();
+      } else {
+        ToastGlobal.show("上传失败");
+      }
     });
   }
 
@@ -105,8 +147,8 @@ export const CmsAddProductScreen = () => {
           .then(value => {
             if (value.code === 200) {
               ToastGlobal.show("图片上传成功");
-              setMainImag(value.data);
-              console.log(value);
+              shopImags[index] = value.data;
+              setShopImags([...shopImags]);
             } else {
               ToastGlobal.show("图片上传失败" + value.errorMsg);
             }
@@ -156,7 +198,7 @@ export const CmsAddProductScreen = () => {
             onChangeText={text => {
               setTags(text.split(" "));
             }}
-            placeholder={"红色标签;分号隔开;最多四个"}
+            placeholder={"红色标签 空格分开 最多四个"}
           />
           <InputItem
             onChangeText={text => {
@@ -192,7 +234,7 @@ export const CmsAddProductScreen = () => {
             </Text>
             <TouchableOpacity onPress={uploadImag}>
               <UIImage
-                source={mainImage ? { uri: mainImage } : require("./ic_upload_img.png")}
+                source={mainImag ? { uri: mainImag } : require("./ic_upload_img.png")}
                 style={{
                   width: 64,
                   marginLeft: 16,
@@ -225,7 +267,7 @@ export const CmsAddProductScreen = () => {
                   }}
                 >
                   <UIImage
-                    source={require("./ic_upload_img.png")}
+                    source={shopImags[0] ? { uri: shopImags[0] } : require("./ic_upload_img.png")}
                     style={{
                       width: 64,
                       marginLeft: 16,
@@ -240,7 +282,7 @@ export const CmsAddProductScreen = () => {
                   }}
                 >
                   <UIImage
-                    source={require("./ic_upload_img.png")}
+                    source={shopImags[1] ? { uri: shopImags[1] } : require("./ic_upload_img.png")}
                     style={{
                       width: 64,
                       marginLeft: 16,
@@ -255,7 +297,7 @@ export const CmsAddProductScreen = () => {
                   }}
                 >
                   <UIImage
-                    source={require("./ic_upload_img.png")}
+                    source={shopImags[2] ? { uri: shopImags[2] } : require("./ic_upload_img.png")}
                     style={{
                       width: 64,
                       marginLeft: 16,
@@ -277,7 +319,7 @@ export const CmsAddProductScreen = () => {
                   }}
                 >
                   <UIImage
-                    source={require("./ic_upload_img.png")}
+                    source={shopImags[3] ? { uri: shopImags[3] } : require("./ic_upload_img.png")}
                     style={{
                       width: 64,
                       marginLeft: 16,
@@ -292,7 +334,7 @@ export const CmsAddProductScreen = () => {
                   }}
                 >
                   <UIImage
-                    source={require("./ic_upload_img.png")}
+                    source={shopImags[4] ? { uri: shopImags[4] } : require("./ic_upload_img.png")}
                     style={{
                       width: 64,
                       marginLeft: 16,
@@ -307,7 +349,7 @@ export const CmsAddProductScreen = () => {
                   }}
                 >
                   <UIImage
-                    source={require("./ic_upload_img.png")}
+                    source={shopImags[5] ? { uri: shopImags[5] } : require("./ic_upload_img.png")}
                     style={{
                       width: 64,
                       marginLeft: 16,
@@ -329,7 +371,7 @@ export const CmsAddProductScreen = () => {
                   }}
                 >
                   <UIImage
-                    source={require("./ic_upload_img.png")}
+                    source={shopImags[6] ? { uri: shopImags[6] } : require("./ic_upload_img.png")}
                     style={{
                       width: 64,
                       marginLeft: 16,
@@ -344,7 +386,7 @@ export const CmsAddProductScreen = () => {
                   }}
                 >
                   <UIImage
-                    source={require("./ic_upload_img.png")}
+                    source={shopImags[7] ? { uri: shopImags[7] } : require("./ic_upload_img.png")}
                     style={{
                       width: 64,
                       marginLeft: 16,
@@ -359,7 +401,7 @@ export const CmsAddProductScreen = () => {
                   }}
                 >
                   <UIImage
-                    source={require("./ic_upload_img.png")}
+                    source={shopImags[8] ? { uri: shopImags[8] } : require("./ic_upload_img.png")}
                     style={{
                       width: 64,
                       marginLeft: 16,

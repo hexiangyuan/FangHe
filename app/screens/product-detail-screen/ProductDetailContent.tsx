@@ -2,11 +2,14 @@ import { TouchableOpacity, View } from "react-native";
 import { ImageStyle } from "react-native-fast-image";
 import Window from "../../constant/window";
 import { UIButton, UIImage } from "react-native-pjt-ui-lib";
-import React from "react";
+import React, { useState } from "react";
 import { Text } from "../../components";
 import { RedTags } from "../../components/tag/RedTags";
 import { Score } from "../../components/score/Score";
 import { RootNavigation } from "../../navigation";
+import ScaledImage from "./ScaledImage";
+import { WXCustomerService } from "../WXCustomerService";
+import { Modal, ModalContent } from "react-native-modals";
 
 export interface ShopInfo {
   id: number;
@@ -57,20 +60,14 @@ export const ShopDetailImgList = (props: { shopDetailsImgs: string[] }) => {
         商品描述
       </Text>
       {props.shopDetailsImgs?.map((item, index) => (
-        <UIImage
-          key={item + index}
-          source={{ uri: item }}
-          style={{
-            width: Window.width,
-            height: Window.width
-          }}
-        />
+        <ScaledImage key={item + index} uri={item} width={Window.width} />
       ))}
     </View>
   );
 };
 
 const ShopInfoComponent = (props: ShopInfo & { mapClick: () => void }) => {
+  const [customerModelVisible, setCustomerModelVisible] = useState(false);
   return (
     <View
       style={{
@@ -116,12 +113,49 @@ const ShopInfoComponent = (props: ShopInfo & { mapClick: () => void }) => {
         <Text
           style={{
             fontSize: 12,
-            color: "#666"
+            color: "#666",
+            paddingLeft: 32
           }}
         >
           导航
         </Text>
       </TouchableOpacity>
+      {!!props.contactMobie && (
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <Text
+            style={{
+              fontSize: 12,
+              color: "#333",
+              marginTop: 12
+            }}
+          >
+            客服电话: {props.contactMobie}
+          </Text>
+          <Text
+            style={{ fontSize: 12, color: "#333", paddingLeft: 32, marginTop: 12 }}
+            onPress={() => {
+              setCustomerModelVisible(true);
+            }}
+          >
+            微信客服
+          </Text>
+        </View>
+      )}
+      <Modal
+        width={0.9}
+        visible={customerModelVisible}
+        onTouchOutside={() => {
+          setCustomerModelVisible(false);
+        }}
+      >
+        <ModalContent>
+          <WXCustomerService
+            onClosePressed={() => {
+              setCustomerModelVisible(false);
+            }}
+          />
+        </ModalContent>
+      </Modal>
     </View>
   );
 };
@@ -201,7 +235,7 @@ export const ProductDetailContent = (props: ProductDetailProps & { mapClick: () 
                 fontWeight: "bold"
               }}
             >
-              ￥{props.discountPrice}
+              ¥{props.discountPrice / 100}
             </Text>
             <Text
               style={{
@@ -211,7 +245,7 @@ export const ProductDetailContent = (props: ProductDetailProps & { mapClick: () 
                 textDecorationLine: "line-through"
               }}
             >
-              ￥{props.price}
+              ¥{props.price / 100}
             </Text>
           </View>
           <UIButton

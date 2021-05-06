@@ -26,7 +26,7 @@ export const HomeShopItem = (props: HomeShopItemProps) => {
         source={{
           uri: props.img
         }}
-        resizeMode={"center"}
+        resizeMode={"cover"}
         style={styles.imgStyle}
       />
       <View
@@ -52,7 +52,7 @@ export const HomeShopItem = (props: HomeShopItemProps) => {
               color: "#333"
             }}
           >
-            ￥{props.averPrice / 100}/人
+            ¥{props.averPrice / 100}/人
           </Text>
           <Text
             style={{

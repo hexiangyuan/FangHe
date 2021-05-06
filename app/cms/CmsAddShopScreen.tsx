@@ -80,6 +80,7 @@ export const CmsAddShopScreen = () => {
           const locations = value.split(",");
           FangHeApi.post("/shop/create", {
             img: mainImage,
+            isForAppStore: false,
             shopName: shopName,
             score: shopScore,
             averPrice: shopAvaPrice * 100,

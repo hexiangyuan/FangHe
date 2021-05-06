@@ -20,18 +20,40 @@ import { useBackButtonHandler, RootNavigator, canExit, useNavigationPersistence 
 import { RootStore, RootStoreProvider, setupRootStore } from "./models";
 
 import { enableScreens } from "react-native-screens";
-import { StatusBar } from "react-native";
+import { Linking, Platform, StatusBar } from "react-native";
 import { FangHeApi, GaoDeMapApi, setFangHeApiCookie } from "./services/api";
 import Toast from "react-native-easy-toast";
 import { setToastRef } from "./utils/Toast";
 import LocalCookieStore from "./services/local/UserCookieStore";
 import { setupUserStore, UserStore, UserStoreProvider } from "./models/user-store/user-store";
 import RNLocation from "react-native-location";
+import codePush from "react-native-code-push";
+import WeChatSdk from "./weixin/WeChatSdk";
+import AliPaySDK from "./weixin/AliPay";
+import AppUpdate from "./hooks/useAppUpdate";
+import { Alert } from "react-native";
 
 enableScreens();
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE";
 
+// 使用系统浏览器访问指定URL
+export const contactDownLoadApp = () => {
+  const links =
+    Platform.OS === "ios"
+      ? "https://apps.apple.com/cn/app/%E6%96%B9%E6%B3%A1%E6%B3%A1/id1560592820"
+      : "https://fanghe.oss-cn-beijing.aliyuncs.com/fangpaopao-android.f10a701e.apk";
+
+  Linking.canOpenURL(links)
+    .then(supported => {
+      if (!supported) {
+        console.warn("Can't handle url: " + links);
+      } else {
+        return Linking.openURL(links);
+      }
+    })
+    .catch(() => console.error("An error occurred", links));
+};
 /**
  * This is the root component of our app.
  */
@@ -58,6 +80,18 @@ function App() {
   useEffect(() => {
     FangHeApi.setup();
     GaoDeMapApi.setup();
+    AppUpdate.checkUpdate()
+      .then(value => {
+        if (value.needUpdate) {
+          Alert.alert("更新提示", value.desc ?? "我们有新的APP更新,请您及时更新", [
+            { text: "去下载", onPress: () => contactDownLoadApp(), style: "default" }
+          ]);
+        }
+      })
+      .catch(e => {
+        console.log(2222333222, e);
+      });
+
     (async () => {
       LocalCookieStore.getUser().then(user => {
         if (user) {
@@ -70,10 +104,16 @@ function App() {
   }, []);
 
   useEffect(() => {
+    WeChatSdk.registerApp();
+    AliPaySDK.init();
+    AliPaySDK.setUrlSchema("fangpaopao");
+  }, []);
+
+  useEffect(() => {
     setToastRef(toastRef);
   }, []);
 
-  if (!rootStore) return null;
+  // if (!rootStore) return null;
 
   // otherwise, we're ready to render the app
   return (
@@ -82,12 +122,12 @@ function App() {
         <SafeAreaProvider>
           <StatusBar ref={statusBarRef} barStyle={"dark-content"} translucent={true} backgroundColor={"transparent"} />
           <RootNavigator initialState={initialNavigationState} onStateChange={onNavigationStateChange} />
-          <Toast ref={toastRef} />
         </SafeAreaProvider>
         <ModalPortal />
+        <Toast ref={toastRef} />
       </RootStoreProvider>
     </UserStoreProvider>
   );
 }
 
-export default App;
+export default codePush(App);

@@ -6,6 +6,11 @@ export enum OrderStatus {
   ACCEPTED_CANCEL = 50
 }
 
+export enum PayStatus {
+  PAYED = 1,
+  UN_PAY = 0
+}
+
 export function getOrderNameByStatus(status: OrderStatus): string {
   switch (status) {
     case OrderStatus.BOOKED:
@@ -22,7 +27,15 @@ export function getOrderNameByStatus(status: OrderStatus): string {
   }
 }
 
-export function canCancelOrder(orderStatus: OrderStatus): boolean {
-  return false;
-  // return orderStatus === OrderStatus.BOOKED || orderStatus === OrderStatus.ACCEPTED;
+export function canPayOrder(payStatus: PayStatus): boolean {
+  return payStatus !== PayStatus.PAYED;
+}
+
+export function getPayStatusNameByPayStatus(status: PayStatus): string {
+  switch (status) {
+    case PayStatus.PAYED:
+      return "已支付";
+    default:
+      return "未支付";
+  }
 }

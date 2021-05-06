@@ -17,10 +17,7 @@ export const EVENT_NAME_LOGIN_SUCCEED = "EVENT_NAME_LOGIN_SUCCEED";
 export const MobileLoginVerificationCodeScreen = () => {
   const params = useRoute<any>().params;
   const [code, setCode] = useState<string>("");
-  const [codeDev, setCodeDev] = useState<string>("");
-  useEffect(() => {
-    setCodeDev(params.codeDev);
-  }, []);
+  const [invitedCode, setInvitedCode] = useState<string>(undefined);
 
   const userStore = userUserStore();
 
@@ -52,7 +49,6 @@ export const MobileLoginVerificationCodeScreen = () => {
       time = 30;
       HomeApi.getVerificationCode(params.mobile).then(value => {
         if (value.code === 200) {
-          setCodeDev(value.data);
           startCountDown();
         } else {
           ToastGlobal.show(value.errorMsg);
@@ -64,7 +60,8 @@ export const MobileLoginVerificationCodeScreen = () => {
   function loginPressed() {
     HomeApi.loginMobile({
       mobile: params.mobile,
-      verificationCode: code
+      verificationCode: code,
+      inviteCode: invitedCode ? undefined : invitedCode
     })
       .then(value => {
         if (value.code === 200) {
@@ -105,7 +102,7 @@ export const MobileLoginVerificationCodeScreen = () => {
             fontWeight: "bold"
           }}
         >
-          请输入6位数验证码
+          请输入4位数验证码
         </Text>
         <Text
           style={{
@@ -116,7 +113,6 @@ export const MobileLoginVerificationCodeScreen = () => {
         >
           验证码已发送到你的手机：{params.mobile}
         </Text>
-        {__DEV__ && <Text>{"验证码是（DEV 环境可看）  " + codeDev}</Text>}
         <View
           style={{
             marginTop: 80,
@@ -156,14 +152,34 @@ export const MobileLoginVerificationCodeScreen = () => {
           }}
         />
 
+        <TextInput
+          onChangeText={text => setInvitedCode(text)}
+          maxLength={6}
+          placeholder={"请输入邀请码（非必填）"}
+          style={{
+            fontSize: 16,
+            padding: 0,
+            color: "#333",
+            fontWeight: "bold",
+            marginTop: 24
+          }}
+        />
+
+        <View
+          style={{
+            height: 1,
+            backgroundColor: Colors.primary,
+            marginTop: 8
+          }}
+        />
+
         <UIButton
           onPress={() => {
-            console.log("dddd");
             loginPressed();
           }}
           containerStyle={{
             width: "100%",
-            marginTop: 16
+            marginTop: 32
           }}
         >
           登录

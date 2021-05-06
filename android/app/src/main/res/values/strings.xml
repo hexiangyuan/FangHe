@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">FangHe</string>
+    <string name="app_name">方泡泡</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">YQ0Kly2RhIaI0ajgUsNc8_vo2wGb3KkgoYnr5</string>
 </resources>

@@ -10,6 +10,7 @@ import { userUserStore } from "../../../models/user-store/user-store";
 import { observer, useLocalStore } from "mobx-react-lite";
 import { useFocusEffect } from "@react-navigation/native";
 import StringUtils from "../../../utils/ReularUtils";
+import { useStoreStatus } from "../../../hooks/useStoreStatus";
 
 const UnLoginView = () => {
   return (
@@ -132,6 +133,7 @@ const MineItem = (props: ItemProps) => {
 
 const MineOrder = () => {
   const user = userUserStore();
+  const isIosShell = useStoreStatus();
   return (
     <View
       style={{
@@ -167,6 +169,24 @@ const MineOrder = () => {
           RootNavigation.push("AboutUsScreen");
         }}
       />
+      <View
+        style={{
+          marginLeft: 40,
+          height: 0.5,
+          marginVertical: 16,
+          backgroundColor: "#F0F0F0"
+        }}
+      />
+
+      {!isIosShell && (
+        <MineItem
+          icon={"about"}
+          text={"分享邀请"}
+          onPress={() => {
+            RootNavigation.push("ShareScreen");
+          }}
+        />
+      )}
 
       <View
         style={{
@@ -177,13 +197,13 @@ const MineOrder = () => {
         }}
       />
 
-      <MineItem
-        icon={"protected"}
-        text={"隐私申明"}
-        onPress={() => {
-          RootNavigation.push("PrivacyPolicyScreen");
-        }}
-      />
+      {/* <MineItem*/}
+      {/*  icon={"protected"}*/}
+      {/*  text={"隐私申明"}*/}
+      {/*  onPress={() => {*/}
+      {/*    RootNavigation.push("PrivacyPolicyScreen");*/}
+      {/*  }}*/}
+      {/* />*/}
     </View>
   );
 };
@@ -235,39 +255,42 @@ const MineScreen = observer(() => {
         backgroundColor: "white"
       }}
     >
-      <View
-        style={{
-          width: "100%",
-          alignItems: "flex-start",
-          flexDirection: "row",
-          paddingTop: 120,
-          paddingHorizontal: 16,
-          paddingBottom: 24
-        }}
-      >
-        <UIImage
-          source={require("./avatar.png")}
+      <View style={{ flex: 1 }}>
+        <View
           style={{
-            width: 72,
-            height: 72
+            width: "100%",
+            alignItems: "flex-start",
+            flexDirection: "row",
+            paddingTop: 120,
+            paddingHorizontal: 16,
+            paddingBottom: 24
           }}
-        />
-        {userStore?.isLogin ? <LoginHeaderView mobile={userStore.mobile} /> : <UnLoginView />}
+        >
+          <UIImage
+            source={require("./avatar.png")}
+            style={{
+              width: 72,
+              height: 72
+            }}
+          />
+          {userStore?.isLogin ? <LoginHeaderView mobile={userStore.mobile} /> : <UnLoginView />}
+        </View>
+        <MineOrder />
+        <View
+          style={{
+            width: "100%",
+            alignItems: "center",
+            marginTop: 120
+          }}
+        >
+          {userStore.isLogin && (
+            <UIButton onPress={logout} containerStyle={{ width: "80%" }}>
+              退出登录
+            </UIButton>
+          )}
+        </View>
       </View>
-      <MineOrder />
-      <View
-        style={{
-          width: "100%",
-          alignItems: "center",
-          marginTop: 120
-        }}
-      >
-        {userStore.isLogin && (
-          <UIButton onPress={logout} containerStyle={{ width: "80%" }}>
-            退出登录
-          </UIButton>
-        )}
-      </View>
+      <Text style={{ textAlign: "center", fontSize: 14, marginBottom: 15 }}>店铺入驻，请微信搜索公众号『方泡泡』</Text>
     </View>
   );
 });
