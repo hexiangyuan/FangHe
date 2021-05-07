@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { View, ViewStyle } from "react-native";
 import { Header, Screen, Text } from "../../components";
 import { color } from "../../theme";
@@ -10,10 +10,9 @@ import {
 } from "./PreviewShopDetailContent";
 import { UIButton } from "react-native-pjt-ui-lib";
 import { RootNavigation } from "../../navigation";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 import HomeApi from "../../screens/main-screen/HomeApi";
 import ToastGlobal from "../../utils/Toast";
-import { ShopDetailContent } from "../../screens/shop-detail-screen/ShopDetailContent";
 
 const FULL: ViewStyle = { flex: 1 };
 const CONTAINER: ViewStyle = {
@@ -23,25 +22,29 @@ const CONTAINER: ViewStyle = {
 const CONTENT_CONTAINER: ViewStyle = {};
 
 export const PreviewShopDetailScreen = () => {
-  const shopId = useRoute().params.id;
+  const shopId = useRoute().params["id"];
 
   const [shopDetail, setShopDetail] = useState<ShopDetail>(undefined);
   const [productList, setProductList] = useState<Array<ShopDetailProductItem>>(undefined);
 
   useEffect(() => {
     HomeApi.shopDetail(shopId).then(response => {
-      if (response.code === 200) {
-        setShopDetail(response.data);
+      if (response["code"] === 200) {
+        setShopDetail(response["data"]);
       } else {
-        ToastGlobal.show(response.errorMsg);
+        ToastGlobal.show(response["errorMsg"]);
       }
     });
     HomeApi.shopDetailProductList(shopId).then(response => {
-      if (response.code === 200) {
-        setProductList(response.data);
+      if (response["code"] === 200) {
+        setProductList(response["data"]);
       }
     });
-  }, []);
+  }, [shopId]);
+
+  const rightPressed = useCallback(() => {
+    RootNavigation.push("EditShopScreen", { id: shopId });
+  }, [shopId]);
 
   return (
     <View style={FULL}>
@@ -53,7 +56,7 @@ export const PreviewShopDetailScreen = () => {
         backgroundColor={color.transparent}
       >
         <View style={CONTENT_CONTAINER}>
-          <Header headerText={"查看店铺"} />
+          <Header headerText={"查看店铺"} rightIcon={"order"} onRightPress={rightPressed} />
           {shopDetail && <PreviewShopDetailContent {...shopDetail} />}
           <View
             style={{

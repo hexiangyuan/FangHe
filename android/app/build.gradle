@@ -134,7 +134,7 @@ android {
         applicationId "com.fanghe"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion 27
-        versionCode 3
+        versionCode 21
         versionName "2.0.0 "
         multiDexEnabled true
     }
