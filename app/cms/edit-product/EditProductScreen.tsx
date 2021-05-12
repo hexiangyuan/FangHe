@@ -81,7 +81,7 @@ export const CmsEditProductScreen = () => {
       .catch(e => {
         ToastGlobal.show(e);
       });
-  }, [shopId]);
+  }, [productId]);
 
   const confirm = useCallback(() => {
     if (!mainImag) {
