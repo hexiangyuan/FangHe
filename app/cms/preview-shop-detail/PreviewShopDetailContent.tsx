@@ -103,7 +103,7 @@ export const PreviewShopDetailContent = (props: ShopDetail) => {
   );
 };
 
-export const ShopDetailProductList = (props: ShopDetailProductListProps) => {
+export const ShopDetailProductList = (props: ShopDetailProductListProps & { shopId: number }) => {
   return (
     <View
       style={{
@@ -114,7 +114,12 @@ export const ShopDetailProductList = (props: ShopDetailProductListProps) => {
       {props.productList.map(item => (
         <TouchableOpacity key={item.id} onPress={() => RootNavigation.push("ProductDetailScreen", { id: item.id })}>
           <View style={{ position: "relative" }}>
-            <ProductItem {...item} />
+            <ProductItem
+              {...item}
+              onItemPressed={id => {
+                RootNavigation.push("CmsEditProductScreen", { shopId: props.shopId, productId: id });
+              }}
+            />
             <Text
               style={{
                 fontSize: 16,

@@ -100,7 +100,7 @@ export const PreviewShopDetailScreen = () => {
               商品橱窗
             </Text>
           </View>
-          {productList && <ShopDetailProductList productList={productList} />}
+          {productList && <ShopDetailProductList productList={productList} shopId={shopDetail.id} />}
           <UIButton
             onPress={() => {
               RootNavigation.push("CmsAddProductScreen", { shopId: shopId });
