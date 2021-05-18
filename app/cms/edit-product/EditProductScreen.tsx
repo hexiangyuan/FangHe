@@ -185,7 +185,7 @@ export const CmsEditProductScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Header headerText={"新增商品"} />
+      <Header headerText={"更新物品"} />
       <ScrollView
         style={{
           flex: 1
@@ -450,7 +450,7 @@ export const CmsEditProductScreen = () => {
         }}
       >
         <UIButton onPress={confirm} containerStyle={{ width: "100%" }}>
-          确定
+          更新
         </UIButton>
       </View>
     </SafeAreaView>
