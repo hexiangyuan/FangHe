@@ -23,6 +23,8 @@ import { VideoSwiperScreen } from "../screens/find/video-detail-screen/VideoSwpi
 import ShareScreen from "../share/ShareScreen";
 import PayScreen from "../screens/pay/PayScreen";
 import PayResultScreen from "../screens/pay/PayResultScreen";
+import EditShopScreen from "../cms/preview-shop-detail/EditShopScreen";
+import { CmsEditProductScreen } from "../cms/edit-product/EditProductScreen";
 
 interface Screen {
   name: string;
@@ -127,6 +129,14 @@ const mainTabScreen: Array<Screen> = [
   {
     name: "PayResultScreen",
     component: PayResultScreen
+  },
+  {
+    name: "EditShopScreen",
+    component: EditShopScreen
+  },
+  {
+    name: "CmsEditProductScreen",
+    component: CmsEditProductScreen
   }
 ];
 

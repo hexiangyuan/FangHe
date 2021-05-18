@@ -60,7 +60,7 @@ export const ShopDetailImgList = (props: { shopDetailsImgs: string[] }) => {
         商品描述
       </Text>
       {props.shopDetailsImgs?.map((item, index) => (
-        <ScaledImage key={item + index} uri={item} width={Window.width} />
+        <ScaledImage key={item + index} uri ={item} width={Window.width} />
       ))}
     </View>
   );

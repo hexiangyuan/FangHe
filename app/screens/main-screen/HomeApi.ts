@@ -77,6 +77,24 @@ function getOrderInfo(orderId: number) {
   return FangHeApi.get("/order/getOrder", { orderId: orderId });
 }
 
+function updateShopInfo(req: {
+  id: number;
+  img: string;
+  isForAppStore: boolean;
+  shopName: string;
+  score: number;
+  averPrice: number;
+  tag: string[];
+  info: string;
+  shopDetailsImgs: string[];
+  contactMobie: string;
+  shopAddress: string;
+  latitude: string;
+  longitude: string;
+}) {
+  return FangHeApi.post("/shop/update", req);
+}
+
 const HomeApi = {
   getHomeList,
   shopDetail,
@@ -89,7 +107,8 @@ const HomeApi = {
   pictureUpload,
   orderPrePay,
   orderAliPrePay,
-  getOrderInfo
+  getOrderInfo,
+  updateShopInfo
 };
 
 export default HomeApi;

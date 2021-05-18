@@ -32,6 +32,8 @@ export default class AppUpdate {
           break;
       }
 
+      console.log("11111111", appVersion);
+
       return { needUpdate: appVersion < appInfo.min_app_version, updateMode: appInfo.mode, desc: appInfo.desc };
     } else {
       return { needUpdate: false, updateMode: 0 };
