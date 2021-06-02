@@ -31,6 +31,10 @@ export function canPayOrder(payStatus: PayStatus): boolean {
   return payStatus !== PayStatus.PAYED;
 }
 
+export function canCancelOrder(orderStatus: OrderStatus): boolean {
+  return orderStatus === OrderStatus.ACCEPTED || orderStatus === OrderStatus.BOOKED;
+}
+
 export function getPayStatusNameByPayStatus(status: PayStatus): string {
   switch (status) {
     case PayStatus.PAYED:

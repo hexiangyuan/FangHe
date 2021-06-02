@@ -28,7 +28,6 @@ export function getDateList(day: number): Array<string> {
 export function getCurrentHouseFloor(): Array<string> {
   const currentDate = new Date();
   const hours = currentDate.getHours();
-  console.log(hours);
   const leftHours = 24 - hours - 1;
   return [...new Array(leftHours).keys()].map(item => `${hours + item + 1}:00-${hours + item + 2}:00`);
 }

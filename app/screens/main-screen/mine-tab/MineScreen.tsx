@@ -163,6 +163,27 @@ const MineOrder = () => {
       />
 
       <MineItem
+        icon={"order"}
+        text={"我的优惠券"}
+        onPress={() => {
+          if (user.isLogin()) {
+            RootNavigation.push("MyCouponListScreen");
+          } else {
+            RootNavigation.push("MobileLoginScreen");
+          }
+        }}
+      />
+
+      <View
+        style={{
+          marginLeft: 40,
+          height: 0.5,
+          marginVertical: 16,
+          backgroundColor: "#F0F0F0"
+        }}
+      />
+
+      <MineItem
         icon={"about"}
         text={"关于我们"}
         onPress={() => {

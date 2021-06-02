@@ -4,6 +4,7 @@ import { Text } from "../text/text";
 import { color, spacing } from "../../theme";
 import { CheckboxProps } from "./checkbox.props";
 import { mergeAll, flatten } from "ramda";
+import { Colors } from "../../theme/Theme";
 
 const ROOT: ViewStyle = {
   flexDirection: "row",
@@ -19,14 +20,15 @@ const OUTLINE: ViewStyle = {
   justifyContent: "center",
   alignItems: "center",
   borderWidth: 1,
-  borderColor: color.primaryDarker,
-  borderRadius: 1
+  borderColor: Colors.primaryDark,
+  borderRadius: 10
 };
 
 const FILL: ViewStyle = {
   width: DIMENSIONS.width - 4,
   height: DIMENSIONS.height - 4,
-  backgroundColor: color.primary
+  borderRadius: 10,
+  backgroundColor: Colors.primaryDark
 };
 
 const LABEL: TextStyle = { paddingLeft: spacing[2] };

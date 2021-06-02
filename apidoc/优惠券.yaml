@@ -1,0 +1,136 @@
+openapi: 3.0.0
+info:
+  description: |
+    优惠券的API
+  version: "1.0.0"
+  title: Swagger FangHe APP
+
+paths:
+  /coupon/list:
+    get:
+      tags:
+        - coupon
+      summary: 获取该用户所有的优惠券
+      responses:
+        "200":
+          description: 获取
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/couponItem"
+  /coupon/list/product:
+    get:
+      tags:
+        - coupon
+      summary: 获取某个物品用户可以使用的优惠券列表
+      parameters:
+        - name: productId
+          in: query
+          required: true
+          description: 物品ID
+          schema:
+            type: integer
+            format: int32
+
+      responses:
+        "200":
+          description: 获取
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/couponItem"
+  /order/create:
+    post:
+      tags:
+        - Order
+      summary: 创建订单，这个接口需要商家登录授权，如果没有登录就返回401
+      requestBody:
+        $ref: '#/components/requestBodies/OrderCreateReq'
+      responses:
+        '200':
+          description: 返回值首页商家列表
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: object
+                    properties:
+                      orderNo:
+                        type: string
+        
+components:
+  schemas:
+    couponItem:
+      type: object
+      properties:
+        couponId:
+          type: string
+        amount:
+          type: number
+          description: 金额
+        name:
+          type: string
+          description: 优惠券名称
+        requirementDesc:
+          type: string
+          description: 使用条件，例如满99减50
+        status:
+          type: number
+          description: 优惠券是否可用，1->可用，2->不可用
+        expireDate:
+          type: number
+          description: 过期时间，1970-01-01年标准时间值
+      
+    OrderCreate:
+      type: object
+      properties:
+        couponId:
+          type: integer
+          format: int64
+          description: 优惠券 id 可以不传，如果不传就不使用优惠券
+        productId:
+          type: integer
+          format: int64
+          description: 商品 id
+        quantity:
+          type: integer
+          format: int32
+          description: 购买数量
+        time:
+          type: string
+          description: 预订时间段 暂定 (12-10 9:00-10:00),具体时间怎么传输后端确定  
+    
+  requestBodies:          
+      OrderCreateReq:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderCreate'
+
+servers:
+  # Added by API Auto Mocking Plugin
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/hexiangyuan92/FangHeAppApi/1.0.0
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/hexiangyuan92/fanghe-authorization/1.0.0

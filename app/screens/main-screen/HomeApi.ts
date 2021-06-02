@@ -30,7 +30,7 @@ function productDetail(id: number) {
   return FangHeApi.get("/product/detail", { id: id });
 }
 
-function orderSubmit(request: { productId: number; quantity: number; time: string }) {
+function orderSubmit(request: { productId: number; couponReceiveId?: number; quantity: number; time: string }) {
   return FangHeApi.post("/order/create", request);
 }
 
@@ -61,6 +61,14 @@ function pictureUpload(file: { uri: string; name: string; type: string }) {
  * 支付的预付款
  * @param orderId
  */
+function cancelOrder(orderId: number) {
+  return FangHeApi.get("/order/canelOrder", { orderId: orderId });
+}
+
+/**
+ * 支付的预付款
+ * @param orderId
+ */
 function orderPrePay(orderId: number) {
   return FangHeApi.get("/order/prePay", { orderId: orderId });
 }
@@ -75,6 +83,18 @@ function orderAliPrePay(orderId: number) {
 
 function getOrderInfo(orderId: number) {
   return FangHeApi.get("/order/getOrder", { orderId: orderId });
+}
+
+function getAllCouponList() {
+  return FangHeApi.post("/coupon/list");
+}
+
+/**
+ * 获取Product 可用的优惠券
+ * @param productId 商品ID
+ */
+function getProductCouponList(productId: number) {
+  return FangHeApi.get("/coupon/list/product", { productId: productId });
 }
 
 function updateShopInfo(req: {
@@ -108,7 +128,10 @@ const HomeApi = {
   orderPrePay,
   orderAliPrePay,
   getOrderInfo,
-  updateShopInfo
+  updateShopInfo,
+  getAllCouponList,
+  getProductCouponList,
+  cancelOrder
 };
 
 export default HomeApi;

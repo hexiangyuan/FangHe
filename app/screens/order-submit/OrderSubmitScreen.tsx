@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { DeviceEventEmitter, StatusBar, Text, TouchableOpacity, View } from "react-native"
+import { DeviceEventEmitter, StatusBar, Text, TouchableOpacity, View } from "react-native";
 import { UIButton, UIImage } from "react-native-pjt-ui-lib";
 import { Colors } from "../../theme/Theme";
 import { useRoute } from "@react-navigation/native";
@@ -13,6 +13,8 @@ import { RootNavigation } from "../../navigation";
 import { getCurrentHouseFloor, getDateList, getHoursTotalDay } from "../../utils/date";
 import HomeApi from "../main-screen/HomeApi";
 import ToastGlobal from "../../utils/Toast";
+import CouponUtils from "../coupon/ CouponUtils";
+import { ItemProps } from "../coupon/UseCouponListScreen";
 
 export interface SkuInfo {
   id: number;
@@ -82,7 +84,7 @@ export const Sku = (props: SkuInfo) => {
                 color: Colors.primary
               }}
             >
-              ¥{props.price/100}
+              ¥{props.price / 100}
             </Text>
             <Text
               style={{
@@ -99,14 +101,15 @@ export const Sku = (props: SkuInfo) => {
   );
 };
 
-export const OrderSubmitScreen = () => {
+export const OrderSubmitScreen = ({ navigation }) => {
   const route = useRoute();
 
-  const productInfo = route.params as SkuInfo;
+  const productInfo = route["params"] as SkuInfo;
   const [date, setDate] = useState<KeyValue>(undefined);
   const [time, setTime] = useState<KeyValue>(undefined);
   const [visible, setVisible] = useState<boolean>(false);
   const [dateTimeArray, setDateTimeArray] = useState<DateTimeModel[]>([]);
+  const [couponList, setCouponList] = useState<ItemProps[]>(undefined);
 
   useEffect(() => {
     const dateList = getDateList(3).map((item, index) => {
@@ -136,7 +139,6 @@ export const OrderSubmitScreen = () => {
           key: item,
           value: item
         }));
-
       } else {
         times = getHoursTotalDay().map(item => ({
           key: item,
@@ -152,6 +154,17 @@ export const OrderSubmitScreen = () => {
     setDateTimeArray(dataTimeTemp);
   }, []);
 
+  useEffect(() => {
+    CouponUtils.getCouponList(productInfo.price * productInfo.size)
+      .then(value => {
+        const data = value.filter(value => value.available);
+        setCouponList(data);
+      })
+      .catch(e => {
+        ToastGlobal.show(e);
+      });
+  }, [productInfo.price, productInfo.size]);
+
   const bottomBtnPressed = () => {
     if (!date && !time) {
       setVisible(true);
@@ -159,16 +172,25 @@ export const OrderSubmitScreen = () => {
       HomeApi.orderSubmit({
         productId: productInfo.id,
         quantity: 1,
+        couponReceiveId: selectedCoupon?.id ?? undefined,
         time: date.key + " " + time.key
       }).then(value => {
-        if (value.code === 200) {
-            DeviceEventEmitter.emit("OrderListChanged");
-            RootNavigation.push("OrderSubmitSucceedScreen", value.data?.orderNo);
+        if (value["code"] === 200) {
+          DeviceEventEmitter.emit("OrderListChanged");
+          RootNavigation.push("OrderSubmitSucceedScreen", value["data"]?.orderNo);
         } else {
-          ToastGlobal.show(value.errorMsg);
+          ToastGlobal.show(value["errorMsg"]);
         }
       });
     }
+  };
+
+  const couponItemClicked = () => {
+    navigation.navigate("UseCouponListScreen", {
+      productId: productInfo.id,
+      price: productInfo.price * productInfo.size,
+      selectedCoupon: selectedCoupon
+    });
   };
 
   const timeDatePressed = () => {
@@ -180,6 +202,8 @@ export const OrderSubmitScreen = () => {
     setTime(time);
     setVisible(false);
   };
+
+  const selectedCoupon = route["params"]["selectedCoupon"] as ItemProps;
 
   return (
     <SafeAreaView
@@ -254,6 +278,70 @@ export const OrderSubmitScreen = () => {
                 }}
               >
                 <Text>请选择预约时间</Text>
+              </View>
+            )}
+            <Icon
+              style={{
+                marginLeft: 12,
+                width: 16,
+                height: 16
+              }}
+              icon={"arrowRight"}
+            />
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={couponItemClicked}
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingHorizontal: 12,
+            paddingBottom: 12,
+            alignItems: "center"
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 14,
+              color: "#333",
+              fontWeight: "bold"
+            }}
+          >
+            优惠券
+          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              minHeight: 40,
+              alignItems: "center"
+            }}
+          >
+            {false ? (
+              <View>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: Colors.primary
+                  }}
+                >
+                  {date?.value}
+                </Text>
+              </View>
+            ) : (
+              <View
+                style={{
+                  minHeight: 40,
+                  justifyContent: "center"
+                }}
+              >
+                {selectedCoupon ? (
+                  <Text style={{ color: Colors.primaryDark, fontSize: 16 }}>
+                    {0 - selectedCoupon.couponMoney / 100}
+                  </Text>
+                ) : (
+                  <Text style={{ color: "#333", fontSize: 16 }}>{couponList ? `${couponList.length}张可用` : ""}</Text>
+                )}
               </View>
             )}
             <Icon
