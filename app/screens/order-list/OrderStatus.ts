@@ -19,7 +19,7 @@ export function getOrderNameByStatus(status: OrderStatus): string {
     case OrderStatus.FINISHED:
       return "已完成";
     case OrderStatus.CANCELED:
-      return "取消中";
+      return "已取消";
     case OrderStatus.ACCEPTED_CANCEL:
       return "已取消";
     default:
@@ -27,8 +27,8 @@ export function getOrderNameByStatus(status: OrderStatus): string {
   }
 }
 
-export function canPayOrder(payStatus: PayStatus): boolean {
-  return payStatus !== PayStatus.PAYED;
+export function canPayOrder(payStatus: PayStatus, orderStatus: OrderStatus): boolean {
+  return payStatus !== PayStatus.PAYED && (orderStatus === OrderStatus.BOOKED || orderStatus === OrderStatus.ACCEPTED);
 }
 
 export function canCancelOrder(orderStatus: OrderStatus): boolean {

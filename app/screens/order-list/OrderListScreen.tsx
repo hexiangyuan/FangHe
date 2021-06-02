@@ -146,7 +146,7 @@ export const OrderItem = (props: OrderListItem & { iosStatus: boolean; cancleOrd
         )}
 
         {!props.iosStatus ? (
-          canPayOrder(props.payStatus) ? (
+          canPayOrder(props.payStatus, props.status) ? (
             <View
               style={{
                 flexDirection: "row-reverse"

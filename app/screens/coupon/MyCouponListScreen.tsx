@@ -39,9 +39,6 @@ const CouponItem = (props: ItemProps) => {
         <Text style={{ color: "#333", fontSize: 16, fontWeight: "bold" }}>{props.couponName}</Text>
         <Text style={{ color: "#333", marginTop: 8, fontSize: 12 }}>{props.endTime}</Text>
       </View>
-      <View style={{ justifyContent: "center" }}>
-        <UIButton>去使用</UIButton>
-      </View>
     </View>
   );
 };
