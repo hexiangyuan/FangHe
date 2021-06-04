@@ -67,7 +67,7 @@ const ShareScreen = () => {
           />
           <View style={{ flexDirection: "column", marginLeft: 48, alignItems: "flex-start" }}>
             <Text style={{ fontSize: 24, fontWeight: "bold" }}>方泡泡 APP</Text>
-            <Text style={{ fontSize: 14, marginTop: 16, fontWeight: "bold" }}>邀请新人立得99元优惠券</Text>
+            <Text style={{ fontSize: 14, marginTop: 16, fontWeight: "bold" }}>邀请新人立得50元优惠券</Text>
           </View>
         </View>
         <Pressable style={{ alignItems: "center", marginTop: 16 }} onPress={shareWebToWeiChat}>
