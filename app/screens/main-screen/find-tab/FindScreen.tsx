@@ -21,10 +21,10 @@ const tabRoutes: Array<Route> = [
     key: keyTabPhoto,
     title: "美女图册"
   },
-  {
-    key: keyTabVideo,
-    title: "短视频"
-  }
+  // {
+  //   key: keyTabVideo,
+  //   title: "短视频"
+  // }
 ];
 
 

@@ -8,7 +8,7 @@ import { RootNavigation } from "../../navigation";
 import { Colors } from "../../theme/Theme";
 import HomeApi from "../main-screen/HomeApi";
 import CouponUtils from "./ CouponUtils";
-
+import moment from 'moment';
 interface ItemProps {
   couponMoney: number;
   fullMoney: number;
@@ -16,6 +16,10 @@ interface ItemProps {
   couponName: string;
   status: number;
   endTime: string;
+}
+
+function formatTime(time:string){
+  return moment(time).format("MM-DD HH:mm")
 }
 
 const CouponItem = (props: ItemProps) => {
@@ -37,7 +41,7 @@ const CouponItem = (props: ItemProps) => {
         }}
       >
         <Text style={{ color: "#333", fontSize: 16, fontWeight: "bold" }}>{props.couponName}</Text>
-        <Text style={{ color: "#333", marginTop: 8, fontSize: 12 }}>{props.endTime}</Text>
+        <Text style={{ color: "#333", marginTop: 8, fontSize: 12 }}>{`${formatTime(props.endTime)}前可用`}</Text>
       </View>
     </View>
   );
