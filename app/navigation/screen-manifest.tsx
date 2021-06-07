@@ -25,6 +25,8 @@ import PayScreen from "../screens/pay/PayScreen";
 import PayResultScreen from "../screens/pay/PayResultScreen";
 import EditShopScreen from "../cms/preview-shop-detail/EditShopScreen";
 import { CmsEditProductScreen } from "../cms/edit-product/EditProductScreen";
+import MyCouponListScreen from "../screens/coupon/MyCouponListScreen";
+import UseCouponListScreen from "../screens/coupon/UseCouponListScreen";
 
 interface Screen {
   name: string;
@@ -137,6 +139,14 @@ const mainTabScreen: Array<Screen> = [
   {
     name: "CmsEditProductScreen",
     component: CmsEditProductScreen
+  },
+  {
+    name: "MyCouponListScreen",
+    component: MyCouponListScreen
+  },
+  {
+    name: "UseCouponListScreen",
+    component: UseCouponListScreen
   }
 ];
 

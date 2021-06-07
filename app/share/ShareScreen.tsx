@@ -38,22 +38,38 @@ const ShareScreen = () => {
   }, [shareUrl]);
 
   return (
-    <SafeAreaView style={{ backgroundColor: "rgba(103,117,131,1)", flex: 1 }}>
+    <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
       <Header />
-      <View style={{ flex: 1, marginHorizontal: 12, borderRadius: 4 }}>
-        <ImageBackground style={{ flex: 1 }} source={require("../../assets/share-bg.png")} resizeMode={"cover"}>
-          <View style={{ flex: 1, alignItems: "center", justifyContent: "flex-end", marginBottom: 96 }}>
-            <QRCode
-              value={shareUrl}
-              color={"black"}
-              logo={require("../../assets/app-icon.png")}
-              logoSize={48}
-              size={windows.width / 3}
-              backgroundColor={"transparent"}
-            />
-            <Text style={{ fontSize: 30, marginTop: 16, fontWeight: "bold" }}>方泡泡 APP</Text>
+      <View style={{ flex: 1, marginHorizontal: 12, alignItems: "center", borderRadius: 4 }}>
+        <Image
+          style={{ flex: 1, width: "100%" }}
+          source={require("../../assets/share-bg.png")}
+          resizeMode={"contain"}
+        />
+        <View
+          style={{
+            alignItems: "center",
+            flexDirection: "row",
+            height: 100,
+            width: "100%",
+            marginTop: 8,
+            justifyContent: "center",
+            backgroundColor: "white"
+          }}
+        >
+          <QRCode
+            value={shareUrl}
+            color={"black"}
+            logo={require("../../assets/app-icon.png")}
+            logoSize={18}
+            size={windows.width / 5}
+            backgroundColor={"transparent"}
+          />
+          <View style={{ flexDirection: "column", marginLeft: 48, alignItems: "flex-start" }}>
+            <Text style={{ fontSize: 24, fontWeight: "bold" }}>方泡泡 APP</Text>
+            <Text style={{ fontSize: 14, marginTop: 16, fontWeight: "bold" }}>邀请新人立得50元优惠券</Text>
           </View>
-        </ImageBackground>
+        </View>
         <Pressable style={{ alignItems: "center", marginTop: 16 }} onPress={shareWebToWeiChat}>
           <Image source={require("../../assets/weixin_icon.png")} style={{ width: 48, height: 48 }} />
           <Text style={{ color: "white", marginTop: 8 }}>分享到微信</Text>

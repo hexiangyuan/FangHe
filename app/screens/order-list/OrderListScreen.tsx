@@ -5,7 +5,7 @@ import { Header } from "../../components";
 import { OrderListItem } from "./OrderList.model";
 import { UIButton, UIImage } from "react-native-pjt-ui-lib";
 import { Colors } from "../../theme/Theme";
-import { canPayOrder, getOrderNameByStatus, getPayStatusNameByPayStatus } from "./OrderStatus";
+import { canCancelOrder, canPayOrder, getOrderNameByStatus, getPayStatusNameByPayStatus } from "./OrderStatus";
 import { RootNavigation } from "../../navigation";
 import HomeApi from "../main-screen/HomeApi";
 import { EmptyView } from "../main-screen/find-tab/components/EmptyView";
@@ -14,7 +14,7 @@ import { EVENT_NAME_LOGIN_SUCCEED } from "../login/login-verification-code-scree
 import ToastGlobal from "../../utils/Toast";
 import { useStoreStatus } from "../../hooks/useStoreStatus";
 
-export const OrderItem = (props: OrderListItem & { iosStatus: boolean }) => {
+export const OrderItem = (props: OrderListItem & { iosStatus: boolean; cancleOrder: (id: number) => void }) => {
   const payOrder = useCallback(() => {
     RootNavigation.push("PayScreen", { orderId: props.id, amount: props.price });
   }, [props.id, props.price]);
@@ -130,39 +130,54 @@ export const OrderItem = (props: OrderListItem & { iosStatus: boolean }) => {
           </View>
         </View>
       </View>
-      {!props.iosStatus ? (
-        canPayOrder(props.payStatus) ? (
-          <View
-            style={{
-              flexDirection: "row-reverse",
-              marginTop: 12
+      <View style={{ flexDirection: "row", justifyContent: "flex-end", alignItems: "center" }}>
+        {canCancelOrder(props.status) && (
+          <UIButton
+            containerStyle={{
+              height: 32
+            }}
+            type={"minor"}
+            onPress={() => {
+              props.cancleOrder(props.id);
             }}
           >
-            <UIButton
-              containerStyle={{
-                borderColor: "#999",
-                height: 32
+            取消
+          </UIButton>
+        )}
+
+        {!props.iosStatus ? (
+          canPayOrder(props.payStatus, props.status) ? (
+            <View
+              style={{
+                flexDirection: "row-reverse"
               }}
-              fontStyle={{ color: "white" }}
-              type={"primary"}
-              onPress={payOrder}
             >
-              支付
-            </UIButton>
-            <View style={{ width: 16 }} />
-          </View>
-        ) : (
-          <View
-            style={{
-              flexDirection: "row-reverse",
-              marginTop: 12
-            }}
-          >
-            <Text>{getPayStatusNameByPayStatus(props.payStatus)}</Text>
-            <View style={{ width: 16 }} />
-          </View>
-        )
-      ) : null}
+              <UIButton
+                containerStyle={{
+                  borderColor: "#999",
+                  height: 32
+                }}
+                fontStyle={{ color: "white" }}
+                type={"primary"}
+                onPress={payOrder}
+              >
+                支付
+              </UIButton>
+              <View style={{ width: 16 }} />
+            </View>
+          ) : (
+            <View
+              style={{
+                flexDirection: "row-reverse",
+                marginTop: 12
+              }}
+            >
+              <Text>{getPayStatusNameByPayStatus(props.payStatus)}</Text>
+              <View style={{ width: 16 }} />
+            </View>
+          )
+        ) : null}
+      </View>
     </Pressable>
   );
 };
@@ -171,6 +186,7 @@ export const OrderListComponent = () => {
   const [data, setDate] = useState<Array<OrderListItem>>(null);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const iosStatus = useStoreStatus();
+  const [reload, setReload] = useState<string>("");
 
   useEffect(() => {
     const listener = DeviceEventEmitter.addListener("WeChat_Resp", resp => {
@@ -202,7 +218,7 @@ export const OrderListComponent = () => {
 
   useEffect(() => {
     getList();
-  }, []);
+  }, [reload]);
 
   useEffect(() => {
     const event = DeviceEventEmitter.addListener(EVENT_NAME_LOGIN_SUCCEED, () => {
@@ -223,7 +239,18 @@ export const OrderListComponent = () => {
   }, []);
 
   const renderItem = (item: OrderListItem & { iosStatus: boolean }) => {
-    return <OrderItem {...item} />;
+    return (
+      <OrderItem
+        {...item}
+        cancleOrder={(id: number) => {
+          HomeApi.cancelOrder(id)
+            .then(value => {
+              setReload(Date().toString());
+            })
+            .catch(e => {});
+        }}
+      />
+    );
   };
 
   return (

@@ -152,27 +152,6 @@ export const MobileLoginVerificationCodeScreen = () => {
           }}
         />
 
-        <TextInput
-          onChangeText={text => setInvitedCode(text)}
-          maxLength={6}
-          placeholder={"请输入邀请码（非必填）"}
-          style={{
-            fontSize: 16,
-            padding: 0,
-            color: "#333",
-            fontWeight: "bold",
-            marginTop: 24
-          }}
-        />
-
-        <View
-          style={{
-            height: 1,
-            backgroundColor: Colors.primary,
-            marginTop: 8
-          }}
-        />
-
         <UIButton
           onPress={() => {
             loginPressed();
