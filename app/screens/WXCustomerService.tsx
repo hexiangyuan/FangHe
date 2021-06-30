@@ -19,7 +19,7 @@ export function WXCustomerService(props: { onClosePressed: () => void }) {
       </Pressable>
       <Image
         style={{ width: (windows.width / 3) * 2, height: (windows.width / 3) * 2 }}
-        source={require("../../assets/wx_customer_qr.png")}
+        source={require("../../assets/wx_customer_qr.jpg")}
         width={windows.width / 3}
         height={windows.width / 3}
         resizeMode={"stretch"}
