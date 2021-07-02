@@ -11,6 +11,8 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.microsoft.codepush.react.CodePush;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
 
 
 import java.lang.reflect.InvocationTargetException;
@@ -54,6 +56,11 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
 //    initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+      UMConfigure.init(this,"60a375fb53b6726499029748","UMENG_DEFAULT",UMConfigure.DEVICE_TYPE_PHONE,null);
+// 选用AUTO页面采集模式
+      MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
+      // 打开统计SDK调试模式
+      UMConfigure.setLogEnabled(true);
   }
 
   /**

@@ -7,6 +7,8 @@
 #import <React/RCTLinkingManager.h>
 #import "WXApiManager.h"
 #import "WXApi.h"
+#import <UMCommon/UMCommon.h>
+#import <UMCommonLog/UMCommonLogHeaders.h>
 
 
 #ifdef FB_SONARKIT_ENABLED
@@ -48,6 +50,9 @@ static void InitializeFlipper(UIApplication *application) {
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  [UMConfigure initWithAppkey:@"60a3764253b6726499029793" channel:@"App Store"];
+  [UMCommonLogManager setUpUMCommonLogManager];
+  [UMConfigure setLogEnabled:YES];
   return YES;
 }
 
