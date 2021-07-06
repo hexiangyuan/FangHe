@@ -312,10 +312,6 @@ PODS:
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.7)
   - SSZipArchive (2.2.3)
-  - UMCCommonLog (2.0.2)
-  - UMCommon (7.3.0):
-    - UMDevice
-  - UMDevice (2.0.1)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -366,9 +362,6 @@ DEPENDENCIES:
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
-  - UMCCommonLog
-  - UMCommon
-  - UMDevice
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -380,9 +373,6 @@ SPEC REPOS:
     - SDWebImage
     - SDWebImageWebPCoder
     - SSZipArchive
-    - UMCCommonLog
-    - UMCommon
-    - UMDevice
 
 EXTERNAL SOURCES:
   CodePush:
@@ -531,11 +521,8 @@ SPEC CHECKSUMS:
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
   SDWebImageWebPCoder: d0dac55073088d24b2ac1b191a71a8f8d0adac21
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
-  UMCCommonLog: bea707e50c85cef4b0eb47cc5c7226bb843245ca
-  UMCommon: d654d43e83dcccb3dbb95d97f7b88045733a1380
-  UMDevice: f9ed639486a73620bc7c800d1657f110df50c3e1
   Yoga: 7740b94929bbacbddda59bf115b5317e9a161598
 
-PODFILE CHECKSUM: 5f76acf0a3f705d1d156bec1770dc7ada787db26
+PODFILE CHECKSUM: f5dc07e0bd35b9500f9fab425bd0ed8f71129c4c
 
 COCOAPODS: 1.10.1
