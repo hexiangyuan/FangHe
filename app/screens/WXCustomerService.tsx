@@ -29,11 +29,11 @@ export function WXCustomerService(props: { onClosePressed: () => void }) {
       </Text>
       <Pressable
         onPress={() => {
-          copyToClipboard("qu_pao");
+          copyToClipboard("qu_pao2");
         }}
       >
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text style={{ marginRight: 8 }}>官方微信客服号：qu_pao</Text>
+          <Text style={{ marginRight: 8 }}>官方微信客服号：qu_pao2</Text>
           <Icon icon={"copy"} containerStyle={{ width: 12, height: 12 }} style={{ width: 12, height: 12 }} />
         </View>
       </Pressable>
