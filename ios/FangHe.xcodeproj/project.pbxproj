@@ -710,7 +710,7 @@
 				CODE_SIGN_ENTITLEMENTS = FangHe/FangHe.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = 8D74NMH943;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = FangHe/Info.plist;
@@ -739,7 +739,7 @@
 				CODE_SIGN_ENTITLEMENTS = FangHe/FangHe.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = 8D74NMH943;
 				INFOPLIST_FILE = FangHe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
