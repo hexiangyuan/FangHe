@@ -25,6 +25,7 @@ import PayScreen from "../screens/pay/PayScreen";
 import PayResultScreen from "../screens/pay/PayResultScreen";
 import EditShopScreen from "../cms/preview-shop-detail/EditShopScreen";
 import { CmsEditProductScreen } from "../cms/edit-product/EditProductScreen";
+import CmsSmsScreen from "../cms/CmsSmsScreen";
 import MyCouponListScreen from "../screens/coupon/MyCouponListScreen";
 import UseCouponListScreen from "../screens/coupon/UseCouponListScreen";
 
@@ -147,6 +148,10 @@ const mainTabScreen: Array<Screen> = [
   {
     name: "UseCouponListScreen",
     component: UseCouponListScreen
+  },
+  {
+    name: "CmsSmsScreen",
+    component: CmsSmsScreen
   }
 ];
 
