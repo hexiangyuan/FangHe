@@ -1,6 +1,6 @@
 {
   "name": "FangHe",
-  "version": "2.1.0",
+  "version": "2.3.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -65,6 +65,7 @@
     "react-native-tab-view": "^2.15.2",
     "react-native-video": "^5.1.1",
     "react-native-view-shot": "^3.1.2",
+    "react-native-webview": "^11.14.0",
     "react-native-wechat-lib": "^1.1.26",
     "reactotron-mst": "^3.1.1",
     "reactotron-react-native": "^5.0.0",

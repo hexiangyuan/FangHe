@@ -43,7 +43,7 @@ export function WXCustomerService(props: { onClosePressed: () => void }) {
         }}
       >
         <View style={{ flexDirection: "row", alignItems: "center", marginTop: 8 }}>
-          <Text style={{ marginRight: 8 }}>官方微信手机号：17601238095</Text>
+          <Text style={{ marginRight: 8 }}>官方微信手机号：17521368841</Text>
           <Icon icon={"copy"} containerStyle={{ width: 12, height: 12 }} style={{ width: 12, height: 12 }} />
         </View>
       </Pressable>

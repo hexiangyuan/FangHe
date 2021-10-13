@@ -1,12 +1,13 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { BackHandler, View } from "react-native"
-import {SafeAreaView} from "react-native-safe-area-context";
-import {Route, TabView} from "react-native-tab-view";
-import {CustomerTabBar} from "../../../theme/Theme";
-import {ShopList} from "../home-tab/components/ShopList";
-import {FindList} from "./components/FindList";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Route, TabView } from "react-native-tab-view";
+import { CustomerTabBar } from "../../../theme/Theme";
+import { ShopList } from "../home-tab/components/ShopList";
+import { FindList } from "./components/FindList";
 import { useFocusEffect } from "@react-navigation/native"
 import { RootNavigation } from "../../../navigation"
+import H5Web from './H5Web';
 
 const keyTabArticle = "1";
 const keyTabPhoto = "2";
@@ -28,16 +29,16 @@ const tabRoutes: Array<Route> = [
 ];
 
 
-const _renderScene = ({route}) => {
+const _renderScene = ({ route }) => {
   switch (route.key) {
     case keyTabArticle:
-      return <FindList type={parseInt(route.key)}/>;
+      return <FindList type={parseInt(route.key)} />;
     case keyTabPhoto:
-      return <FindList type={parseInt(route.key)}/>;
+      return <FindList type={parseInt(route.key)} />;
     case keyTabVideo:
-      return <FindList type={parseInt(route.key)}/>;
+      return <FindList type={parseInt(route.key)} />;
     default:
-      return <ShopList type={parseInt(route.key)}/>;
+      return <ShopList type={parseInt(route.key)} />;
   }
 };
 
@@ -53,8 +54,8 @@ const FindScreen = () => {
         flexDirection: "row"
       }}
     >
-      <View style={{flex: 1}}>
-        <TabView
+      <View style={{ flex: 1 }}>
+        {/* <TabView
           renderScene={_renderScene}
           renderTabBar={props => <CustomerTabBar {...props} tabWidth={96}/>}
           onIndexChange={index => {
@@ -65,8 +66,8 @@ const FindScreen = () => {
             routes: tabRoutes
           }}
           lazy={true}
-        />
-
+        /> */}
+        <H5Web />
       </View>
 
     </SafeAreaView>

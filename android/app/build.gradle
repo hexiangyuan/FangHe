@@ -1,8 +1,6 @@
 apply plugin: "com.android.application"
 apply plugin: 'kotlin-android'
 
-import com.android.build.OutputFile
-
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
  * and bundleReleaseJsAndAssets).
@@ -134,8 +132,8 @@ android {
         applicationId "com.fanghe"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion 27
-        versionCode 21
-        versionName "2.1.0"
+        versionCode 23
+        versionName "2.3.1"
         multiDexEnabled true
     }
     splits {
@@ -212,7 +210,7 @@ dependencies {
     } else {
         implementation jscFlavor
     }
-    implementation "androidx.core:core-ktx:+"
+    implementation "androidx.core:core-ktx:1.6.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
