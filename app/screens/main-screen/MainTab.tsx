@@ -64,7 +64,7 @@ export default function HomeTab() {
         component={isStoreStatus ? OrderListSafeAreComponent : FindScreen}
         options={{
           tabBarIcon: tabFind,
-          title: isStoreStatus ? "订单" : "发现"
+          title: isStoreStatus ? "订单" : "商城"
         }}
       />
       <Tab.Screen

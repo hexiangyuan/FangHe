@@ -106,7 +106,7 @@ export const AboutUsScreen = () => {
           </View>
           <View style={{ paddingHorizontal: 12 }}>
             <Item title={"应用版本"} content={version} onPress={() => {}} />
-            {["17702120086", "13788936717", "18964014563"].includes(mobile) && (
+            {["17702120086", "18800358067", "13788936717", "18964014563"].includes(mobile) && (
               <Item
                 title={"CMS"}
                 onPress={() => {

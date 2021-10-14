@@ -12,6 +12,10 @@ target 'FangHe' do
     inherit! :complete
     # Pods for testing
   end
+  
+#  pod 'UMCommon'
+#  pod 'UMDevice'
+#  pod 'UMCCommonLog'
 
   # Enables Flipper.
   #

@@ -42,7 +42,7 @@ export const contactDownLoadApp = () => {
   const links =
     Platform.OS === "ios"
       ? "https://apps.apple.com/cn/app/%E6%96%B9%E6%B3%A1%E6%B3%A1/id1560592820"
-      : "https://fanghe.oss-cn-beijing.aliyuncs.com/fangpaopao-android.f10a701e.apk";
+      : "https://fangpaopao-app.oss-cn-shanghai.aliyuncs.com/fangpaopao-android.apk";
 
   Linking.canOpenURL(links)
     .then(supported => {

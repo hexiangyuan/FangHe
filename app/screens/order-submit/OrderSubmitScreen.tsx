@@ -157,8 +157,10 @@ export const OrderSubmitScreen = ({ navigation }) => {
   useEffect(() => {
     CouponUtils.getCouponList(productInfo.price * productInfo.size)
       .then(value => {
+        if(value){
         const data = value.filter(value => value.available);
         setCouponList(data);
+        }
       })
       .catch(e => {
         ToastGlobal.show(e);
