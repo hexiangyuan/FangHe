@@ -26,7 +26,7 @@ const ShareScreen = () => {
       title: "方泡泡邀请您体验",
       webpageUrl: shareUrl,
       thumbImageUrl: "https://fangpaopao.cn/static/media/app-icon.c0e3db0c.png",
-      description: "高端智能硅胶 APP，在线预约体验",
+      description: "高端智能实体娃娃，在线预约体验",
       scene: 0
     })
       .then(v => {
