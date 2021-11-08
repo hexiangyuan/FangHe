@@ -7,6 +7,7 @@ import { Icon } from "../../components";
 import { Colors } from "../../theme/Theme";
 import { useStoreStatus } from "../../hooks/useStoreStatus";
 import { OrderListSafeAreComponent } from "../order-list/OrderListScreen";
+import { ScanToysPage } from "./toys-controller/ScanToysPage";
 
 const Tab = createBottomTabNavigator();
 
@@ -65,6 +66,14 @@ export default function HomeTab() {
         options={{
           tabBarIcon: tabFind,
           title: isStoreStatus ? "订单" : "商城"
+        }}
+      />
+      <Tab.Screen
+        name="control"
+        component={ScanToysPage}
+        options={{
+          tabBarIcon: tabFind,
+          title: "控制"
         }}
       />
       <Tab.Screen
