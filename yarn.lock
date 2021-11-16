@@ -11405,6 +11405,11 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-native-ble-manager@^7.6.3:
+  version "7.6.3"
+  resolved "https://registry.npmmirror.com/react-native-ble-manager/download/react-native-ble-manager-7.6.3.tgz#f7e0dc1397cfa70153ad70807d81daa67fefcfa9"
+  integrity sha1-9+DcE5fPpwFTrXCAfYHapn/vz6k=
+
 react-native-code-push@^6.4.1:
   version "6.4.1"
   resolved "https://registry.yarnpkg.com/react-native-code-push/-/react-native-code-push-6.4.1.tgz#4e8f5733e518464ed8a58a446dc09bf8b868c299"
