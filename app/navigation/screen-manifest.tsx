@@ -28,6 +28,8 @@ import { CmsEditProductScreen } from "../cms/edit-product/EditProductScreen";
 import CmsSmsScreen from "../cms/CmsSmsScreen";
 import MyCouponListScreen from "../screens/coupon/MyCouponListScreen";
 import UseCouponListScreen from "../screens/coupon/UseCouponListScreen";
+import { NoDevicesModePage } from "../screens/main-screen/toys-controller/NoDevicesModePage";
+import { AddDevicePage } from "../screens/main-screen/toys-controller/ble/AddDevicePage";
 
 interface Screen {
   name: string;
@@ -152,6 +154,13 @@ const mainTabScreen: Array<Screen> = [
   {
     name: "CmsSmsScreen",
     component: CmsSmsScreen
+  },
+  {
+    name: "NoDevicesModePage",
+    component: NoDevicesModePage
+  }, {
+    name: "AddDevicePage",
+    component: AddDevicePage
   }
 ];
 

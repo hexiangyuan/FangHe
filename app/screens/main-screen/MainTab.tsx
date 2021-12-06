@@ -7,7 +7,7 @@ import { Icon } from "../../components";
 import { Colors } from "../../theme/Theme";
 import { useStoreStatus } from "../../hooks/useStoreStatus";
 import { OrderListSafeAreComponent } from "../order-list/OrderListScreen";
-import { ScanToysPage } from "./toys-controller/ScanToysPage";
+import { DeviceMatchPage } from "./toys-controller/DeviceMatchPage";
 
 const Tab = createBottomTabNavigator();
 
@@ -70,7 +70,7 @@ export default function HomeTab() {
       />
       <Tab.Screen
         name="control"
-        component={ScanToysPage}
+        component={DeviceMatchPage}
         options={{
           tabBarIcon: tabFind,
           title: "控制"
