@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  ImageSourcePropType,
-  TouchableOpacity
-} from "react-native";
+import { View, Text, Image, ImageSourcePropType, TouchableOpacity } from "react-native";
 import { Colors } from "../../../theme/Theme";
 
 const ModeItem = (props: {
@@ -89,19 +83,19 @@ export const ModelAll = (props: { onModeChange: (index: number, title: string) =
       <View style={{ flexDirection: "row", justifyContent: "space-around", marginTop: 16 }}>
         <ModeItem
           title={"模式四"}
-          img={require("../../../../assets/mode1_.png")}
+          img={require("../../../../assets/mode4_.png")}
           selected={selectedIndex === 3}
           pressed={title => selected(3, title)}
         />
         <ModeItem
           title={"模式五"}
-          img={require("../../../../assets/mode2_.png")}
+          img={require("../../../../assets/mode5_.png")}
           selected={selectedIndex === 4}
           pressed={title => selected(4, title)}
         />
         <ModeItem
           title={"模式六"}
-          img={require("../../../../assets/mode3_.png")}
+          img={require("../../../../assets/mode6_.png")}
           selected={selectedIndex === 5}
           pressed={title => selected(5, title)}
         />
@@ -109,21 +103,30 @@ export const ModelAll = (props: { onModeChange: (index: number, title: string) =
       <View style={{ flexDirection: "row", justifyContent: "space-around", marginTop: 16 }}>
         <ModeItem
           title={"模式七"}
-          img={require("../../../../assets/mode1_.png")}
+          img={require("../../../../assets/mode7_.png")}
           selected={selectedIndex === 6}
           pressed={title => selected(6, title)}
         />
         <ModeItem
           title={"模式八"}
-          img={require("../../../../assets/mode2_.png")}
+          img={require("../../../../assets/mode8_.png")}
           selected={selectedIndex === 7}
           pressed={title => selected(7, title)}
         />
         <ModeItem
           title={"模式九"}
-          img={require("../../../../assets/mode3_.png")}
+          img={require("../../../../assets/mode9_.png")}
           selected={selectedIndex === 8}
           pressed={title => selected(8, title)}
+        />
+      </View>
+
+      <View style={{ flexDirection: "row", justifyContent: "space-around", marginTop: 16 }}>
+        <ModeItem
+          title={"停止"}
+          img={require("../../../../assets/mode3_.png")}
+          selected={selectedIndex === 9}
+          pressed={title => selected(9, title)}
         />
       </View>
     </View>

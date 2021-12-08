@@ -7,10 +7,13 @@ const primary = "#FF4D4D";
 const primaryDark = "#FF3535";
 const primaryDisable = "#FF6D6D";
 
+const blue = "rgb(116,206,105)"
+
 export const Colors = {
   primary,
   primaryDark,
-  primaryDisable
+  primaryDisable,
+  blue
 };
 
 export function CustomerTabBar<T extends Route>(

@@ -29,7 +29,9 @@ import CmsSmsScreen from "../cms/CmsSmsScreen";
 import MyCouponListScreen from "../screens/coupon/MyCouponListScreen";
 import UseCouponListScreen from "../screens/coupon/UseCouponListScreen";
 import { NoDevicesModePage } from "../screens/main-screen/toys-controller/NoDevicesModePage";
-import { AddDevicePage } from "../screens/main-screen/toys-controller/ble/AddDevicePage";
+import { ScanToysPage } from "../screens/main-screen/toys-controller/ble/ScanToysPage";
+import { ChooseModePage } from "../screens/main-screen/toys-controller/ble/ChooseModePage";
+import { ZiZhuModePage } from "../screens/main-screen/toys-controller/ble/ZiZhuModePage";
 
 interface Screen {
   name: string;
@@ -158,9 +160,18 @@ const mainTabScreen: Array<Screen> = [
   {
     name: "NoDevicesModePage",
     component: NoDevicesModePage
-  }, {
-    name: "AddDevicePage",
-    component: AddDevicePage
+  },
+  {
+    name: "ScanToysPage",
+    component: ScanToysPage
+  },
+  {
+    name: "ChooseModePage",
+    component: ChooseModePage
+  },
+  {
+    name: "ZiZhuModePage",
+    component: ZiZhuModePage
   }
 ];
 
