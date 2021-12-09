@@ -6,7 +6,7 @@ import { StackActions, useNavigation } from "@react-navigation/native";
 import { ModelAll } from "../ModeSelectedView";
 import { writeModeToBle } from "./BleUtils";
 
-export const ZiZhuModePage = () => {
+export const PiPeiModeStartPage = () => {
   const navigation = useNavigation();
   return (
     <SafeAreaView style={{ flex: 1 }}>
