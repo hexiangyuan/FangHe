@@ -32,6 +32,7 @@ import { NoDevicesModePage } from "../screens/main-screen/toys-controller/NoDevi
 import { ScanToysPage } from "../screens/main-screen/toys-controller/ble/ScanToysPage";
 import { ChooseModePage } from "../screens/main-screen/toys-controller/ble/ChooseModePage";
 import { ZiZhuModePage } from "../screens/main-screen/toys-controller/ble/ZiZhuModePage";
+import { PiPeiModeStartPage } from "../screens/main-screen/toys-controller/ble/PiPeiModeStartPage";
 
 interface Screen {
   name: string;
@@ -172,6 +173,10 @@ const mainTabScreen: Array<Screen> = [
   {
     name: "ZiZhuModePage",
     component: ZiZhuModePage
+  },
+  {
+    name: "PiPeiModeStartPage",
+    component: PiPeiModeStartPage
   }
 ];
 

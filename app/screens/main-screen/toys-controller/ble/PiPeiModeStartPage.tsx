@@ -1,17 +1,15 @@
 import React from "react";
-import { View } from "react-native";
+import { Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Header } from "../../../../components";
+import { Button, Header } from "../../../../components";
 import { StackActions, useNavigation } from "@react-navigation/native";
-import { ModelAll } from "../ModeSelectedView";
-import { writeModeToBle } from "./BleUtils";
 
 export const PiPeiModeStartPage = () => {
   const navigation = useNavigation();
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Header
-        headerText={"自助模式"}
+        headerText={"匹配模式"}
         onLeftPress={() => {
           navigation.dispatch(StackActions.popToTop());
         }}
@@ -23,14 +21,23 @@ export const PiPeiModeStartPage = () => {
 
 const Content = () => {
   return (
-    <View style={{ flex: 1 }}>
-      <ModelAll
-        onModeChange={(index, title) => {
-          writeModeToBle(index + 1 === 10 ? 0 : index)
-            .then(value => {})
-            .catch(reason => {});
-        }}
+    <View style={{ flex: 1, justifyContent: "space-between" }}>
+      <Image
+        source={require("../../../../../assets/pipebig.png")}
+        style={{ width: "100%", height: "60%" }}
+        resizeMode={"contain"}
       />
+
+      <Button style={{ marginLeft: 16, marginRight: 16, marginBottom: 32 }}>
+        <Text
+          style={{
+            color: "white",
+            fontSize: 16
+          }}
+        >
+          立即匹配
+        </Text>
+      </Button>
     </View>
   );
 };

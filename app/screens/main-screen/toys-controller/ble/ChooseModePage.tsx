@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, Pressable, TouchableOpacity, FlatList, Image, StyleSheet } from "react-native";
+import React from "react";
+import { View, Text, Pressable, Image, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useAsyncStorage } from "@react-native-community/async-storage";
-import BleManager from "react-native-ble-manager";
-import { StackActions, useFocusEffect, useNavigation } from "@react-navigation/native";
-import { Colors } from "../../../theme/Theme";
+import { StackActions, useNavigation } from "@react-navigation/native";
 import { Header } from "../../../../components";
 import { RootNavigation } from "../../../../navigation";
 
@@ -27,7 +24,6 @@ export const ChooseModePage = () => {
 };
 
 const Content = () => {
-  const navigation = useNavigation();
   return (
     <View style={{ justifyContent: "center", alignContent: "center", flex: 1, height: "100%" }}>
       <View
@@ -53,31 +49,48 @@ const Content = () => {
           />
           <Text style={{ textAlign: "center", marginTop: 8 }}>匹配模式</Text>
         </Pressable>
-        <View style={[styles.cardContent, { left: "50%", margin: 16, marginBottom: 16 }]}>
+        <Pressable
+          style={[styles.cardContent, { left: "50%", margin: 16, marginBottom: 16 }]}
+          onPress={() => {
+            console.log("aaaaaa");
+            RootNavigation.push("PiPeiModeStartPage");
+          }}
+        >
           <Image
             source={require("../../../../../assets/zizhumode.png")}
             style={{ width: 120, resizeMode: "cover", height: 90 }}
           />
           <Text style={{ textAlign: "center", marginTop: 8 }}>自助模式</Text>
-        </View>
+        </Pressable>
       </View>
 
       <View style={{ flexDirection: "row", flex: 1, width: "100%" }}>
-        <View style={[styles.cardContent, { right: "50%", margin: 16 }]}>
+        <Pressable
+          style={[styles.cardContent, { right: "50%", margin: 16 }]}
+          onPress={() => {
+            RootNavigation.push("PiPeiModeStartPage");
+          }}
+        >
           <Image
             source={require("../../../../../assets/yidimode.png")}
             style={{ width: 120, resizeMode: "cover", height: 90 }}
           />
           <Text style={{ textAlign: "center", marginTop: 8 }}>异地模式</Text>
-        </View>
+        </Pressable>
 
-        <View style={[styles.cardContent, { left: "50%", margin: 16 }]}>
+        <Pressable
+          style={[styles.cardContent, { left: "50%", margin: 16 }]}
+          onPress={() => {
+            console.log("aaaaaa");
+            RootNavigation.push("PiPeiModeStartPage");
+          }}
+        >
           <Image
             source={require("../../../../../assets/yidimode.png")}
             style={{ width: 120, resizeMode: "cover", height: 90 }}
           />
           <Text style={{ textAlign: "center", marginTop: 8 }}>使用教程</Text>
-        </View>
+        </Pressable>
       </View>
       <View style={{ flexDirection: "row", flex: 1 }}></View>
     </View>
