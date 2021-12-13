@@ -82,7 +82,7 @@ const Content = () => {
           style={[styles.cardContent, { left: "50%", margin: 16 }]}
           onPress={() => {
             console.log("aaaaaa");
-            RootNavigation.push("PiPeiModeStartPage");
+            RootNavigation.push("YidiModePwdPage");
           }}
         >
           <Image

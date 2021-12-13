@@ -33,6 +33,8 @@ import { ScanToysPage } from "../screens/main-screen/toys-controller/ble/ScanToy
 import { ChooseModePage } from "../screens/main-screen/toys-controller/ble/ChooseModePage";
 import { ZiZhuModePage } from "../screens/main-screen/toys-controller/ble/ZiZhuModePage";
 import { PiPeiModeStartPage } from "../screens/main-screen/toys-controller/ble/PiPeiModeStartPage";
+import { YidiModePwdPage } from "../screens/main-screen/toys-controller/ble/YidiModePwdPage";
+import { YiDiModeRoom } from "../screens/main-screen/toys-controller/ble/YiDiModeRoom";
 
 interface Screen {
   name: string;
@@ -177,6 +179,14 @@ const mainTabScreen: Array<Screen> = [
   {
     name: "PiPeiModeStartPage",
     component: PiPeiModeStartPage
+  },
+  {
+    name: "YidiModePwdPage",
+    component: YidiModePwdPage
+  },
+  {
+    name: "YiDiModeRoom",
+    component: YiDiModeRoom
   }
 ];
 

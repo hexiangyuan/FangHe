@@ -11004,6 +11004,15 @@ prop-types@^15.5.10, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2,
     object-assign "^4.1.1"
     react-is "^16.8.1"
 
+prop-types@latest:
+  version "15.7.2"
+  resolved "https://registry.nlark.com/prop-types/download/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
+  integrity sha1-UsQedbjIfnK52TYOAga5ncv/psU=
+  dependencies:
+    loose-envify "^1.4.0"
+    object-assign "^4.1.1"
+    react-is "^16.8.1"
+
 property-information@^5.0.0:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/property-information/-/property-information-5.6.0.tgz#61675545fb23002f245c6540ec46077d4da3ed69"
@@ -11510,9 +11519,9 @@ react-native-modals@^0.22.3:
     prop-types "^15.6.0"
 
 react-native-pjt-ui-lib@^0.9.0:
-  version "0.16.0"
-  resolved "https://registry.npmmirror.com/react-native-pjt-ui-lib/download/react-native-pjt-ui-lib-0.16.0.tgz#ca0f0db3b19808428b919e5749109a268c95c44d"
-  integrity sha1-yg8Ns7GYCEKLkZ5XSRCaJoyVxE0=
+  version "0.12.0"
+  resolved "https://registry.npm.taobao.org/react-native-pjt-ui-lib/download/react-native-pjt-ui-lib-0.12.0.tgz#423cfbd768f6466656b26e49a9d216f75d7c84cb"
+  integrity sha1-Qjz712j2RmZWsm5JqdIW9118hMs=
   dependencies:
     react-native-fast-image "^8.3.4"
     react-native-linear-gradient "^2.5.6"

@@ -6,6 +6,7 @@ interface UserInfo {
   id: number;
   mobile: string;
   myCode: string;
+  mobie: string;
 }
 
 export function useUserInfo() {
@@ -15,6 +16,7 @@ export function useUserInfo() {
   useEffect(() => {
     function handleStatusChange(user: UserInfo) {
       if (!_.isEqual(userInfo, user)) {
+        console.log("aaaaaa", user);
         setUserInfo(user);
       }
     }
