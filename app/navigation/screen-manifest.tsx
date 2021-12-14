@@ -35,6 +35,7 @@ import { ZiZhuModePage } from "../screens/main-screen/toys-controller/ble/ZiZhuM
 import { PiPeiModeStartPage } from "../screens/main-screen/toys-controller/ble/PiPeiModeStartPage";
 import { YidiModePwdPage } from "../screens/main-screen/toys-controller/ble/YidiModePwdPage";
 import { YiDiModeRoom } from "../screens/main-screen/toys-controller/ble/YiDiModeRoom";
+import { YidiModeRoomCreatePage } from "../screens/main-screen/toys-controller/ble/YidiModeRoomCreatePage";
 
 interface Screen {
   name: string;
@@ -187,6 +188,10 @@ const mainTabScreen: Array<Screen> = [
   {
     name: "YiDiModeRoom",
     component: YiDiModeRoom
+  },
+  {
+    name: "YidiModeRoomCreatePage",
+    component: YidiModeRoomCreatePage
   }
 ];
 

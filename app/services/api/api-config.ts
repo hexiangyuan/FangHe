@@ -1,6 +1,8 @@
 // Use this import if you want to use "env.js" file
 // const { API_URL } = require("../../config/env")
 // Or just specify it directly like this:
+import { AxiosRequestConfig } from "axios";
+
 const API_URL = __DEV__ ? "http://fangpaopao.cn/test/" : "https://fangpaopao.cn/api/";
 
 /**
@@ -21,7 +23,7 @@ export interface ApiConfig {
 /**
  * The default configuration for the app.
  */
-export const DEFAULT_API_CONFIG: ApiConfig = {
+export const DEFAULT_API_CONFIG: AxiosRequestConfig = {
   url: API_URL,
-  timeout: 10000
+  timeout: 10000,
 };

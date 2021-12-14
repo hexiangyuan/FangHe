@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StackActions, useNavigation } from "@react-navigation/native";
 import { Header } from "../../../../components";
@@ -12,7 +12,7 @@ export const YidiModePwdPage = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Header
-        headerText={"模式选择"}
+        headerText={"加入房间"}
         onLeftPress={() => {
           navigation.dispatch(StackActions.popToTop());
         }}
@@ -27,14 +27,16 @@ export const YidiModePwdPage = () => {
 const Content = () => {
   const onChangeVerifyCode = text => {
     console.log("text====>", text);
-    if (text.length === 4) {
+    if (text.length === 6) {
       RootNavigation.push("YiDiModeRoom", { roomId: text });
     }
   };
 
   return (
-    <View style={{ justifyContent: "center", alignContent: "center", flex: 1, height: "100%" }}>
-      <VerifyCode verifyCodeLength={4} onChangeText={text => onChangeVerifyCode(text)} />
+    <View style={{ justifyContent: "flex-start", alignContent: "center", flex: 1, height: "100%" }}>
+      <Text style={{ textAlign: "center", marginTop: 16, fontSize: 24, paddingHorizontal: 16 }}>
+        请向房主索要房间码,输入房间码进入房间</Text>
+      <VerifyCode verifyCodeLength={6} onChangeText={text => onChangeVerifyCode(text)} />
     </View>
   );
 };

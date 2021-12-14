@@ -37,7 +37,10 @@ module.exports = {
       jsx: true
     },
     // 设置"script"（默认）或"module"如果你的代码是在ECMAScript中的模块
-    sourceType: "module"
+    sourceType: "module",
+    babelOptions: {
+      configFile: "babel.config.js"
+    }
   },
   // 此项是用来提供插件的，插件名称省略了eslint-plugin-，
   plugins: ["react", "react-native", "flowtype", "react-hooks"],

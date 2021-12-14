@@ -6053,7 +6053,7 @@ eventemitter3@^3.0.0:
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.1.2.tgz#2d3d48f9c346698fce83a85d7d664e98535df6e7"
   integrity sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==
 
-eventemitter3@^4.0.0:
+eventemitter3@^4.0.0, eventemitter3@^4.0.7:
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
   integrity sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==
@@ -10995,16 +10995,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.5.10, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
-  version "15.7.2"
-  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
-  integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
-  dependencies:
-    loose-envify "^1.4.0"
-    object-assign "^4.1.1"
-    react-is "^16.8.1"
-
-prop-types@latest:
+prop-types@^15.5.10, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@latest:
   version "15.7.2"
   resolved "https://registry.nlark.com/prop-types/download/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha1-UsQedbjIfnK52TYOAga5ncv/psU=
@@ -11519,9 +11510,9 @@ react-native-modals@^0.22.3:
     prop-types "^15.6.0"
 
 react-native-pjt-ui-lib@^0.9.0:
-  version "0.12.0"
-  resolved "https://registry.npm.taobao.org/react-native-pjt-ui-lib/download/react-native-pjt-ui-lib-0.12.0.tgz#423cfbd768f6466656b26e49a9d216f75d7c84cb"
-  integrity sha1-Qjz712j2RmZWsm5JqdIW9118hMs=
+  version "0.16.0"
+  resolved "https://registry.npmmirror.com/react-native-pjt-ui-lib/download/react-native-pjt-ui-lib-0.16.0.tgz#ca0f0db3b19808428b919e5749109a268c95c44d"
+  integrity sha1-yg8Ns7GYCEKLkZ5XSRCaJoyVxE0=
   dependencies:
     react-native-fast-image "^8.3.4"
     react-native-linear-gradient "^2.5.6"
@@ -11574,6 +11565,14 @@ react-native-tab-view@^2.15.2:
   version "2.16.0"
   resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-2.16.0.tgz#cae72c7084394bd328fac5fefb86cd966df37a86"
   integrity sha512-ac2DmT7+l13wzIFqtbfXn4wwfgtPoKzWjjZyrK1t+T8sdemuUvD4zIt+UImg03fu3s3VD8Wh/fBrIdcqQyZJWg==
+
+react-native-tcp-socket@^5.3.1:
+  version "5.3.1"
+  resolved "https://registry.nlark.com/react-native-tcp-socket/download/react-native-tcp-socket-5.3.1.tgz#86568be10ccf1da4a47e86f4247b2de828c19239"
+  integrity sha1-hlaL4QzPHaSkfob0JHst6CjBkjk=
+  dependencies:
+    buffer "^5.4.3"
+    eventemitter3 "^4.0.7"
 
 react-native-video@^5.1.1:
   version "5.1.1"

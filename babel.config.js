@@ -1,22 +1,24 @@
 module.exports = {
   presets: ["module:metro-react-native-babel-preset"],
   env: {
-    production: {},
+    production: {}
   },
   plugins: [
     [
       "babel-plugin-root-import",
       {
-        rootPathPrefix: "~",
-        rootPathSuffix: "app",
-      },
+        paths: [
+          { rootPathPrefix: "~", rootPathSuffix: "app" },
+          { rootPathPrefix: "@res", rootPathSuffix: "assets" }
+        ]
+      }
     ],
     [
       "@babel/plugin-proposal-decorators",
       {
-        legacy: true,
-      },
+        legacy: true
+      }
     ],
-    ["@babel/plugin-proposal-optional-catch-binding"],
-  ],
-}
+    ["@babel/plugin-proposal-optional-catch-binding"]
+  ]
+};

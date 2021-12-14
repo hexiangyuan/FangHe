@@ -39,8 +39,7 @@ const Content = () => {
         <Pressable
           style={[styles.cardContent, { right: "50%", bottom: 0, margin: 16 }]}
           onPress={() => {
-            console.log("aaaaaa");
-            RootNavigation.push("ZiZhuModePage");
+            RootNavigation.push("PiPeiModeStartPage");
           }}
         >
           <Image
@@ -53,7 +52,7 @@ const Content = () => {
           style={[styles.cardContent, { left: "50%", margin: 16, marginBottom: 16 }]}
           onPress={() => {
             console.log("aaaaaa");
-            RootNavigation.push("PiPeiModeStartPage");
+            RootNavigation.push("ZiZhuModePage");
           }}
         >
           <Image
@@ -68,7 +67,7 @@ const Content = () => {
         <Pressable
           style={[styles.cardContent, { right: "50%", margin: 16 }]}
           onPress={() => {
-            RootNavigation.push("PiPeiModeStartPage");
+            RootNavigation.push("YidiModeRoomCreatePage");
           }}
         >
           <Image

@@ -7,7 +7,10 @@ interface UserInfo {
   mobile: string;
   myCode: string;
   mobie: string;
+  token: string;
 }
+
+export let userInfoMemory: UserInfo = null;
 
 export function useUserInfo() {
   const [userInfo, setUserInfo] = useState<UserInfo>(undefined);
@@ -17,6 +20,7 @@ export function useUserInfo() {
     function handleStatusChange(user: UserInfo) {
       if (!_.isEqual(userInfo, user)) {
         console.log("aaaaaa", user);
+        userInfoMemory = user;
         setUserInfo(user);
       }
     }
