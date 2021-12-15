@@ -2,12 +2,13 @@ import { StackActions, useNavigation, useRoute } from "@react-navigation/native"
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "../../../../components";
 import { Image, ImageSourcePropType, Text, View, Pressable } from "react-native";
-import React, { useEffect } from "react";
-import { userInfoMemory, useUserInfo } from "../../../../hooks/user";
+import React from "react";
+import { useUserInfo } from "../../../../hooks/user";
 import { UIButton } from "react-native-pjt-ui-lib";
 import { RootNavigation } from "../../../../navigation";
 import ToastGlobal from "../../../../utils/Toast";
 import { ClipboardUtils } from "../../../../utils/Clipboard";
+import { WSApi } from "../api/WebSocketApi";
 
 export const YiDiModeRoom = () => {
   const navigation = useNavigation();
@@ -17,7 +18,7 @@ export const YiDiModeRoom = () => {
       <Header
         headerText={"我的房间"}
         onLeftPress={() => {
-          navigation.dispatch(StackActions.popToTop());
+          navigation.dispatch(StackActions.pop());
         }}
       />
       <View style={{ flex: 1 }}>
@@ -30,25 +31,16 @@ export const YiDiModeRoom = () => {
 const Content = () => {
   const userInfo = useUserInfo();
   const roomId = useRoute().params["roomId"];
-  const ws = React.useRef(new WebSocket("ws://fangpaopao.cn:8089/websocket/chat/")).current;
-
-  useEffect(() => {
-    ws.onopen = () => {
-      console.log("ws on open");
-    };
-    ws.onclose = e => {
-      console.log("ws on close", e.message);
-    };
-    ws.onerror = e => {
-      console.log("ws on onerror", e.message);
-    };
-    ws.onmessage = e => {
-      console.log("ws on mesg", e);
-    };
-  }, []);
 
   const gotoStart = () => {
-    RootNavigation.push("ZiZhuModePage");
+    WSApi.enterRoom(roomId)
+      .then(v => {
+        console.log("enterroomapi", v);
+        RootNavigation.push("ZiZhuModePage");
+      })
+      .catch(e => {
+        ToastGlobal.show("进入房间失败，请稍后重试哦");
+      });
   };
 
   return (
@@ -62,18 +54,20 @@ const Content = () => {
         </View>
       )}
 
-      {(
+      {
         <Pressable
           style={{ alignItems: "center", marginTop: 48 }}
           onPress={() => {
-            ClipboardUtils.pasteToClipboard(`我在「方泡泡」app 开好了房间，快来打开方泡泡APP加入房间和我一起互动吧。房间号:${roomId}`);
+            ClipboardUtils.pasteToClipboard(
+              `我在「方泡泡」app 开好了房间，快来打开方泡泡APP加入房间和我一起互动吧。房间号:${roomId}`
+            );
             ToastGlobal.show("复制成功，快去分享邀请好友吧");
           }}
         >
           <Image source={require("@res/copy.png")} style={{ width: 48, height: 48 }} resizeMode={"cover"} />
           <Text style={{ textAlign: "center", marginTop: 16 }}>复制房间号分析</Text>
         </Pressable>
-      )}
+      }
 
       <UIButton
         onPress={() => {
@@ -85,7 +79,7 @@ const Content = () => {
           bottom: 16
         }}
       >
-        立即开始
+        进入房间
       </UIButton>
     </View>
   );

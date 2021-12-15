@@ -14,7 +14,7 @@ export const YidiModePwdPage = () => {
       <Header
         headerText={"加入房间"}
         onLeftPress={() => {
-          navigation.dispatch(StackActions.popToTop());
+          navigation.dispatch(StackActions.pop());
         }}
       />
       <View style={{ flex: 1 }}>

@@ -8,8 +8,8 @@ function enterRoom(code: string) {
   return FangHeApi.get("/websocket/entRoom", { code: code });
 }
 
-function exitRoom(code: string) {
-  return FangHeApi.post("websocket/exitRoom  ");
+function exitRoom() {
+  return FangHeApi.post("websocket/exitRoom");
 }
 
 export const WSApi = {

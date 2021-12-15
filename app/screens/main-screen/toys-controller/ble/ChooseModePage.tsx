@@ -1,19 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, Pressable, Image, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StackActions, useNavigation } from "@react-navigation/native";
 import { Header } from "../../../../components";
 import { RootNavigation } from "../../../../navigation";
+import { WSCenter } from "../ws/WSCenter";
+import { WSApi } from "../api/WebSocketApi";
 
 export const ChooseModePage = () => {
   const navigation = useNavigation();
+
+  useEffect(() => {
+    WSCenter.getInstance().connect();
+    WSApi.exitRoom()
+      .then(v => {
+        console.log(v);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+    return () => {
+      WSCenter.getInstance().close();
+    };
+  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Header
         headerText={"模式选择"}
         onLeftPress={() => {
-          navigation.dispatch(StackActions.popToTop());
+          navigation.dispatch(StackActions.pop());
         }}
       />
       <View style={{ flex: 1 }}>

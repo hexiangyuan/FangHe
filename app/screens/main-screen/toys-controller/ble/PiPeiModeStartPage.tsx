@@ -11,7 +11,7 @@ export const PiPeiModeStartPage = () => {
       <Header
         headerText={"匹配模式"}
         onLeftPress={() => {
-          navigation.dispatch(StackActions.popToTop());
+          navigation.dispatch(StackActions.pop());
         }}
       />
       <Content />

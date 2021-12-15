@@ -29,7 +29,7 @@ export const ScanToysPage = () => {
       <Header
         headerText={"添加设备"}
         onLeftPress={() => {
-          navigation.dispatch(StackActions.popToTop());
+          navigation.dispatch(StackActions.pop());
         }}
       />
       <View style={{ flex: 1 }}>
@@ -45,7 +45,7 @@ const Container = () => {
       <Image
         style={{ width: 48, height: 48, marginTop: 100, resizeMode: "cover" }}
         source={require("../../../../../assets/lanya.png")}
-      ></Image>
+      />
 
       <View style={{ height: 16, width: "100%" }} />
 
@@ -54,7 +54,7 @@ const Container = () => {
       <Image
         style={{ width: "100%", height: "60%", marginTop: 100, resizeMode: "center" }}
         source={require("../../../../../assets/juxing_8_copy.png")}
-      ></Image>
+      />
 
       <Image
         style={{
@@ -65,7 +65,7 @@ const Container = () => {
           bottom: 0
         }}
         source={require("../../../../../assets/zu_26.png")}
-      ></Image>
+      />
     </View>
   );
 };
@@ -228,7 +228,8 @@ const Content = () => {
           handleConnectedSucceed(item);
           retrieveConnected();
         })
-        .catch(e => {});
+        .catch(e => {
+        });
     }, 500);
   };
 
