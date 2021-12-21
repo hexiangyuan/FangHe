@@ -37,6 +37,16 @@ export class WSCenter {
     });
   }
 
+  sendMessage(message: string) {
+    this.webSocket.send(message);
+  }
+
+  sendControlMessage(message: string) {
+    console.log("sendControl",message)
+    this.webSocket.send(JSON.stringify({ type: "control", message: message }));
+  }
+
+
   async getMessage() {//异步获取数据
     this.messageList = "";
     await new Promise((resolve) => {

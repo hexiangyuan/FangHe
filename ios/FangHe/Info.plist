@@ -70,6 +70,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>方泡泡需要您的同意，才能很好的连接设备</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>方泡泡需要您的同意,才能始终访问位置，给您进行最近位置店铺的推荐</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

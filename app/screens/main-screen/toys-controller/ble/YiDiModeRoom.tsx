@@ -2,13 +2,14 @@ import { StackActions, useNavigation, useRoute } from "@react-navigation/native"
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "../../../../components";
 import { Image, ImageSourcePropType, Text, View, Pressable } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { useUserInfo } from "../../../../hooks/user";
 import { UIButton } from "react-native-pjt-ui-lib";
 import { RootNavigation } from "../../../../navigation";
 import ToastGlobal from "../../../../utils/Toast";
 import { ClipboardUtils } from "../../../../utils/Clipboard";
 import { WSApi } from "../api/WebSocketApi";
+import { useInterval } from "usehooks-ts";
 
 export const YiDiModeRoom = () => {
   const navigation = useNavigation();
@@ -31,12 +32,30 @@ export const YiDiModeRoom = () => {
 const Content = () => {
   const userInfo = useUserInfo();
   const roomId = useRoute().params["roomId"];
+  const [users, setUsers] = useState([1,2]);
+  const [enterRoomSucceeded, setEnterRoomSucceed] = useState(false);
+
+  useInterval(
+    () => {
+      WSApi.getRoomInfo()
+        .then(value => {
+          if (value.code === 200) {
+            setUsers(value.users);
+          }
+          console.log(value);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    enterRoomSucceeded ? null : 3000
+  );
 
   const gotoStart = () => {
     WSApi.enterRoom(roomId)
       .then(v => {
-        console.log("enterroomapi", v);
-        RootNavigation.push("ZiZhuModePage");
+        setEnterRoomSucceed(true);
+        RootNavigation.push("DouBleControllerPage");
       })
       .catch(e => {
         ToastGlobal.show("进入房间失败，请稍后重试哦");
@@ -49,8 +68,14 @@ const Content = () => {
 
       {userInfo && (
         <View style={{ flexDirection: "row", width: "100%", justifyContent: "space-around" }}>
-          <User name={userInfo.mobie.substr(-4)} img={require("@res/room_header_img.png")} />
-          <User name={userInfo.mobie.substr(-4)} img={require("@res/room_header_img2.png")} />
+          <User
+            name={users.length > 0 ? "已准备" : "正在进入中"}
+            img={users.length > 0 ? require("@res/room_header_img.png") : require("@res/waiting.png")}
+          />
+          <User
+            name={users.length > 1 ? "已准备" : "正在进入中"}
+            img={users.length > 1 ? require("@res/room_header_img2.png") : require("@res/waiting.png")}
+          />
         </View>
       )}
 
@@ -65,13 +90,17 @@ const Content = () => {
           }}
         >
           <Image source={require("@res/copy.png")} style={{ width: 48, height: 48 }} resizeMode={"cover"} />
-          <Text style={{ textAlign: "center", marginTop: 16 }}>复制房间号分析</Text>
+          <Text style={{ textAlign: "center", marginTop: 16 }}>复制房间号并且分享</Text>
         </Pressable>
       }
 
       <UIButton
         onPress={() => {
-          gotoStart();
+          if (users.length >= 2) {
+            gotoStart();
+          } else {
+            ToastGlobal.show("房间人数必须2个人才能开始呢");
+          }
         }}
         containerStyle={{
           width: "80%",

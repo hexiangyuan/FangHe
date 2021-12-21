@@ -12,8 +12,23 @@ function exitRoom() {
   return FangHeApi.post("websocket/exitRoom");
 }
 
+function enterMatch(gender: number) {
+  return FangHeApi.get("/websocket/enterMatch", { gender: gender });
+}
+
+function getUserInfo() {
+  return FangHeApi.get("websocket/getUserInfo");
+}
+
+function getRoomInfo() {
+  return FangHeApi.get("websocket/getRoomInfo");
+}
+
 export const WSApi = {
   createRoom,
   enterRoom,
-  exitRoom
+  exitRoom,
+  enterMatch,
+  getUserInfo,
+  getRoomInfo
 };

@@ -39,7 +39,7 @@ const Content = () => {
           onPress={() => {
             createRoom()
               .then(value => {
-                RootNavigation.push("YiDiModeRoom", { roomId: value });
+                value.data && RootNavigation.push("YiDiModeRoom", { roomId: value.data });
               })
               .catch(e => {
                 ToastGlobal.show("创建房间失败，请稍后重新创建");

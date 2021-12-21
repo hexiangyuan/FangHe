@@ -6053,7 +6053,7 @@ eventemitter3@^3.0.0:
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.1.2.tgz#2d3d48f9c346698fce83a85d7d664e98535df6e7"
   integrity sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==
 
-eventemitter3@^4.0.0, eventemitter3@^4.0.7:
+eventemitter3@^4.0.0:
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
   integrity sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==
@@ -11509,7 +11509,7 @@ react-native-modals@^0.22.3:
     babel-plugin-flow-react-proptypes "^9.1.1"
     prop-types "^15.6.0"
 
-react-native-pjt-ui-lib@^0.9.0:
+react-native-pjt-ui-lib@^0.16.0:
   version "0.16.0"
   resolved "https://registry.npmmirror.com/react-native-pjt-ui-lib/download/react-native-pjt-ui-lib-0.16.0.tgz#ca0f0db3b19808428b919e5749109a268c95c44d"
   integrity sha1-yg8Ns7GYCEKLkZ5XSRCaJoyVxE0=
@@ -11565,14 +11565,6 @@ react-native-tab-view@^2.15.2:
   version "2.16.0"
   resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-2.16.0.tgz#cae72c7084394bd328fac5fefb86cd966df37a86"
   integrity sha512-ac2DmT7+l13wzIFqtbfXn4wwfgtPoKzWjjZyrK1t+T8sdemuUvD4zIt+UImg03fu3s3VD8Wh/fBrIdcqQyZJWg==
-
-react-native-tcp-socket@^5.3.1:
-  version "5.3.1"
-  resolved "https://registry.nlark.com/react-native-tcp-socket/download/react-native-tcp-socket-5.3.1.tgz#86568be10ccf1da4a47e86f4247b2de828c19239"
-  integrity sha1-hlaL4QzPHaSkfob0JHst6CjBkjk=
-  dependencies:
-    buffer "^5.4.3"
-    eventemitter3 "^4.0.7"
 
 react-native-video@^5.1.1:
   version "5.1.1"
@@ -13746,6 +13738,11 @@ use@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/use/-/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"
   integrity sha512-cwESVXlO3url9YWlFW/TA9cshCEhtu7IKJ/p5soJ/gGpj7vbvFrAY/eIioQ6Dw23KjZhYgiIo8HOs1nQ2vr/oQ==
+
+usehooks-ts@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.npmmirror.com/usehooks-ts/download/usehooks-ts-2.1.1.tgz#0415d0e9e55e5f675b6f7161d0c5b105084ed2c0"
+  integrity sha512-tyG2D2tUVb8V3eJ4b34dyiAdUHFjXg/Sphqu4jtm2B46fbZbsKCvLgZIfIm0X8GtXJituuXxcRIvU4Bk8QI52g==
 
 utf8@^3.0.0:
   version "3.0.0"

@@ -31,7 +31,9 @@ const DeviceView = () => {
     getConnectedDevices()
       .then(value => {
         console.log("connectedHistory", value);
-        setConnectedHistory(value);
+        if (value) {
+          setConnectedHistory(value);
+        }
       })
       .catch(reason => {
         console.log("connectedHistory error", reason);
@@ -144,13 +146,13 @@ const DeviceView = () => {
         }}
       >
         <Text style={{ paddingHorizontal: 12, fontSize: 24, marginTop: 16 }}>我的设备</Text>
-        <Pressable
-          onPress={() => {
-            RootNavigation.push("NoDevicesModePage");
-          }}
-        >
-          <Text style={{ paddingHorizontal: 12, fontSize: 16, marginTop: 16 }}>我没有设备</Text>
-        </Pressable>
+        {/* <Pressable*/}
+        {/*  onPress={() => {*/}
+        {/*    RootNavigation.push("NoDevicesModePage");*/}
+        {/*  }}*/}
+        {/* >*/}
+        {/*  <Text style={{ paddingHorizontal: 12, fontSize: 16, marginTop: 16 }}>我没有设备</Text>*/}
+        {/* </Pressable>*/}
       </View>
 
       <View style={{ height: 16 }} />
@@ -175,6 +177,7 @@ const DeviceView = () => {
             flex: 1
           }}
           onPress={() => {
+            // RootNavigation.push("ChooseModePage");
             RootNavigation.push("ScanToysPage");
           }}
         >
@@ -182,7 +185,10 @@ const DeviceView = () => {
         </TouchableOpacity>
 
         <View style={{ width: 16 }} />
-        <View
+        <Pressable
+          onPress={() => {
+            RootNavigation.push("YidiModePwdPage", { mode: 10 });
+          }}
           style={{
             borderRadius: 16,
             backgroundColor: "white",
@@ -192,8 +198,8 @@ const DeviceView = () => {
             flex: 1
           }}
         >
-          <Text>接受邀请</Text>
-        </View>
+          <Text>没有设备</Text>
+        </Pressable>
       </View>
     </View>
   );

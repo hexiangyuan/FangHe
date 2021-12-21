@@ -1,30 +1,35 @@
-import {NavigationState, SceneRendererProps} from "react-native-tab-view/lib/typescript/src/types";
+import { NavigationState, SceneRendererProps } from "react-native-tab-view/lib/typescript/src/types";
 import React from "react";
-import {Route, TabBar} from "react-native-tab-view";
-import {StyleSheet, Text} from "react-native";
+import { Route, TabBar } from "react-native-tab-view";
+import { StyleSheet, Text } from "react-native";
 
 const primary = "#FF4D4D";
 const primaryDark = "#FF3535";
 const primaryDisable = "#FF6D6D";
 
-const blue = "rgb(116,206,105)"
+const blue = "rgb(116,206,105)";
+
+const orangeAiMaShi = "rgb(255,119,15)";
+const blueKlein = "rgb(0,46,166)";
+const greenMES = "rgb(1,132,127)";
 
 export const Colors = {
   primary,
   primaryDark,
   primaryDisable,
-  blue
+  blue,
+  orangeAiMaShi, blueKlein, greenMES
 };
 
 export function CustomerTabBar<T extends Route>(
   props: SceneRendererProps & { navigationState: NavigationState<T>; } & { tabWidth?: number }
 ) {
-  console.log("CustomerTabBar")
-  const tabWidth = props.tabWidth ? props.tabWidth : 72
+  console.log("CustomerTabBar");
+  const tabWidth = props.tabWidth ? props.tabWidth : 72;
   return (
     <TabBar
       {...props}
-      tabStyle={{width: tabWidth}}
+      tabStyle={{ width: tabWidth }}
       style={{
         backgroundColor: "white",
         elevation: 0,

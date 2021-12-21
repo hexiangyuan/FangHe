@@ -114,6 +114,7 @@ function App() {
   }, []);
 
   // if (!rootStore) return null;
+  // console.log("aaaaaaaa",initialNavigationState)
 
   // otherwise, we're ready to render the app
   return (
@@ -121,7 +122,7 @@ function App() {
       <RootStoreProvider value={rootStore}>
         <SafeAreaProvider>
           <StatusBar ref={statusBarRef} barStyle={"dark-content"} translucent={true} backgroundColor={"transparent"} />
-          <RootNavigator initialState={initialNavigationState} onStateChange={onNavigationStateChange} />
+          <RootNavigator initialState={null} onStateChange={onNavigationStateChange} />
         </SafeAreaProvider>
         <ModalPortal />
         <Toast ref={toastRef} />
