@@ -13,7 +13,7 @@ export const ZiZhuModePage = () => {
       <Header
         headerText={"自助模式"}
         onLeftPress={() => {
-          navigation.dispatch(StackActions.pop());
+          navigation.dispatch(StackActions.popToTop());
         }}
       />
       <Content />

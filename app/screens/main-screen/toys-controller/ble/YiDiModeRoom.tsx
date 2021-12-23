@@ -2,7 +2,7 @@ import { StackActions, useNavigation, useRoute } from "@react-navigation/native"
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "../../../../components";
 import { Image, ImageSourcePropType, Text, View, Pressable } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useUserInfo } from "../../../../hooks/user";
 import { UIButton } from "react-native-pjt-ui-lib";
 import { RootNavigation } from "../../../../navigation";
@@ -19,7 +19,7 @@ export const YiDiModeRoom = () => {
       <Header
         headerText={"我的房间"}
         onLeftPress={() => {
-          navigation.dispatch(StackActions.pop());
+          navigation.dispatch(StackActions.popToTop());
         }}
       />
       <View style={{ flex: 1 }}>
@@ -32,7 +32,7 @@ export const YiDiModeRoom = () => {
 const Content = () => {
   const userInfo = useUserInfo();
   const roomId = useRoute().params["roomId"];
-  const [users, setUsers] = useState([1,2]);
+  const [users, setUsers] = useState([]);
   const [enterRoomSucceeded, setEnterRoomSucceed] = useState(false);
 
   useInterval(
@@ -40,7 +40,9 @@ const Content = () => {
       WSApi.getRoomInfo()
         .then(value => {
           if (value.code === 200) {
-            setUsers(value.users);
+            if (value.users) {
+              setUsers(value.users);
+            }
           }
           console.log(value);
         })
@@ -50,17 +52,6 @@ const Content = () => {
     },
     enterRoomSucceeded ? null : 3000
   );
-
-  const gotoStart = () => {
-    WSApi.enterRoom(roomId)
-      .then(v => {
-        setEnterRoomSucceed(true);
-        RootNavigation.push("DouBleControllerPage");
-      })
-      .catch(e => {
-        ToastGlobal.show("进入房间失败，请稍后重试哦");
-      });
-  };
 
   return (
     <View style={{ justifyContent: "flex-start", alignItems: "center", flex: 1, height: "100%" }}>
@@ -96,8 +87,11 @@ const Content = () => {
 
       <UIButton
         onPress={() => {
+          RootNavigation.push("DouBleControllerPage");
+          setEnterRoomSucceed(true);
           if (users.length >= 2) {
-            gotoStart();
+
+
           } else {
             ToastGlobal.show("房间人数必须2个人才能开始呢");
           }

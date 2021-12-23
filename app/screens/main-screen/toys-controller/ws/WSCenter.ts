@@ -1,3 +1,6 @@
+import { userInfoMemory } from "../../../../hooks/user";
+import { writeModeToBle } from "../ble/BleUtils";
+
 export class WSCenter {
   private webSocket: WebSocket;
   private status: "open" | "close";
@@ -11,7 +14,7 @@ export class WSCenter {
 
   static getInstance() {
     if (WSCenter.myInstance == null) {
-      WSCenter.myInstance = new WSCenter("ws://fangpaopao.cn:8089/websocket/chat/MTg5NjQwMTQ1NjNAMjAyMTEyMTMxMTA5NDg=");
+      WSCenter.myInstance = new WSCenter("ws://fangpaopao.cn:8089/websocket/chat/" + userInfoMemory.cookie);
     }
 
     return this.myInstance;
@@ -24,6 +27,7 @@ export class WSCenter {
   }
 
   connect() {//连接服务器
+    console.log("connection to server is opened" + this.myUrl);
     this.webSocket = new WebSocket(this.myUrl);
     this.webSocket.onopen = () => {
       this.status = "open";
@@ -33,7 +37,17 @@ export class WSCenter {
       this.heartCheck();
     };
     this.webSocket.onmessage = (event => {
-      console.log("onmessage", event);
+      console.log("onmessage", event.data);
+      try {
+        const data = JSON.parse(event.data);
+        if (data["type"] === "control") {
+          const mode = data["message"];
+          writeModeToBle(mode).then(r => {
+          }).catch(err => console.log(err));
+        }
+      } catch (e) {
+
+      }
     });
   }
 
@@ -42,7 +56,7 @@ export class WSCenter {
   }
 
   sendControlMessage(message: string) {
-    console.log("sendControl",message)
+    console.log("sendControl", message);
     this.webSocket.send(JSON.stringify({ type: "control", message: message }));
   }
 

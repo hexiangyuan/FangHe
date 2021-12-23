@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Switch, View, Text, BackHandler } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "../../../../components";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { StackActions, useFocusEffect, useNavigation } from "@react-navigation/native";
 import { ModelAll } from "../ModeSelectedView";
 import { writeModeToBle } from "./BleUtils";
 import { WSCenter } from "../ws/WSCenter";
@@ -13,7 +13,7 @@ export const DouBleControllerPage = () => {
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
-        navigation.navigate("ChooseModePage");
+        navigation.dispatch(StackActions.popToTop());
         return true;
       };
       BackHandler.addEventListener("hardwareBackPress", onBackPress);
@@ -26,7 +26,7 @@ export const DouBleControllerPage = () => {
       <Header
         headerText={"互动模式"}
         onLeftPress={() => {
-          navigation.navigate("ChooseModePage");
+          navigation.dispatch(StackActions.popToTop());
         }}
       />
       <Content />

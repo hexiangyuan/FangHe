@@ -32,6 +32,7 @@ import WeChatSdk from "./weixin/WeChatSdk";
 import AliPaySDK from "./weixin/AliPay";
 import AppUpdate from "./hooks/useAppUpdate";
 import { Alert } from "react-native";
+import { userInfoMemory } from "./hooks/user";
 
 enableScreens();
 
@@ -54,6 +55,7 @@ export const contactDownLoadApp = () => {
     })
     .catch(() => console.error("An error occurred", links));
 };
+
 /**
  * This is the root component of our app.
  */
@@ -95,6 +97,8 @@ function App() {
     (async () => {
       LocalCookieStore.getUser().then(user => {
         if (user) {
+          userInfoMemory.cookie = user.cookie;
+          userInfoMemory.mobile = user.mobile;
           setFangHeApiCookie(user?.cookie);
         }
         setUserStore(setupUserStore(user));

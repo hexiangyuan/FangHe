@@ -2,6 +2,7 @@ import { Instance, SnapshotOut, types } from "mobx-state-tree";
 import { createContext, useContext } from "react";
 import { UserModel } from "../../services/local/UserCookieStore";
 import StringUtils from "../../utils/ReularUtils";
+import { userInfoMemory } from "../../hooks/user";
 
 export const UserStoreModel = types
   .model({
@@ -12,6 +13,8 @@ export const UserStoreModel = types
     loginSucceed(mobile: string, cookie: string) {
       self.mobile = mobile;
       self.cookie = cookie;
+      userInfoMemory.cookie  = cookie
+      userInfoMemory.mobile  = mobile
     },
 
     isLogin(): boolean {
