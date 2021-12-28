@@ -122,7 +122,8 @@ const Content = () => {
 
   const startScan = () => {
     if (!isScanning) {
-      BleManager.scan(["d34e"], 3, true)
+      //"d34e"
+      BleManager.scan([], 5, true)
         .then(results => {
           console.log("Scanning...");
           setIsScanning(true);

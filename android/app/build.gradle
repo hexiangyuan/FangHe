@@ -133,7 +133,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion 27
         versionCode 24
-        versionName "2.4.0"
+        versionName "2.4.1"
         multiDexEnabled true
     }
     splits {
