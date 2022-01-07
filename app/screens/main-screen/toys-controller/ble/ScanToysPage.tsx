@@ -18,6 +18,7 @@ import { Colors } from "../../../../theme/Theme";
 import { Header } from "../../../../components";
 import { StackActions, useNavigation } from "@react-navigation/native";
 import { useAsyncStorage } from "@react-native-community/async-storage";
+import ToastGlobal from "../../../../utils/Toast";
 
 const BleManagerModule = NativeModules.BleManager;
 const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
@@ -122,7 +123,7 @@ const Content = () => {
 
   const startScan = () => {
     if (!isScanning) {
-      //"d34e"
+      // "d34e"
       BleManager.scan([], 5, true)
         .then(results => {
           console.log("Scanning...");
@@ -147,6 +148,7 @@ const Content = () => {
       setConnectedBles([]);
       startScan();
     }
+    ToastGlobal.show("断开连接");
     console.log("Disconnected from " + data.peripheral);
   };
 
@@ -221,15 +223,18 @@ const Content = () => {
   };
 
   const connectBle = item => {
+    console.log("connected succeed");
     setTimeout(() => {
       BleManager.connect(item.id)
         .then(() => {
           console.log("connected succeed");
           setConnected(true);
           handleConnectedSucceed(item);
-          retrieveConnected();
+          // retrieveConnected();
+          ToastGlobal.show("连接成功");
         })
         .catch(e => {
+          ToastGlobal.show("连接失败" + e.toString());
         });
     }, 500);
   };
@@ -277,6 +282,12 @@ const Content = () => {
           <View style={[{ flexDirection: "column" }, { backgroundColor: color, paddingHorizontal: 8 }]}>
             <Text style={{ fontSize: 16, color: fontColor }}>{item.name}</Text>
             <Text style={{ fontSize: 10, color: fontColor, paddingTop: 2 }}>RSSI: {item.rssi + "  " + item.id}</Text>
+            {item.connectedState === 1 && (
+              <Text style={{ fontSize: 10, color: fontColor, paddingTop: 2 }}>正在连接...</Text>
+            )}
+            {item.connectedState === -1 && (
+              <Text style={{ fontSize: 10, color: fontColor, paddingTop: 2 }}>断开连接...</Text>
+            )}
           </View>
         </View>
       </Pressable>
